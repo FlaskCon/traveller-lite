@@ -7,10 +7,10 @@
 
 ```text
 # Linux
-cd /path/to/traveller_lite
+cd /path/to/traveller-lite
 
 # Windows
-cd C:\path\to\traveller_lite
+cd C:\path\to\traveller-lite
 ```
 
 ---
