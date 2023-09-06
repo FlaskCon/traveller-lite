@@ -1,5 +1,3 @@
 flask
 flask-bigapp
-flask-sqlalchemy
-SQLAlchemy
 gunicorn
