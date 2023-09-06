@@ -1,0 +1,92 @@
+{% extends '2023/extends/base.html' %}
+
+{% block head %}
+    <title>FlaskCon 2023</title>
+{% endblock %}
+
+{% block hero_header %}
+    <header class="hero py-2">
+
+        <div class="display-desktop">
+            <section class="display-flex space-evenly align-items-center py-2">
+
+                <img src="{{ url_for("www.2023.static", filename="img/flaskcon-animated.gif") }}"
+                     alt="FlaskCon Logo">
+
+                <div class="display-flex flex-col align-items-center py-3">
+                    <p style="margin: 0; color: white; text-align: center"><strong>SHARE</strong></p>
+                    <div class="display-flex align-items-center justify-center gap-1" style="margin-bottom: 1rem;">
+                        <img src="{{ url_for("www.2023.static", filename="img/twitter.png") }}"
+                             alt="Twitter Icon">
+                        <img src="{{ url_for("www.2023.static", filename="img/facebook.png") }}"
+                             alt="Facebook Icon">
+                    </div>
+                    <div class="book-tickets"
+                         x-init="$el.style.backgroundImage = book_tickets_bg_ns"
+                         @mouseenter="$el.style.backgroundImage = book_tickets_bg_hover"
+                         @mouseleave="$el.style.backgroundImage = book_tickets_bg_ns"
+                         @mousedown="$el.style.backgroundImage = book_tickets_bg_pressed"
+                         @mouseup="$el.style.backgroundImage = book_tickets_bg_hover"
+                    ></div>
+                </div>
+            </section>
+        </div>
+
+        <div class="display-mobile">
+            <section class="display-flex flex-col space-evenly align-items-center py-2">
+                <img src="{{ url_for("www.2023.static", filename="img/flaskcon-animated.gif") }}"
+                     alt="FlaskCon Logo">
+
+                <div class="display-flex flex-col align-items-center py-3">
+                    <p style="margin: 0; color: white; text-align: center"><strong>SHARE</strong></p>
+                    <div class="display-flex align-items-center justify-center gap-1" style="margin-bottom: 1rem;">
+                        <img src="{{ url_for("www.2023.static", filename="img/twitter.png") }}"
+                             alt="Twitter Icon">
+                        <img src="{{ url_for("www.2023.static", filename="img/facebook.png") }}"
+                             alt="Facebook Icon">
+                    </div>
+                    <div class="book-tickets"
+                         x-init="$el.style.backgroundImage = book_tickets_bg_ns"
+                         @mouseenter="$el.style.backgroundImage = book_tickets_bg_hover"
+                         @mouseleave="$el.style.backgroundImage = book_tickets_bg_ns"
+                         @mousedown="$el.style.backgroundImage = book_tickets_bg_pressed"
+                         @mouseup="$el.style.backgroundImage = book_tickets_bg_hover"
+                    ></div>
+                </div>
+
+            </section>
+        </div>
+
+    </header>
+{% endblock %}
+
+{% block body %}
+    <div class="sub-hero py-3">
+        <section>
+            <div class="row">
+                <div class="six columns py-2 text-center">
+                    <img src="{{ url_for("www.2023.static", filename="img/megaphone.gif") }}" alt="Megaphone Icon">
+                    <h2 class="my-0">Call for Proposals!</h2>
+                    <p>Submit your talk proposal for FlaskCon 2023! </p>
+                    <a href="#" class="button button-primary">Submit a Proposal</a>
+                    <p>Submissions are open from <strong>1st of Sept</strong> -> <strong>15th Oct</strong></p>
+                </div>
+                <div class="six columns py-2 text-center">
+                    <img src="{{ url_for("www.2023.static", filename="img/heart.gif") }}" alt="Heart Icon">
+                    <h2 class="my-0">Become a Sponsor!</h2>
+                    <p>Support the Pallets team + the Python Software Foundation and let everyone know about it!</p>
+                    <a href="#" class="button button-primary">Become a Sponsor</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="sub-hero-color-shift-away">
+
+    </div>
+
+    {% include '2023/includes/reviewers.html' %}
+    {% include '2023/includes/staff.html' %}
+    {% include '2023/includes/media_partners.html' %}
+
+{% endblock %}

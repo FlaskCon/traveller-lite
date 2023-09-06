@@ -1,0 +1,4 @@
+flask~=2.3.3
+flask-bigapp
+flask-sqlalchemy
+SQLAlchemy~=2.0.20
