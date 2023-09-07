@@ -62,7 +62,7 @@ flask run
 **Debug**
 
 ```bash
-flask flask run --debug
+flask run --debug
 ```
 
 **Run with gunicorn**
