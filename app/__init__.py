@@ -1,13 +1,13 @@
 from flask import Flask
-from app.extensions import bigapp
+from app.extensions import imp
 
 
 def create_app():
     app = Flask(__name__)
-    bigapp.init_app(app)
+    imp.init_app(app)
 
-    bigapp.import_app_resources()
+    imp.import_app_resources()
 
-    bigapp.import_blueprints("blueprints")
+    imp.import_blueprints("blueprints")
 
     return app

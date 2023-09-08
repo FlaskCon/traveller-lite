@@ -16,7 +16,7 @@ class Accounts(db.Model):
 
     @classmethod
     def create(cls, email_address, password, disabled):
-        from flask_bigapp.auth import Auth
+        from flask_imp.auth import Auth
 
         salt = Auth.generate_salt()
         salt_and_pepper_password = Auth.hash_password(password, salt)
@@ -54,7 +54,7 @@ class Accounts(db.Model):
             account_id: int,
             new_password: str,
     ):
-        from flask_bigapp.auth import Auth
+        from flask_imp.auth import Auth
 
         salt = Auth.generate_salt()
         salt_and_pepper_password = Auth.hash_password(new_password, salt)
