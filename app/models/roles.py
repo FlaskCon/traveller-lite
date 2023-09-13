@@ -3,13 +3,9 @@ from . import *
 
 # Roles are matched to Accounts in the RolesMembership model (roles_membership.py)
 
-class Roles(db.Model):
+class Roles(db.Model, MetaMixins):
     role_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(128), nullable=False)
-
-    rel_roles_membership = db.relationship(
-        "RolesMembership",
-    )
 
     @classmethod
     def get_by_id(cls, role_id):
@@ -24,10 +20,12 @@ class Roles(db.Model):
         ).scalar_one_or_none()
 
     @classmethod
-    def get_id_by_name_batch(cls, names: list[str]) -> list[int]:
-        return db.session.execute(
-            select(cls.role_id).where(cls.name.in_(names))
-        ).scalars().all()
+    def get_by_name_batch(cls, names: list[str]) -> dict[str, int]:
+        return {name: role_id for name, role_id in [
+            (row.name, row.role_id) for row in db.session.execute(
+                select(cls).where(cls.name.in_(names))
+            ).scalars().all()
+        ]}
 
     @classmethod
     def get_all(cls):

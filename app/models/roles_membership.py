@@ -1,15 +1,12 @@
 from . import *
 
 
-class RolesMembership(db.Model):
+class RolesMembership(db.Model, MetaMixins):
     roles_membership_id = db.Column(db.Integer, primary_key=True)
     fk_account_id = db.Column(db.Integer, db.ForeignKey("accounts.account_id"), nullable=False)
     fk_role_id = db.Column(db.Integer, db.ForeignKey("roles.role_id"), nullable=False)
 
-    rel_role = db.relationship(
-        "Roles",
-        backref="rel_roles_membership"
-    )
+    rel_role = db.relationship("Roles", order_by="Roles.name")
 
     @classmethod
     def get_by_account_id(cls, fk_account_id: int):

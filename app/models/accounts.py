@@ -1,12 +1,18 @@
 from . import *
 
 
-class Accounts(db.Model):
+class Accounts(db.Model, MetaMixins):
     account_id = db.Column(db.Integer, primary_key=True)
     email_address = db.Column(db.String, nullable=False)
     password = db.Column(db.String(512), nullable=False)
     salt = db.Column(db.String(4), nullable=False)
     disabled = db.Column(db.Boolean)
+
+    @classmethod
+    def get_all(cls):
+        return db.session.execute(
+            select(cls).order_by(cls.email_address)
+        ).scalars().all()
 
     @classmethod
     def get_by_id(cls, account_id):
@@ -80,7 +86,6 @@ class Accounts(db.Model):
 
     def get_roles(self):
         from .roles_membership import RolesMembership
-
         return RolesMembership.get_by_account_id(self.account_id)
 
     @classmethod
