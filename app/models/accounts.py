@@ -3,7 +3,7 @@ from . import *
 
 class Accounts(db.Model):
     account_id = db.Column(db.Integer, primary_key=True)
-    email_address = db.Column(db.String(320), nullable=False)
+    email_address = db.Column(db.String, nullable=False)
     password = db.Column(db.String(512), nullable=False)
     salt = db.Column(db.String(4), nullable=False)
     disabled = db.Column(db.Boolean)
@@ -76,4 +76,34 @@ class Accounts(db.Model):
                 cls.account_id == account_id
             )
         )
+        db.session.commit()
+
+    def get_roles(self):
+        from .roles_membership import RolesMembership
+
+        return RolesMembership.get_by_account_id(self.account_id)
+
+    @classmethod
+    def create_batch(cls, batch: list[dict]):
+        """
+        batch: [{"email_address": -, "password": -, "disabled": -}]
+        :param batch:
+        :return:
+        """
+
+        from flask_imp.auth import Auth
+
+        for value in batch:
+            salt = Auth.generate_salt()
+            salt_and_pepper_password = Auth.hash_password(value.get("password", "password"), salt)
+
+            db.session.execute(
+                insert(cls).values(
+                    email_address=value.get("email_address", "null@null.null"),
+                    password=salt_and_pepper_password,
+                    salt=salt,
+                    disabled=value.get("disabled", False),
+                )
+            )
+
         db.session.commit()

@@ -49,14 +49,14 @@ SQLALCHEMY_RECORD_QUERIES = false
 # Dialets = mysql / postgresql / sqlite / oracle / mssql
 
 # Uncomment below to generate the SQLALCHEMY_DATABASE_URI.
-#[DATABASE.MAIN]
-#ENABLED = true
-#DIALECT = "sqlite"
-#DATABASE_NAME = "database"
-#LOCATION = "database"
-#PORT = ""
-#USERNAME = "database"
-#PASSWORD = "password"
+[DATABASE.MAIN]
+ENABLED = true
+DIALECT = "sqlite"
+DATABASE_NAME = "database"
+LOCATION = "database"
+PORT = ""
+USERNAME = "database"
+PASSWORD = "password"
 
 # Adding another database is as simple as adding a new section.
 # [DATABASE.ANOTHER] will then be accessible using SQLALCHEMY_BINDS
