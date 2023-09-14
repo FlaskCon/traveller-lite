@@ -35,8 +35,8 @@ MAX_COOKIE_SIZE = 4093
 # Anything here will be accessible using session["your_var_name"]
 # or session.get("your_var_name")
 [SESSION]
-#logged_in = false
-#account_id = 0
+logged_in = false
+account_id = 0
 
 # These settings are spcific to the Flask-SQLAlchemy extension.
 # Anything here will be accessible using app.config
