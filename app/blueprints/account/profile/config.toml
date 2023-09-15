@@ -1,0 +1,14 @@
+enabled = "yes"
+
+[settings]
+url_prefix = "/profile"
+#subdomain = ""
+#url_defaults = {}
+static_folder = "static"
+template_folder = "templates"
+static_url_path = "/static/profile"
+#root_path = ""
+#cli_group = ""
+
+[session]
+#profile_session = "yes"

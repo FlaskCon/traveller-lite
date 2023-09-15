@@ -15,6 +15,7 @@ def create_app():
     imp.import_app_resources(
         app_factories=["dev_cli"] if DEV_MODE else [],
     )
+
     imp.import_blueprints("blueprints")
 
     with app.app_context():
