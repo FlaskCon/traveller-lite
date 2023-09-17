@@ -1,0 +1,64 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Main</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='flaskcon.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <aside>
+        <div class="accountlet">
+            <img width="200" src="{{ url_for('static', filename='display-pictures/ogdp3.png') }}" alt="">
+            <div>email@email.com</div>
+            <div><a href="#">Logout</a></div>
+        </div>
+
+        <nav class="side-nav">
+            <ul>
+                <li><a href="#">Your Account</a></li>
+                <li><a href="#">Your Profile</a></li>
+                <li><a href="#">Submit a Talk</a></li>
+                <li><a href="#">Become a Sponsor</a></li>
+                <li><a href="#">Volunteer</a></li>
+                <li><a href="#">Donate <3</a></li>
+            </ul>
+        </nav>
+
+        <div class="product-info">
+
+        </div>
+
+    </aside>
+
+    <section class="content">
+        <header>
+            <nav class="top-nav">
+                <div>
+                    {% block breadcrumbs %}{% endblock %}
+                </div>
+                <div>
+                    <img width="100px" src="{{ url_for('static', filename='flaskcon-logo.svg') }}" alt="">
+                </div>
+            </nav>
+        </header>
+
+        <section>
+            <div class="center-content">
+                {% block content %}
+
+                {% endblock %}
+            </div>
+        </section>
+    </section>
+
+</div>
+
+</body>
+
+</html>

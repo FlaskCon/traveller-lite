@@ -1,7 +1,7 @@
 enabled = "yes"
 
 [settings]
-url_prefix = "/admin"
+url_prefix = "/system"
 #subdomain = ""
 #url_defaults = {}
 static_folder = "static"
