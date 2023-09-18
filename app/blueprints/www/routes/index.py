@@ -1,5 +1,6 @@
 from flask import redirect, url_for, current_app, render_template
 from datetime import datetime
+from app.modules.email_service import EmailService
 
 from .. import bp
 
@@ -14,4 +15,14 @@ def index():
 
 @bp.route("/style", methods=["GET"])
 def style():
+    print(current_app.config["EMAIL_USERNAME"])
+    email = EmailService(
+        current_app.config["EMAIL_USERNAME"],
+        current_app.config["EMAIL_PASSWORD"],
+        current_app.config["EMAIL_SERVER"],
+        current_app.config["EMAIL_PORT"],
+    )
+
+    email.recipients(["carmichaelits@gmail.com"]).subject("test").body("test").send(debug=True)
+
     return render_template(bp.tmpl("index.html"))

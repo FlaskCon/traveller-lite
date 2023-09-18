@@ -4,6 +4,7 @@ from . import *
 class Conferences(db.Model, MetaMixins):
     conference_id = db.Column(db.Integer, primary_key=True)
     year = db.Column(db.Integer, nullable=False)
+    media_logo = db.Column(db.String, nullable=False)
     description = db.Column(db.String, nullable=False)
     location = db.Column(db.String, nullable=False)
 

@@ -16,4 +16,4 @@ def signup():
         session["logged_in"] = True
         session["account_id"] = 1
         return redirect(url_for("account.index"))
-    return render_template(bp.tmpl("login.html"))
+    return render_template(bp.tmpl("signup.html"))

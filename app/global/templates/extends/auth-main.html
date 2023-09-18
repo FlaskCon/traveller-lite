@@ -1,0 +1,22 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Main</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='flaskcon.css') }}">
+</head>
+
+<body>
+
+<div class="auth-container">
+
+{% block content %}
+{% endblock %}
+
+</div>
+
+</body>
+
+</html>
