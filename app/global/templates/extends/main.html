@@ -16,17 +16,24 @@
         <div class="accountlet">
             <img width="200" src="{{ url_for('static', filename='display-pictures/ogdp3.png') }}" alt="">
             <div>email@email.com</div>
-            <div><a href="#">Logout</a></div>
+            <div><a href="{{ url_for('auth.logout') }}">Logout</a></div>
         </div>
 
         <nav class="side-nav">
             <ul>
-                <li><a href="#">Your Account</a></li>
-                <li><a href="#">Your Profile</a></li>
-                <li><a href="#">Submit a Talk</a></li>
-                <li><a href="#">Become a Sponsor</a></li>
-                <li><a href="#">Volunteer</a></li>
-                <li><a href="#">Donate <3</a></li>
+                <li><a href="{{ url_for('account.your_account') }}"
+                       {% if 'your-account' in request.url %}class="selected"{% endif %}>
+                    Your Account</a></li>
+                <li><a href="#">
+                    Your Profile</a></li>
+                <li><a href="#">
+                    Submit a Talk</a></li>
+                <li><a href="#">
+                    Become a Sponsor</a></li>
+                <li><a href="#">
+                    Volunteer</a></li>
+                <li><a href="#">
+                    Donate <3</a></li>
             </ul>
         </nav>
 

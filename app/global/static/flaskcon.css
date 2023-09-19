@@ -1,3 +1,7 @@
+[x-cloak] {
+    display: none;
+}
+
 body, html {
     margin: 0;
     padding: 0;
@@ -5,34 +9,71 @@ body, html {
 
 body {
     background-color: rgba(56, 168, 190, 0.2);
+    font-family: sans-serif;
+}
+
+.form-error {
+    color: red;
+    font-size: 0.8rem;
+}
+
+.flash-message {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem;
+    background-color: rgba(56, 168, 190, 0.9);
+    color: #fff;
+    text-align: center;
+    font-size: 1.2rem;
+    z-index: 9999;
+    cursor: pointer;
+}
+
+.flash-message-item {
+    margin: 1rem;
 }
 
 .auth-container {
-    display: flex;
-    justify-content: center;
-}
-
-.login {
-    width: 100%;
-    max-width: 500px;
-    background-color: rgba(255, 255, 255, 0.80);
-    border-radius: 1rem;
-    margin-top: 1rem;
-    padding: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.login form {
-    display: flex;
-    flex-direction: column;
+.auth-container img {
+    padding-top: 1rem;
+    text-align: center;
 }
 
-.login form input {
+.auth {
+    width: 100%;
+    max-width: 400px;
+    background-color: rgba(255, 255, 255, 0.80);
+    border-radius: 1rem;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    padding: 1.5rem;
+}
+
+.auth form {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.auth form input {
     margin-bottom: 1rem;
 }
+
+.auth form button {
+    margin-bottom: 1rem;
+}
+
 
 .container {
     display: flex;
@@ -116,6 +157,10 @@ body {
 }
 
 .side-nav li a:hover {
+    background-color: rgba(56, 168, 190, 0.1);
+}
+
+.side-nav .selected {
     background-color: rgba(56, 168, 190, 0.1);
 }
 
@@ -279,4 +324,8 @@ label > .label-body {
     display: inline-block;
     margin-left: .5rem;
     font-weight: normal;
+}
+
+.button-disabled {
+    opacity: 0.7;
 }

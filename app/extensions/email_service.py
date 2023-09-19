@@ -1,3 +1,4 @@
+from typing import Optional
 from smtplib import SMTP
 from ssl import create_default_context
 from smtplib import SMTPException
@@ -7,6 +8,19 @@ from email.mime.application import MIMEApplication
 from pathlib import Path
 
 
+class EmailServiceSettings:
+    username: str
+    password: str
+    server: str
+    port: int
+
+    def __init__(self, username: str, password: str, server: str, port: int):
+        self.username = username
+        self.password = password
+        self.server = server
+        self.port = port
+
+
 class EmailService:
     username: str
     password: str
@@ -14,8 +28,8 @@ class EmailService:
     port: int
 
     _subject: str
-    _msg: MIMEMultipart
-    _msg_body: MIMEText
+    _msg: Optional[MIMEMultipart]
+    _msg_body: Optional[MIMEText]
     _original_sender: str
     _reply_to: str
     _from: str
@@ -24,17 +38,17 @@ class EmailService:
     _bcc_recipients: set[str]
     _attachments: set[tuple[Path, str]]
 
-    def __init__(self, username: str, password: str, server: str, port: int):
-        self.username = username
-        self.password = password
-        self.server = server
-        self.port = port
+    def __init__(self, settings: EmailServiceSettings):
+        self.username = settings.username
+        self.password = settings.password
+        self.server = settings.server
+        self.port = settings.port
 
         self._subject = ""
         self._msg_body = MIMEText("")
-        self._original_sender = username
-        self._reply_to = username
-        self._from = username
+        self._original_sender = settings.username
+        self._reply_to = settings.username
+        self._from = settings.username
         self._recipients = set()
         self._cc_recipients = set()
         self._bcc_recipients = set()
@@ -68,7 +82,7 @@ class EmailService:
         self._msg_body = MIMEText(body)
         self._msg_body.set_type('text/html')
         self._msg_body.set_param('charset', 'UTF-8')
-        self._msg.attach(MIMEText(body))
+        self._msg.attach(self._msg_body)
         return self
 
     def reply_to(self, reply_to: str) -> 'EmailService':
@@ -157,10 +171,12 @@ class EmailService:
         except SMTPException as error:
             if debug:
                 print(error)
+
             return False
 
         if debug:
             print(self)
+
         return True
 
 

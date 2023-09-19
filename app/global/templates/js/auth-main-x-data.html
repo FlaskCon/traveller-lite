@@ -1,0 +1,95 @@
+<script defer type="application/javascript">
+
+    document.addEventListener('alpine:init', () => {
+
+        Alpine.data('authMain', () => ({
+            signup_email_address: null,
+            signup_password: null,
+            signup_confirm_password: null,
+            signup_strength_msg: null,
+            signup_passwords_match: true,
+            signup_strength_bar: 0,
+            signup_strength_bar_color: 'red',
+            signup_button_enabled: false,
+
+            signup_strength_msg_not_met: "Minimum password strength not met. Add at least one number, one special character, and one capital letter.",
+            init() {
+            },
+            check_password_strength() {
+                if (this.signup_password) {
+
+
+                    let strength = 0;
+
+                    if (this.signup_password.match(/[a-z]+/)) {
+                        strength += 1;
+                    }
+                    if (this.signup_password.match(/[A-Z]+/)) {
+                        strength += 1;
+                    }
+                    if (this.signup_password.match(/[0-9]+/)) {
+                        strength += 1;
+                    }
+                    if (this.signup_password.match(/[$@#&!]+/)) {
+                        strength += 1;
+                    }
+
+                    if (this.signup_password.length < 8) {
+                        this.signup_strength_msg = "Minimum number of characters is 8.";
+                        strength = 0
+                    } else {
+                        this.signup_strength_msg = null;
+                    }
+
+                    switch (strength) {
+                        case 0:
+                            this.signup_strength_bar = 0;
+                            this.signup_strength_bar_color = 'red'
+                            if (this.signup_strength_msg === null) {
+                                this.signup_strength_msg = this.signup_strength_msg_not_met
+                            }
+                            break;
+
+                        case 1:
+                            this.signup_strength_bar = 25;
+                            this.signup_strength_bar_color = 'red'
+                            if (this.signup_strength_msg === null) {
+                                this.signup_strength_msg = this.signup_strength_msg_not_met
+                            }
+                            break;
+
+                        case 2:
+                            this.signup_strength_bar = 50;
+                            this.signup_strength_bar_color = 'red'
+                            if (this.signup_strength_msg === null) {
+                                this.signup_strength_msg = this.signup_strength_msg_not_met
+                            }
+                            break;
+
+                        case 3:
+                            this.signup_strength_bar = 75;
+                            this.signup_strength_bar_color = 'green'
+                            if (this.signup_strength_msg !== null) {
+                                this.signup_strength_msg = null
+                            }
+                            break;
+
+                        case 4:
+                            this.signup_strength_bar = 100;
+                            this.signup_strength_bar_color = 'green'
+                            if (this.signup_strength_msg !== null) {
+                                this.signup_strength_msg = null
+                            }
+                            break;
+                    }
+                }
+            },
+            signup_check_passwords_match() {
+                this.signup_passwords_match = this.signup_password === this.signup_confirm_password;
+                this.signup_button_enabled = this.signup_passwords_match === true && this.signup_strength_bar >= 75
+            }
+        }));
+
+    })
+
+</script>

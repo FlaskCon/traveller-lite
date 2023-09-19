@@ -20,13 +20,13 @@ def breadcrumber_processor():
         :param list_of_urls:
         :return:
         """
-        markup = ""
+        markup = "/ "
         for name, url in list_of_urls:
             if url is None:
                 markup += f'{name} / '
             else:
                 markup += f'<a href="{url}">{name}</a> / '
 
-        return Markup(markup[:-3])
+        return Markup(f"<strong>{markup[:-3]}</strong>")
 
     return dict(breadcrumber=breadcrumber)

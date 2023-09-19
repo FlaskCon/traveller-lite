@@ -7,6 +7,8 @@ class Accounts(db.Model, MetaMixins):
     password = db.Column(db.String(512), nullable=False)
     salt = db.Column(db.String(4), nullable=False)
     disabled = db.Column(db.Boolean)
+    confirmed = db.Column(db.Boolean, default=False)
+    private_key = db.Column(db.String(256), nullable=True)
 
     rel_roles = relationship(
         "RolesMembership",
@@ -16,9 +18,9 @@ class Accounts(db.Model, MetaMixins):
     )
 
     rel_profile = relationship(
-        "Profile",
-        order_by="Profile.profile_id",
-        primaryjoin="Accounts.account_id==Profile.fk_account_id",
+        "Profiles",
+        order_by="Profiles.profile_id",
+        primaryjoin="Accounts.account_id==Profiles.fk_account_id",
         viewonly=True,
     )
 
@@ -63,33 +65,71 @@ class Accounts(db.Model, MetaMixins):
         ).scalar_one_or_none()
 
     @classmethod
-    def create(cls, email_address, password, disabled):
+    def confirm_account_successful(cls, account_id: int, private_key: str):
+        account = cls.select_using_id(account_id)
+        if account.private_key == private_key:
+            db.session.execute(
+                update(cls).where(
+                    cls.account_id == account_id
+                ).values(
+                    confirmed=True,
+                    private_key=None,
+                )
+            )
+            db.session.commit()
+            return True
+        return False
+
+    def reconfirm_account(self):
+        from flask_imp.auth import Auth
+
+        self.private_key = Auth.generate_private_key(Auth.generate_password(length=1))
+        db.session.commit()
+        return self.private_key
+
+    @classmethod
+    def login(cls, email_address, password):
+        from flask_imp.auth import Auth
+
+        account = cls.select_using_email_address(email_address)
+        if account:
+            if Auth.auth_password(password, account.password, account.salt):
+                return account
+        return None
+
+    @classmethod
+    def create(cls, email_address, password):
         """
-        Written for sqlite. Returns primary key after creation.
+        Written for sqlite. Returns account after commit.
         """
         from flask_imp.auth import Auth
 
         salt = Auth.generate_salt()
         salt_and_pepper_password = Auth.hash_password(password, salt)
+        private_key = Auth.generate_private_key(Auth.generate_password(length=1))
 
         db.session.execute(
             insert(cls).values(
                 email_address=email_address,
                 password=salt_and_pepper_password,
                 salt=salt,
-                disabled=disabled,
+                disabled=False,
+                confirmed=False,
+                private_key=private_key,
             )
         )
         db.session.commit()
 
-        return cls.get_by_email_address(email_address).account_id
+        return cls.select_using_email_address(email_address)
 
     @classmethod
     def update(
             cls,
             account_id: int,
             email_address: str,
-            disabled: bool
+            disabled: bool,
+            confirmed: bool,
+            private_key: str,
     ):
         db.session.execute(
             update(cls).where(
@@ -97,6 +137,8 @@ class Accounts(db.Model, MetaMixins):
             ).values(
                 email_address=email_address,
                 disabled=disabled,
+                confirmed=confirmed,
+                private_key=private_key,
             )
         )
         db.session.commit()
@@ -153,6 +195,8 @@ class Accounts(db.Model, MetaMixins):
                     password=salt_and_pepper_password,
                     salt=salt,
                     disabled=value.get("disabled", False),
+                    confirmed=value.get("confirmed", False),
+                    private_key=value.get("private_key", None),
                 )
             )
 

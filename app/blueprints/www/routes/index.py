@@ -1,6 +1,6 @@
 from flask import redirect, url_for, current_app, render_template
 from datetime import datetime
-from app.modules.email_service import EmailService
+from app.extensions.email_service import EmailService
 
 from .. import bp
 

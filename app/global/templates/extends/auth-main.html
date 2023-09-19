@@ -6,17 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Main</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='flaskcon.css') }}">
+    <script defer src="{{ url_for('static', filename='alpinejs.3.13.0.js') }}"></script>
 </head>
 
-<body>
+<body x-data="authMain">
+
+{% if get_flashed_messages() %}
+    <div class="flash-message" @click="$el.remove()">
+        {% for message in get_flashed_messages() %}
+            <div class="flash-message-item">{{ message }}</div>
+        {% endfor %}
+        <small>click to close</small>
+    </div>
+{% endif %}
 
 <div class="auth-container">
 
-{% block content %}
-{% endblock %}
+    {% block content %}
+    {% endblock %}
 
 </div>
 
+{% include 'js/auth-main-x-data.html' %}
 </body>
 
 </html>

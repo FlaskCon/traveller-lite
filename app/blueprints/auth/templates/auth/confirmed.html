@@ -1,0 +1,11 @@
+{% extends 'extends/auth-main.html' %}
+
+{% block content %}
+    <img width="80" src="{{ url_for('static', filename='flaskcon-logo.svg') }}" alt="FlaskCon Logo">
+    <div class="auth">
+        <div>
+            <p>Your account has been confirmed!</p>
+        </div>
+        <a href="{{ url_for('auth.login') }}" class="button button-primary">Login Here</a>
+    </div>
+{% endblock %}
