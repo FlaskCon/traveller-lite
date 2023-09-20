@@ -30,3 +30,16 @@ def breadcrumber_processor():
         return Markup(f"<strong>{markup[:-3]}</strong>")
 
     return dict(breadcrumber=breadcrumber)
+
+
+@app.context_processor
+def display_picture_processor():
+    def display_picture(unique_display_picture_id: int):
+        """
+        Gets the URL for the given unique_display_picture_id.
+        """
+        from app.models.display_pictures import DisplayPictures
+
+        return DisplayPictures.select_using_unique_display_picture_id(unique_display_picture_id).filename
+
+    return dict(display_picture=display_picture)

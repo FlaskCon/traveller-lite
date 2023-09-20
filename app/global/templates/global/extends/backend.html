@@ -5,29 +5,33 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Main</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='skeleton.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='flaskcon.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='spacing.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='typography.css') }}">
+    <script defer src="{{ url_for('static', filename='alpinejs.3.13.0.js') }}"></script>
 </head>
 
 <body>
 
-<div class="container">
+<div class="fc-container">
 
     <aside>
         <div class="accountlet">
-            <img width="200" src="{{ url_for('static', filename='display-pictures/ogdp3.png') }}" alt="">
+            <img width="200"
+                 src="{{ url_for('static', filename='display-pictures/' + display_picture(session.get('unique_display_picture_id', 1))) }}"
+                 alt="">
             <div>email@email.com</div>
             <div><a href="{{ url_for('auth.logout') }}">Logout</a></div>
         </div>
 
         <nav class="side-nav">
             <ul>
-                <li><a href="{{ url_for('account.your_account') }}"
-                       {% if 'your-account' in request.url %}class="selected"{% endif %}>
+                <li><a href="{{ url_for('account.index') }}"
+                       {% if 'account' in request.url %}class="selected"{% endif %}>
                     Your Account</a></li>
                 <li><a href="#">
-                    Your Profile</a></li>
-                <li><a href="#">
-                    Submit a Talk</a></li>
+                    Your Talks</a></li>
                 <li><a href="#">
                     Become a Sponsor</a></li>
                 <li><a href="#">
@@ -66,6 +70,8 @@
 
 </div>
 
+{% block js %}
+{% endblock %}
 </body>
 
 </html>

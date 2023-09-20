@@ -8,6 +8,9 @@ from app.models import Resources
 from app.models.accounts import Accounts
 from app.models.roles import Roles
 from app.models.roles_membership import RolesMembership
+from app.models.profiles import Profiles
+from app.models.display_pictures import DisplayPictures
+from app.models.talk_statuses import TalkStatuses
 
 
 @app.cli.command("seed")
@@ -37,19 +40,30 @@ def seed():
     else:
         print("Roles table is not empty.")
 
+    if DisplayPictures.__is_empty__():
+        print("Creating display pictures...")
+        DisplayPictures.seed(Resources.original_display_pictures)
+    else:
+        print("Display pictures table is not empty.")
+
+    if TalkStatuses.__is_empty__():
+        print("Creating display pictures...")
+        TalkStatuses.seed(Resources.talk_statuses)
+    else:
+        print("Display pictures table is not empty.")
+
     print("creating super admin account...")
     admin_email_address, admin_password = set_admin_account()
-    account_id = Accounts.create(
+    account = Accounts.create(
         email_address=admin_email_address,
-        password=admin_password,
-        disabled=False,
+        password=admin_password
     )
 
     admin_role_id = Roles.select_by_name("Super Administrator").role_id
 
-    RolesMembership.set_roles(account_id, [admin_role_id])
+    RolesMembership.set_roles(account.account_id, [admin_role_id])
 
-    print("Done.", account_id, admin_role_id)
+    print("Done.", account.account_id, admin_role_id)
 
 
 @app.cli.command("does-account-exist")
@@ -61,3 +75,8 @@ def does_account_exist(email_address: str):
         ea = email_address
 
     print(True if Accounts.exists(ea) else False)
+
+
+@app.cli.command("test-sql")
+def test_sql():
+    pass

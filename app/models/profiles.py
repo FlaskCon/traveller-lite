@@ -14,19 +14,20 @@ class Profiles(db.Model, MetaMixins):
     last_name = db.Column(db.String(250), nullable=True)
     pronouns = db.Column(db.String, nullable=True)
     bio = db.Column(db.String, nullable=True)
-    location = db.Column(db.String, nullable=True)
+    country = db.Column(db.String, nullable=True)
     website = db.Column(db.String, nullable=True)
 
     rel_account = relationship(
         "Accounts",
         order_by="Accounts.email_address",
         primaryjoin="Profiles.fk_account_id==Accounts.account_id",
+        viewonly=True,
     )
 
     rel_display_picture = relationship(
-        "Accounts",
-        order_by="Accounts.email_address",
-        primaryjoin="Profiles.fk_account_id==Accounts.account_id",
+        "DisplayPictures",
+        primaryjoin="Profiles.fk_display_picture_id==DisplayPictures.display_picture_id",
+        viewonly=True,
     )
 
     @classmethod
@@ -42,11 +43,11 @@ class Profiles(db.Model, MetaMixins):
         ).scalar_one_or_none()
 
     @classmethod
-    def create(cls, account_id):
+    def create(cls, account_id, display_picture_id):
         db.session.execute(
             insert(cls).values(
                 fk_account_id=account_id,
-                display_picture=display_picture,
+                fk_display_picture_id=display_picture_id,
             )
         )
         db.session.commit()

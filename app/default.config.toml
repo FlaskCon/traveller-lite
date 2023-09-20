@@ -42,6 +42,7 @@ EMAIL_PORT = "<EMAIL_PORT>"
 [SESSION]
 logged_in = false
 account_id = 0
+unique_display_picture_id = 1
 
 # These settings are spcific to the Flask-SQLAlchemy extension.
 # Anything here will be accessible using app.config

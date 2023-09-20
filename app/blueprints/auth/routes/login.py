@@ -10,6 +10,7 @@ from flask_imp import Auth
 from flask_imp.security import login_check
 
 from app.models.accounts import Accounts
+from app.models.display_pictures import DisplayPictures
 from .. import bp
 
 
@@ -28,8 +29,13 @@ def login():
         if email_address and password:
             account = Accounts.login(email_address, password)
             if account:
+                display_picture = account.rel_profile[0].fk_display_picture_id or 1
+
                 session["logged_in"] = True
                 session["account_id"] = account.account_id
+                session["unique_display_picture_id"] = DisplayPictures.select_using_display_picture_id(
+                    display_picture
+                ).unique_display_picture_id
                 return redirect(url_for("account.index"))
             else:
                 flash("Incorrect email address or password")

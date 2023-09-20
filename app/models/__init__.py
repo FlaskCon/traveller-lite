@@ -1,4 +1,9 @@
-from sqlalchemy import select, update, delete, insert
+from sqlalchemy import (
+    select,
+    update,
+    delete,
+    insert
+)
 from sqlalchemy.orm import relationship
 from .__mixins__ import MetaMixins
 from .__resources__ import Resources

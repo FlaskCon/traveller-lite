@@ -47,7 +47,7 @@ class Accounts(db.Model, MetaMixins):
         ).scalars().all()
 
     @classmethod
-    def select_using_id(cls, account_id):
+    def select_using_account_id(cls, account_id):
         return db.session.execute(
             select(cls).filter_by(account_id=account_id).limit(1)
         ).scalar_one_or_none()
@@ -103,6 +103,9 @@ class Accounts(db.Model, MetaMixins):
         Written for sqlite. Returns account after commit.
         """
         from flask_imp.auth import Auth
+        from app.models.profiles import Profiles
+        from app.models.display_pictures import DisplayPictures
+        import random
 
         salt = Auth.generate_salt()
         salt_and_pepper_password = Auth.hash_password(password, salt)
@@ -120,7 +123,9 @@ class Accounts(db.Model, MetaMixins):
         )
         db.session.commit()
 
-        return cls.select_using_email_address(email_address)
+        account = cls.select_using_email_address(email_address)
+        Profiles.create(account.account_id, random.choice(DisplayPictures.select_all_display_picture_id()))
+        return account
 
     @classmethod
     def update(

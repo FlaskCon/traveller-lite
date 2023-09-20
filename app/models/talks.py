@@ -1,8 +1,10 @@
 from . import *
 
 
-class Proposals(db.Model, MetaMixins):
-    proposal_id = db.Column(db.Integer, primary_key=True)
+class Talks(db.Model, MetaMixins):
+    talk_id = db.Column(db.Integer, primary_key=True)
+    fk_talk_status_id = db.Column(db.Integer, db.ForeignKey("talk_statuses.talk_status_id"))
+
     year = db.Column(db.Integer, nullable=False)  # This is taken on the date of submission
     title = db.Column(db.String, nullable=False)
 
@@ -27,3 +29,9 @@ class Proposals(db.Model, MetaMixins):
 
     # Tags are used to help reviewers find proposals that interest them.
     tags = db.Column(db.String, nullable=False)
+
+    # Fields used by the committee
+    committee_comments = db.Column(db.String, nullable=True)
+    reason_for_rejection = db.Column(db.String, nullable=True)
+    scheduled_date = db.Column(db.DateTime, nullable=True)
+    scheduled_confirmed = db.Column(db.Boolean, nullable=False, default=False)

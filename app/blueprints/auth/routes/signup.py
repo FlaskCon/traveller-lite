@@ -43,7 +43,7 @@ def signup():
                     [email_address]).subject(
                     "Confirm your account").body(
                     render_template(
-                        "email/confirm-email.html",
+                        "global/email/confirm-email.html",
                         account_id=new_account.account_id,
                         private_key=new_account.private_key,
                     )

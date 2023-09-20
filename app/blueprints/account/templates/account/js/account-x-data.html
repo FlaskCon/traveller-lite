@@ -1,0 +1,103 @@
+<script defer type="application/javascript">
+
+    document.addEventListener('alpine:init', () => {
+
+        Alpine.data('account', () => ({
+            company_name: "{{ profile.company_name }}",
+            alias: "{{ profile.alias }}",
+            first_name: "{{ profile.first_name }}",
+            last_name: "{{ profile.last_name }}",
+            pronouns: "{{ profile.pronouns }}",
+            bio: "{{ profile.bio }}",
+            country: "{{ profile.country }}",
+            website: "{{ profile.website }}",
+
+            signup_email_address: null,
+            your_account_password: null,
+            your_account_confirm_password: null,
+            your_account_strength_msg: null,
+            your_account_passwords_match: true,
+            your_account_strength_bar: 0,
+            your_account_strength_bar_color: 'red',
+            your_account_button_enabled: false,
+
+            your_account_strength_msg_not_met: "Minimum password strength not met. Add at least one number, one special character, and one capital letter.",
+            init() {
+            },
+            check_password_strength() {
+                if (this.your_account_password) {
+
+                    let strength = 0;
+
+                    if (this.your_account_password.match(/[a-z]+/)) {
+                        strength += 1;
+                    }
+                    if (this.your_account_password.match(/[A-Z]+/)) {
+                        strength += 1;
+                    }
+                    if (this.your_account_password.match(/[0-9]+/)) {
+                        strength += 1;
+                    }
+                    if (this.your_account_password.match(/[$@#&!]+/)) {
+                        strength += 1;
+                    }
+
+                    if (this.your_account_password.length < 8) {
+                        this.your_account_strength_msg = "Minimum number of characters is 8.";
+                        strength = 0
+                    } else {
+                        this.your_account_strength_msg = null;
+                    }
+
+                    switch (strength) {
+                        case 0:
+                            this.your_account_strength_bar = 0;
+                            this.your_account_strength_bar_color = 'red'
+                            if (this.your_account_strength_msg === null) {
+                                this.your_account_strength_msg = this.your_account_strength_msg_not_met
+                            }
+                            break;
+
+                        case 1:
+                            this.your_account_strength_bar = 25;
+                            this.your_account_strength_bar_color = 'red'
+                            if (this.your_account_strength_msg === null) {
+                                this.your_account_strength_msg = this.your_account_strength_msg_not_met
+                            }
+                            break;
+
+                        case 2:
+                            this.your_account_strength_bar = 50;
+                            this.your_account_strength_bar_color = 'red'
+                            if (this.your_account_strength_msg === null) {
+                                this.your_account_strength_msg = this.your_account_strength_msg_not_met
+                            }
+                            break;
+
+                        case 3:
+                            this.your_account_strength_bar = 75;
+                            this.your_account_strength_bar_color = 'green'
+                            if (this.your_account_strength_msg !== null) {
+                                this.your_account_strength_msg = null
+                            }
+                            break;
+
+                        case 4:
+                            this.your_account_strength_bar = 100;
+                            this.your_account_strength_bar_color = 'green'
+                            if (this.your_account_strength_msg !== null) {
+                                this.your_account_strength_msg = null
+                            }
+                            break;
+                    }
+                }
+            },
+            your_account_check_passwords_match() {
+                this.your_account_passwords_match = this.your_account_password === this.your_account_confirm_password;
+                this.your_account_button_enabled = this.your_account_passwords_match === true && this.your_account_strength_bar >= 75
+            }
+        }));
+
+    })
+
+</script>
