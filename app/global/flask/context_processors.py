@@ -33,8 +33,8 @@ def breadcrumber_processor():
 
 
 @app.context_processor
-def display_picture_processor():
-    def display_picture(unique_display_picture_id: int):
+def ctp_display_picture_processor():
+    def ctp_display_picture(unique_display_picture_id: int):
         """
         Gets the URL for the given unique_display_picture_id.
         """
@@ -42,4 +42,17 @@ def display_picture_processor():
 
         return DisplayPictures.select_using_unique_display_picture_id(unique_display_picture_id).filename
 
-    return dict(display_picture=display_picture)
+    return dict(ctp_display_picture=ctp_display_picture)
+
+
+@app.context_processor
+def ctp_account_email_address_processor():
+    def ctp_account_email_address(account_id: int):
+        """
+        Gets the URL for the given unique_display_picture_id.
+        """
+        from app.models.accounts import Accounts
+
+        return Accounts.select_email_address_using_account_id(account_id)
+
+    return dict(ctp_account_email_address=ctp_account_email_address)

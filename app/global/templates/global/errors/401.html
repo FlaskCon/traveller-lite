@@ -1,11 +1,10 @@
-<!doctype html>
-<html lang="en">
+{% extends 'global/extends/errors.html' %}
 
-<head>
-    <title>401 Unauthorized</title>
-</head>
+{% block title %}
+    401 Unauthorized
+{% endblock %}
 
-<body>
-<p>You lack valid authentication credentials for the requested resource. Error 401</p>
-</body>
-</html>
+{% block error %}
+    <h2>401 Unauthorized</h2>
+    <p>You lack valid authentication credentials for the requested resource.</p>
+{% endblock %}

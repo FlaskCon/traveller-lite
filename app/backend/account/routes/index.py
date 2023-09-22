@@ -8,11 +8,9 @@ from app.models.accounts import Accounts
 @bp.route("/", methods=["GET"])
 @login_check("logged_in", True, "auth.login")
 def index():
-    account_id = session.get("account_id")
-    account = Accounts.select_using_account_id(account_id)
-    profile = account.rel_profile
+    account = Accounts.select_using_account_id(session.get("account_id"))
+
     return render_template(
         bp.tmpl("index.html"),
-        account=account,
-        profile=profile[0] if profile else None
+        profile=account.rel_profile[0] if account.rel_profile else None,
     )

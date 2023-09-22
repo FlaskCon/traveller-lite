@@ -1,11 +1,10 @@
-<!doctype html>
-<html lang="en">
+{% extends 'global/extends/errors.html' %}
 
-<head>
-    <title>404 Page Not Found</title>
-</head>
+{% block title %}
+    404 Page Not
+{% endblock %}
 
-<body>
-<p>No route associated with the URL. Error 404</p>
-</body>
-</html>
+{% block error %}
+    <h2>404 Page Not Found</h2>
+    <p>No route associated with the URL.</p>
+{% endblock %}

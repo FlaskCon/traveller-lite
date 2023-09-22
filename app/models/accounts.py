@@ -25,10 +25,10 @@ class Accounts(db.Model, MetaMixins):
     )
 
     @classmethod
-    def exists(cls, email_address):
-        return db.session.execute(
+    def exists(cls, email_address) -> bool:
+        return True if db.session.execute(
             select(cls.account_id).filter_by(email_address=email_address).limit(1)
-        ).scalar_one_or_none()
+        ).scalar_one_or_none() else False
 
     @classmethod
     def get_roles_from_email_address_select(cls, email_address):
@@ -36,6 +36,12 @@ class Accounts(db.Model, MetaMixins):
             select(cls).filter_by(email_address=email_address).limit(1)
         ).scalar_one_or_none()
         return [role.rel_role.name for role in result.rel_roles]
+
+    @classmethod
+    def select_email_address_using_account_id(cls, account_id):
+        return db.session.execute(
+            select(cls.email_address).filter_by(account_id=account_id).limit(1)
+        ).scalar_one_or_none()
 
     def get_roles_from_this(self):
         return [role.rel_role.name for role in self.rel_roles]
@@ -66,7 +72,7 @@ class Accounts(db.Model, MetaMixins):
 
     @classmethod
     def confirm_account_successful(cls, account_id: int, private_key: str):
-        account = cls.select_using_id(account_id)
+        account = cls.select_using_account_id(account_id)
         if account.private_key == private_key:
             db.session.execute(
                 update(cls).where(
@@ -80,12 +86,27 @@ class Accounts(db.Model, MetaMixins):
             return True
         return False
 
-    def reconfirm_account(self):
+    def confirm_account(self):
+        self.confirmed = True
+        db.session.commit()
+
+    def new_private_key(self):
         from flask_imp.auth import Auth
 
         self.private_key = Auth.generate_private_key(Auth.generate_password(length=1))
         db.session.commit()
         return self.private_key
+
+    def remove_private_key(self):
+        self.private_key = None
+        db.session.commit()
+
+    def create_profile(self):
+        from app.models.profiles import Profiles
+        from app.models.display_pictures import DisplayPictures
+        import random
+
+        Profiles.create(self.account_id, random.choice(DisplayPictures.select_all_display_picture_id()))
 
     @classmethod
     def login(cls, email_address, password):
@@ -148,10 +169,8 @@ class Accounts(db.Model, MetaMixins):
         )
         db.session.commit()
 
-    @classmethod
     def reset_password(
-            cls,
-            account_id: int,
+            self,
             new_password: str,
     ):
         from flask_imp.auth import Auth
@@ -159,14 +178,10 @@ class Accounts(db.Model, MetaMixins):
         salt = Auth.generate_salt()
         salt_and_pepper_password = Auth.hash_password(new_password, salt)
 
-        db.session.execute(
-            update(cls).where(
-                cls.account_id == account_id
-            ).values(
-                password=salt_and_pepper_password,
-                salt=salt,
-            )
-        )
+        self.salt = salt
+        self.password = salt_and_pepper_password
+        self.private_key = None
+
         db.session.commit()
 
     @classmethod
@@ -212,3 +227,14 @@ class Accounts(db.Model, MetaMixins):
         return db.session.execute(
             select(cls.account_id).where(cls.email_address.in_(email_addresses))
         ).scalars().all()
+
+    @classmethod
+    def generate_page_account_data(cls, account_id: int):
+
+        account = cls.select_using_account_id(account_id)
+
+        return {
+            "account_id": account.account_id,
+            "email_address": account.email_address,
+            "profile": account.rel_profile[0] if account.rel_profile else None,
+        }

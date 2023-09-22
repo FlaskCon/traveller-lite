@@ -1,6 +1,6 @@
 .form-error {
     color: red;
-    font-size: 0.8rem;
+    font-size: 1.4rem;
 }
 
 .flash-message {
@@ -29,7 +29,8 @@
 }
 
 .auth-fc-container img {
-    padding-top: 1rem;
+    padding-top: 2rem;
+    padding-bottom: 1.5rem;
     text-align: center;
 }
 
@@ -60,6 +61,24 @@
     margin-bottom: 1rem;
 }
 
+.fc-container-errors {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+}
+
+.fc-container-errors img {
+    padding: 4rem 0;
+}
+
+.fc-container-errors h2 {
+    text-align: center;
+}
+
+.fc-container-errors p {
+    text-align: center;
+}
 
 .fc-container {
     display: flex;
@@ -86,7 +105,7 @@
 }
 
 .accountlet {
-    padding: 2rem 0 2rem 0;
+    padding: 4rem 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -156,7 +175,7 @@
 
 .content {
     flex: 1;
-    margin: 0 0.5rem;
+    margin: 0 2rem;
 }
 
 .center-content {

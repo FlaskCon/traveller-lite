@@ -1,11 +1,10 @@
-<!doctype html>
-<html lang="en">
+{% extends 'global/extends/errors.html' %}
 
-<head>
-    <title>405 Method Not Allowed</title>
-</head>
+{% block title %}
+    405 Method Not Allowed
+{% endblock %}
 
-<body>
-<p>GET when you POST, or POST when you GET? Error 405</p>
-</body>
-</html>
+{% block error %}
+    <h2>405 Method Not Allowed</h2>
+    <p>GET when you POST, or POST when you GET?</p>
+{% endblock %}

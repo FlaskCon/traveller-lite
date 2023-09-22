@@ -1,11 +1,10 @@
-<!doctype html>
-<html lang="en">
+{% extends 'global/extends/errors.html' %}
 
-<head>
-    <title>400 Bad Request</title>
-</head>
+{% block title %}
+    400 Bad Request
+{% endblock %}
 
-<body>
-<p>It's not us, it's you. Error 400</p>
-</body>
-</html>
+{% block error %}
+    <h2>400 Bad Request</h2>
+    <p>It's not us, it's you.</p>
+{% endblock %}

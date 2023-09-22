@@ -19,9 +19,9 @@
     <aside>
         <div class="accountlet">
             <img width="200"
-                 src="{{ url_for('static', filename='display-pictures/' + display_picture(session.get('unique_display_picture_id', 1))) }}"
+                 src="{{ url_for('static', filename='display-pictures/' + ctp_display_picture(session.get('unique_display_picture_id', 1))) }}"
                  alt="">
-            <div>email@email.com</div>
+            <div>{{ ctp_account_email_address(session.get('account_id')).split('@')[0] }}</div>
             <div><a href="{{ url_for('auth.logout') }}">Logout</a></div>
         </div>
 

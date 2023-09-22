@@ -8,7 +8,6 @@ from app.models import Resources
 from app.models.accounts import Accounts
 from app.models.roles import Roles
 from app.models.roles_membership import RolesMembership
-from app.models.profiles import Profiles
 from app.models.display_pictures import DisplayPictures
 from app.models.talk_statuses import TalkStatuses
 
@@ -63,7 +62,7 @@ def seed():
 
     RolesMembership.set_roles(account.account_id, [admin_role_id])
 
-    print("Done.", account.account_id, admin_role_id)
+    print("Super admin account created.")
 
 
 @app.cli.command("does-account-exist")

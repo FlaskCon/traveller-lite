@@ -1,7 +1,6 @@
 {% extends 'global/extends/backend-auth.html' %}
 
 {% block content %}
-    <img width="80" src="{{ url_for('static', filename='flaskcon-logo.svg') }}" alt="FlaskCon Logo">
     <div class="auth">
         <form method="post">
             <label for="email_address">Email</label>
@@ -14,6 +13,8 @@
             <button type="submit" class="button-primary">Login</button>
 
             <a href="{{ url_for('auth.signup') }}" class="button">Signup</a>
+
+            <a style="text-align: center" href="{{ url_for('auth.forgot_password') }}">I've forgotten my password</a>
         </form>
     </div>
 {% endblock %}

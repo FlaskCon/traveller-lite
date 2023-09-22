@@ -1,11 +1,10 @@
-<!doctype html>
-<html lang="en">
+{% extends 'global/extends/errors.html' %}
 
-<head>
-    <title>500 Server Error!</title>
-</head>
+{% block title %}
+    500 Server Error!
+{% endblock %}
 
-<body>
-<p>There has been a server error! Error 500</p>
-</body>
-</html>
+{% block error %}
+    <h2>500 Server Error!</h2>
+    <p>There has been a server error!</p>
+{% endblock %}

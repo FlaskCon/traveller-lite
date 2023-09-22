@@ -20,7 +20,8 @@ def create_app():
         app_factories=["dev_cli"] if DEV_MODE else [],
     )
 
-    imp.import_blueprints("blueprints")
+    imp.import_blueprints("backend")
+    imp.import_blueprints("frontend")
 
     with app.app_context():
         db.create_all()

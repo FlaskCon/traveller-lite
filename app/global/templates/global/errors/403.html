@@ -1,11 +1,10 @@
-<!doctype html>
-<html lang="en">
+{% extends 'global/extends/errors.html' %}
 
-<head>
-    <title>403 Forbidden</title>
-</head>
+{% block title %}
+    403 Forbidden
+{% endblock %}
 
-<body>
-<p>Access forbidden! Error 403</p>
-</body>
-</html>
+{% block error %}
+    <h2>403 Forbidden</h2>
+    <p>Access forbidden!</p>
+{% endblock %}

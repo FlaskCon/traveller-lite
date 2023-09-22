@@ -13,7 +13,7 @@ from .. import bp
 @bp.get("/confirm/<int:account_id>/<private_key>")
 @login_check("logged_in", True, pass_endpoint="account.index")
 def confirm(account_id, private_key):
-    account = Accounts.select_using_id(account_id)
+    account = Accounts.select_using_account_id(account_id)
     if account:
         if account.confirmed:
             flash("Your account is already confirmed")
@@ -24,20 +24,5 @@ def confirm(account_id, private_key):
             return redirect(url_for("auth.login"))
         else:
             render_template(bp.tmpl("confirm-error.html"))
-
-    return redirect(url_for("auth.login"))
-
-
-@bp.get("/reconfirm/<int:account_id>")
-@login_check("logged_in", True, pass_endpoint="account.index")
-def reconfirm(account_id, private_key):
-    account = Accounts.select_using_id(account_id)
-    if account:
-        if account.confirmed:
-            return redirect(url_for("auth.login"))
-
-        new_private_key = account.reconfirm_account()
-
-        # email here
 
     return redirect(url_for("auth.login"))
