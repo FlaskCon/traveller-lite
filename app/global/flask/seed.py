@@ -6,9 +6,9 @@ from flask import current_app as app
 
 from app.models import Resources
 from app.models.accounts import Accounts
+from app.models.display_pictures import DisplayPictures
 from app.models.roles import Roles
 from app.models.roles_membership import RolesMembership
-from app.models.display_pictures import DisplayPictures
 from app.models.talk_statuses import TalkStatuses
 
 
@@ -46,17 +46,20 @@ def seed():
         print("Display pictures table is not empty.")
 
     if TalkStatuses.__is_empty__():
-        print("Creating display pictures...")
+        print("Creating talk statuses...")
         TalkStatuses.seed(Resources.talk_statuses)
     else:
-        print("Display pictures table is not empty.")
+        print("Talk statuses table is not empty.")
 
     print("creating super admin account...")
     admin_email_address, admin_password = set_admin_account()
-    account = Accounts.create(
+    account = Accounts.signup(
         email_address=admin_email_address,
-        password=admin_password
+        password=admin_password,
+        name_or_alias="Super Admin",
     )
+
+    account.confirm_account()
 
     admin_role_id = Roles.select_by_name("Super Administrator").role_id
 

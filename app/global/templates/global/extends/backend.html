@@ -4,12 +4,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Main</title>
+    <title>{% block title %}{% endblock %} | FlaskCon</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='skeleton.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='flaskcon.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='spacing.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='typography.css') }}">
     <script defer src="{{ url_for('static', filename='alpinejs.3.13.0.js') }}"></script>
+
+    {% set __account__ = ctp_account(session.get('account_id')) %}
+
 </head>
 
 <body>
@@ -21,23 +24,28 @@
             <img width="200"
                  src="{{ url_for('static', filename='display-pictures/' + ctp_display_picture(session.get('unique_display_picture_id', 1))) }}"
                  alt="">
-            <div>{{ ctp_account_email_address(session.get('account_id')).split('@')[0] }}</div>
+            <div>{{ __account__.rel_profile[0].name_or_alias or __account__.email_address.split('@')[0] }}</div>
+            <div><a href="{{ url_for('account.settings') }}">Settings</a></div>
             <div><a href="{{ url_for('auth.logout') }}">Logout</a></div>
         </div>
 
         <nav class="side-nav">
             <ul>
-                <li><a href="{{ url_for('account.index') }}"
-                       {% if 'account' in request.url %}class="selected"{% endif %}>
-                    Your Account</a></li>
-                <li><a href="#">
+                <li><a href="{{ url_for('account.dashboard') }}"
+                       {% if 'dashboard' in request.url %}class="selected"{% endif %}>
+                    Dashboard</a></li>
+                <li><a href="{{ url_for('account.profile') }}"
+                       {% if 'profile' in request.url %}class="selected"{% endif %}>
+                    Your Profile</a></li>
+                <li><a href="{{ url_for('account.talks') }}"
+                       {% if 'talk' in request.url %}class="selected"{% endif %}>
                     Your Talks</a></li>
-                <li><a href="#">
-                    Become a Sponsor</a></li>
-                <li><a href="#">
-                    Volunteer</a></li>
-                <li><a href="#">
-                    Donate <3</a></li>
+                {#                <li><a href="#">#}
+                {#                    Become a Sponsor</a></li>#}
+                {#                <li><a href="#">#}
+                {#                    Volunteer</a></li>#}
+                {#                <li><a href="#">#}
+                {#                    Donate <3</a></li>#}
             </ul>
         </nav>
 

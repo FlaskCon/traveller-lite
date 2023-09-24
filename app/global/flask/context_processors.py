@@ -15,12 +15,12 @@ def breadcrumber_processor():
         {{ breadcrumber([('Home', url_for('www.index')), ('About', url_for('www.about'))]) }}
 
         Will output:
-        / Home / About
+        Home / About
 
         :param list_of_urls:
         :return:
         """
-        markup = "/ "
+        markup = ""
         for name, url in list_of_urls:
             if url is None:
                 markup += f'{name} / '
@@ -46,13 +46,13 @@ def ctp_display_picture_processor():
 
 
 @app.context_processor
-def ctp_account_email_address_processor():
-    def ctp_account_email_address(account_id: int):
+def ctp_account_processor():
+    def ctp_account(account_id: int):
         """
         Gets the URL for the given unique_display_picture_id.
         """
         from app.models.accounts import Accounts
 
-        return Accounts.select_email_address_using_account_id(account_id)
+        return Accounts.select_using_account_id(account_id)
 
-    return dict(ctp_account_email_address=ctp_account_email_address)
+    return dict(ctp_account=ctp_account)

@@ -9,7 +9,7 @@
     left: 0;
     width: 100%;
     padding: 1rem;
-    background-color: rgba(56, 168, 190, 0.9);
+    background-color: rgba(56, 168, 190, 1);
     color: #fff;
     text-align: center;
     font-size: 1.2rem;
@@ -134,7 +134,7 @@
 .side-nav {
     display: block;
     width: 250px;
-    padding: 0 0.5rem;
+    padding: 0 2rem;
 }
 
 .side-nav ul {
@@ -173,16 +173,30 @@
     background-color: rgba(56, 168, 190, 0.1);
 }
 
-.content {
-    flex: 1;
-    margin: 0 2rem;
-}
-
 .center-content {
     border: 1px solid rgba(229, 229, 229, 0.80);
     max-width: 1400px;
     padding: 0.5rem 1rem;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.content {
+    flex: 1;
+    margin: 0 2rem;
+}
+
+.content-box {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
     background-color: rgba(255, 255, 255, 0.80);
     border-radius: 8px;
+    padding: 2rem;
+}
+
+.content-box input, textarea {
+    width: 100%;
 }

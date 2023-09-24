@@ -12,15 +12,19 @@ class Accounts(db.Model, MetaMixins):
 
     rel_roles = relationship(
         "RolesMembership",
-        order_by="RolesMembership.fk_role_id",
         primaryjoin="Accounts.account_id==RolesMembership.fk_account_id",
         viewonly=True,
     )
 
     rel_profile = relationship(
         "Profiles",
-        order_by="Profiles.profile_id",
         primaryjoin="Accounts.account_id==Profiles.fk_account_id",
+        viewonly=True,
+    )
+
+    rel_talks = relationship(
+        "Talks",
+        primaryjoin="Accounts.account_id==Talks.fk_account_id",
         viewonly=True,
     )
 
@@ -106,7 +110,7 @@ class Accounts(db.Model, MetaMixins):
         from app.models.display_pictures import DisplayPictures
         import random
 
-        Profiles.create(self.account_id, random.choice(DisplayPictures.select_all_display_picture_id()))
+        Profiles.signup(self.account_id, random.choice(DisplayPictures.select_all_display_picture_id()))
 
     @classmethod
     def login(cls, email_address, password):
@@ -119,7 +123,7 @@ class Accounts(db.Model, MetaMixins):
         return None
 
     @classmethod
-    def create(cls, email_address, password):
+    def signup(cls, email_address: str, password: str, name_or_alias: str):
         """
         Written for sqlite. Returns account after commit.
         """
@@ -132,7 +136,7 @@ class Accounts(db.Model, MetaMixins):
         salt_and_pepper_password = Auth.hash_password(password, salt)
         private_key = Auth.generate_private_key(Auth.generate_password(length=1))
 
-        db.session.execute(
+        account = db.session.execute(
             insert(cls).values(
                 email_address=email_address,
                 password=salt_and_pepper_password,
@@ -142,11 +146,17 @@ class Accounts(db.Model, MetaMixins):
                 private_key=private_key,
             )
         )
+        db.session.flush()
+        db.session.execute(
+            insert(Profiles).values(
+                fk_account_id=account.lastrowid,
+                fk_display_picture_id=random.choice(DisplayPictures.select_all_display_picture_id()),
+                name_or_alias=name_or_alias,
+            )
+        )
         db.session.commit()
 
-        account = cls.select_using_email_address(email_address)
-        Profiles.create(account.account_id, random.choice(DisplayPictures.select_all_display_picture_id()))
-        return account
+        return cls.select_using_account_id(account.lastrowid)
 
     @classmethod
     def update(

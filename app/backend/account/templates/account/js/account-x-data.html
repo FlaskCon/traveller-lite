@@ -3,14 +3,14 @@
     document.addEventListener('alpine:init', () => {
 
         Alpine.data('account', () => ({
-            company_name: "{{ profile.company_name }}",
-            alias: "{{ profile.alias }}",
-            first_name: "{{ profile.first_name }}",
-            last_name: "{{ profile.last_name }}",
-            pronouns: "{{ profile.pronouns }}",
-            bio: "{{ profile.bio }}",
-            country: "{{ profile.country }}",
-            website: "{{ profile.website }}",
+            company_name: "{{ __account__.rel_profile[0].company_name }}",
+            alias: "{{ __account__.rel_profile[0].alias }}",
+            first_name: "{{ __account__.rel_profile[0].first_name }}",
+            last_name: "{{ __account__.rel_profile[0].last_name }}",
+            pronouns: "{{ __account__.rel_profile[0].pronouns }}",
+            bio: "{{ __account__.rel_profile[0].bio }}",
+            country: "{{ __account__.rel_profile[0].country }}",
+            website: "{{ __account__.rel_profile[0].website }}",
 
             signup_email_address: null,
             your_account_password: null,

@@ -1,0 +1,33 @@
+{% extends 'global/extends/backend.html' %}
+
+{% block title %}
+    Your Talks
+{% endblock %}
+
+{% block breadcrumbs %}
+    {{ breadcrumber([("Your Talks", None)]) }}
+{% endblock %}
+
+{% block content %}
+
+    <div>
+        <a class="button button-primary m-all-0" href="{{ url_for('account.propose_a_new_talk') }}">
+            Propose a new talk</a>
+    </div>
+
+    <div class="content-box">
+        <small><strong>Status:</strong> Preparation</small>
+        <h1 class="m-up-down-0">My Flask Talk About Something To Do With Flask</h1>
+        <p>abstract</p>
+        <div><a class="button button-primary m-all-0" href="#">Edit</a></div>
+    </div>
+
+    <div class="content-box text-center">
+        <p class="m-up-down-0">You don't have any talks.</p>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+{% endblock %}
+

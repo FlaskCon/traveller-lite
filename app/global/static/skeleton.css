@@ -389,6 +389,12 @@ label > .label-body {
     font-weight: normal;
 }
 
+.label-description {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-size: 90%;
+}
+
 
 /* Lists
 –––––––––––––––––––––––––––––––––––––––––––––––––– */

@@ -9,9 +9,7 @@ class Profiles(db.Model, MetaMixins):
     # {unique_display_picture_id: datetime earned}
 
     company_name = db.Column(db.String(250), nullable=True)
-    alias = db.Column(db.String(250), nullable=True)
-    first_name = db.Column(db.String(250), nullable=True)
-    last_name = db.Column(db.String(250), nullable=True)
+    name_or_alias = db.Column(db.String(250), nullable=True)
     pronouns = db.Column(db.String, nullable=True)
     bio = db.Column(db.String, nullable=True)
     country = db.Column(db.String, nullable=True)
@@ -43,11 +41,12 @@ class Profiles(db.Model, MetaMixins):
         ).scalar_one_or_none()
 
     @classmethod
-    def create(cls, account_id, display_picture_id):
+    def signup(cls, account_id, display_picture_id, name_or_alias):
         db.session.execute(
             insert(cls).values(
                 fk_account_id=account_id,
                 fk_display_picture_id=display_picture_id,
+                name_or_alias=name_or_alias,
             )
         )
         db.session.commit()

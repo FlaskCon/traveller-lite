@@ -1,0 +1,51 @@
+{% extends 'global/extends/backend.html' %}
+
+{% block title %}
+    Propose a New Talk
+{% endblock %}
+
+{% block breadcrumbs %}
+    {{ breadcrumber([("Your Talks", url_for('account.talks')), ("Propose a New Talk", None)]) }}
+{% endblock %}
+
+{% block content %}
+
+    <div>
+        <a class="button button-primary m-all-0" href="#">Save</a>
+    </div>
+
+    <div class="content-box">
+        <form method="post">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title">
+
+            <label for="abstract">
+                Abstract
+            </label>
+            <p class="label-description">
+                (A short description of your talk. If your talk is accepted, the
+                abstract will be published on the
+                conference website)
+            </p>
+            <textarea name="abstract" id="abstract"></textarea>
+
+            <label for="detail" class="m-down-0">
+                Detail
+            </label>
+            <p class="label-description">An in-depth explanation of your talk, read only by reviewers.</p>
+            <textarea name="detail" id="detail"></textarea>
+
+            <label for="detail">
+                Detail
+                <small style="margin-bottom: 1rem;">(an in-depth explanation of your talk, read only by
+                    reviewers)</small>
+            </label>
+            <textarea name="detail" id="detail"></textarea>
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+{% endblock %}
+

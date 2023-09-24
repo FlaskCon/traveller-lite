@@ -3,6 +3,7 @@ from . import *
 
 class Talks(db.Model, MetaMixins):
     talk_id = db.Column(db.Integer, primary_key=True)
+    fk_account_id = db.Column(db.Integer, db.ForeignKey("accounts.account_id"))
     fk_talk_status_id = db.Column(db.Integer, db.ForeignKey("talk_statuses.talk_status_id"))
 
     year = db.Column(db.Integer, nullable=False)  # This is taken on the date of submission

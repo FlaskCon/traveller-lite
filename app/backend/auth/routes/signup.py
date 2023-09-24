@@ -24,6 +24,7 @@ def signup():
             return redirect(url_for("auth.signup"))
 
         email_address = request.form.get("email_address")
+        name_or_alias = request.form.get("name_or_alias")
         password = request.form.get("password")
         confirm_password = request.form.get("confirm_password")
 
@@ -36,7 +37,7 @@ def signup():
                 flash("An account with that email address already exists")
                 return redirect(url_for("auth.signup"))
 
-            new_account = Accounts.create(email_address, password)
+            new_account = Accounts.signup(email_address, password, name_or_alias)
             if new_account:
                 EmailService(
                     email_settings).recipients(
