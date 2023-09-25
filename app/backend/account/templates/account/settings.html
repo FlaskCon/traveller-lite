@@ -1,0 +1,28 @@
+{% extends 'global/extends/backend.html' %}
+
+{% block title %}
+    Account Settings
+{% endblock %}
+
+{% block breadcrumbs %}
+    {{ breadcrumber([("Account Settings", None)]) }}
+{% endblock %}
+
+{% block content %}
+    <div class="container" x-data="account">
+        <h1>Settings</h1>
+        <div class="row">
+            <div class="six columns">
+
+            </div>
+            <div class="six columns">
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    {% include 'account/js/profile-x-data.html' %}
+{% endblock %}
+

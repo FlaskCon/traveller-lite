@@ -10,8 +10,8 @@ DEBUG = false
 #PROPAGATE_EXCEPTIONS = true
 TRAP_HTTP_EXCEPTIONS = false
 #TRAP_BAD_REQUEST_ERRORS = true
-SECRET_KEY = "v5Jzh8422JmcUj3iL8h8SvU2qvvGDmK8RdoXJQDgnhAED8dyhwUnTyEz9Uvm7Kf7RfELVdDVV5iiWJ"
-SESSION_COOKIE_NAME = "session"
+SECRET_KEY = "<SECRET_KEY>"
+SESSION_COOKIE_NAME = "flaskcon_session"
 #SESSION_COOKIE_DOMAIN = "domain-here.com"
 #SESSION_COOKIE_PATH = "/"
 SESSION_COOKIE_HTTPONLY = true
@@ -30,13 +30,19 @@ PREFERRED_URL_SCHEME = "http"
 EXPLAIN_TEMPLATE_LOADING = false
 MAX_COOKIE_SIZE = 4093
 
+EMAIL_USERNAME = "<EMAIL_USERNAME>"
+EMAIL_PASSWORD = "<EMAIL_PASSWORD>"
+EMAIL_SERVER = "<EMAIL_SERVER>"
+EMAIL_PORT = "<EMAIL_PORT>"
+
 
 # This will set the default session variables for the app.
 # Anything here will be accessible using session["your_var_name"]
 # or session.get("your_var_name")
 [SESSION]
-#logged_in = false
-#account_id = 0
+logged_in = false
+account_id = 0
+unique_display_picture_id = 1
 
 # These settings are spcific to the Flask-SQLAlchemy extension.
 # Anything here will be accessible using app.config
@@ -49,14 +55,14 @@ SQLALCHEMY_RECORD_QUERIES = false
 # Dialets = mysql / postgresql / sqlite / oracle / mssql
 
 # Uncomment below to generate the SQLALCHEMY_DATABASE_URI.
-#[DATABASE.MAIN]
-#ENABLED = true
-#DIALECT = "sqlite"
-#DATABASE_NAME = "database"
-#LOCATION = "database"
-#PORT = ""
-#USERNAME = "database"
-#PASSWORD = "password"
+[DATABASE.MAIN]
+ENABLED = true
+DIALECT = "sqlite"
+DATABASE_NAME = "database"
+LOCATION = "database"
+PORT = ""
+USERNAME = "database"
+PASSWORD = "password"
 
 # Adding another database is as simple as adding a new section.
 # [DATABASE.ANOTHER] will then be accessible using SQLALCHEMY_BINDS

@@ -1,0 +1,70 @@
+{% extends 'global/extends/backend.html' %}
+
+{% block title %}
+    Propose a New Talk
+{% endblock %}
+
+{% block breadcrumbs %}
+    {{ breadcrumber([("Your Talks", url_for('account.talks')), ("Propose a New Talk", None)]) }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="content-box m-down-4">
+        <form method="post">
+
+            <button type="submit" class="button-good">Save</button>
+
+            <div class="m-down-1"></div>
+
+            <label for="title">Title</label>
+            <p class="label-description">The title of your talk. (This field is required).</p>
+            <input type="text" id="title" name="title" class="w-100" required>
+
+            <label for="detail" class="m-down-0">
+                Detail
+            </label>
+            <p class="label-description">An in-depth explanation of your talk, read only by reviewers. (Markdown
+                supported).</p>
+            <textarea name="detail" id="detail" style="min-height: 800px;"></textarea>
+
+            <label for="abstract">
+                Abstract
+            </label>
+            <p class="label-description">
+                A short description of your talk.
+                If your talk is accepted, the
+                abstract will be published on the
+                conference website (Markdown supported).
+            </p>
+            <textarea name="abstract" id="abstract" style="min-height: 300px;"></textarea>
+
+            <label for="short_biography" class="m-down-0">
+                Short Biography
+            </label>
+            <p class="label-description">A short biography about yourself, your experience and or how much you love
+                Flask, or coding in general.
+                This will only be viewed by certain members of the committee and reviewers. (Markdown supported).</p>
+            <textarea name="short_biography" id="short_biography" style="min-height: 300px;"></textarea>
+
+            <label for="notes_or_requests" class="m-down-0">
+                Notes to the Committee
+            </label>
+            <p class="label-description">If you have any further requests or questions for the committee, you can
+                mention those here. (Markdown supported).</p>
+            <textarea name="notes_or_requests" id="notes_or_requests" style="min-height: 200px;"></textarea>
+
+            <label for="tags">Tags</label>
+            <p class="label-description">Comma seperated tags to help categorize your talk on the website.</p>
+            <input type="text" id="tags" name="tags" class="w-100" placeholder="Flask, SQLAlchemy">
+
+            <a href="#top" class="button w-100">Back to Top</a>
+
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+{% endblock %}
+

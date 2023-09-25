@@ -1,0 +1,29 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Main</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='skeleton.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='flaskcon.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='spacing.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='typography.css') }}">
+    <script defer src="{{ url_for('static', filename='alpinejs.3.13.0.js') }}"></script>
+</head>
+
+<body>
+
+<div class="fc-container-errors">
+    <img width="200" src="{{ url_for('static', filename='flaskcon-logo.svg') }}" alt="FlaskCon Logo">
+
+    {% block error %}
+
+    {% endblock %}
+
+    <a href="{{ url_for('www.index') }}">Back to homepage</a>
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,14 @@
+enabled = "yes"
+
+[settings]
+url_prefix = "/proposals"
+#subdomain = ""
+#url_defaults = {}
+static_folder = "static"
+template_folder = "templates"
+static_url_path = "/static/proposals"
+#root_path = ""
+#cli_group = ""
+
+[session]
+#proposals_session = "yes"

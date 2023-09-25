@@ -1,0 +1,14 @@
+enabled = "yes"
+
+[settings]
+url_prefix = "/talks"
+#subdomain = ""
+#url_defaults = {}
+static_folder = "static"
+template_folder = "templates"
+static_url_path = "/static/talks"
+#root_path = ""
+#cli_group = ""
+
+[session]
+#talks_session = "yes"

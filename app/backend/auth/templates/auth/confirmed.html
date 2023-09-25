@@ -1,0 +1,10 @@
+{% extends 'global/extends/backend-auth.html' %}
+
+{% block content %}
+    <div class="auth">
+        <div>
+            <p>Your account has been confirmed!</p>
+        </div>
+        <a href="{{ url_for('auth.login') }}" class="button button-primary">Login Here</a>
+    </div>
+{% endblock %}

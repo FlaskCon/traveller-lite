@@ -1,0 +1,40 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Main</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='skeleton.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='flaskcon.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='spacing.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='typography.css') }}">
+    <script defer src="{{ url_for('static', filename='alpinejs.3.13.0.js') }}"></script>
+</head>
+
+<body x-data="authMain">
+
+{% if get_flashed_messages() %}
+    <div class="flash-message" @click="$el.remove()">
+        {% for message in get_flashed_messages() %}
+            <div class="flash-message-item">{{ message }}</div>
+        {% endfor %}
+        <small>click to close</small>
+    </div>
+{% endif %}
+
+<div class="auth-fc-container">
+
+    <img width="150" src="{{ url_for('static', filename='flaskcon-logo.svg') }}" alt="FlaskCon Logo">
+
+
+    {% block content %}
+    {% endblock %}
+
+</div>
+
+{% block js %}
+{% endblock %}
+</body>
+
+</html>
