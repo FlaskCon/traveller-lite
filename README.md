@@ -1,4 +1,4 @@
-## Setup
+# Setup
 
 (This assumes you have Python installed)
 
@@ -53,7 +53,33 @@ python -m venv venv
 pip install -r requirements.txt
 ```
 
-## Run the app
+# Email Service Setup
+
+Add the following to your .env file. (or copy the .env-example file and rename it to .env
+
+```text
+EMAIL_DEV_MODE=1
+EMAIL_USERNAME=here
+EMAIL_PASSWORD=here
+EMAIL_SERVER=here
+EMAIL_PORT=0
+```
+
+When in development mode, make sure the EMAIL_DEV_MODE is set to 1. This will prevent the app from sending emails.
+
+**Account confirmation and Password reset links that would usually be emailed will appear in the terminal**
+
+# Seed the starting data
+
+Run the following command to seed the database with the starting data, and create the admin account.
+
+```bash
+flask seed
+```
+
+The email address used doesn't need to be real, as no emails will be sent.
+
+# Run the app
 
 ```bash
 flask run
@@ -67,14 +93,18 @@ flask run --debug
 
 **Run with gunicorn**
 
+```bash
+gunicorn
+```
+
 **Note:**
 
 - gunicorn will not work under windows
 - this will pick up the gunicorn.config.py file
 
-```bash
-gunicorn
-```
+-----
+
+# Deployment
 
 ## Docker
 

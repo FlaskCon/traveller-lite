@@ -1,11 +1,11 @@
-from typing import Optional
-from smtplib import SMTP
-from ssl import create_default_context
-from smtplib import SMTPException
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from pathlib import Path
+from smtplib import SMTP
+from smtplib import SMTPException
+from ssl import create_default_context
+from typing import Optional
 
 
 class EmailServiceSettings:
@@ -14,7 +14,8 @@ class EmailServiceSettings:
     server: str
     port: int
 
-    def __init__(self, username: str, password: str, server: str, port: int):
+    def __init__(self, dev_mode: int, username: str, password: str, server: str, port: int):
+        self.dev_mode = True if dev_mode == 1 else False
         self.username = username
         self.password = password
         self.server = server
@@ -22,6 +23,7 @@ class EmailServiceSettings:
 
 
 class EmailService:
+    dev_mode: bool
     username: str
     password: str
     server: str
@@ -39,6 +41,7 @@ class EmailService:
     _attachments: set[tuple[Path, str]]
 
     def __init__(self, settings: EmailServiceSettings):
+        self.dev_mode = settings.dev_mode
         self.username = settings.username
         self.password = settings.password
         self.server = settings.server
@@ -158,6 +161,10 @@ class EmailService:
         self._msg.add_header('Reply-To', self._reply_to)
         self._msg.add_header('From', self._from)
         self._msg.add_header('Subject', self._subject)
+
+        if self.dev_mode:
+            print(self)
+            return True
 
         try:
             with SMTP(self.server, self.port) as connection:
