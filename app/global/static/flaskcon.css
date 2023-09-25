@@ -86,49 +86,17 @@
 }
 
 .fc-container > aside {
-    background-color: rgba(255, 255, 255, 0.80);
+    background-color: rgba(255, 255, 255, 0.95);
     border-right: 1px solid rgba(229, 229, 229, 0.5);
     height: 100vh;
     z-index: 9;
+    position: fixed;
 }
 
-.product-info {
-    display: flex;
-    flex-direction: column;
-    border-top: 1px solid rgba(229, 229, 229, 0.5);
-    margin-top: 2rem;
-    padding: 2rem;
-}
-
-.product-info img {
-    width: 100px;
-}
-
-.accountlet {
-    padding: 4rem 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.accountlet img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin-bottom: 1rem;
-}
-
-.top-nav {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    min-height: 80px;
-}
-
-.top-nav div {
-    padding: 0 1rem;
+.dummy-side-nav {
+    display: block;
+    width: 250px;
+    padding: 0 2rem;
 }
 
 .side-nav {
@@ -173,6 +141,45 @@
     background-color: rgba(56, 168, 190, 0.1);
 }
 
+.product-info {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid rgba(229, 229, 229, 0.5);
+    margin-top: 2rem;
+    padding: 2rem;
+}
+
+.product-info img {
+    width: 100px;
+}
+
+.accountlet {
+    padding: 4rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.accountlet img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+}
+
+.top-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: 80px;
+}
+
+.top-nav div {
+    padding: 0 1rem;
+}
+
 .center-content {
     border: 1px solid rgba(229, 229, 229, 0.80);
     max-width: 1400px;
@@ -197,6 +204,31 @@
     padding: 2rem;
 }
 
-.content-box input, textarea {
+.auth-content-box input, textarea {
     width: 100%;
+}
+
+.form-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.warning {
+    background-color: rgba(255, 0, 0, 0.05);
+    border-radius: 8px;
+    padding: 2rem;
+    font-weight: bold;
+}
+
+.note {
+    background-color: rgba(12, 12, 12, 0.05);
+    border-radius: 8px;
+    padding: 2rem;
+    font-weight: bold;
+}
+
+.warning p {
+    margin: 0;
 }

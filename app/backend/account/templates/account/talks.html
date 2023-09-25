@@ -15,16 +15,37 @@
             Propose a new talk</a>
     </div>
 
-    <div class="content-box">
-        <small><strong>Status:</strong> Preparation</small>
-        <h1 class="m-up-down-0">My Flask Talk About Something To Do With Flask</h1>
-        <p>abstract</p>
-        <div><a class="button button-primary m-all-0" href="#">Edit</a></div>
-    </div>
+    {% if talks %}
+        {% for talk in talks %}
+            <div class="content-box">
+                <div><small><strong>Status:</strong> {{ talk.talk_status }}</small>
+                    <small><strong>Year:</strong> {{ talk.year }}</small></div>
 
-    <div class="content-box text-center">
-        <p class="m-up-down-0">You don't have any talks.</p>
-    </div>
+                <h1 class="m-up-1 m-down-2">{{ talk.title }}</h1>
+
+                <div>
+                    {% if talk.talk_status == "Preparation" or talk.talk_status == "Change Requested" %}
+                        <a class="button button-primary m-all-0"
+                           href="{{ url_for('account.talk', talk_id=talk.talk_id) }}">Edit</a>
+                    {% else %}
+
+                        <button disabled class="button-primary">Edit</button>
+
+                    {% endif %}
+                    <a class="button button-primary m-all-0"
+                       href="{{ url_for('account.view_talk', talk_id=talk.talk_id) }}">View</a>
+                </div>
+
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="content-box text-center">
+            <p class="m-up-down-0">You don't have any talks.</p>
+        </div>
+    {% endif %}
+
+
+
 
 {% endblock %}
 

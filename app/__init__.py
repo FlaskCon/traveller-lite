@@ -1,13 +1,15 @@
 import os
 
-from flask import Flask
-from app.extensions import imp, db
-
 from dotenv import load_dotenv
+from flask import Flask
+
+from app.extensions import imp, db
 
 load_dotenv()
 
 DEV_MODE = True if os.environ.get("DEV_MODE") else False
+# os.environ["SECRET_KEY"] = os.urandom(110).hex()
+os.environ["SECRET_KEY"] = "flaskcon2023"
 
 
 def create_app():

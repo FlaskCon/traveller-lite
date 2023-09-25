@@ -10,23 +10,43 @@
 
 {% block content %}
 
-    <div class="content-box m-down-4">
+    <div class="content-box m-down-4" x-data="talk">
         <form method="post">
 
-            <button type="submit" class="button-good">Save</button>
+            <input type="hidden" x-model="submit_proposal" name="submit_proposal">
+
+            <button type="submit" class="button-good" :disabled="submit_proposal">Save for later</button>
+
+            <button
+                    type="button"
+                    @click="submit_proposal = !submit_proposal"
+                    :class="submit_proposal ? 'button-warning' : 'button-primary'"
+            >Propose your talk
+            </button>
+
+            <div x-cloak x-show="submit_proposal">
+                <div class="warning m-down-2">
+
+                    <p class="m-up-down-1">Are you sure you want to submit your proposal? </p>
+                    <p class="m-up-1 m-down-2">Your talk will be sent to the committee for review. You won't be able to
+                        edit it after submission.</p>
+
+                    <button type="submit" class="button-good">Submit</button>
+                    <button type="button" @click="submit_proposal = false">Cancel</button>
+                </div>
+            </div>
 
             <div class="m-down-1"></div>
 
             <label for="title">Title</label>
-            <p class="label-description">The title of your talk. (This field is required).</p>
-            <input type="text" id="title" name="title" class="w-100" required>
+            <input type="text" id="title" name="title" class="w-100" value="{{ talk.title }}">
 
             <label for="detail" class="m-down-0">
                 Detail
             </label>
             <p class="label-description">An in-depth explanation of your talk, read only by reviewers. (Markdown
                 supported).</p>
-            <textarea name="detail" id="detail" style="min-height: 800px;"></textarea>
+            <textarea name="detail" id="detail" style="min-height: 800px;">{{ talk.detail }}</textarea>
 
             <label for="abstract">
                 Abstract
@@ -37,7 +57,7 @@
                 abstract will be published on the
                 conference website (Markdown supported).
             </p>
-            <textarea name="abstract" id="abstract" style="min-height: 300px;"></textarea>
+            <textarea name="abstract" id="abstract" style="min-height: 300px;">{{ talk.abstract }}</textarea>
 
             <label for="short_biography" class="m-down-0">
                 Short Biography
@@ -45,18 +65,18 @@
             <p class="label-description">A short biography about yourself, your experience and or how much you love
                 Flask, or coding in general.
                 This will only be viewed by certain members of the committee and reviewers. (Markdown supported).</p>
-            <textarea name="short_biography" id="short_biography" style="min-height: 300px;"></textarea>
+            <textarea name="short_biography" id="short_biography" style="min-height: 300px;">{{ talk.short_biography }}</textarea>
 
             <label for="notes_or_requests" class="m-down-0">
                 Notes to the Committee
             </label>
             <p class="label-description">If you have any further requests or questions for the committee, you can
                 mention those here. (Markdown supported).</p>
-            <textarea name="notes_or_requests" id="notes_or_requests" style="min-height: 200px;"></textarea>
+            <textarea name="notes_or_requests" id="notes_or_requests" style="min-height: 200px;">{{ talk.notes_or_requests }}</textarea>
 
             <label for="tags">Tags</label>
             <p class="label-description">Comma seperated tags to help categorize your talk on the website.</p>
-            <input type="text" id="tags" name="tags" class="w-100" placeholder="Flask, SQLAlchemy">
+            <input type="text" id="tags" name="tags" class="w-100" placeholder="Flask, SQLAlchemy" value="{{ talk.tags }}">
 
             <a href="#top" class="button w-100">Back to Top</a>
 
@@ -66,5 +86,6 @@
 {% endblock %}
 
 {% block js %}
+    {% include 'account/js/talk-x-data.html' %}
 {% endblock %}
 

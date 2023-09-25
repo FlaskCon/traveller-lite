@@ -2,7 +2,7 @@ import os
 
 from flask_imp import Imp
 from flask_sqlalchemy import SQLAlchemy
-from .email_service import EmailServiceSettings, EmailService
+from app.utilities.email_service import EmailServiceSettings, EmailService
 
 imp = Imp()
 db = SQLAlchemy()

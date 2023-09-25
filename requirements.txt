@@ -3,3 +3,5 @@ flask-imp==2.4.0
 gunicorn
 pytz
 python-dotenv
+mistune
+pygments

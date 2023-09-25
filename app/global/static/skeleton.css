@@ -248,6 +248,16 @@ a:hover {
     cursor: not-allowed;
 }
 
+input:disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
+}
+
+button:disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
+}
+
 .button,
 button,
 input[type="submit"],
@@ -310,6 +320,84 @@ input[type="button"].button-primary:focus {
     color: #FFF;
     background-color: #1EAEDB;
     border-color: #1EAEDB;
+}
+
+
+.button.button-warning,
+button.button-warning,
+input[type="submit"].button-warning,
+input[type="reset"].button-warning,
+input[type="button"].button-warning {
+    color: #FFF;
+    background-color: #dca225;
+    border-color: #d59e28;
+}
+
+.button.button-warning:hover,
+button.button-warning:hover,
+input[type="submit"].button-warning:hover,
+input[type="reset"].button-warning:hover,
+input[type="button"].button-warning:hover,
+.button.button-warning:focus,
+button.button-warning:focus,
+input[type="submit"].button-warning:focus,
+input[type="reset"].button-warning:focus,
+input[type="button"].button-warning:focus {
+    color: #FFF;
+    background-color: #db9f1e;
+    border-color: #ce961d;
+}
+
+
+.button.button-good,
+button.button-good,
+input[type="submit"].button-good,
+input[type="reset"].button-good,
+input[type="button"].button-good {
+    color: #FFF;
+    background-color: #93dc25;
+    border-color: #8acc26;
+}
+
+.button.button-good:hover,
+button.button-good:hover,
+input[type="submit"].button-good:hover,
+input[type="reset"].button-good:hover,
+input[type="button"].button-good:hover,
+.button.button-good:focus,
+button.button-good:focus,
+input[type="submit"].button-good:focus,
+input[type="reset"].button-good:focus,
+input[type="button"].button-good:focus {
+    color: #FFF;
+    background-color: #7ebe1d;
+    border-color: #76b21b;
+}
+
+
+.button.button-bad,
+button.button-bad,
+input[type="submit"].button-bad,
+input[type="reset"].button-bad,
+input[type="button"].button-bad {
+    color: #FFF;
+    background-color: #dc2525;
+    border-color: #f13e3e;
+}
+
+.button.button-bad:hover,
+button.button-bad:hover,
+input[type="submit"].button-bad:hover,
+input[type="reset"].button-bad:hover,
+input[type="button"].button-bad:hover,
+.button.button-bad:focus,
+button.button-bad:focus,
+input[type="submit"].button-bad:focus,
+input[type="reset"].button-bad:focus,
+input[type="button"].button-bad:focus {
+    color: #FFF;
+    background-color: #bd2020;
+    border-color: #c02b2b;
 }
 
 
@@ -392,7 +480,7 @@ label > .label-body {
 .label-description {
     margin-top: 0;
     margin-bottom: 0.5rem;
-    font-size: 90%;
+    font-size: 95%;
 }
 
 
@@ -482,10 +570,13 @@ blockquote,
 dl,
 figure,
 table,
-p,
 ul,
 ol {
     margin-bottom: 2.5rem;
+}
+
+p {
+    margin: 0 0 1.5rem;
 }
 
 

@@ -7,8 +7,8 @@
     <title>{% block title %}{% endblock %} | FlaskCon</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='skeleton.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='flaskcon.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='spacing.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='typography.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='spacing.css') }}">
     <script defer src="{{ url_for('static', filename='alpinejs.3.13.0.js') }}"></script>
 
     {% set __account__ = ctp_account(session.get('account_id')) %}
@@ -16,6 +16,7 @@
 </head>
 
 <body>
+<a id="top"></a>
 
 <div class="fc-container">
 
@@ -54,6 +55,10 @@
         </div>
 
     </aside>
+
+    <div class="dummy-side-nav">
+
+    </div>
 
     <section class="content">
         <header>

@@ -1,16 +1,12 @@
-from flask import render_template
+from flask import render_template, session
 from flask_imp.security import login_check
 
+from app.models.talks import Talks
 from .. import bp
 
 
 @bp.route("/talks", methods=["GET"])
 @login_check("logged_in", True, "auth.login")
 def talks():
-    return render_template(bp.tmpl("talks.html"))
-
-
-@bp.route("/talks/propose-a-new-talk", methods=["GET"])
-@login_check("logged_in", True, "auth.login")
-def propose_a_new_talk():
-    return render_template(bp.tmpl("propose-a-new-talk.html"))
+    talks_ = Talks.select_using_account_id(session.get("account_id"))
+    return render_template(bp.tmpl("talks.html"), talks=talks_)
