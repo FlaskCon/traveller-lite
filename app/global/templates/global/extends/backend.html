@@ -15,8 +15,19 @@
 
 </head>
 
-<body>
+<body x-data="{}">
 <a id="top"></a>
+
+
+{% if get_flashed_messages() %}
+    <div class="flash-message" @click="$el.remove()">
+        {% for message in get_flashed_messages() %}
+            <div class="flash-message-item">{{ message }}</div>
+        {% endfor %}
+        <small>click to close</small>
+    </div>
+{% endif %}
+
 
 <div class="fc-container">
 

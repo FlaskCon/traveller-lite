@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Main</title>
+    <title>{% block title %}{% endblock %} | FlaskCon</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='skeleton.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='flaskcon.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='spacing.css') }}">
@@ -12,7 +12,7 @@
     <script defer src="{{ url_for('static', filename='alpinejs.3.13.0.js') }}"></script>
 </head>
 
-<body x-data="authMain">
+<body x-data="{}">
 
 {% if get_flashed_messages() %}
     <div class="flash-message" @click="$el.remove()">

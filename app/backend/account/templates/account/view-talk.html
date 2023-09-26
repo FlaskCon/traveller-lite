@@ -1,11 +1,11 @@
 {% extends 'global/extends/backend.html' %}
 
 {% block title %}
-    Propose a New Talk
+    View - {{ talk.title }}
 {% endblock %}
 
 {% block breadcrumbs %}
-    {{ breadcrumber([("Your Talks", url_for('account.talks')), ("Propose a New Talk", None)]) }}
+    {{ breadcrumber([("Your Talks", url_for('account.talks')), (talk.title + ' (View)', None)]) }}
 {% endblock %}
 
 {% block content %}

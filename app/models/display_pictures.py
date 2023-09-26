@@ -7,6 +7,7 @@ class DisplayPictures(db.Model, MetaMixins):
     filename = db.Column(db.Integer, nullable=False)
     attribution = db.Column(db.String, nullable=False)
     attribution_url = db.Column(db.String, nullable=False)
+    note = db.Column(db.String, nullable=True)
     limited = db.Column(db.Boolean, nullable=False, default=False)
 
     @classmethod
@@ -42,7 +43,8 @@ class DisplayPictures(db.Model, MetaMixins):
                     filename=item["filename"],
                     attribution=item["attribution"],
                     attribution_url=item["attribution_url"],
-                    limited=False,
+                    note=item["note"],
+                    limited=item["limited"],
                 )
             )
         db.session.commit()

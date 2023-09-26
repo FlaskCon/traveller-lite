@@ -152,6 +152,7 @@ class Accounts(db.Model, MetaMixins):
                 fk_account_id=account.lastrowid,
                 fk_display_picture_id=random.choice(DisplayPictures.select_all_display_picture_id()),
                 name_or_alias=name_or_alias,
+                earned_display_pictures={"earned": []}
             )
         )
         db.session.commit()

@@ -12,7 +12,7 @@
     background-color: rgba(56, 168, 190, 1);
     color: #fff;
     text-align: center;
-    font-size: 1.2rem;
+    font-size: 1.8rem;
     z-index: 9999;
     cursor: pointer;
 }
@@ -161,10 +161,11 @@
 }
 
 .accountlet img {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     margin-bottom: 1rem;
+    border: 2px solid rgb(0, 211, 255) !important;
 }
 
 .top-nav {
@@ -231,4 +232,38 @@
 
 .warning p {
     margin: 0;
+}
+
+.display-picture-choice {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: start;
+    align-items: center;
+    gap: 2rem;
+}
+
+.display-picture-choice img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 8px solid rgba(255, 255, 255, 0);
+    cursor: pointer;
+}
+
+.display-picture-selected {
+    border: 8px solid rgb(0, 211, 255) !important;
+}
+
+.display_picture_box {
+    background-color: rgba(12, 12, 12, 0.05);
+    border-radius: 8px;
+    padding: 2rem;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    max-width: 170px;
+    text-align: center;
+    gap: 1rem;
+    align-items: center;
 }

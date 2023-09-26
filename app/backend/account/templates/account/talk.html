@@ -1,11 +1,11 @@
 {% extends 'global/extends/backend.html' %}
 
 {% block title %}
-    Propose a New Talk
+    Edit - {{ talk.title }}
 {% endblock %}
 
 {% block breadcrumbs %}
-    {{ breadcrumber([("Your Talks", url_for('account.talks')), ("Propose a New Talk", None)]) }}
+    {{ breadcrumber([("Your Talks", url_for('account.talks')), (talk.title + ' (Edit)', None)]) }}
 {% endblock %}
 
 {% block content %}
@@ -14,6 +14,7 @@
         <form method="post">
 
             <input type="hidden" x-model="submit_proposal" name="submit_proposal">
+            <input type="hidden" name="csrf" value="{{ csrf }}">
 
             <button type="submit" class="button-good" :disabled="submit_proposal">Save for later</button>
 
@@ -65,18 +66,21 @@
             <p class="label-description">A short biography about yourself, your experience and or how much you love
                 Flask, or coding in general.
                 This will only be viewed by certain members of the committee and reviewers. (Markdown supported).</p>
-            <textarea name="short_biography" id="short_biography" style="min-height: 300px;">{{ talk.short_biography }}</textarea>
+            <textarea name="short_biography" id="short_biography"
+                      style="min-height: 300px;">{{ talk.short_biography }}</textarea>
 
             <label for="notes_or_requests" class="m-down-0">
                 Notes to the Committee
             </label>
             <p class="label-description">If you have any further requests or questions for the committee, you can
                 mention those here. (Markdown supported).</p>
-            <textarea name="notes_or_requests" id="notes_or_requests" style="min-height: 200px;">{{ talk.notes_or_requests }}</textarea>
+            <textarea name="notes_or_requests" id="notes_or_requests"
+                      style="min-height: 200px;">{{ talk.notes_or_requests }}</textarea>
 
             <label for="tags">Tags</label>
             <p class="label-description">Comma seperated tags to help categorize your talk on the website.</p>
-            <input type="text" id="tags" name="tags" class="w-100" placeholder="Flask, SQLAlchemy" value="{{ talk.tags }}">
+            <input type="text" id="tags" name="tags" class="w-100" placeholder="Flask, SQLAlchemy"
+                   value="{{ talk.tags }}">
 
             <a href="#top" class="button w-100">Back to Top</a>
 

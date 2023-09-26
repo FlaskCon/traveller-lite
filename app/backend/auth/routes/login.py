@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from flask import (
     render_template,
     request,
@@ -6,11 +8,11 @@ from flask import (
     session,
     flash
 )
-from flask_imp import Auth
 from flask_imp.security import login_check, include_csrf
 
 from app.models.accounts import Accounts
 from app.models.display_pictures import DisplayPictures
+from app.models.profiles import Profiles
 from .. import bp
 
 
@@ -40,13 +42,19 @@ def login():
                 if not account.rel_profile:
                     account.create_profile()
 
-                display_picture = account.rel_profile[0].fk_display_picture_id or 1
+                display_picture_id = account.rel_profile[0].fk_display_picture_id or 1
 
                 session["logged_in"] = True
                 session["account_id"] = account.account_id
                 session["unique_display_picture_id"] = DisplayPictures.select_using_display_picture_id(
-                    display_picture
+                    display_picture_id
                 ).unique_display_picture_id
+
+                if DisplayPictures.select_using_unique_display_picture_id(datetime.now().year):
+                    Profiles.add_earned_display_picture(
+                        account.account_id, datetime.now().year
+                    )
+
                 return redirect(url_for("account.index"))
             else:
                 flash("Incorrect email address or password")

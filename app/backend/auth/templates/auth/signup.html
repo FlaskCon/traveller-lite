@@ -1,7 +1,11 @@
 {% extends 'global/extends/backend-auth.html' %}
 
+{% block title %}
+    Signup
+{% endblock %}
+
 {% block content %}
-    <div class="auth">
+    <div class="auth" x-data="authMain">
         <form method="post">
             <label for="email_address">Email</label>
             <input type="text" name="email_address" id="email_address" x-model="signup_email_address">

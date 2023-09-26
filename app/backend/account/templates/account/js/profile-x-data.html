@@ -3,14 +3,21 @@
     document.addEventListener('alpine:init', () => {
 
         Alpine.data('profile', () => ({
-            company_name: "{{ __account__.rel_profile[0].company_name }}",
-            alias: "{{ __account__.rel_profile[0].alias }}",
-            first_name: "{{ __account__.rel_profile[0].first_name }}",
-            last_name: "{{ __account__.rel_profile[0].last_name }}",
-            pronouns: "{{ __account__.rel_profile[0].pronouns }}",
-            bio: "{{ __account__.rel_profile[0].bio }}",
-            country: "{{ __account__.rel_profile[0].country }}",
-            website: "{{ __account__.rel_profile[0].website }}",
+            account_display_picture: parseInt('{{ profile.fk_display_picture_id }}'),
+
+            init() {
+                const display_picture = document.getElementById('db_' + this.account_display_picture);
+                display_picture.classList.add('display-picture-selected');
+            },
+
+            selectDisplayPicture(display_picture_id) {
+                const last_display_picture = document.getElementById('db_' + this.account_display_picture);
+                const display_picture = document.getElementById('db_' + display_picture_id);
+
+                this.account_display_picture = display_picture_id;
+                last_display_picture.classList.remove('display-picture-selected');
+                display_picture.classList.add('display-picture-selected');
+            }
 
         }));
 

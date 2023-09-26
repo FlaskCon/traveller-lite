@@ -5,3 +5,4 @@ pytz
 python-dotenv
 mistune
 pygments
+pycountry

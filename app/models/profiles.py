@@ -6,7 +6,7 @@ class Profiles(db.Model, MetaMixins):
     fk_account_id = db.Column(db.Integer, db.ForeignKey("accounts.account_id"), nullable=False)
     fk_display_picture_id = db.Column(db.Integer, db.ForeignKey("display_pictures.display_picture_id"), nullable=True)
     earned_display_pictures = db.Column(db.JSON, nullable=True)
-    # {unique_display_picture_id: datetime earned}
+    # {"earned": [unique_display_picture_id, ...]}
 
     company_name = db.Column(db.String(250), nullable=True)
     name_or_alias = db.Column(db.String(250), nullable=True)
@@ -49,4 +49,26 @@ class Profiles(db.Model, MetaMixins):
                 name_or_alias=name_or_alias,
             )
         )
+        db.session.commit()
+
+    @classmethod
+    def add_earned_display_picture(cls, account_id, unique_display_picture_id):
+        profile = cls.select_using_account_id(account_id)
+        if profile.earned_display_pictures:
+            earned = profile.earned_display_pictures.get("earned", [])
+        else:
+            earned = []
+
+        if earned:
+            if unique_display_picture_id not in earned:
+                earned.append(unique_display_picture_id)
+        else:
+            earned.append(unique_display_picture_id)
+
+        profile.earned_display_pictures = {"earned": [*earned]}
+
+        db.session.commit()
+
+    @staticmethod
+    def save():
         db.session.commit()

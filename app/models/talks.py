@@ -136,7 +136,7 @@ class Talks(db.Model, MetaMixins):
         if tags:
             self.tags = tags
 
-        if submit_proposal != "false":
+        if submit_proposal:
             self.fk_talk_status_id = TalkStatuses.select_using_unique_talk_status_id(102).talk_status_id
 
         db.session.commit()

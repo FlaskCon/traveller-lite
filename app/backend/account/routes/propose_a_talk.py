@@ -1,15 +1,16 @@
 import mistune
 from flask import render_template, request, session, redirect, url_for
-from flask_imp.security import login_check
+from flask_imp.security import login_check, include_csrf
 
 from app.models.talks import Talks
 from app.utilities.render_engines import HighlightRenderer
 from .. import bp
 
 
-@bp.route("/talks/propose-a-new-talk", methods=["GET", "POST"])
+@bp.route("/talks/propose-a-talk", methods=["GET", "POST"])
 @login_check("logged_in", True, "auth.login")
-def propose_a_new_talk():
+@include_csrf()
+def propose_a_talk():
     if request.method == "POST":
         title = request.form.get("title")
         detail = request.form.get("detail")
@@ -56,4 +57,4 @@ def propose_a_new_talk():
 
         return redirect(url_for("account.talk", talk_id=talk_id))
 
-    return render_template(bp.tmpl("propose-a-new-talk.html"))
+    return render_template(bp.tmpl("propose-a-talk.html"), csrf=session.get("csrf"))

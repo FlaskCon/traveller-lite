@@ -5,13 +5,15 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-    {{ breadcrumber([("Your Talks", url_for('account.talks')), ("Propose a New Talk", None)]) }}
+    {{ breadcrumber([("Your Talks", url_for('account.talks')), ("Propose a Talk", None)]) }}
 {% endblock %}
 
 {% block content %}
 
     <div class="content-box m-down-4">
         <form method="post">
+
+            <input type="hidden" name="csrf" value="{{ csrf }}">
 
             <button type="submit" class="button-good">Save</button>
 
