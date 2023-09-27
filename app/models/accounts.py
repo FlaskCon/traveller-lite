@@ -25,6 +25,7 @@ class Accounts(db.Model, MetaMixins):
         "Profiles",
         primaryjoin="Accounts.account_id==Profiles.fk_account_id",
         viewonly=True,
+        uselist=False,
     )
 
     rel_talks = relationship(
@@ -32,6 +33,10 @@ class Accounts(db.Model, MetaMixins):
         primaryjoin="Accounts.account_id==Talks.fk_account_id",
         viewonly=True,
     )
+
+    @staticmethod
+    def save():
+        db.session.commit()
 
     @classmethod
     def exists(cls, email_address) -> bool:
@@ -58,7 +63,7 @@ class Accounts(db.Model, MetaMixins):
     @classmethod
     def select_all(cls):
         return db.session.execute(
-            select(cls).order_by(cls.email_address)
+            select(cls).order_by(cls.created.desc())
         ).scalars().all()
 
     @classmethod
@@ -135,6 +140,7 @@ class Accounts(db.Model, MetaMixins):
         from flask_imp.auth import Auth
         from app.models.profiles import Profiles
         from app.models.display_pictures import DisplayPictures
+        from .roles_membership import RolesMembership
         import random
 
         salt = Auth.generate_salt()
@@ -158,6 +164,12 @@ class Accounts(db.Model, MetaMixins):
                 fk_display_picture_id=random.choice(DisplayPictures.select_all_display_picture_id()),
                 name_or_alias=name_or_alias,
                 earned_display_pictures={"earned": []}
+            )
+        )
+        db.session.execute(
+            insert(RolesMembership).values(
+                fk_account_id=account.lastrowid,
+                fk_role_id=15,
             )
         )
         db.session.commit()

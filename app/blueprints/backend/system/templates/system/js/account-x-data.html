@@ -1,0 +1,12 @@
+<script defer type="application/javascript">
+
+    document.addEventListener('alpine:init', () => {
+
+        Alpine.data('account', () => ({
+            all_roles: {{ all_roles_as_json|tojson }},
+            disabled: {{ 'true' if this_account.disabled else 'false' }},
+        }));
+
+    })
+
+</script>

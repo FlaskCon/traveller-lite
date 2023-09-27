@@ -103,6 +103,7 @@
     display: block;
     width: 250px;
     padding: 0 2rem;
+    text-align: center;
 }
 
 .side-nav ul {
@@ -158,6 +159,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.accountlet p {
+    font-weight: bold;
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
 }
 
 .accountlet img {
@@ -230,6 +237,18 @@
     font-weight: bold;
 }
 
+.attention-content {
+    background-color: rgba(203, 203, 203, 0.05);
+    border: 1px solid rgba(30, 30, 30, 0.1);
+    border-radius: 8px;
+    padding: 2rem;
+    margin-bottom: 1rem;
+}
+
+.attention-content p {
+    margin: 0;
+}
+
 .warning p {
     margin: 0;
 }
@@ -255,7 +274,7 @@
     border: 8px solid rgb(0, 211, 255) !important;
 }
 
-.display_picture_box {
+.display-picture-box {
     background-color: rgba(12, 12, 12, 0.05);
     border-radius: 8px;
     padding: 2rem;
@@ -266,4 +285,64 @@
     text-align: center;
     gap: 1rem;
     align-items: center;
+}
+
+.roles-choice {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: start;
+    align-items: center;
+    gap: 2rem;
+
+}
+
+.roles-choice p {
+    margin: 0;
+    font-weight: bold;
+}
+
+.role-choice {
+    background-color: rgba(12, 12, 12, 0.05);
+    border-radius: 8px;
+    padding: 2rem;
+    cursor: pointer;
+}
+
+.role-choice:hover {
+    background-color: rgba(0, 225, 255, 0.05);
+    border-radius: 8px;
+    padding: 2rem;
+    cursor: pointer;
+}
+
+.role-choice-selected {
+    background-color: rgba(0, 225, 255, 0.2);
+    border-radius: 8px;
+    padding: 2rem;
+    cursor: pointer;
+}
+
+.account-enable-disable {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+
+.account-status {
+    border-radius: 8px;
+    padding: 0.5rem 1.5rem;
+    text-transform: uppercase;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+}
+
+.account-enabled {
+    background-color: rgba(16, 128, 0, 0.9);
+}
+
+.account-disabled {
+    background-color: rgba(128, 0, 0, 0.9);
 }

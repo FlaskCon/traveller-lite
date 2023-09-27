@@ -36,12 +36,13 @@
             <img width="200"
                  src="{{ url_for('static', filename='display-pictures/' + ctp_display_picture(session.get('unique_display_picture_id', 1))) }}"
                  alt="">
-            <p>{{ __account__.rel_profile[0].name_or_alias or __account__.email_address.split('@')[0] }}</p>
+            <p>{{ __account__.rel_profile.name_or_alias or __account__.email_address.split('@')[0] }}</p>
             <div><a href="{{ url_for('account.settings') }}">Settings</a></div>
             <div><a href="{{ url_for('auth.logout') }}">Logout</a></div>
         </div>
 
         <nav class="side-nav">
+
             <ul>
                 <li><a href="{{ url_for('account.dashboard') }}"
                        {% if 'dashboard' in request.url %}class="selected"{% endif %}>
@@ -52,13 +53,22 @@
                 <li><a href="{{ url_for('account.talks') }}"
                        {% if 'talk' in request.url %}class="selected"{% endif %}>
                     Your Talks</a></li>
-                {#                <li><a href="#">#}
-                {#                    Become a Sponsor</a></li>#}
-                {#                <li><a href="#">#}
-                {#                    Volunteer</a></li>#}
-                {#                <li><a href="#">#}
-                {#                    Donate <3</a></li>#}
             </ul>
+
+            <p class="m-up-1"><strong>Committee</strong></p>
+            <ul>
+                <li><a href="#"
+                       {% if 'proposals' in request.url %}class="selected"{% endif %}>
+                    Proposals</a></li>
+            </ul>
+
+            <p class="m-up-1"><strong>System</strong></p>
+            <ul>
+                <li><a href="{{ url_for('system.accounts') }}"
+                       {% if 'system/accounts' in request.url %}class="selected"{% endif %}>
+                    Account Management</a></li>
+            </ul>
+
         </nav>
 
         <div class="product-info">

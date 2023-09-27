@@ -52,8 +52,9 @@ class Profiles(db.Model, MetaMixins):
         db.session.commit()
 
     @classmethod
-    def add_earned_display_picture(cls, account_id, unique_display_picture_id):
+    def add_earned_display_picture(cls, account_id: int, unique_display_picture_id):
         profile = cls.select_using_account_id(account_id)
+
         if profile.earned_display_pictures:
             earned = profile.earned_display_pictures.get("earned", [])
         else:
@@ -65,8 +66,11 @@ class Profiles(db.Model, MetaMixins):
         else:
             earned.append(unique_display_picture_id)
 
-        profile.earned_display_pictures = {"earned": [*earned]}
-
+        db.session.execute(
+            update(cls).where(cls.fk_account_id == account_id).values(
+                earned_display_pictures={"earned": earned}
+            )
+        )
         db.session.commit()
 
     @staticmethod

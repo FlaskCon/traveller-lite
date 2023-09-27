@@ -12,7 +12,6 @@
 
     <div class="content-box m-down-4" x-data="profile">
 
-
         <form method="post">
 
             <input type="hidden" name="fk_display_picture_id" x-model="account_display_picture">
@@ -22,7 +21,7 @@
 
             <div class="m-down-1"></div>
 
-            <label for="name_or_alias">Name or Ailas</label>
+            <label for="name_or_alias">Name or Alias</label>
             <input type="text" id="name_or_alias" name="name_or_alias" class="w-100"
                    value="{{ profile.name_or_alias }}">
 
@@ -54,14 +53,10 @@
             <label for="website">Company / Personal Website</label>
             <input type="text" id="website" name="website" class="w-100" value="{{ profile.website or "" }}">
 
-            <label for="website">Company / Personal Website</label>
-            <input type="text" id="website" name="website" class="w-100" value="{{ profile.website or "" }}">
-
-
             <label class="m-down-2 m-up-3">Display Pictures</label>
             <div class="display-picture-choice">
                 {% for dp in standard_display_pictures %}
-                    <div class="display_picture_box">
+                    <div class="display-picture-box">
                         <img
                                 src="{{ url_for('static', filename='display-pictures/' + dp.filename) }}"
                                 alt="A display picture taken by {{ dp.attribution }}"
@@ -91,7 +86,7 @@
             {% if earned_display_pictures %}
                 <div class="display-picture-choice">
                     {% for dp in earned_display_pictures %}
-                        <div class="display_picture_box">
+                        <div class="display-picture-box">
                             <img
                                     src="{{ url_for('static', filename='display-pictures/' + dp.filename) }}"
                                     alt="A display picture taken by {{ dp.attribution }}"
