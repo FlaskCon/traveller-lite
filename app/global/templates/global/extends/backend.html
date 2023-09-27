@@ -36,7 +36,7 @@
             <img width="200"
                  src="{{ url_for('static', filename='display-pictures/' + ctp_display_picture(session.get('unique_display_picture_id', 1))) }}"
                  alt="">
-            <div>{{ __account__.rel_profile[0].name_or_alias or __account__.email_address.split('@')[0] }}</div>
+            <p>{{ __account__.rel_profile[0].name_or_alias or __account__.email_address.split('@')[0] }}</p>
             <div><a href="{{ url_for('account.settings') }}">Settings</a></div>
             <div><a href="{{ url_for('auth.logout') }}">Logout</a></div>
         </div>
