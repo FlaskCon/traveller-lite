@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from . import *
 
 
@@ -9,6 +11,9 @@ class Accounts(db.Model, MetaMixins):
     disabled = db.Column(db.Boolean)
     confirmed = db.Column(db.Boolean, default=False)
     private_key = db.Column(db.String(256), nullable=True)
+
+    # Tracking
+    created = db.Column(db.DateTime, nullable=False, default=datetime.now)
 
     rel_roles = relationship(
         "RolesMembership",

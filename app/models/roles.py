@@ -8,7 +8,6 @@ from . import *
 class Roles(db.Model, MetaMixins):
     role_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(128), nullable=False)
-    year = db.Column(db.Integer, nullable=False)
 
     rel_role_membership = relationship(
         "RolesMembership",
@@ -58,7 +57,7 @@ class Roles(db.Model, MetaMixins):
     def create_batch(cls, batch: list[dict]):
         for value in batch:
             db.session.execute(
-                insert(cls).values(**value, year=datetime.now().year)
+                insert(cls).values(**value)
             )
 
         db.session.commit()
