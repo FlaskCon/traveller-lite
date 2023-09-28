@@ -42,7 +42,7 @@ def login():
                 if not account.rel_profile:
                     account.create_profile()
 
-                display_picture_id = account.rel_profile[0].fk_display_picture_id or 1
+                display_picture_id = account.rel_profile.fk_display_picture_id or 1
 
                 session["logged_in"] = True
                 session["account_id"] = account.account_id

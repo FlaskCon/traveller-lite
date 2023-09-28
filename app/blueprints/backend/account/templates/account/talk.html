@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-    {{ breadcrumber([("Your Talks", url_for('account.talks')), (talk.title + ' (Edit)', None)]) }}
+    {{ breadcrumber([("Your Talks", url_for('account.talks')), (talk.title, None), ('Edit', None)]) }}
 {% endblock %}
 
 {% block content %}

@@ -72,6 +72,14 @@ class Talks(db.Model, MetaMixins):
         ).scalar_one_or_none()
 
     @classmethod
+    def for_review(cls):
+        from .talk_statuses import TalkStatuses
+        talk_ids = TalkStatuses.select_talk_status_id_using_unique_talk_status_id_batch([102, 103, 104, 105])
+        return db.session.execute(
+            select(cls).where(cls.fk_talk_status_id.in_(talk_ids)).order_by(cls.created.asc())
+        ).scalars().all()
+
+    @classmethod
     def save_new_talk(
             cls,
             fk_account_id,

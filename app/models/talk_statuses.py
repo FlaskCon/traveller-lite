@@ -32,6 +32,12 @@ class TalkStatuses(db.Model, MetaMixins):
         ).scalar_one_or_none()
 
     @classmethod
+    def select_talk_status_id_using_unique_talk_status_id_batch(cls, unique_talk_status_ids: list[int]):
+        return db.session.execute(
+            select(cls.talk_status_id).where(cls.unique_talk_status_id.in_(unique_talk_status_ids))
+        ).scalars().all()
+
+    @classmethod
     def seed(cls, resource: list[dict]):
         for item in resource:
             db.session.execute(

@@ -45,21 +45,24 @@
 
             <ul>
                 <li><a href="{{ url_for('account.dashboard') }}"
-                       {% if 'dashboard' in request.url %}class="selected"{% endif %}>
+                       {% if 'account/dashboard' in request.url %}class="selected"{% endif %}>
                     Dashboard</a></li>
                 <li><a href="{{ url_for('account.profile') }}"
-                       {% if 'profile' in request.url %}class="selected"{% endif %}>
+                       {% if 'account/profile' in request.url %}class="selected"{% endif %}>
                     Your Profile</a></li>
                 <li><a href="{{ url_for('account.talks') }}"
-                       {% if 'talk' in request.url %}class="selected"{% endif %}>
+                       {% if 'account/talk' in request.url %}class="selected"{% endif %}>
                     Your Talks</a></li>
             </ul>
 
-            <p class="m-up-1"><strong>Committee</strong></p>
+            <p class="m-up-1"><strong>Proposals</strong></p>
             <ul>
-                <li><a href="#"
-                       {% if 'proposals' in request.url %}class="selected"{% endif %}>
-                    Proposals</a></li>
+                <li><a href="{{ url_for('proposals.dashboard') }}"
+                       {% if 'proposals/dashboard' in request.url %}class="selected"{% endif %}>
+                    Dashboard</a></li>
+                <li><a href="{{ url_for('proposals.review') }}"
+                       {% if 'proposals/review' in request.url %}class="selected"{% endif %}>
+                    Review</a></li>
             </ul>
 
             <p class="m-up-1"><strong>System</strong></p>

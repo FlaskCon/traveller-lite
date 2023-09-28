@@ -2,13 +2,14 @@ from sqlalchemy import (
     select,
     update,
     delete,
-    insert
+    insert,
+    and_
 )
 from sqlalchemy.orm import relationship
-from .__mixins__ import MetaMixins
-from .__resources__ import Resources
 
 from app.extensions import db
+from .__mixins__ import MetaMixins
+from .__resources__ import Resources
 
 __all__ = [
     "db",
@@ -19,4 +20,5 @@ __all__ = [
     "relationship",
     "MetaMixins",
     "Resources",
+    "and_",
 ]

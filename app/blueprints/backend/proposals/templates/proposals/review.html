@@ -1,0 +1,34 @@
+{% extends 'global/extends/backend.html' %}
+
+{% block title %}
+    Review Proposals
+{% endblock %}
+
+
+{% block breadcrumbs %}
+    {{ breadcrumber([("Proposals to Review", None)]) }}
+{% endblock %}
+
+{% block content %}
+    <div class="content-box m-down-4" x-data="review">
+
+        {% for talk in talks %}
+            <div class="attention-content">
+
+                <div><small><strong>Status:</strong> {{ talk.talk_status }}</small>
+                    <small><strong>Year:</strong> {{ talk.year }}</small></div>
+
+                <h1 class="m-up-down-1">{{ talk.title }}</h1>
+
+                <a class="button button-primary m-up-1"
+                   href="{{ url_for('proposals.review_talk', talk_id=talk.talk_id) }}">View</a>
+
+            </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}
+
+{% block js %}
+    {% include 'proposals/js/review-x-data.html' %}
+{% endblock %}

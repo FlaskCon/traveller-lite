@@ -1,3 +1,5 @@
+
+
 from . import *
 
 
@@ -23,21 +25,29 @@ class RolesMembership(db.Model, MetaMixins):
     @classmethod
     def get_by_account_id(cls, fk_account_id: int):
         result = db.session.execute(
-            select(cls.fk_role_id, cls.rel_role.name).filter_by(fk_account_id=fk_account_id)
+            select(cls).filter_by(fk_account_id=fk_account_id)
         ).scalars().all()
-        return result
+        return [(role_membership.fk_role_id, role_membership.rel_role.name) for role_membership in result]
 
     @classmethod
     def set_roles(cls, account_id: int, role_ids: list[int]):
+        current_roles = cls.get_by_account_id(account_id)
+
+        already_has = [role_id for role_id, _ in current_roles if role_id in role_ids]
+        to_add = [role_id for role_id in role_ids if role_id not in already_has]
+        to_remove = [role_id for role_id, _ in current_roles if role_id not in role_ids]
+
         db.session.execute(
-            delete(cls).where(cls.fk_account_id == account_id)
+            delete(cls).where(
+                and_(cls.fk_account_id == account_id, cls.fk_role_id.in_(to_remove))
+            )
         )
 
-        for role_id in role_ids:
+        for role_id in to_add:
             db.session.execute(
                 insert(cls).values(
                     fk_account_id=account_id,
-                    fk_role_id=role_id
+                    fk_role_id=role_id,
                 )
             )
 
