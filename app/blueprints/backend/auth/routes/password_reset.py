@@ -32,11 +32,11 @@ def password_reset(account_id, private_key):
 
         if password and confirm_password:
             if password != confirm_password:
-                flash("Passwords do not match")
+                flash("Passwords do not match.")
                 return redirect(url_for("auth.password_reset", account_id=account_id, private_key=private_key))
 
             account.reset_password(password)
-            flash("Your password has been reset, you can now login")
+            flash("Your password has been reset, you can now login.")
             return redirect(url_for("auth.login"))
 
     return render_template(bp.tmpl("set-new-password.html"), csrf=session["csrf"])

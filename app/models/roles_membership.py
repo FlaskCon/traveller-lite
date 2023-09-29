@@ -1,5 +1,3 @@
-
-
 from . import *
 
 
@@ -52,3 +50,18 @@ class RolesMembership(db.Model, MetaMixins):
             )
 
         db.session.commit()
+
+    @classmethod
+    def is_proposal_reviewer(cls, account_id: int):
+        account_roles = cls.get_by_account_id(account_id)
+        if "Proposal Reviewer" in [role for _, role in account_roles]:
+            return True
+        return False
+
+    @classmethod
+    def is_administrator(cls, account_id: int):
+        account_roles = cls.get_by_account_id(account_id)
+        roles = [role for _, role in account_roles]
+        if "Administrator" in roles or "Super Administrator" in roles:
+            return True
+        return False

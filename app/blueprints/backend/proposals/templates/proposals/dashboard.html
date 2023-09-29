@@ -12,8 +12,30 @@
 
 {% block content %}
     <div class="content-box m-down-4" x-data="dashboard">
-
-
+        <div class="flex flex-row flex-wrap justify-evenly">
+            <div class="dashboard-status-box flex-1">
+                <h1>Total Proposals</h1>
+                <h2>{{ total_talks }}</h2>
+            </div>
+            <div class="dashboard-status-box flex-1">
+                <h1>Total Votes Cast</h1>
+                <h2>{{ total_votes }}</h2>
+            </div>
+        </div>
+        <div class="flex flex-row flex-wrap justify-evenly">
+            <div class="dashboard-status-box flex-1">
+                <h1>Total Votes For</h1>
+                <h2>{{ total_for_votes }}</h2>
+            </div>
+            <div class="dashboard-status-box flex-1">
+                <h1>Total Votes Against</h1>
+                <h2>{{ total_against_votes }}</h2>
+            </div>
+            <div class="dashboard-status-box flex-1">
+                <h1>Total Abstained Votes</h1>
+                <h2>{{ total_votes - total_for_votes - total_against_votes }}</h2>
+            </div>
+        </div>
     </div>
 {% endblock %}
 

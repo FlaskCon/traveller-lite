@@ -16,11 +16,11 @@ def confirm(account_id, private_key):
     account = Accounts.select_using_account_id(account_id)
     if account:
         if account.confirmed:
-            flash("Your account is already confirmed")
+            flash("Your account is already confirmed.")
             return redirect(url_for("auth.login"))
 
         if Accounts.confirm_account_successful(account_id, private_key):
-            flash("Your account has been confirmed, you can now login")
+            flash("Your account has been confirmed, you can now login.")
             return redirect(url_for("auth.login"))
         else:
             render_template(bp.tmpl("confirm-error.html"))

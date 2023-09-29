@@ -37,7 +37,7 @@ def profile():
             fk_display_picture_id
         ).unique_display_picture_id
 
-        flash("Your profile has been updated!")
+        flash("Your profile has been updated.")
         return redirect(url_for("account.profile"))
 
     display_pictures = DisplayPictures.select_all()

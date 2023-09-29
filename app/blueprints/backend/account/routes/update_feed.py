@@ -4,7 +4,7 @@ from flask_imp.security import login_check
 from .. import bp
 
 
-@bp.route("/dashboard", methods=["GET"])
+@bp.route("/update-feed", methods=["GET"])
 @login_check("logged_in", True, "auth.login")
-def dashboard():
-    return render_template(bp.tmpl("dashboard.html"))
+def update_feed():
+    return render_template(bp.tmpl("update-feed.html"))

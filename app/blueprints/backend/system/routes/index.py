@@ -1,10 +1,8 @@
-from flask import render_template
-from flask_imp.security import login_check
+from flask import render_template, url_for, redirect
 
-from .. import bp
+from . import decorator_group, bp
 
 
-@bp.route("/", methods=["GET"])
-@login_check("logged_in", True, "auth.login")
+@decorator_group("/", methods=["GET"])
 def index():
-    return render_template(bp.tmpl("index.html"))
+    return redirect(url_for("system.dashboard"))

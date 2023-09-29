@@ -57,11 +57,11 @@ def login():
 
                 return redirect(url_for("account.index"))
             else:
-                flash("Incorrect email address or password")
+                flash("Incorrect email address or password.")
                 return redirect(url_for("auth.login"))
 
         else:
-            flash("Please enter an email address and password")
+            flash("Please enter an email address and password.")
             return redirect(url_for("auth.login"))
 
     return render_template(bp.tmpl("login.html"), csrf=session["csrf"])

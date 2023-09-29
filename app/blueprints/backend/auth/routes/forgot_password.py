@@ -38,10 +38,10 @@ def forgot_password():
                     )
                 ).send()
 
-                flash("Password reset link sent to your email address")
+                flash("Password reset link sent to your email address.")
                 return redirect(url_for("auth.login"))
 
-        flash("That account does not exist")
+        flash("That account does not exist.")
         return redirect(url_for("auth.login"))
 
     return render_template(bp.tmpl("forgot-password.html"), csrf=session["csrf"])

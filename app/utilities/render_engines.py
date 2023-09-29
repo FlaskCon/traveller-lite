@@ -16,3 +16,9 @@ class HighlightRenderer(mistune.HTMLRenderer):
                 lexer = get_lexer_by_name('text', stripall=True)
             return highlight(code, lexer, HtmlFormatter())
         return '<pre><code>' + mistune.escape(code) + '</code></pre>'
+
+    def link(self, text: str, url: str, title=None) -> str:
+        return f"LINK: {url} "
+
+    def image(self, text: str, url: str, title=None) -> str:
+        return f"<p>IMAGE: {url} </p>"

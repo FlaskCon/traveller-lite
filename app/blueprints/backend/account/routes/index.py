@@ -7,4 +7,4 @@ from .. import bp
 @bp.get("/")
 @login_check("logged_in", True, "auth.login")
 def index():
-    return redirect(url_for("account.dashboard"))
+    return redirect(url_for("account.update_feed"))

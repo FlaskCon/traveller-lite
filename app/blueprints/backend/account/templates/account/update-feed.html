@@ -1,0 +1,39 @@
+{% extends 'global/extends/backend.html' %}
+
+{% block title %}
+    Account Update Feed
+{% endblock %}
+
+{% block breadcrumbs %}
+    {{ breadcrumber([("Update Feed", None)]) }}
+{% endblock %}
+
+{% block content %}
+    <div class="content-box m-down-4" x-data="talk">
+        {% if __account__.rel_update_feed %}
+            {% for update in __account__.rel_update_feed %}
+                <div class="attention-content flex gap-2">
+                    <img width="64" height="64"
+                         src="{{ url_for('static', filename='update-feed-images/' + update.image) }}" alt="">
+                    <div>
+                        <h3>{{ update.title }}</h3>
+                        <p>{{ update.message }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="attention-content flex gap-2">
+                <img width="64" height="64"
+                     src="{{ url_for('static', filename='update-feed-images/empty.gif') }}" alt="">
+                <div>
+                    <h3>Nothing to see here</h3>
+                    <p>There are no updates to show you at this time.</p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block js %}
+    {% include 'account/js/update-feed-x-data.html' %}
+{% endblock %}

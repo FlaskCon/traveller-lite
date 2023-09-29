@@ -258,6 +258,14 @@ button:disabled {
     cursor: not-allowed;
 }
 
+.button-dull {
+    opacity: 0.8;
+}
+
+.button-dull:hover {
+    opacity: 1;
+}
+
 .button,
 button,
 input[type="submit"],

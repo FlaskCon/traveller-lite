@@ -67,7 +67,7 @@ def talk(talk_id):
             flash("Your proposal has been submitted! We will be in touch soon.")
             return redirect(url_for("account.talks"))
 
-        flash("Your talk has been updated!")
+        flash("Your talk has been saved.")
         return redirect(url_for("account.talks"))
 
     return render_template(bp.tmpl("talk.html"), talk=talk_, csrf=session.get("csrf"))

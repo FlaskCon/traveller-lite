@@ -1,5 +1,5 @@
 flask
-flask-imp==2.4.0
+flask-imp==2.5.0
 gunicorn
 pytz
 python-dotenv

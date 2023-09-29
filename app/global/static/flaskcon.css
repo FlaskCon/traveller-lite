@@ -346,3 +346,63 @@
 .account-disabled {
     background-color: rgba(128, 0, 0, 0.9);
 }
+
+.vote-for {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(33, 255, 0, 0.8);
+}
+
+.vote-against {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(255, 0, 0, 0.8);
+}
+
+.vote-abstained {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(255, 210, 0, 0.8);
+}
+
+.top-stats {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    padding-bottom: 1rem;
+}
+
+.top-stats div {
+    border: rgba(13, 13, 13, 0.15) 1px solid;
+    border-radius: 8px;
+    background: rgba(13, 13, 13, 0.05);
+    display: inline-block;
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+}
+
+.dashboard-status-box {
+    background-color: rgba(203, 203, 203, 0.05);
+    border: 1px solid rgba(30, 30, 30, 0.1);
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 0.5rem;
+    text-align: center;
+}
+
+.dashboard-status-box h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.dashboard-status-box h2 {
+    font-size: 4rem;
+    margin: 0;
+}

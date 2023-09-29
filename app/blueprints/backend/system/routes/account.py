@@ -1,14 +1,13 @@
 from flask import render_template, session, request, url_for, redirect, flash
-from flask_imp.security import login_check, include_csrf
+from flask_imp.security import include_csrf
 
 from app.models.accounts import Accounts
 from app.models.roles import Roles
 from app.models.roles_membership import RolesMembership
-from .. import bp
+from . import decorator_group, bp
 
 
-@bp.route("/account/<int:account_id>", methods=["GET", "POST"])
-@login_check("logged_in", True, "auth.login")
+@decorator_group("/account/<int:account_id>", methods=["GET", "POST"])
 @include_csrf()
 def account(account_id):
     this_account = Accounts.select_using_account_id(account_id)

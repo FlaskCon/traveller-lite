@@ -56,3 +56,14 @@ def ctp_account_processor():
         return Accounts.select_using_account_id(account_id)
 
     return dict(ctp_account=ctp_account)
+
+
+@app.context_processor
+def ctp_comprehend_roles_processor():
+    def ctp_comprehend_roles(roles: Optional[list]) -> Optional[list]:
+        """
+        Comprehends the roles query into their names
+        """
+        return [role.rel_role.name for role in roles] if roles else None
+
+    return dict(ctp_comprehend_roles=ctp_comprehend_roles)

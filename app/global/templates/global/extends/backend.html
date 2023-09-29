@@ -12,10 +12,11 @@
     <script defer src="{{ url_for('static', filename='alpinejs.3.13.0.js') }}"></script>
 
     {% set __account__ = ctp_account(session.get('account_id')) %}
+    {% set __roles__ =  ctp_comprehend_roles(__account__.rel_roles) %}
 
 </head>
 
-<body x-data="{}">
+<body x-data>
 <a id="top"></a>
 
 
@@ -44,33 +45,45 @@
         <nav class="side-nav">
 
             <ul>
-                <li><a href="{{ url_for('account.dashboard') }}"
-                       {% if 'account/dashboard' in request.url %}class="selected"{% endif %}>
-                    Dashboard</a></li>
+                {% if "Attendee" in __roles__ %}
+                    <li><a href="{{ url_for('account.update_feed') }}"
+                           {% if 'account/update-feed' in request.url %}class="selected"{% endif %}>
+                        Update Feed</a></li>
+                {% endif %}
                 <li><a href="{{ url_for('account.profile') }}"
                        {% if 'account/profile' in request.url %}class="selected"{% endif %}>
                     Your Profile</a></li>
-                <li><a href="{{ url_for('account.talks') }}"
-                       {% if 'account/talk' in request.url %}class="selected"{% endif %}>
-                    Your Talks</a></li>
+                {% if "Attendee" in __roles__ %}
+                    <li><a href="{{ url_for('account.talks') }}"
+                           {% if 'account/talk' in request.url %}class="selected"{% endif %}>
+                        Your Talks</a></li>
+                {% endif %}
             </ul>
 
-            <p class="m-up-1"><strong>Proposals</strong></p>
-            <ul>
-                <li><a href="{{ url_for('proposals.dashboard') }}"
-                       {% if 'proposals/dashboard' in request.url %}class="selected"{% endif %}>
-                    Dashboard</a></li>
-                <li><a href="{{ url_for('proposals.review') }}"
-                       {% if 'proposals/review' in request.url %}class="selected"{% endif %}>
-                    Review</a></li>
-            </ul>
+            {% if "Proposal Reviewer" in __roles__ %}
+                <p class="m-up-1"><strong>Proposals</strong></p>
+                <ul>
+                    <li><a href="{{ url_for('proposals.dashboard') }}"
+                           {% if 'proposals/dashboard' in request.url %}class="selected"{% endif %}>
+                        Dashboard</a></li>
+                    <li><a href="{{ url_for('proposals.review') }}"
+                           {% if 'proposals/review' in request.url %}class="selected"{% endif %}>
+                        Review</a></li>
+                </ul>
+            {% endif %}
 
-            <p class="m-up-1"><strong>System</strong></p>
-            <ul>
-                <li><a href="{{ url_for('system.accounts') }}"
-                       {% if 'system/accounts' in request.url %}class="selected"{% endif %}>
-                    Account Management</a></li>
-            </ul>
+
+            {% if "Super Administrator" in __roles__ or "Administrator" in __roles__ %}
+                <p class="m-up-1"><strong>System</strong></p>
+                <ul>
+                    <li><a href="{{ url_for('system.dashboard') }}"
+                           {% if 'system/dashboard' in request.url %}class="selected"{% endif %}>
+                        Dashboard</a></li>
+                    <li><a href="{{ url_for('system.accounts') }}"
+                           {% if 'system/accounts' in request.url %}class="selected"{% endif %}>
+                        Account Management</a></li>
+                </ul>
+            {% endif %}
 
         </nav>
 

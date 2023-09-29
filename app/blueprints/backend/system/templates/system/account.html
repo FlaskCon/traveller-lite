@@ -7,8 +7,7 @@
 {% block breadcrumbs %}
     {{ breadcrumber(
         [
-            ("System", url_for('system.index')),
-            ("Accounts", url_for('system.accounts')),
+            ("Account Management", url_for('system.accounts')),
             (this_account.email_address, None)
         ]
     ) }}

@@ -14,9 +14,24 @@
 
         {% for talk in talks %}
             <div class="attention-content">
-
-                <div><small><strong>Status:</strong> {{ talk.talk_status }}</small>
-                    <small><strong>Year:</strong> {{ talk.year }}</small></div>
+                <div class="top-stats">
+                    <div><strong>Status:</strong> {{ talk.talk_status }}</div>
+                    <div><strong>Year:</strong> {{ talk.year }}</div>
+                    <div><strong>Your Vote:</strong>
+                        {% set your_voting_position_on_this =
+                        talk.get_voting_position_using_account_id(session.get('account_id')) %}
+                        {% if your_voting_position_on_this == True %}
+                            For <span class="vote-for"></span>
+                        {% elif your_voting_position_on_this == False %}
+                            Against <span class="vote-against"></span>
+                        {% else %}
+                            Abstain <span class="vote-abstained"></span>
+                        {% endif %}
+                    </div>
+                    <div><strong>Votes:</strong>
+                        For - {{ talk.votes.for }} | Against - {{ talk.votes.against }}
+                    </div>
+                </div>
 
                 <h1 class="m-up-down-1">{{ talk.title }}</h1>
 

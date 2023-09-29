@@ -1,6 +1,9 @@
 from datetime import datetime
 
+from sqlalchemy import func
+
 from . import *
+from .update_feed import UpdateFeed
 
 
 class Accounts(db.Model, MetaMixins):
@@ -33,6 +36,19 @@ class Accounts(db.Model, MetaMixins):
         primaryjoin="Accounts.account_id==Talks.fk_account_id",
         viewonly=True,
     )
+
+    rel_update_feed = relationship(
+        "UpdateFeed",
+        primaryjoin="Accounts.account_id==UpdateFeed.fk_account_id",
+        order_by="UpdateFeed.created.desc()",
+        viewonly=True,
+    )
+
+    @classmethod
+    def count_total_accounts(cls):
+        return db.session.execute(
+            select(func.count(cls.account_id))
+        ).scalar_one_or_none()
 
     @staticmethod
     def save():
@@ -122,6 +138,21 @@ class Accounts(db.Model, MetaMixins):
 
         Profiles.signup(self.account_id, random.choice(DisplayPictures.select_all_display_picture_id()))
 
+    def password_check(self, password) -> bool:
+        from flask_imp.auth import Auth
+
+        if Auth.auth_password(password, self.password, self.salt):
+            return True
+        return False
+
+    def set_new_password(self, new_password) -> None:
+        from flask_imp.auth import Auth
+
+        self.salt = Auth.generate_salt()
+        self.password = Auth.hash_password(new_password, self.salt)
+
+        db.session.commit()
+
     @classmethod
     def login(cls, email_address, password):
         from flask_imp.auth import Auth
@@ -147,7 +178,7 @@ class Accounts(db.Model, MetaMixins):
         salt_and_pepper_password = Auth.hash_password(password, salt)
         private_key = Auth.generate_private_key(Auth.generate_password(length=1))
 
-        account = db.session.execute(
+        db.session.execute(
             insert(cls).values(
                 email_address=email_address,
                 password=salt_and_pepper_password,
@@ -158,9 +189,12 @@ class Accounts(db.Model, MetaMixins):
             )
         )
         db.session.flush()
+
+        account = cls.select_using_email_address(email_address)
+
         db.session.execute(
             insert(Profiles).values(
-                fk_account_id=account.lastrowid,
+                fk_account_id=account.account_id,
                 fk_display_picture_id=random.choice(DisplayPictures.select_all_display_picture_id()),
                 name_or_alias=name_or_alias,
                 earned_display_pictures={"earned": []}
@@ -168,13 +202,21 @@ class Accounts(db.Model, MetaMixins):
         )
         db.session.execute(
             insert(RolesMembership).values(
-                fk_account_id=account.lastrowid,
+                fk_account_id=account.account_id,
                 fk_role_id=15,
             )
         )
+        db.session.execute(
+            insert(UpdateFeed).values(
+                fk_account_id=account.account_id,
+                title="Welcome to FlaskCon!",
+                message="Thank you for signing up, we appreciate you joining us.",
+                image="heart.gif",
+                created=datetime.now(),
+            )
+        )
         db.session.commit()
-
-        return cls.select_using_account_id(account.lastrowid)
+        return account
 
     @classmethod
     def update(

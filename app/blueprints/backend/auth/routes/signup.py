@@ -20,7 +20,7 @@ def signup():
     if request.method == "POST":
         csrf = request.form.get("csrf")
         if not csrf or csrf != session["csrf"]:
-            flash("Invalid CSRF token")
+            flash("Invalid CSRF token.")
             return redirect(url_for("auth.signup"))
 
         email_address = request.form.get("email_address")
@@ -30,11 +30,11 @@ def signup():
 
         if email_address and password and confirm_password:
             if password != confirm_password:
-                flash("Passwords do not match")
+                flash("Passwords do not match.")
                 return render_template(bp.tmpl("signup.html"), email_address=email_address)
 
             if Accounts.exists(request.form["email_address"]):
-                flash("An account with that email address already exists")
+                flash("An account with that email address already exists.")
                 return redirect(url_for("auth.signup"))
 
             new_account = Accounts.signup(email_address, password, name_or_alias)
@@ -49,10 +49,10 @@ def signup():
                         private_key=new_account.private_key,
                     )
                 ).send()
-                flash("Account created. Please check your email to confirm your account")
+                flash("Account created. Please check your email to confirm your account.")
                 return redirect(url_for("auth.login"))
             else:
-                flash("There was an error creating your account")
+                flash("There was an error creating your account.")
                 return redirect(url_for("auth.signup"))
 
     session["csrf"] = Auth.generate_form_token()

@@ -1,5 +1,5 @@
 import mistune
-from flask import render_template, request, session, redirect, url_for
+from flask import render_template, request, session, redirect, url_for, flash
 from flask_imp.security import login_check, include_csrf
 
 from app.models.talks import Talks
@@ -54,7 +54,7 @@ def propose_a_talk():
             notes_or_requests_markdown=notes_or_requests_markdown,
             tags=tags.replace(" ", ""),
         )
-
+        flash("Your talk has been created.")
         return redirect(url_for("account.talk", talk_id=talk_id))
 
     return render_template(bp.tmpl("propose-a-talk.html"), csrf=session.get("csrf"))

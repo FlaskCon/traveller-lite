@@ -1,4 +1,4 @@
-from sqlalchemy import and_
+from sqlalchemy import and_, func
 
 from . import *
 
@@ -10,7 +10,35 @@ class TalkVotes(db.Model, MetaMixins):
     vote = db.Column(db.Boolean, nullable=False, default=True)
 
     @classmethod
-    def vote_for(cls, talk_id, account_id):
+    def count_total_votes(cls):
+        return db.session.execute(
+            select(
+                func.count(cls.talk_vote_id)
+            )
+        ).scalar_one_or_none()
+
+    @classmethod
+    def count_total_for_votes(cls):
+        return db.session.execute(
+            select(
+                func.count(cls.talk_vote_id)
+            ).where(
+                cls.vote.is_(True)
+            )
+        ).scalar_one_or_none()
+
+    @classmethod
+    def count_total_against_votes(cls):
+        return db.session.execute(
+            select(
+                func.count(cls.talk_vote_id)
+            ).where(
+                cls.vote.is_(False)
+            )
+        ).scalar_one_or_none()
+
+    @classmethod
+    def vote_for(cls, talk_id: int, account_id: int):
         vote = db.session.execute(
             select(cls).filter(
                 and_(
@@ -33,7 +61,7 @@ class TalkVotes(db.Model, MetaMixins):
         db.session.commit()
 
     @classmethod
-    def vote_against(cls, talk_id, account_id):
+    def vote_against(cls, talk_id: int, account_id: int):
         vote = db.session.execute(
             select(cls).filter(
                 and_(
@@ -43,20 +71,20 @@ class TalkVotes(db.Model, MetaMixins):
             ).limit(1)
         ).scalar_one_or_none()
         if vote:
-            vote.vote = True
+            vote.vote = False
         else:
             db.session.execute(
                 insert(cls).values(
                     fk_talk_id=talk_id,
                     fk_account_id=account_id,
-                    vote=True
+                    vote=False
                 )
             )
 
         db.session.commit()
 
     @classmethod
-    def abstain(cls, talk_id, account_id):
+    def abstain(cls, talk_id: int, account_id: int):
         db.session.execute(
             delete(cls).filter(
                 and_(

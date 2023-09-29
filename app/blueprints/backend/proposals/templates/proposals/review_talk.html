@@ -10,19 +10,47 @@
 {% endblock %}
 
 {% block content %}
-
-
-
     <div class="content-box m-down-4" x-data="review_talk">
 
-        <h2 class="m-down-1">{{ talk.title }}</h2>
+        <form method="post">
 
-        <div>
-            <p><strong>Abstract</strong></p>
+            <input type="hidden" name="csrf" value="{{ csrf }}">
+            <input type="hidden" x-model="vote_for" name="vote_for">
+            <input type="hidden" x-model="vote_against" name="vote_against">
 
-            {{ talk.abstract|safe or 'No abstract...' }}
+            <div class="flex justify-between">
+                <div>
+                    <button type="submit" class="button-good">Save</button>
+                </div>
+                <div>
+                    <button type="button"
+                            @click="vote_for = true; vote_against = false"
+                            :class="vote_for ? 'button-good': 'button'">Voting For
+                    </button>
+                    <button type="button"
+                            @click="vote_for = false; vote_against = true"
+                            :class="vote_against ? 'button-bad': 'button'">Voting Against
+                    </button>
+                    <button type="button"
+                            @click="vote_for = false; vote_against = false"
+                            :class="!vote_against && !vote_for ? 'button-warning': 'button'"
+                    >Abstaining Vote
+                    </button>
+                </div>
+            </div>
 
-        </div>
+            <div class="m-down-1"></div>
+
+            <h2 class="m-down-1">{{ talk.title }}</h2>
+
+            <div>
+                <p><strong>Abstract</strong></p>
+
+                {{ talk.abstract|safe or 'No abstract...' }}
+
+            </div>
+
+        </form>
 
     </div>
 {% endblock %}

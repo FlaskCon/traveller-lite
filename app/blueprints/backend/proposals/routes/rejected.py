@@ -1,11 +1,10 @@
 from flask import render_template
+
 from app.models.talks import Talks
-from app.models.roles_membership import RolesMembership
-
-from .. import bp
+from . import bp, decorator_group
 
 
-@bp.route("/rejected", methods=["GET"])
+@decorator_group("/rejected", methods=["GET"])
 def rejected():
     talks = Talks.select_all()
     return render_template(bp.tmpl("index.html"))

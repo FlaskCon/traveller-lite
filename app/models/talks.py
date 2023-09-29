@@ -1,5 +1,7 @@
 from datetime import datetime
 
+from sqlalchemy import func
+
 from . import *
 
 
@@ -55,9 +57,49 @@ class Talks(db.Model, MetaMixins):
         uselist=False,
     )
 
+    rel_talk_votes = relationship(
+        "TalkVotes",
+        primaryjoin="Talks.talk_id == TalkVotes.fk_talk_id",
+        viewonly=True,
+        uselist=True,
+    )
+
     @property
     def talk_status(self):
         return self.rel_talk_status.name
+
+    @property
+    def votes(self) -> dict:
+        votes_default = {"for": 0, "against": 0}
+        votes_calc = {
+            (vote.vote and "for" or "against"): votes_default["for" if vote.vote else "against"] + 1 for
+            vote in self.rel_talk_votes or []
+        }
+
+        if not votes_calc.get("for"):
+            votes_calc["for"] = 0
+        if not votes_calc.get("against"):
+            votes_calc["against"] = 0
+
+        return votes_calc
+
+    def get_voting_position_using_account_id(self, account_id: int) -> t.Optional[bool]:
+        for vote in self.rel_talk_votes or []:
+            if vote.fk_account_id == account_id:
+                return vote.vote
+        return None
+
+    @classmethod
+    def count_total_talks_at_reviewer_seen_statuses(cls):
+        from .talk_statuses import TalkStatuses
+        talk_ids = TalkStatuses.select_talk_status_id_using_unique_talk_status_id_batch([102, 103, 104, 105])
+        return db.session.execute(
+            select(
+                func.count(cls.talk_id)
+            ).where(
+                cls.fk_talk_status_id.in_(talk_ids)
+            )
+        ).scalar_one_or_none()
 
     @classmethod
     def select_using_account_id(cls, account_id: int):

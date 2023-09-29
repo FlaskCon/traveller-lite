@@ -1,8 +1,13 @@
+{% set vote_position = talk.get_voting_position_using_account_id(session.get('account_id')) %}
+
 <script defer type="application/javascript">
 
     document.addEventListener('alpine:init', () => {
 
-        Alpine.data('review_talk', () => ({}));
+        Alpine.data('review_talk', () => ({
+            vote_for: {{ 'true' if vote_position == True else 'false' }},
+            vote_against: {{ 'true' if vote_position == False else 'false' }},
+        }));
 
     })
 
