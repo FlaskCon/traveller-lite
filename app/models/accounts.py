@@ -56,6 +56,11 @@ class Accounts(db.Model, MetaMixins):
 
     @classmethod
     def exists(cls, email_address) -> bool:
+        """
+        Returns True if email_address exists in database.
+        :param email_address:
+        :return:
+        """
         return True if db.session.execute(
             select(cls.account_id).filter_by(email_address=email_address).limit(1)
         ).scalar_one_or_none() else False
@@ -164,7 +169,7 @@ class Accounts(db.Model, MetaMixins):
         return None
 
     @classmethod
-    def signup(cls, email_address: str, password: str, name_or_alias: str):
+    def signup(cls, email_address: str, password: str, name_or_alias: str, confirmed: bool = False):
         """
         Written for sqlite. Returns account after commit.
         """
@@ -184,7 +189,7 @@ class Accounts(db.Model, MetaMixins):
                 password=salt_and_pepper_password,
                 salt=salt,
                 disabled=False,
-                confirmed=False,
+                confirmed=confirmed,
                 private_key=private_key,
             )
         )
@@ -273,24 +278,18 @@ class Accounts(db.Model, MetaMixins):
         :return:
         """
 
-        from flask_imp.auth import Auth
-
         for value in batch:
-            salt = Auth.generate_salt()
-            salt_and_pepper_password = Auth.hash_password(value.get("password", "password"), salt)
+            if cls.exists(value.get("email_address")):
+                print(f"Account already exists: {value.get('email_address')}")
+                continue
 
-            db.session.execute(
-                insert(cls).values(
-                    email_address=value.get("email_address", "null@null.null"),
-                    password=salt_and_pepper_password,
-                    salt=salt,
-                    disabled=value.get("disabled", False),
-                    confirmed=value.get("confirmed", False),
-                    private_key=value.get("private_key", None),
-                )
+            cls.signup(
+                value.get("email_address"),
+                value.get("password", "password"),
+                value.get("name_or_alias"),
+                confirmed=True
+
             )
-
-        db.session.commit()
 
     @classmethod
     def get_account_ids_from_email_address_select_batch(cls, email_addresses: list[str]) -> list[int]:

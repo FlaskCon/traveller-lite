@@ -15,54 +15,77 @@ def dev_cli(passed_app):
 
     @app.cli.command("dev-seed-test-data")
     def dev_seed_test_data():
+        random_accounts = 100
+
+        if Roles.__is_empty__():
+            print("Creating roles from Resources.roles...")
+            Roles.create_batch(Resources.roles)
+        else:
+            print("Roles already exist.")
+
+        print("Generating {random_accounts} random accounts...")
         random_amount_of_attendees = []
         random_attendee_type = [["Attendee"], ["VIP", "Attendee"]]
-        for i in range(1, 400):
+        for i in range(1, random_accounts):
             roles = random.choice(random_attendee_type)
             random_amount_of_attendees.append(
                 {
                     "email_address": fake.email(),
-                    "password": fake.password(),
+                    "name_or_alias": fake.name(),
+                    "password": "password",
                     "roles": roles,
                 }
             )
 
-        accounts = [
-            {"email_address": "admin@sys.local", "password": "admin", "roles": ["Administrator"]},
-            {"email_address": "cocofficial@sys.local", "password": "cocofficial",
-             "roles": ["Code of Conduct Official"]},
-            {"email_address": "reviewer@sys.local", "password": "reviewer", "roles": ["Proposal Reviewer"]},
-            {"email_address": "speaker@sys.local", "password": "speaker", "roles": ["Speaker"]},
-            {"email_address": "sponsor@sys.local", "password": "sponsor", "roles": ["Sponsor"]},
-            {"email_address": "volunteer@sys.local", "password": "volunteer", "roles": ["Volunteer"]},
-            {"email_address": "vipattendee@sys.local", "password": "vipattendee", "roles": ["VIP", "Attendee"]},
-            {"email_address": "attendee@sys.local", "password": "attendee", "roles": ["Attendee"]},
+        defined_accounts = [
+            {
+                "email_address": "admin@sys.local",
+                "name_or_alias": "Administrator",
+                "password": "admin",
+                "roles": ["Administrator"]
+            },
+            {
+                "email_address": "cocofficial@sys.local",
+                "name_or_alias": "Administrator",
+                "password": "cocofficial",
+                "roles": ["Code of Conduct Official"]
+            },
+            {
+                "email_address": "reviewer@sys.local",
+                "name_or_alias": "Administrator",
+                "password": "reviewer",
+                "roles": ["Proposal Reviewer"]
+            },
+            {
+                "email_address": "speaker@sys.local",
+                "name_or_alias": "Administrator",
+                "password": "speaker",
+                "roles": ["Speaker"]
+            },
+            {
+                "email_address": "sponsor@sys.local",
+                "name_or_alias": "Administrator",
+                "password": "sponsor",
+                "roles": ["Sponsor"]
+            },
+            {
+                "email_address": "volunteer@sys.local",
+                "name_or_alias": "Administrator",
+                "password": "volunteer",
+                "roles": ["Volunteer"]
+            },
         ]
 
-        if Accounts.__is_empty__():
-            print("Creating test accounts...")
-            Accounts.create_batch([*accounts, *random_amount_of_attendees])
-        else:
-            print("Test accounts already exist.")
+        Accounts.create_batch([*defined_accounts, *random_amount_of_attendees])
 
-        if Roles.__is_empty__():
-            print("Creating test roles...")
-            Roles.create_batch(Resources.roles)
-        else:
-            print("Test roles already exist.")
+        for account in [*defined_accounts, *random_amount_of_attendees]:
+            account_id = Accounts.select_account_id_using_email_address(account.get("email_address"))
+            if account_id is None:
+                raise Exception(f"Account not found: {account.get('email_address')}")
 
-        if RolesMembership.__is_empty__():
-            print("Assigning test roles...")
-            for account in [*accounts, *random_amount_of_attendees]:
-                account_id = Accounts.select_account_id_using_email_address(account.get("email_address"))
-                if account_id is None:
-                    raise Exception(f"Account not found: {account.get('email_address')}")
-
-                list_of_roles = account.get("roles", [])
-                role_ids: list[int] = list(Roles.select_names_batch(list_of_roles).values())
-                RolesMembership.set_roles(account_id, role_ids)
-        else:
-            print("Test roles already assigned.")
+            list_of_roles = account.get("roles", [])
+            role_ids: list[int] = list(Roles.select_names_batch(list_of_roles).values())
+            RolesMembership.set_roles(account_id, role_ids)
 
     @app.cli.command("dev-show-accounts")
     def dev_show_accounts():
