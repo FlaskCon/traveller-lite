@@ -1,2 +1,2 @@
 -r requirements.txt
-faker
+faker==19.6.2
