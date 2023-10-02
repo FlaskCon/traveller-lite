@@ -4,6 +4,8 @@
 
         Alpine.data('authMain', () => ({
             signup_email_address: null,
+            signup_email_address_valid: false,
+            signup_email_address_msg: null,
             signup_name_or_alias: null,
             signup_password: null,
             signup_confirm_password: null,
@@ -15,10 +17,10 @@
 
             signup_strength_msg_not_met: "Minimum password strength not met. Add at least one number, one special character, and one capital letter.",
             init() {
+                this.signup_email_address_valid = true;
             },
             check_password_strength() {
                 if (this.signup_password) {
-
 
                     let strength = 0;
 
@@ -33,6 +35,11 @@
                     }
                     if (this.signup_password.match(/[$@#&!]+/)) {
                         strength += 1;
+                    }
+
+                    if (this.signup_password === "") {
+                        this.signup_strength_msg = "Your password cannot be empty.";
+                        strength = 0
                     }
 
                     if (this.signup_password.length < 8) {
@@ -85,10 +92,17 @@
                     }
                 }
             },
-            signup_check_passwords_match() {
-                this.signup_passwords_match = this.signup_password === this.signup_confirm_password;
-                this.signup_button_enabled = this.signup_passwords_match === true && this.signup_strength_bar >= 75
-            }
+
+            signup_allowed() {
+                if (this.signup_password !== "" && this.signup_confirm_password !== "" && this.signup_email_address !== "") {
+                    this.signup_passwords_match = this.signup_password === this.signup_confirm_password;
+                    this.signup_email_address_valid = !!this.signup_email_address.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/);
+                } else {
+                    this.signup_passwords_match = false;
+                }
+                this.signup_button_enabled = this.signup_passwords_match === true && this.signup_strength_bar >= 75 && this.signup_email_address_valid === true;
+            },
+
         }));
 
     })

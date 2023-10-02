@@ -19,6 +19,7 @@
 
                     let strength = 0;
 
+
                     if (this.your_account_password.match(/[a-z]+/)) {
                         strength += 1;
                     }
@@ -30,6 +31,11 @@
                     }
                     if (this.your_account_password.match(/[$@#&!]+/)) {
                         strength += 1;
+                    }
+
+                    if (this.your_account_password === "") {
+                        this.your_account_strength_msg = "Your password cannot be empty.";
+                        strength = 0
                     }
 
                     if (this.your_account_password.length < 8) {
@@ -83,9 +89,18 @@
                 }
             },
             your_account_check_passwords_match() {
-                this.your_account_passwords_match = this.your_account_password === this.your_account_confirm_password;
+                if (this.your_account_password !== "" && this.your_account_confirm_password !== "") {
+                    this.your_account_passwords_match = this.your_account_password === this.your_account_confirm_password;
+                } else {
+                    this.your_account_passwords_match = false;
+                }
                 this.your_account_button_enabled = this.your_account_passwords_match === true && this.your_account_strength_bar >= 75
             }
+        }));
+
+        Alpine.data('delete_account', () => ({
+            delete_account_warning: false,
+            delete_account: false,
         }));
 
     })

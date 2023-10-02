@@ -7,6 +7,7 @@ from flask import (
     session
 )
 from flask_imp.security import login_check
+from pyisemail import is_email
 
 from .. import bp
 from app.models.accounts import Accounts
@@ -27,6 +28,10 @@ def signup():
         name_or_alias = request.form.get("name_or_alias")
         password = request.form.get("password")
         confirm_password = request.form.get("confirm_password")
+
+        if not is_email(email_address):
+            flash("Invalid email address.")
+            return redirect(url_for("auth.signup"))
 
         if email_address and password and confirm_password:
             if password != confirm_password:

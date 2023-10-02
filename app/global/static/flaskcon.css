@@ -91,6 +91,7 @@
     height: 100vh;
     z-index: 9;
     position: fixed;
+    overflow-y: auto;
 }
 
 .dummy-side-nav {
@@ -245,6 +246,10 @@
     margin-bottom: 1rem;
 }
 
+.attention-content button {
+    margin-bottom: 0;
+}
+
 .attention-content p {
     margin: 0;
 }
@@ -303,23 +308,37 @@
 }
 
 .role-choice {
+    border: 1px solid rgba(12, 12, 12, 0.05);
     background-color: rgba(12, 12, 12, 0.05);
     border-radius: 8px;
-    padding: 2rem;
+    padding: 0.5rem 1.5rem;
     cursor: pointer;
 }
 
 .role-choice:hover {
-    background-color: rgba(0, 225, 255, 0.05);
+    border: 1px solid rgba(0, 223, 255, 0.5);
     border-radius: 8px;
-    padding: 2rem;
+    cursor: pointer;
+}
+
+.role-choice-clear {
+    border: 1px solid rgba(255, 0, 0, 0.05);
+    background-color: rgba(255, 0, 0, 0.05);
+    border-radius: 8px;
+    padding: 0.5rem 1.5rem;
+    cursor: pointer;
+}
+
+.role-choice-clear:hover {
+    border: 1px solid rgba(255, 0, 0, 0.2);
+    border-radius: 8px;
     cursor: pointer;
 }
 
 .role-choice-selected {
-    background-color: rgba(0, 225, 255, 0.2);
+    background-color: rgba(0, 225, 255, 0.5);
     border-radius: 8px;
-    padding: 2rem;
+    padding: 0.5rem 1.5rem;
     cursor: pointer;
 }
 
@@ -376,12 +395,13 @@
     flex-direction: row;
     gap: 1rem;
     padding-bottom: 1rem;
+    flex-wrap: wrap;
 }
 
 .top-stats div {
-    border: rgba(13, 13, 13, 0.15) 1px solid;
+    border: rgba(0, 0, 0, 0.05) 1px solid;
     border-radius: 8px;
-    background: rgba(13, 13, 13, 0.05);
+    background: rgba(0, 0, 0, 0.01);
     display: inline-block;
     font-size: 1.2rem;
     padding: 0.5rem 1rem;
@@ -405,4 +425,39 @@
 .dashboard-status-box h2 {
     font-size: 4rem;
     margin: 0;
+}
+
+.top-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+
+/* Larger than mobile */
+@media (min-width: 400px) {
+}
+
+/* Larger than phablet (also point when grid becomes active) */
+@media (min-width: 550px) {
+}
+
+/* Larger than tablet */
+@media (min-width: 850px) {
+
+}
+
+/* Larger than desktop */
+@media (min-width: 1000px) {
+    .top-buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+    }
+}
+
+/* Larger than Desktop HD */
+@media (min-width: 1200px) {
 }

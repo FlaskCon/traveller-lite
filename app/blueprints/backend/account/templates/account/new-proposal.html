@@ -1,11 +1,11 @@
 {% extends 'global/extends/backend.html' %}
 
 {% block title %}
-    Propose a New Talk
+    New proposal
 {% endblock %}
 
 {% block breadcrumbs %}
-    {{ breadcrumber([("Your Talks", url_for('account.talks')), ("Propose a Talk", None)]) }}
+    {{ breadcrumber([("Your Proposals", url_for('account.proposals')), ("New Proposal", None)]) }}
 {% endblock %}
 
 {% block content %}
@@ -41,7 +41,7 @@
             </label>
             <p class="label-description">
                 A short description of your talk.
-                If your talk is accepted, the
+                If your proposal is accepted, the
                 abstract will be published on the
                 conference website (Markdown supported).
             </p>

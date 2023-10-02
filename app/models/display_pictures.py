@@ -19,7 +19,19 @@ class DisplayPictures(db.Model, MetaMixins):
     @classmethod
     def select_all_display_picture_id(cls):
         return db.session.execute(
-            select(cls.display_picture_id).order_by(cls.display_picture_id)
+            select(cls.display_picture_id).where(
+                cls.unique_display_picture_id != 9999).order_by(
+                cls.display_picture_id)
+        ).scalars().all()
+
+    @classmethod
+    def select_all_account_signup(cls):
+        return db.session.execute(
+            select(cls.display_picture_id).where(
+                cls.unique_display_picture_id != 9999,
+                cls.limited == False
+            ).order_by(
+                cls.display_picture_id)
         ).scalars().all()
 
     @classmethod

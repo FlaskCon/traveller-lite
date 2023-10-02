@@ -3,9 +3,9 @@ from sqlalchemy import and_, func
 from . import *
 
 
-class TalkVotes(db.Model, MetaMixins):
-    talk_vote_id = db.Column(db.Integer, primary_key=True)
-    fk_talk_id = db.Column(db.Integer, db.ForeignKey("talks.talk_id"))
+class ProposalVotes(db.Model, MetaMixins):
+    proposal_vote_id = db.Column(db.Integer, primary_key=True)
+    fk_proposal_id = db.Column(db.Integer, db.ForeignKey("proposals.proposal_id"))
     fk_account_id = db.Column(db.Integer, db.ForeignKey("accounts.account_id"))
     vote = db.Column(db.Boolean, nullable=False, default=True)
 
@@ -13,7 +13,7 @@ class TalkVotes(db.Model, MetaMixins):
     def count_total_votes(cls):
         return db.session.execute(
             select(
-                func.count(cls.talk_vote_id)
+                func.count(cls.proposal_vote_id)
             )
         ).scalar_one_or_none()
 
@@ -21,7 +21,7 @@ class TalkVotes(db.Model, MetaMixins):
     def count_total_for_votes(cls):
         return db.session.execute(
             select(
-                func.count(cls.talk_vote_id)
+                func.count(cls.proposal_vote_id)
             ).where(
                 cls.vote.is_(True)
             )
@@ -31,18 +31,18 @@ class TalkVotes(db.Model, MetaMixins):
     def count_total_against_votes(cls):
         return db.session.execute(
             select(
-                func.count(cls.talk_vote_id)
+                func.count(cls.proposal_vote_id)
             ).where(
                 cls.vote.is_(False)
             )
         ).scalar_one_or_none()
 
     @classmethod
-    def vote_for(cls, talk_id: int, account_id: int):
+    def vote_for(cls, proposal_id: int, account_id: int):
         vote = db.session.execute(
             select(cls).filter(
                 and_(
-                    cls.fk_talk_id == talk_id,
+                    cls.fk_proposal_id == proposal_id,
                     cls.fk_account_id == account_id,
                 )
             ).limit(1)
@@ -52,7 +52,7 @@ class TalkVotes(db.Model, MetaMixins):
         else:
             db.session.execute(
                 insert(cls).values(
-                    fk_talk_id=talk_id,
+                    fk_proposal_id=proposal_id,
                     fk_account_id=account_id,
                     vote=True
                 )
@@ -61,11 +61,11 @@ class TalkVotes(db.Model, MetaMixins):
         db.session.commit()
 
     @classmethod
-    def vote_against(cls, talk_id: int, account_id: int):
+    def vote_against(cls, proposal_id: int, account_id: int):
         vote = db.session.execute(
             select(cls).filter(
                 and_(
-                    cls.fk_talk_id == talk_id,
+                    cls.fk_proposal_id == proposal_id,
                     cls.fk_account_id == account_id,
                 )
             ).limit(1)
@@ -75,7 +75,7 @@ class TalkVotes(db.Model, MetaMixins):
         else:
             db.session.execute(
                 insert(cls).values(
-                    fk_talk_id=talk_id,
+                    fk_proposal_id=proposal_id,
                     fk_account_id=account_id,
                     vote=False
                 )
@@ -84,11 +84,11 @@ class TalkVotes(db.Model, MetaMixins):
         db.session.commit()
 
     @classmethod
-    def abstain(cls, talk_id: int, account_id: int):
+    def abstain(cls, proposal_id: int, account_id: int):
         db.session.execute(
             delete(cls).filter(
                 and_(
-                    cls.fk_talk_id == talk_id,
+                    cls.fk_proposal_id == proposal_id,
                     cls.fk_account_id == account_id,
                 )
             )

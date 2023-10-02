@@ -34,6 +34,9 @@ def account(account_id):
     all_roles = Roles.select_all()
     all_roles_as_json = {}
     for role in all_roles:
+        if role.name == "Super Administrator":
+            if role.role_id not in account_roles:
+                continue
         all_roles_as_json[role.name] = {
             "role_id": role.role_id,
             "has": True if role.role_id in account_roles else False

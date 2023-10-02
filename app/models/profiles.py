@@ -76,3 +76,22 @@ class Profiles(db.Model, MetaMixins):
     @staticmethod
     def save():
         db.session.commit()
+
+    @classmethod
+    def delete_using_account_id(cls, account_id: int):
+        from app.models.display_pictures import DisplayPictures
+
+        deleted_display_picture = DisplayPictures.select_using_unique_display_picture_id(9999)
+
+        db.session.execute(
+            update(cls).where(cls.fk_account_id == account_id).values(
+                fk_display_picture_id=deleted_display_picture.display_picture_id,
+                company_name=None,
+                name_or_alias="ACCOUNT DELETED",
+                pronouns=None,
+                bio=None,
+                country=None,
+                website=None,
+            )
+        )
+        db.session.commit()

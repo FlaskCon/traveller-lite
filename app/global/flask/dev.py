@@ -1,5 +1,8 @@
 import click
 
+from app.models.display_pictures import DisplayPictures
+from app.models.proposal_statuses import ProposalStatuses
+
 
 def dev_cli(passed_app):
     import random
@@ -13,9 +16,9 @@ def dev_cli(passed_app):
     fake = Faker()
     app: Flask = passed_app
 
-    @app.cli.command("dev-seed-test-data")
+    @app.cli.command("dev-seed")
     def dev_seed_test_data():
-        random_accounts = 100
+        random_accounts = 10
 
         if Roles.__is_empty__():
             print("Creating roles from Resources.roles...")
@@ -23,7 +26,19 @@ def dev_cli(passed_app):
         else:
             print("Roles already exist.")
 
-        print("Generating {random_accounts} random accounts...")
+        if DisplayPictures.__is_empty__():
+            print("Creating display pictures...")
+            DisplayPictures.seed(Resources.original_display_pictures)
+        else:
+            print("Display pictures table is not empty.")
+
+        if ProposalStatuses.__is_empty__():
+            print("Creating proposal statuses...")
+            ProposalStatuses.seed(Resources.proposal_statuses)
+        else:
+            print("Proposal statuses table is not empty.")
+
+        print(f"Generating {random_accounts} random accounts...")
         random_amount_of_attendees = []
         random_attendee_type = [["Attendee"], ["VIP", "Attendee"]]
         for i in range(1, random_accounts):
@@ -41,42 +56,42 @@ def dev_cli(passed_app):
             {
                 "email_address": "admin@sys.local",
                 "name_or_alias": "Administrator",
-                "password": "admin",
+                "password": "password",
                 "roles": ["Administrator"]
             },
             {
                 "email_address": "cocofficial@sys.local",
-                "name_or_alias": "Administrator",
-                "password": "cocofficial",
+                "name_or_alias": "Code of Conduct Official",
+                "password": "password",
                 "roles": ["Code of Conduct Official"]
             },
             {
                 "email_address": "reviewer@sys.local",
-                "name_or_alias": "Administrator",
-                "password": "reviewer",
+                "name_or_alias": "Proposal Reviewer",
+                "password": "password",
                 "roles": ["Proposal Reviewer"]
             },
             {
                 "email_address": "speaker@sys.local",
-                "name_or_alias": "Administrator",
-                "password": "speaker",
+                "name_or_alias": "Speaker",
+                "password": "password",
                 "roles": ["Speaker"]
             },
             {
                 "email_address": "sponsor@sys.local",
-                "name_or_alias": "Administrator",
-                "password": "sponsor",
+                "name_or_alias": "Sponsor",
+                "password": "password",
                 "roles": ["Sponsor"]
             },
             {
                 "email_address": "volunteer@sys.local",
-                "name_or_alias": "Administrator",
-                "password": "volunteer",
+                "name_or_alias": "Volunteer",
+                "password": "password",
                 "roles": ["Volunteer"]
             },
         ]
 
-        Accounts.create_batch([*defined_accounts, *random_amount_of_attendees])
+        Accounts.create_batch([*defined_accounts, *random_amount_of_attendees], confirm_accounts=True)
 
         for account in [*defined_accounts, *random_amount_of_attendees]:
             account_id = Accounts.select_account_id_using_email_address(account.get("email_address"))

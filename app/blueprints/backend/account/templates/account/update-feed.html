@@ -9,12 +9,17 @@
 {% endblock %}
 
 {% block content %}
-    <div class="content-box m-down-4" x-data="talk">
+    <div class="content-box m-down-4" x-data="proposal">
         {% if __account__.rel_update_feed %}
             {% for update in __account__.rel_update_feed %}
                 <div class="attention-content flex gap-2">
-                    <img width="64" height="64"
-                         src="{{ url_for('static', filename='update-feed-images/' + update.image) }}" alt="">
+                    {% if update.image %}
+                        <img width="64" height="64"
+                             src="{{ url_for('static', filename='update-feed-images/' + update.image) }}" alt="">
+                    {% else %}
+                        <img width="64" height="64"
+                             src="{{ url_for('static', filename='update-feed-images/empty.gif') }}" alt="">
+                    {% endif %}
                     <div>
                         <h3>{{ update.title }}</h3>
                         <p>{{ update.message }}</p>

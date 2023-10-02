@@ -2,19 +2,19 @@ import mistune
 from flask import render_template, request, redirect, url_for, session, flash
 from flask_imp.security import login_check, include_csrf
 
-from app.models.talks import Talks
+from app.models.proposals import Proposals
 from app.utilities.render_engines import HighlightRenderer
 from .. import bp
 
 
-@bp.route("/talks/talk/<int:talk_id>", methods=["GET", "POST"])
+@bp.route("/proposals/proposal/<int:proposal_id>", methods=["GET", "POST"])
 @login_check("logged_in", True, "auth.login")
 @include_csrf()
-def talk(talk_id):
-    talk_ = Talks.select_using_talk_id(talk_id)
+def proposal(proposal_id):
+    proposal_ = Proposals.select_using_proposal_id(proposal_id)
 
-    if not talk_:
-        return redirect(url_for("account.talks"))
+    if not proposal_:
+        return redirect(url_for("account.proposals"))
 
     if request.method == "POST":
         title = request.form.get("title")
@@ -49,7 +49,7 @@ def talk(talk_id):
         else:
             notes_or_requests_markdown = None
 
-        talk_.save_talk(
+        proposal_.save_proposal(
             title=title,
             detail=detail,
             detail_markdown=detail_markdown,
@@ -65,9 +65,9 @@ def talk(talk_id):
 
         if submit_proposal == "true":
             flash("Your proposal has been submitted! We will be in touch soon.")
-            return redirect(url_for("account.talks"))
+            return redirect(url_for("account.proposals"))
 
-        flash("Your talk has been saved.")
-        return redirect(url_for("account.talks"))
+        flash("Your proposal has been saved.")
+        return redirect(url_for("account.proposals"))
 
-    return render_template(bp.tmpl("talk.html"), talk=talk_, csrf=session.get("csrf"))
+    return render_template(bp.tmpl("proposal.html"), proposal=proposal_, csrf=session.get("csrf"))

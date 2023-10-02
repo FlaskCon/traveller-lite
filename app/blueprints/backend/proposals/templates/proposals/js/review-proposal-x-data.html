@@ -1,0 +1,59 @@
+{% set vote_position = proposal.get_voting_position_using_account_id(session.get('account_id')) %}
+
+<script defer type="application/javascript">
+
+    document.addEventListener('alpine:init', () => {
+
+        Alpine.data('review_proposal', () => ({
+            vote_for: {{ 'true' if vote_position == True else 'false' }},
+            vote_against: {{ 'true' if vote_position == False else 'false' }},
+
+            change_requested: {{ 'true' if proposal.rel_proposal_status.unique_proposal_status_id == 104 else 'false' }},
+            waitlisted: {{ 'true' if proposal.rel_proposal_status.unique_proposal_status_id == 106 else 'false' }},
+            accepted: {{ 'true' if proposal.rel_proposal_status.unique_proposal_status_id == 107 else 'false' }},
+            rejected: {{ 'true' if proposal.rel_proposal_status.unique_proposal_status_id == 108 else 'false' }},
+
+            change_status(code) {
+                switch (code) {
+                    case 104:
+                        this.under_review = false;
+                        this.change_requested = true;
+                        this.waitlisted = false;
+                        this.accepted = false;
+                        this.rejected = false;
+                        break;
+                    case 106:
+                        this.under_review = false;
+                        this.change_requested = false;
+                        this.waitlisted = true;
+                        this.accepted = false;
+                        this.rejected = false;
+                        break;
+                    case 107:
+                        this.under_review = false;
+                        this.change_requested = false;
+                        this.waitlisted = false;
+                        this.accepted = true;
+                        this.rejected = false;
+                        break;
+                    case 108:
+                        this.under_review = false;
+                        this.change_requested = false;
+                        this.waitlisted = false;
+                        this.accepted = false;
+                        this.rejected = true;
+                        break;
+                    case 0:
+                        this.under_review = false;
+                        this.change_requested = false;
+                        this.waitlisted = false;
+                        this.accepted = false;
+                        this.rejected = false;
+                        break;
+                }
+            }
+        }));
+
+    })
+
+</script>

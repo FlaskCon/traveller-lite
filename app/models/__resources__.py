@@ -5,22 +5,23 @@ from pprint import pprint
 @dataclass
 class Resources:
     roles = [
-        {"name": "Super Administrator"},
-        {"name": "Administrator"},
-        {"name": "Conference Chair"},
-        {"name": "Grants Chair"},
-        {"name": "Volunteer Chair"},
-        {"name": "Sprints Chair"},
-        {"name": "Speaker Support Chair"},
-        {"name": "Sponsorship Chair"},
-        {"name": "Diversity Chair"},
-        {"name": "Code of Conduct Official"},
-        {"name": "Proposal Reviewer"},
-        {"name": "Speaker"},
-        {"name": "Volunteer"},
-        {"name": "VIP"},
-        {"name": "Attendee"},
-        {"name": "Emeritus"},
+        {"name": "Super Administrator", "unique_role_id": 100},
+        {"name": "Administrator", "unique_role_id": 101},
+        {"name": "Conference Chair", "unique_role_id": 102},
+        {"name": "Grants Chair", "unique_role_id": 103},
+        {"name": "Volunteer Chair", "unique_role_id": 104},
+        {"name": "Sprints Chair", "unique_role_id": 105},
+        {"name": "Speaker Support Chair", "unique_role_id": 106},
+        {"name": "Sponsorship Chair", "unique_role_id": 107},
+        {"name": "Diversity Chair", "unique_role_id": 108},
+        {"name": "Code of Conduct Official", "unique_role_id": 109},
+        {"name": "Proposal Reviewer", "unique_role_id": 110},
+        {"name": "Sponsor", "unique_role_id": 111},
+        {"name": "Speaker", "unique_role_id": 112},
+        {"name": "Volunteer", "unique_role_id": 114},
+        {"name": "VIP", "unique_role_id": 115},
+        {"name": "Attendee", "unique_role_id": 116},
+        {"name": "Emeritus", "unique_role_id": 117},
     ]
 
     sponsor_levels = [
@@ -31,55 +32,61 @@ class Resources:
         {"name": "Donor"},
     ]
 
-    talk_statuses = [
+    proposal_statuses = [
         {
             "name": "Preparation",
             "description": "Not yet submitted, but saved for safe keeping.",
-            "unique_talk_status_id": 101
+            "unique_proposal_status_id": 101
         },
         {
-            "name": "Proposal",
-            "description": "Your talk has been submitted.",
-            "unique_talk_status_id": 102
+            "name": "Submitted",
+            "description": "Your proposal has been submitted.",
+            "unique_proposal_status_id": 102
         },
         {
             "name": "Under Review",
-            "description": "Your talk is being reviewed by the committee.",
-            "unique_talk_status_id": 103
+            "description": "Your proposal is being reviewed by the committee.",
+            "unique_proposal_status_id": 103
         },
         {
             "name": "Change Requested",
-            "description": "The committee has requested changes to your talk.",
-            "unique_talk_status_id": 104
+            "description": "The committee has requested changes to your proposal.",
+            "unique_proposal_status_id": 104
         },
         {
             "name": "Changes Made",
-            "description": "You have made the requested changes to your talk.",
-            "unique_talk_status_id": 105
+            "description": "You have made the requested changes to your proposal.",
+            "unique_proposal_status_id": 105
         },
         {
             "name": "Waitlisted",
-            "description": "Your talk was not accepted, but may be accepted if another talk is cancelled.",
-            "unique_talk_status_id": 106
+            "description": "Your proposal was not accepted, but may be accepted if another proposal is cancelled.",
+            "unique_proposal_status_id": 106
         },
         {
             "name": "Accepted",
-            "description": "Your talk has been accepted.",
-            "unique_talk_status_id": 107
+            "description": "Your proposal has been accepted.",
+            "unique_proposal_status_id": 107
         },
         {
             "name": "Rejected",
-            "description": "Your talk has been rejected.",
-            "unique_talk_status_id": 108
+            "description": "Your proposal has been rejected.",
+            "unique_proposal_status_id": 108
         },
         {
             "name": "Cancelled",
-            "description": "You have cancelled your talk.",
-            "unique_talk_status_id": 109
+            "description": "You have cancelled your proposal.",
+            "unique_proposal_status_id": 109
         },
     ]
 
     original_display_pictures = [
+        {'attribution': 'System',
+         'attribution_url': 'https://flaskcon.com',
+         'filename': '__deleted__.png',
+         'limited': True,
+         'note': 'Deleted account profile picture.',
+         'unique_display_picture_id': 9999},
         {'attribution': 'Tom Dils',
          'attribution_url': 'https://unsplash.com/@tdils',
          'filename': 'ogdp1.png',

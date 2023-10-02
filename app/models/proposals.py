@@ -5,24 +5,24 @@ from sqlalchemy import func
 from . import *
 
 
-class Talks(db.Model, MetaMixins):
-    talk_id = db.Column(db.Integer, primary_key=True)
+class Proposals(db.Model, MetaMixins):
+    proposal_id = db.Column(db.Integer, primary_key=True)
     fk_account_id = db.Column(db.Integer, db.ForeignKey("accounts.account_id"))
-    fk_talk_status_id = db.Column(db.Integer, db.ForeignKey("talk_statuses.talk_status_id"))
+    fk_proposal_status_id = db.Column(db.Integer, db.ForeignKey("proposal_statuses.proposal_status_id"))
 
     year = db.Column(db.Integer, nullable=False)  # This is taken on the date of submission
     title = db.Column(db.String, nullable=False)
 
-    # An in-depth explanation of your talk, read only by reviewers.
+    # An in-depth explanation of your proposal, read only by reviewers.
     # What you'll be talking about.
-    # What they'll learn from your talk.
-    # What background experience they should have to get the most out of your talk.
+    # What they'll learn from your proposal.
+    # What background experience they should have to get the most out of your proposal.
     # DO NOT place any identifying information in this field.
     detail = db.Column(db.String, nullable=True)
     detail_markdown = db.Column(db.String, nullable=True)
 
-    # A short description of your talk.
-    # If your talk is accepted, the abstract will be published on the conference website.
+    # A short description of your proposal.
+    # If your proposal is accepted, the abstract will be published on the conference website.
     # DO NOT place any identifying information in this field.
     abstract = db.Column(db.String, nullable=True)
     abstract_markdown = db.Column(db.String, nullable=True)
@@ -50,30 +50,34 @@ class Talks(db.Model, MetaMixins):
     updated = db.Column(db.DateTime, nullable=False, default=datetime.now, onupdate=datetime.now)
 
     # Relationships
-    rel_talk_status = relationship(
-        "TalkStatuses",
-        primaryjoin="Talks.fk_talk_status_id == TalkStatuses.talk_status_id",
+    rel_proposal_status = relationship(
+        "ProposalStatuses",
+        primaryjoin="Proposals.fk_proposal_status_id == ProposalStatuses.proposal_status_id",
         viewonly=True,
         uselist=False,
     )
 
-    rel_talk_votes = relationship(
-        "TalkVotes",
-        primaryjoin="Talks.talk_id == TalkVotes.fk_talk_id",
+    rel_proposal_votes = relationship(
+        "ProposalVotes",
+        primaryjoin="Proposals.proposal_id == ProposalVotes.fk_proposal_id",
         viewonly=True,
         uselist=True,
     )
 
+    @staticmethod
+    def save():
+        db.session.commit()
+
     @property
-    def talk_status(self):
-        return self.rel_talk_status.name
+    def proposal_status(self):
+        return self.rel_proposal_status.name
 
     @property
     def votes(self) -> dict:
         votes_default = {"for": 0, "against": 0}
         votes_calc = {
             (vote.vote and "for" or "against"): votes_default["for" if vote.vote else "against"] + 1 for
-            vote in self.rel_talk_votes or []
+            vote in self.rel_proposal_votes or []
         }
 
         if not votes_calc.get("for"):
@@ -84,20 +88,21 @@ class Talks(db.Model, MetaMixins):
         return votes_calc
 
     def get_voting_position_using_account_id(self, account_id: int) -> t.Optional[bool]:
-        for vote in self.rel_talk_votes or []:
+        for vote in self.rel_proposal_votes or []:
             if vote.fk_account_id == account_id:
                 return vote.vote
         return None
 
     @classmethod
-    def count_total_talks_at_reviewer_seen_statuses(cls):
-        from .talk_statuses import TalkStatuses
-        talk_ids = TalkStatuses.select_talk_status_id_using_unique_talk_status_id_batch([102, 103, 104, 105])
+    def count_total_proposals_at_reviewer_seen_statuses(cls):
+        from .proposal_statuses import ProposalStatuses
+        proposal_ids = ProposalStatuses.select_proposal_status_id_using_unique_proposal_status_id_batch(
+            [102, 103, 104, 105])
         return db.session.execute(
             select(
-                func.count(cls.talk_id)
+                func.count(cls.proposal_id)
             ).where(
-                cls.fk_talk_status_id.in_(talk_ids)
+                cls.fk_proposal_status_id.in_(proposal_ids)
             )
         ).scalar_one_or_none()
 
@@ -108,21 +113,22 @@ class Talks(db.Model, MetaMixins):
         ).scalars().all()
 
     @classmethod
-    def select_using_talk_id(cls, talk_id: int):
+    def select_using_proposal_id(cls, proposal_id: int):
         return db.session.execute(
-            select(cls).where(cls.talk_id == talk_id).order_by(cls.created.asc())
+            select(cls).where(cls.proposal_id == proposal_id).order_by(cls.created.asc())
         ).scalar_one_or_none()
 
     @classmethod
     def for_review(cls):
-        from .talk_statuses import TalkStatuses
-        talk_ids = TalkStatuses.select_talk_status_id_using_unique_talk_status_id_batch([102, 103, 104, 105])
+        from .proposal_statuses import ProposalStatuses
+        proposal_ids = ProposalStatuses.select_proposal_status_id_using_unique_proposal_status_id_batch(
+            [102, 103, 104, 105])
         return db.session.execute(
-            select(cls).where(cls.fk_talk_status_id.in_(talk_ids)).order_by(cls.created.asc())
+            select(cls).where(cls.fk_proposal_status_id.in_(proposal_ids)).order_by(cls.created.asc())
         ).scalars().all()
 
     @classmethod
-    def save_new_talk(
+    def save_new_proposal(
             cls,
             fk_account_id,
             title,
@@ -136,12 +142,12 @@ class Talks(db.Model, MetaMixins):
             notes_or_requests_markdown,
             tags,
     ):
-        from .talk_statuses import TalkStatuses
+        from .proposal_statuses import ProposalStatuses
 
         result = db.session.execute(
             insert(cls).values(
                 fk_account_id=fk_account_id,
-                fk_talk_status_id=TalkStatuses.select_using_unique_talk_status_id(101).talk_status_id,
+                fk_proposal_status_id=ProposalStatuses.select_using_unique_proposal_status_id(101).proposal_status_id,
                 year=datetime.now().year,
                 title=title,
                 detail=detail,
@@ -158,7 +164,7 @@ class Talks(db.Model, MetaMixins):
         db.session.commit()
         return result.lastrowid
 
-    def save_talk(
+    def save_proposal(
             self,
             title,
             detail,
@@ -172,7 +178,7 @@ class Talks(db.Model, MetaMixins):
             tags,
             submit_proposal,
     ):
-        from .talk_statuses import TalkStatuses
+        from .proposal_statuses import ProposalStatuses
 
         self.title = title
         self.detail = detail
@@ -187,6 +193,6 @@ class Talks(db.Model, MetaMixins):
             self.tags = tags
 
         if submit_proposal:
-            self.fk_talk_status_id = TalkStatuses.select_using_unique_talk_status_id(102).talk_status_id
+            self.fk_proposal_status_id = ProposalStatuses.select_using_unique_proposal_status_id(102).proposal_status_id
 
         db.session.commit()

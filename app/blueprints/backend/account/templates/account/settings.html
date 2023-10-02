@@ -9,16 +9,124 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container" x-data="settings">
-        <h1>Settings</h1>
-        <div class="row">
-            <div class="six columns">
+    <div class="content-box" x-data="settings">
+
+        <form method="post">
+
+            <input type="hidden" name="csrf" value="{{ csrf }}">
+
+            <label for="old_password">Old Password</label>
+            <input
+                    type="password"
+                    name="old_password"
+                    id="old_password"
+                    class="w-100"
+            >
+
+            <label for="new_password">New Password</label>
+            <input
+                    type="password"
+                    name="new_password"
+                    id="new_password"
+                    x-model="your_account_password"
+                    @change.debounce.500ms="check_password_strength()"
+                    @keyup.debounce.500ms="check_password_strength()"
+                    style="margin-bottom: 0.5rem;"
+                    class="w-100"
+            >
+            <div style="margin-bottom: 1rem;">
+                <label><small>Strength:</small>
+                    <progress
+                            id="password_strength"
+                            max="100"
+                            value="0"
+                            :style="{'accent-color': your_account_strength_bar_color}"
+                            x-model="your_account_strength_bar"
+                    ></progress>
+                </label>
+                <span class="form-error" x-text="your_account_strength_msg">
+                </span>
+            </div>
+
+
+            <label for="confirm_new_password">
+                Confirm New Password
+            </label>
+
+            <input
+                    type="password"
+                    name="confirm_new_password"
+                    id="confirm_new_password"
+                    x-model="your_account_confirm_password"
+                    @change.debounce.500ms="your_account_check_passwords_match()"
+                    @keyup.debounce.500ms="your_account_check_passwords_match()"
+                    style="margin-bottom: 0.5rem;"
+                    class="w-100"
+            >
+            <div style="margin-bottom: 1rem;">
+                <span class="form-error" x-cloak x-show="your_account_passwords_match === false">
+                    Passwords do not match.
+                </span>
+            </div>
+
+            <button
+                    class="button-primary"
+                    :type="your_account_button_enabled ? 'submit' : 'button'"
+                    :class="{'button-disabled': !your_account_button_enabled}"
+            >
+                Update Password
+            </button>
+
+        </form>
+
+    </div>
+
+    <div class="content-box m-down-4" x-data="delete_account">
+
+        <button
+                type="button"
+                class="button-bad m-all-0"
+                @click="delete_account_warning = true; delete_account = true"
+        >
+            Delete Account
+        </button>
+
+        <form method="post" x-cloak x-show="delete_account_warning">
+
+            <input type="hidden" name="csrf" value="{{ csrf }}">
+
+            <div class="warning">
+                <p class="m-down-1">
+                    Are you sure you want to delete your account?
+                    This action cannot be undone.
+                </p>
+
+                <input type="hidden" name="csrf" value="{{ csrf }}">
+                <input type="hidden" name="delete_account" x-model="delete_account">
+                <input type="hidden" name="account_id" value="{{ session.get('account_id') }}">
+
+                <label for="delete_password">Password</label>
+                <input
+                        type="password"
+                        name="delete_password"
+                        id="delete_password"
+                        class="w-100"
+                >
+
+                <button class="button-bad">
+                    Yes, Delete My Account
+                </button>
+                <button
+                        class="button"
+                        type="button"
+                        @click="delete_account_warning = false; delete_account = false">
+                    No, Cancel
+                </button>
 
             </div>
-            <div class="six columns">
 
-            </div>
-        </div>
+        </form>
+
     </div>
 {% endblock %}
 

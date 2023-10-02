@@ -9,7 +9,7 @@ from app.models.accounts import Accounts
 from app.models.display_pictures import DisplayPictures
 from app.models.roles import Roles
 from app.models.roles_membership import RolesMembership
-from app.models.talk_statuses import TalkStatuses
+from app.models.proposal_statuses import ProposalStatuses
 
 
 @app.cli.command("seed")
@@ -45,11 +45,11 @@ def seed():
     else:
         print("Display pictures table is not empty.")
 
-    if TalkStatuses.__is_empty__():
-        print("Creating talk statuses...")
-        TalkStatuses.seed(Resources.talk_statuses)
+    if ProposalStatuses.__is_empty__():
+        print("Creating proposal statuses...")
+        ProposalStatuses.seed(Resources.proposal_statuses)
     else:
-        print("Talk statuses table is not empty.")
+        print("Proposal statuses table is not empty.")
 
     print("creating super admin account...")
     admin_email_address, admin_password = set_admin_account()

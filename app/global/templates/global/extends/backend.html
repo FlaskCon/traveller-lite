@@ -54,9 +54,9 @@
                        {% if 'account/profile' in request.url %}class="selected"{% endif %}>
                     Your Profile</a></li>
                 {% if "Attendee" in __roles__ %}
-                    <li><a href="{{ url_for('account.talks') }}"
-                           {% if 'account/talk' in request.url %}class="selected"{% endif %}>
-                        Your Talks</a></li>
+                    <li><a href="{{ url_for('account.proposals') }}"
+                           {% if 'account/proposal' in request.url %}class="selected"{% endif %}>
+                        Your Proposals</a></li>
                 {% endif %}
             </ul>
 

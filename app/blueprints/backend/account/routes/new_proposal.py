@@ -2,15 +2,15 @@ import mistune
 from flask import render_template, request, session, redirect, url_for, flash
 from flask_imp.security import login_check, include_csrf
 
-from app.models.talks import Talks
+from app.models.proposals import Proposals
 from app.utilities.render_engines import HighlightRenderer
 from .. import bp
 
 
-@bp.route("/talks/propose-a-talk", methods=["GET", "POST"])
+@bp.route("/proposals/new-proposal", methods=["GET", "POST"])
 @login_check("logged_in", True, "auth.login")
 @include_csrf()
-def propose_a_talk():
+def new_proposal():
     if request.method == "POST":
         title = request.form.get("title")
         detail = request.form.get("detail")
@@ -41,7 +41,7 @@ def propose_a_talk():
         else:
             notes_or_requests_markdown = None
 
-        talk_id = Talks.save_new_talk(
+        proposal_id = Proposals.save_new_proposal(
             fk_account_id=session.get("account_id"),
             title=title,
             detail=detail,
@@ -54,7 +54,7 @@ def propose_a_talk():
             notes_or_requests_markdown=notes_or_requests_markdown,
             tags=tags.replace(" ", ""),
         )
-        flash("Your talk has been created.")
-        return redirect(url_for("account.talk", talk_id=talk_id))
+        flash("Your proposal has been created.")
+        return redirect(url_for("account.proposal", proposal_id=proposal_id))
 
-    return render_template(bp.tmpl("propose-a-talk.html"), csrf=session.get("csrf"))
+    return render_template(bp.tmpl("new-proposal.html"), csrf=session.get("csrf"))

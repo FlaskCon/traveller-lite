@@ -4,6 +4,7 @@ from sqlalchemy import func
 
 from . import *
 from .update_feed import UpdateFeed
+from .roles import Roles
 
 
 class Accounts(db.Model, MetaMixins):
@@ -31,9 +32,9 @@ class Accounts(db.Model, MetaMixins):
         uselist=False,
     )
 
-    rel_talks = relationship(
-        "Talks",
-        primaryjoin="Accounts.account_id==Talks.fk_account_id",
+    rel_proposals = relationship(
+        "Proposals",
+        primaryjoin="Accounts.account_id==Proposals.fk_account_id",
         viewonly=True,
     )
 
@@ -169,7 +170,13 @@ class Accounts(db.Model, MetaMixins):
         return None
 
     @classmethod
-    def signup(cls, email_address: str, password: str, name_or_alias: str, confirmed: bool = False):
+    def signup(
+            cls,
+            email_address: str,
+            password: str,
+            name_or_alias: str,
+            confirmed: bool = False,
+    ):
         """
         Written for sqlite. Returns account after commit.
         """
@@ -200,7 +207,7 @@ class Accounts(db.Model, MetaMixins):
         db.session.execute(
             insert(Profiles).values(
                 fk_account_id=account.account_id,
-                fk_display_picture_id=random.choice(DisplayPictures.select_all_display_picture_id()),
+                fk_display_picture_id=random.choice(DisplayPictures.select_all_account_signup()),
                 name_or_alias=name_or_alias,
                 earned_display_pictures={"earned": []}
             )
@@ -208,7 +215,7 @@ class Accounts(db.Model, MetaMixins):
         db.session.execute(
             insert(RolesMembership).values(
                 fk_account_id=account.account_id,
-                fk_role_id=15,
+                fk_role_id=Roles.select_by_unique_role_id(116).role_id,
             )
         )
         db.session.execute(
@@ -271,10 +278,11 @@ class Accounts(db.Model, MetaMixins):
     # batch actions:
 
     @classmethod
-    def create_batch(cls, batch: list[dict]):
+    def create_batch(cls, batch: list[dict], confirm_accounts: bool = False):
         """
         batch: [{"email_address": -, "password": -, "disabled": -}]
         :param batch:
+        :param confirm_accounts:
         :return:
         """
 
@@ -284,11 +292,10 @@ class Accounts(db.Model, MetaMixins):
                 continue
 
             cls.signup(
-                value.get("email_address"),
-                value.get("password", "password"),
-                value.get("name_or_alias"),
-                confirmed=True
-
+                email_address=value.get("email_address"),
+                password=value.get("password", "password"),
+                name_or_alias=value.get("name_or_alias"),
+                confirmed=confirm_accounts,
             )
 
     @classmethod
@@ -307,3 +314,31 @@ class Accounts(db.Model, MetaMixins):
             "email_address": account.email_address,
             "profile": account.rel_profile[0] if account.rel_profile else None,
         }
+
+    @classmethod
+    def delete_account(cls, account_id: int):
+        from app.models.profiles import Profiles
+        from app.models.roles_membership import RolesMembership
+        from app.models.update_feed import UpdateFeed
+        from flask_imp.auth import Auth
+
+        Profiles.delete_using_account_id(account_id)
+        RolesMembership.delete_using_account_id(account_id)
+        UpdateFeed.delete_using_account_id(account_id)
+
+        db.session.execute(
+            update(
+                cls
+            ).where(
+                cls.account_id == account_id
+            ).values(
+                email_address=f"ACCOUNT DELETED",
+                password="ACCOUNT DELETED",
+                salt=Auth.generate_salt(),
+                disabled=True,
+                confirmed=False,
+                private_key=None,
+            )
+        )
+
+        db.session.commit()

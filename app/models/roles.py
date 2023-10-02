@@ -5,6 +5,7 @@ from . import *
 
 class Roles(db.Model, MetaMixins):
     role_id = db.Column(db.Integer, primary_key=True)
+    unique_role_id = db.Column(db.Integer, nullable=False)
     name = db.Column(db.String(128), nullable=False)
 
     rel_role_membership = relationship(
@@ -18,6 +19,12 @@ class Roles(db.Model, MetaMixins):
     def select_by_id(cls, role_id):
         return db.session.execute(
             select(cls).filter_by(role_id=role_id).limit(1)
+        ).scalar_one_or_none()
+
+    @classmethod
+    def select_by_unique_role_id(cls, unique_role_id):
+        return db.session.execute(
+            select(cls).filter_by(unique_role_id=unique_role_id).limit(1)
         ).scalar_one_or_none()
 
     @classmethod

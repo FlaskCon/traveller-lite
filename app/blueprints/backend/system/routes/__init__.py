@@ -13,7 +13,7 @@ def decorator_group(rule, **options):
         @bp.route(rule, **options)
         @login_check("logged_in", True, "auth.login")
         @pass_function_check(
-            RolesMembership.is_administrator,
+            RolesMembership.get_by_account_id,
             {"account_id": session},
             "account.update_feed",
             with_app_context=True,

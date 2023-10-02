@@ -6,3 +6,4 @@ python-dotenv
 mistune
 pygments
 pycountry
+pyIsEmail

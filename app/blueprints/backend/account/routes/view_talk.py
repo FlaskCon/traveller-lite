@@ -2,16 +2,16 @@ import mistune
 from flask import render_template, redirect, url_for
 from flask_imp.security import login_check
 
-from app.models.talks import Talks
+from app.models.proposals import Proposals
 from .. import bp
 
 
-@bp.route("/talks/talk/<int:talk_id>/view", methods=["GET", "POST"])
+@bp.route("/proposals/proposal/<int:proposal_id>/view", methods=["GET", "POST"])
 @login_check("logged_in", True, "auth.login")
-def view_talk(talk_id):
-    talk_ = Talks.select_using_talk_id(talk_id)
+def view_proposal(proposal_id):
+    proposal_ = Proposals.select_using_proposal_id(proposal_id)
 
-    if not talk_:
-        return redirect(url_for("account.talks"))
+    if not proposal_:
+        return redirect(url_for("account.proposals"))
 
-    return render_template(bp.tmpl("view-talk.html"), talk=talk_)
+    return render_template(bp.tmpl("view-proposal.html"), proposal=proposal_)
