@@ -8,3 +8,4 @@ mistune
 pygments
 pycountry
 pyIsEmail
+psycopg2-binary

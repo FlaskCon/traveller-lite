@@ -17,6 +17,9 @@ def create_app():
     db.init_app(app)
     imp.import_models("models")
 
+    with app.app_context():
+        db.create_all()
+
     imp.import_app_resources(
         app_factories=["dev_cli"] if DEV_MODE else [],
     )

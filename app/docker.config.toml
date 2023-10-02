@@ -52,12 +52,12 @@ SQLALCHEMY_RECORD_QUERIES = false
 # Uncomment below to generate the SQLALCHEMY_DATABASE_URI.
 [DATABASE.MAIN]
 ENABLED = true
-DIALECT = "sqlite"
-DATABASE_NAME = "database"
-LOCATION = "instance"
-PORT = ""
-USERNAME = "database"
-PASSWORD = "password"
+DIALECT = "postgresql"
+DATABASE_NAME = "<POSTGRES_DB>"
+LOCATION = "<POSTGRES_LOCATION>"
+PORT = "<POSTGRES_PORT>"
+USERNAME = "<POSTGRES_USER>"
+PASSWORD = "<POSTGRES_PASSWORD>"
 
 # Adding another database is as simple as adding a new section.
 # [DATABASE.ANOTHER] will then be accessible using SQLALCHEMY_BINDS
