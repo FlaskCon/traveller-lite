@@ -87,12 +87,14 @@ class Resources:
          'limited': True,
          'note': 'Deleted account profile picture.',
          'unique_display_picture_id': 9999},
+
         {'attribution': 'Tom Dils',
          'attribution_url': 'https://unsplash.com/@tdils',
          'filename': 'ogdp1.png',
          'limited': False,
          'note': 'Part of the standard display pictures for FlaskCon.',
          'unique_display_picture_id': 1},
+
         {'attribution': 'Sandy Millar',
          'attribution_url': 'https://unsplash.com/@sandym10',
          'filename': 'ogdp2.png',

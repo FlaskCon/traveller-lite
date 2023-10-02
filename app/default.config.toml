@@ -53,7 +53,7 @@ SQLALCHEMY_RECORD_QUERIES = false
 [DATABASE.MAIN]
 ENABLED = true
 DIALECT = "sqlite"
-DATABASE_NAME = "database"
+DATABASE_NAME = "local"
 LOCATION = "instance"
 PORT = ""
 USERNAME = "database"

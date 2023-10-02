@@ -7,7 +7,6 @@ services:
     container_name: traveller-lite
     build: .
     environment:
-      IMP_CONFIG: docker.config.toml
       EMAIL_DEV_MODE: ${EMAIL_DEV_MODE}
       EMAIL_USERNAME: ${EMAIL_USERNAME}
       EMAIL_PASSWORD: ${EMAIL_PASSWORD}
@@ -16,25 +15,7 @@ services:
       SUPER_ADMIN_ACCOUNT: ${SUPER_ADMIN_ACCOUNT}
       SUPER_ADMIN_PASSWORD: ${SUPER_ADMIN_PASSWORD}
 
-    restart: always
-    network_mode: "host"
-
-    depends_on:
-      - database
-
-
-  database:
-    container_name: traveller-lite-db
-    image: postgres:latest
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
     volumes:
-      - postgres-database:/var/lib/postgresql/data
+      - ./instance:/app/instance
     restart: always
     network_mode: "host"
-
-
-volumes:
-  postgres-database:

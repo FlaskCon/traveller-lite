@@ -15,6 +15,11 @@ from app.models.roles_membership import RolesMembership
 
 @app.cli.command("seed")
 def seed():
+    from app.extensions import db
+
+    with app.app_context():
+        db.create_all()
+
     def set_admin_account(email_address: t.Optional[str] = None):
         if email_address is None:
             _email_address = input("Enter super admin email: ")
@@ -53,6 +58,10 @@ def seed():
         print("Proposal statuses table is not empty.")
 
     if os.environ.get("SUPER_ADMIN_ACCOUNT", False) and os.environ.get("SUPER_ADMIN_PASSWORD", False):
+        if Accounts.exists(os.environ.get("SUPER_ADMIN_ACCOUNT")):
+            print("Super admin account already exists.")
+            return
+
         account = Accounts.signup(
             email_address=os.environ.get("SUPER_ADMIN_ACCOUNT"),
             password=os.environ.get("SUPER_ADMIN_PASSWORD"),
