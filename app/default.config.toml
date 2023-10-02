@@ -30,11 +30,6 @@ PREFERRED_URL_SCHEME = "http"
 EXPLAIN_TEMPLATE_LOADING = false
 MAX_COOKIE_SIZE = 4093
 
-EMAIL_USERNAME = "<EMAIL_USERNAME>"
-EMAIL_PASSWORD = "<EMAIL_PASSWORD>"
-EMAIL_SERVER = "<EMAIL_SERVER>"
-EMAIL_PORT = "<EMAIL_PORT>"
-
 
 # This will set the default session variables for the app.
 # Anything here will be accessible using session["your_var_name"]

@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  app:
+    container_name: traveller-lite
+    build: .
+    environment:
+      EMAIL_DEV_MODE: ${EMAIL_DEV_MODE}
+      EMAIL_USERNAME: ${EMAIL_USERNAME}
+      EMAIL_PASSWORD: ${EMAIL_PASSWORD}
+      EMAIL_SERVER: ${EMAIL_SERVER}
+      EMAIL_PORT: ${EMAIL_PORT}
+      SUPER_ADMIN_ACCOUNT: ${SUPER_ADMIN_ACCOUNT}
+      SUPER_ADMIN_PASSWORD: ${SUPER_ADMIN_PASSWORD}
+
+    restart: always
+    network_mode: "host"

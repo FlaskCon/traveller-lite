@@ -24,9 +24,6 @@ def create_app():
     imp.import_blueprints("blueprints/backend")
     imp.import_blueprints("blueprints/frontend")
 
-    with app.app_context():
-        db.create_all()
-
     if DEV_MODE:
         print("DEV_MODE is enabled. Remember to turn this off in production (unset DEV_MODE)")
 

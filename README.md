@@ -106,12 +106,30 @@ gunicorn
 
 # Deployment
 
-## Docker
+**Current deploy cycle:**
+
+```
+cd /var/www/flask/traveller-lite
+```
+
+```
+git pull
+```
+
+```
+sudo docker build -t traveller-lite:b3 .
+```
+
+```
+sudo docker stop traveller-lite && sudo docker run --rm -d --network host --name traveller-lite traveller-lite:b3
+```
+
+## Working with Docker
 
 **Build the image**
 
 ```bash
-docker build -t traveller-lite .
+docker build -t traveller-lite:latest .
 ```
 
 **Run the container**

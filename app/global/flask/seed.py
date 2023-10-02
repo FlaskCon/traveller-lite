@@ -1,3 +1,4 @@
+import os
 import typing as t
 from getpass import getpass
 
@@ -7,9 +8,9 @@ from flask import current_app as app
 from app.models import Resources
 from app.models.accounts import Accounts
 from app.models.display_pictures import DisplayPictures
+from app.models.proposal_statuses import ProposalStatuses
 from app.models.roles import Roles
 from app.models.roles_membership import RolesMembership
-from app.models.proposal_statuses import ProposalStatuses
 
 
 @app.cli.command("seed")
@@ -51,13 +52,20 @@ def seed():
     else:
         print("Proposal statuses table is not empty.")
 
-    print("creating super admin account...")
-    admin_email_address, admin_password = set_admin_account()
-    account = Accounts.signup(
-        email_address=admin_email_address,
-        password=admin_password,
-        name_or_alias="Super Admin",
-    )
+    if os.environ.get("SUPER_ADMIN_ACCOUNT", False) and os.environ.get("SUPER_ADMIN_PASSWORD", False):
+        account = Accounts.signup(
+            email_address=os.environ.get("SUPER_ADMIN_ACCOUNT"),
+            password=os.environ.get("SUPER_ADMIN_PASSWORD"),
+            name_or_alias="Super Admin",
+        )
+    else:
+        print("creating super admin account...")
+        admin_email_address, admin_password = set_admin_account()
+        account = Accounts.signup(
+            email_address=admin_email_address,
+            password=admin_password,
+            name_or_alias="Super Admin",
+        )
 
     account.confirm_account()
 
@@ -79,6 +87,14 @@ def does_account_exist(email_address: str):
     print(True if Accounts.exists(ea) else False)
 
 
-@app.cli.command("test-sql")
-def test_sql():
-    pass
+@app.cli.command("create-database")
+def create_database():
+    from app.extensions import db
+
+    with app.app_context():
+        db.create_all()
+
+
+@app.cli.command("database-url")
+def database_url():
+    print(app.config["SQLALCHEMY_DATABASE_URI"])
