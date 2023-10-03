@@ -30,6 +30,12 @@ def login():
 
             if account:
 
+                if account.disabled:
+                    flash(
+                        "Your account has been disabled, please contact the administrator."
+                    )
+                    return redirect(url_for("auth.login"))
+
                 if not account.confirmed:
                     flash(
                         "Please confirm your account via the link sent to your email address, "

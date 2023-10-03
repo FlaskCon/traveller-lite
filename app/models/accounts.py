@@ -3,8 +3,8 @@ from datetime import datetime
 from sqlalchemy import func
 
 from . import *
-from .update_feed import UpdateFeed
 from .roles import Roles
+from .update_feed import UpdateFeed
 
 
 class Accounts(db.Model, MetaMixins):
@@ -12,7 +12,7 @@ class Accounts(db.Model, MetaMixins):
     email_address = db.Column(db.String, nullable=False)
     password = db.Column(db.String(512), nullable=False)
     salt = db.Column(db.String(4), nullable=False)
-    disabled = db.Column(db.Boolean)
+    disabled = db.Column(db.Boolean, default=False)
     confirmed = db.Column(db.Boolean, default=False)
     private_key = db.Column(db.String(256), nullable=True)
 
@@ -195,7 +195,6 @@ class Accounts(db.Model, MetaMixins):
                 email_address=email_address,
                 password=salt_and_pepper_password,
                 salt=salt,
-                disabled=False,
                 confirmed=confirmed,
                 private_key=private_key,
             )
