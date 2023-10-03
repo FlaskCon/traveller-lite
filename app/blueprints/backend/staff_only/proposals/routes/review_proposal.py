@@ -82,7 +82,7 @@ def review_proposal(proposal_id):
             ProposalVotes.abstain(proposal.proposal_id, 1)
 
         flash("Proposal has been updated.")
-        return redirect(url_for("proposals.review_proposal", proposal_id=proposal_id))
+        return redirect(url_for("staff_only.proposals.review_proposal", proposal_id=proposal_id))
 
     breadcrumbs = [("Proposals to Review", url_for('staff_only.proposals.review')), (proposal.title, None)]
 
