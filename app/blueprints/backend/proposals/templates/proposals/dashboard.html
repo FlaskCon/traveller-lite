@@ -11,7 +11,7 @@
 
 
 {% block content %}
-    <div class="content-box m-down-4" x-data="dashboard">
+    <div class="content-box m-down-2" x-data="dashboard">
         <div class="flex flex-row flex-wrap justify-evenly">
             <div class="dashboard-status-box flex-1">
                 <h1>Total Proposals</h1>
@@ -36,6 +36,45 @@
                 <h2>{{ total_votes - total_for_votes - total_against_votes }}</h2>
             </div>
         </div>
+    </div>
+
+    <div class="content-box">
+        {% if proposals %}
+            <h1>Proposals to Review</h1>
+            {% for proposal in proposals %}
+                <div class="attention-content">
+
+                    <h1 class="m-down-1" style="font-size: 3.5rem;">{{ proposal.title }}</h1>
+
+                    <div class="top-stats">
+                        <div><strong>Status:</strong> {{ proposal.rel_proposal_status.name }}</div>
+                        <div><strong>Year:</strong> {{ proposal.year }}</div>
+                        <div><strong>Your Vote:</strong>
+                            {% set your_voting_position_on_this =
+                            proposal.get_voting_position_using_account_id(session.get('account_id')) %}
+                            {% if your_voting_position_on_this == True %}
+                                For <span class="vote-for"></span>
+                            {% elif your_voting_position_on_this == False %}
+                                Against <span class="vote-against"></span>
+                            {% else %}
+                                Abstain <span class="vote-abstained"></span>
+                            {% endif %}
+                        </div>
+                        <div><strong>Votes:</strong>
+                            For - {{ proposal.votes.for }} | Against - {{ proposal.votes.against }}
+                        </div>
+                    </div>
+                    <a class="button button-primary m-up-1"
+                       href="{{ url_for('proposals.review_proposal', proposal_id=proposal.proposal_id) }}">
+                        View
+                    </a>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="attention-content">
+                <p>No proposals submitted yet.</p>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}
 

@@ -12,10 +12,13 @@ def dashboard():
     total_for_votes = ProposalVotes.count_total_for_votes()
     total_against_votes = ProposalVotes.count_total_against_votes()
 
+    proposals = Proposals.for_review()
+
     return render_template(
         bp.tmpl("dashboard.html"),
         total_proposals=total_proposals,
         total_votes=total_votes,
         total_for_votes=total_for_votes,
         total_against_votes=total_against_votes,
+        proposals=proposals,
     )
