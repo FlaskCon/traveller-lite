@@ -9,3 +9,6 @@ class Sponsors(db.Model, MetaMixins):
     description = db.Column(db.String, nullable=False)
     url = db.Column(db.String, nullable=False)
     logo = db.Column(db.String, nullable=False)
+    requested = db.Column(db.Boolean, nullable=False)
+    confirmed = db.Column(db.Boolean, nullable=False)
+    rejected = db.Column(db.Boolean, nullable=False)
