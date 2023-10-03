@@ -6,7 +6,7 @@
 
 
 {% block breadcrumbs %}
-    {{ breadcrumber([("Proposals to Review", None)]) }}
+    {{ breadcrumber([("Accepted Proposals", None)]) }}
 {% endblock %}
 
 {% block content %}
@@ -38,13 +38,13 @@
                     </div>
 
                     <a class="button button-primary m-up-1"
-                       href="{{ url_for('proposals.review_proposal', proposal_id=proposal.proposal_id) }}">View</a>
+                       href="{{ url_for('proposals.view_accepted', proposal_id=proposal.proposal_id) }}">View</a>
 
                 </div>
             {% endfor %}
         {% else %}
             <div class="attention-content">
-                <p>No proposals submitted yet.</p>
+                <p>No accepted proposals yet.</p>
             </div>
 
         {% endif %}

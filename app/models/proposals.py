@@ -128,6 +128,42 @@ class Proposals(db.Model, MetaMixins):
         ).scalars().all()
 
     @classmethod
+    def has_been_accepted(cls):
+        from .proposal_statuses import ProposalStatuses
+        accepted_status_id: int = ProposalStatuses.select_using_unique_proposal_status_id(
+            107).proposal_status_id
+
+        return db.session.execute(
+            select(cls).where(
+                cls.fk_proposal_status_id == accepted_status_id
+            ).order_by(cls.created.asc())
+        ).scalars().all()
+
+    @classmethod
+    def has_been_rejected(cls):
+        from .proposal_statuses import ProposalStatuses
+        accepted_status_id: int = ProposalStatuses.select_using_unique_proposal_status_id(
+            108).proposal_status_id
+
+        return db.session.execute(
+            select(cls).where(
+                cls.fk_proposal_status_id == accepted_status_id
+            ).order_by(cls.created.asc())
+        ).scalars().all()
+
+    @classmethod
+    def has_been_waitlisted(cls):
+        from .proposal_statuses import ProposalStatuses
+        accepted_status_id: int = ProposalStatuses.select_using_unique_proposal_status_id(
+            106).proposal_status_id
+
+        return db.session.execute(
+            select(cls).where(
+                cls.fk_proposal_status_id == accepted_status_id
+            ).order_by(cls.created.asc())
+        ).scalars().all()
+
+    @classmethod
     def save_new_proposal(
             cls,
             fk_account_id,

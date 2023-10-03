@@ -103,6 +103,15 @@
                 this.signup_button_enabled = this.signup_passwords_match === true && this.signup_strength_bar >= 75 && this.signup_email_address_valid === true;
             },
 
+            reset_password_allowed() {
+                if (this.signup_password !== "" && this.signup_confirm_password !== "") {
+                    this.signup_passwords_match = this.signup_password === this.signup_confirm_password;
+                } else {
+                    this.signup_passwords_match = false;
+                }
+                this.signup_button_enabled = this.signup_passwords_match === true && this.signup_strength_bar >= 75
+            },
+
         }));
 
     })

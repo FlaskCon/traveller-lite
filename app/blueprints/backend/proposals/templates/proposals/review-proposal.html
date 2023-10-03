@@ -6,53 +6,68 @@
 
 
 {% block breadcrumbs %}
-    {{ breadcrumber([("Proposals to Review", url_for('proposals.review')), (proposal.title, None)]) }}
+    {{ breadcrumber(breadcrumbs) }}
 {% endblock %}
 
 {% block content %}
     <div class="content-box m-down-4" x-data="review_proposal">
 
-        <form method="post">
+        <form method="post"
+              {% if external_post %}action="{{ url_for('proposals.review_proposal', proposal_id=proposal.proposal_id) }}"{% endif %}>
 
             <input type="hidden" name="csrf" value="{{ csrf }}">
-            <input type="hidden" x-model="vote_for" name="vote_for">
-            <input type="hidden" x-model="vote_against" name="vote_against">
-            <input type="hidden" x-model="change_requested" name="change_requested">
+            {% if show_voting %}
+                <input type="hidden" x-model="vote_for" name="vote_for">
+                <input type="hidden" x-model="vote_against" name="vote_against">
+            {% endif %}
+
+            {% if not external_post %}
+                <input type="hidden" x-model="change_requested" name="change_requested">
+            {% endif %}
+
             <input type="hidden" x-model="waitlisted" name="waitlisted">
             <input type="hidden" x-model="accepted" name="accepted">
             <input type="hidden" x-model="rejected" name="rejected">
+
+            {% if redirect_to %}
+                <input type="hidden" name="redirect_to" value="{{ redirect_to }}">
+            {% endif %}
 
             <div class="top-buttons">
                 <button type="submit" class="button-good">Save</button>
             </div>
 
-            <p class="m-up-down-1"><strong>Vote:</strong></p>
+            {% if show_voting %}
+                <p class="m-up-down-1"><strong>Vote:</strong></p>
 
-            <div class="top-buttons">
-                <button type="button"
-                        @click="vote_for = true; vote_against = false"
-                        :class="vote_for ? 'button-good': 'button'">
-                    For
-                </button>
-                <button type="button"
-                        @click="vote_for = false; vote_against = true"
-                        :class="vote_against ? 'button-bad': 'button'">
-                    Against
-                </button>
-                <button type="button"
-                        @click="vote_for = false; vote_against = false"
-                        :class="!vote_against && !vote_for ? 'button-warning': 'button'"
-                >Abstain
-                </button>
-            </div>
+                <div class="top-buttons">
+                    <button type="button"
+                            @click="vote_for = true; vote_against = false"
+                            :class="vote_for ? 'button-good': 'button'">
+                        For
+                    </button>
+                    <button type="button"
+                            @click="vote_for = false; vote_against = true"
+                            :class="vote_against ? 'button-bad': 'button'">
+                        Against
+                    </button>
+                    <button type="button"
+                            @click="vote_for = false; vote_against = false"
+                            :class="!vote_against && !vote_for ? 'button-warning': 'button'"
+                    >Abstain
+                    </button>
+                </div>
+            {% endif %}
 
             <p class="m-up-down-1"><strong>Change status to:</strong></p>
 
             <div class="roles-choice m-down-3">
-                <div @click="change_status(104)"
-                     :class="change_requested ? 'role-choice-selected' : 'role-choice'">
-                    Change Requested
-                </div>
+                {% if not external_post %}
+                    <div @click="change_status(104)"
+                         :class="change_requested ? 'role-choice-selected' : 'role-choice'">
+                        Change Requested
+                    </div>
+                {% endif %}
                 <div @click="change_status(106)"
                      :class="waitlisted ? 'role-choice-selected' : 'role-choice'">
                     Waitlisted
@@ -65,9 +80,11 @@
                      :class="rejected ? 'role-choice-selected' : 'role-choice'">
                     Rejected
                 </div>
-                <div @click="change_status(0)" class="role-choice-clear">
-                    Clear Choice
-                </div>
+                {% if not external_post %}
+                    <div @click="change_status(0)" class="role-choice-clear">
+                        Clear Choice
+                    </div>
+                {% endif %}
             </div>
 
             <h1 class="m-down-1" style="font-size: 3.5rem;">{{ proposal.title }}</h1>

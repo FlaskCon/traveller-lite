@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="content-box m-down-4" x-data="proposal">
+    <div class="content-box m-down-4">
         {% if __account__.rel_update_feed %}
             {% for update in __account__.rel_update_feed %}
                 <div class="attention-content flex gap-2">
@@ -40,5 +40,4 @@
 {% endblock %}
 
 {% block js %}
-    {% include 'account/js/update-feed-x-data.html' %}
 {% endblock %}

@@ -12,10 +12,19 @@ def dashboard():
     total_for_votes = ProposalVotes.count_total_for_votes()
     total_against_votes = ProposalVotes.count_total_against_votes()
 
+    total_for_review = len(Proposals.for_review())
+    total_accepted = len(Proposals.has_been_accepted())
+    total_rejected = len(Proposals.has_been_rejected())
+    total_waitlisted = len(Proposals.has_been_waitlisted())
+
     return render_template(
         bp.tmpl("dashboard.html"),
         total_proposals=total_proposals,
         total_votes=total_votes,
         total_for_votes=total_for_votes,
         total_against_votes=total_against_votes,
+        total_for_review=total_for_review,
+        total_accepted=total_accepted,
+        total_rejected=total_rejected,
+        total_waitlisted=total_waitlisted
     )

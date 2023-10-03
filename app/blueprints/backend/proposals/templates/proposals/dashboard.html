@@ -12,7 +12,30 @@
 
 {% block content %}
     <div class="content-box m-down-4" x-data="dashboard">
-        <div class="flex flex-row flex-wrap justify-evenly">
+        <div class="flex flex-row flex-wrap justify-evenly m-down-2">
+            <div class="dashboard-status-box flex-1">
+                <h1>Proposals To Be Reviewed</h1>
+                <h2>{{ total_for_review }}</h2>
+                <a href="{{ url_for('proposals.review') }}" class="button m-down-0">View</a>
+            </div>
+            <div class="dashboard-status-box flex-1">
+                <h1>Proposals Accepted</h1>
+                <h2>{{ total_accepted }}</h2>
+                <a href="{{ url_for('proposals.accepted') }}" class="button m-down-0">View</a>
+            </div>
+            <div class="dashboard-status-box flex-1">
+                <h1>Proposals Waitlisted</h1>
+                <h2>{{ total_waitlisted }}</h2>
+                <a href="{{ url_for('proposals.waitlisted') }}" class="button m-down-0">View</a>
+            </div>
+            <div class="dashboard-status-box flex-1">
+                <h1>Proposals Rejected</h1>
+                <h2>{{ total_rejected }}</h2>
+                <a href="{{ url_for('proposals.rejected') }}" class="button m-down-0">View</a>
+            </div>
+        </div>
+
+        <div class="flex flex-row flex-wrap justify-evenly m-down-2">
             <div class="dashboard-status-box flex-1">
                 <h1>Total Proposals</h1>
                 <h2>{{ total_proposals }}</h2>

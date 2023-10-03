@@ -7,7 +7,7 @@ services:
     container_name: traveller-lite
     build: .
     environment:
-      EMAIL_DEV_MODE: 0
+      EMAIL_DEV_MODE: 1
       EMAIL_USERNAME: ${EMAIL_USERNAME}
       EMAIL_PASSWORD: ${EMAIL_PASSWORD}
       EMAIL_SERVER: ${EMAIL_SERVER}
@@ -16,6 +16,8 @@ services:
       SUPER_ADMIN_PASSWORD: ${SUPER_ADMIN_PASSWORD}
 
     volumes:
-      - ./instance:/app/instance
+      - ./app:/traveller-lite/app
     restart: always
     network_mode: "host"
+
+    entrypoint: ["flask", "run", "--host=0.0.0.0", "--debug"]

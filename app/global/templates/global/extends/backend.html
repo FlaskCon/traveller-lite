@@ -69,6 +69,15 @@
                     <li><a href="{{ url_for('proposals.review') }}"
                            {% if 'proposals/review' in request.url %}class="selected"{% endif %}>
                         Review</a></li>
+                <li><a href="{{ url_for('proposals.accepted') }}"
+                           {% if 'proposals/accepted' in request.url %}class="selected"{% endif %}>
+                        Accepted</a></li>
+                <li><a href="{{ url_for('proposals.waitlisted') }}"
+                           {% if 'proposals/waitlisted' in request.url %}class="selected"{% endif %}>
+                        Waitlisted</a></li>
+                <li><a href="{{ url_for('proposals.rejected') }}"
+                           {% if 'proposals/rejected' in request.url %}class="selected"{% endif %}>
+                        Rejected</a></li>
                 </ul>
             {% endif %}
 

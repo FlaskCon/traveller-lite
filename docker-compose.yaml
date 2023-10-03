@@ -8,7 +8,7 @@ services:
     build: .
     environment:
       IMP_CONFIG: docker.config.toml
-      EMAIL_DEV_MODE: ${EMAIL_DEV_MODE}
+      EMAIL_DEV_MODE: 0
       EMAIL_USERNAME: ${EMAIL_USERNAME}
       EMAIL_PASSWORD: ${EMAIL_PASSWORD}
       EMAIL_SERVER: ${EMAIL_SERVER}

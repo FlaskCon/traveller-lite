@@ -5,18 +5,23 @@
     </div>
 
 
-    <div class="this-years-staff px-2">
-
-        {% for staff_member in staff %}
-
-            <div @click="window.location='{{ staff_member.link }}'">
-
-                <h4>{{ staff_member.name }}</h4>
-
-            </div>
-
-        {% endfor %}
-
+    <div style="text-align: center; width: 100%">
+        <h3>Yet To Be Confirmed</h3>
     </div>
+
+
+    {#    <div class="this-years-staff px-2">#}
+    {##}
+    {#        {% for staff_member in staff %}#}
+    {##}
+    {#            <div @click="window.location='{{ staff_member.link }}'">#}
+    {##}
+    {#                <h4>{{ staff_member.name }}</h4>#}
+    {##}
+    {#            </div>#}
+    {##}
+    {#        {% endfor %}#}
+    {##}
+    {#    </div>#}
 
 </section>

@@ -5,4 +5,4 @@ from . import decorator_group
 
 @decorator_group("/", methods=["GET"])
 def index():
-    return redirect(url_for("proposals.review"))
+    return redirect(url_for("proposals.dashboard"))

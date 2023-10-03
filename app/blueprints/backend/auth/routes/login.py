@@ -13,6 +13,7 @@ from flask_imp.security import login_check, include_csrf
 from app.models.accounts import Accounts
 from app.models.display_pictures import DisplayPictures
 from app.models.profiles import Profiles
+from app.models.update_feed import UpdateFeed
 from .. import bp
 
 
@@ -53,6 +54,12 @@ def login():
                 if DisplayPictures.select_using_unique_display_picture_id(datetime.now().year):
                     Profiles.add_earned_display_picture(
                         account.account_id, datetime.now().year
+                    )
+                    UpdateFeed.create(
+                        fk_account_id=account.account_id,
+                        title="You have earned a new display picture!",
+                        message="Check it out in your profile.",
+                        image="star.gif",
                     )
 
                 return redirect(url_for("account.index"))
