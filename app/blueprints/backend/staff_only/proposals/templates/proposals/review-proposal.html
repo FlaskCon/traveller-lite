@@ -1,0 +1,135 @@
+{% extends 'global/extends/backend.html' %}
+
+{% block title %}
+    Review Proposals
+{% endblock %}
+
+
+{% block breadcrumbs %}
+    {{ breadcrumber(breadcrumbs) }}
+{% endblock %}
+
+{% block content %}
+    <div class="content-box m-down-4" x-data="review_proposal">
+
+        <form method="post"
+              {% if external_post %}action="{{ url_for('staff_only.proposals.review_proposal', proposal_id=proposal.proposal_id) }}"{% endif %}>
+
+            <input type="hidden" name="csrf" value="{{ csrf }}">
+            {% if show_voting %}
+                <input type="hidden" x-model="vote_for" name="vote_for">
+                <input type="hidden" x-model="vote_against" name="vote_against">
+            {% endif %}
+
+            {% if not external_post %}
+                <input type="hidden" x-model="change_requested" name="change_requested">
+            {% endif %}
+
+            <input type="hidden" x-model="waitlisted" name="waitlisted">
+            <input type="hidden" x-model="accepted" name="accepted">
+            <input type="hidden" x-model="rejected" name="rejected">
+
+            {% if redirect_to %}
+                <input type="hidden" name="redirect_to" value="{{ redirect_to }}">
+            {% endif %}
+
+            <div class="top-buttons">
+                <button type="submit" class="button-good">Save</button>
+            </div>
+
+            {% if show_voting %}
+                <p class="m-up-down-1"><strong>Vote:</strong></p>
+
+                <div class="top-buttons">
+                    <button type="button"
+                            @click="vote_for = true; vote_against = false"
+                            :class="vote_for ? 'button-good': 'button'">
+                        For
+                    </button>
+                    <button type="button"
+                            @click="vote_for = false; vote_against = true"
+                            :class="vote_against ? 'button-bad': 'button'">
+                        Against
+                    </button>
+                    <button type="button"
+                            @click="vote_for = false; vote_against = false"
+                            :class="!vote_against && !vote_for ? 'button-warning': 'button'"
+                    >Abstain
+                    </button>
+                </div>
+            {% endif %}
+
+            <p class="m-up-down-1"><strong>Change status to:</strong></p>
+
+            <div class="roles-choice m-down-3">
+                {% if not external_post %}
+                    <div @click="change_status(104)"
+                         :class="change_requested ? 'role-choice-selected' : 'role-choice'">
+                        Change Requested
+                    </div>
+                {% endif %}
+                <div @click="change_status(106)"
+                     :class="waitlisted ? 'role-choice-selected' : 'role-choice'">
+                    Waitlisted
+                </div>
+                <div @click="change_status(107)"
+                     :class="accepted ? 'role-choice-selected' : 'role-choice'">
+                    Accepted
+                </div>
+                <div @click="change_status(108)"
+                     :class="rejected ? 'role-choice-selected' : 'role-choice'">
+                    Rejected
+                </div>
+                {% if not external_post %}
+                    <div @click="change_status(0)" class="role-choice-clear">
+                        Clear Choice
+                    </div>
+                {% endif %}
+            </div>
+
+            <h1 class="m-down-1" style="font-size: 3.5rem;">{{ proposal.title }}</h1>
+
+            <div class="top-stats">
+                <div><strong>Status:</strong> {{ proposal.rel_proposal_status.name }}</div>
+                <div><strong>Year:</strong> {{ proposal.year }}</div>
+                <div><strong>Your Vote:</strong>
+                    {% set your_voting_position_on_this =
+                        proposal.get_voting_position_using_account_id(session.get('account_id')) %}
+                    {% if your_voting_position_on_this == True %}
+                        For <span class="vote-for"></span>
+                    {% elif your_voting_position_on_this == False %}
+                        Against <span class="vote-against"></span>
+                    {% else %}
+                        Abstain <span class="vote-abstained"></span>
+                    {% endif %}
+                </div>
+                <div><strong>Votes:</strong>
+                    For - {{ proposal.votes.for }} | Against - {{ proposal.votes.against }}
+                </div>
+            </div>
+
+            <div class="m-down-2"></div>
+
+            <h3 class="underline">Detail</h3>
+            {{ proposal.detail_markdown|safe if proposal.detail_markdown else "<p>No detail provided.</p>"|safe }}
+            <h3 class="m-up-2 underline">Abstract</h3>
+            {{ proposal.abstract_markdown|safe if proposal.abstract_markdown else "<p>No abstract provided.</p>"|safe }}
+            <h3 class="m-up-2 underline">Short Biography</h3>
+            {{ proposal.short_biography_markdown|safe if proposal.short_biography_markdown else "<p>No short biography provided.</p>"|safe }}
+            <h3 class="m-up-2 underline">Notes to the Committee</h3>
+            {{ proposal.notes_or_requests_markdown|safe if proposal.notes_or_requests_markdown else "<p>No notes or requests provided.</p>"|safe }}
+            <h3 class="m-up-2 underline">Tags</h3>
+            {{ proposal.tags if proposal.tags else "No tags provided." }}
+
+        </form>
+
+        <div class="m-down-3"></div>
+
+        <a href="#top" class="button w-100">Back to Top</a>
+
+    </div>
+{% endblock %}
+
+{% block js %}
+    {% include 'proposals/js/review-proposal-x-data.html' %}
+{% endblock %}

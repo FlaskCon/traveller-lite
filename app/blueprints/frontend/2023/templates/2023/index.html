@@ -13,22 +13,22 @@
                 <img src="{{ url_for("2023.static", filename="img/flaskcon-animated.gif") }}"
                      alt="FlaskCon Logo">
 
-                <div class="display-flex flex-col align-items-center py-3">
-{#                    <p style="margin: 0; color: white; text-align: center"><strong>SHARE</strong></p>#}
-{#                    <div class="display-flex align-items-center justify-center gap-1" style="margin-bottom: 1rem;">#}
-{#                        <img src="{{ url_for("2023.static", filename="img/twitter.png") }}"#}
-{#                             alt="Twitter Icon">#}
-{#                        <img src="{{ url_for("2023.static", filename="img/facebook.png") }}"#}
-{#                             alt="Facebook Icon">#}
-{#                    </div>#}
-                    <div class="book-tickets"
-                         x-init="$el.style.backgroundImage = book_tickets_bg_ns"
-                         @mouseenter="$el.style.backgroundImage = book_tickets_bg_hover"
-                         @mouseleave="$el.style.backgroundImage = book_tickets_bg_ns"
-                         @mousedown="$el.style.backgroundImage = book_tickets_bg_pressed"
-                         @mouseup="$el.style.backgroundImage = book_tickets_bg_hover; window.location = '{{ url_for("auth.signup") }}'"
-                    ></div>
-                </div>
+                {#                <div class="display-flex flex-col align-items-center py-3">#}
+                {#                    <p style="margin: 0; color: white; text-align: center"><strong>SHARE</strong></p>#}
+                {#                    <div class="display-flex align-items-center justify-center gap-1" style="margin-bottom: 1rem;">#}
+                {#                        <img src="{{ url_for("2023.static", filename="img/twitter.png") }}"#}
+                {#                             alt="Twitter Icon">#}
+                {#                        <img src="{{ url_for("2023.static", filename="img/facebook.png") }}"#}
+                {#                             alt="Facebook Icon">#}
+                {#                    </div>#}
+                {#                    <div class="book-tickets"#}
+                {#                         x-init="$el.style.backgroundImage = book_tickets_bg_ns"#}
+                {#                         @mouseenter="$el.style.backgroundImage = book_tickets_bg_hover"#}
+                {#                         @mouseleave="$el.style.backgroundImage = book_tickets_bg_ns"#}
+                {#                         @mousedown="$el.style.backgroundImage = book_tickets_bg_pressed"#}
+                {#                         @mouseup="$el.style.backgroundImage = book_tickets_bg_hover; window.location = '{{ url_for("auth.signup") }}'"#}
+                {#                    ></div>#}
+                {#                </div>#}
             </section>
         </div>
 
@@ -37,22 +37,22 @@
                 <img src="{{ url_for("2023.static", filename="img/flaskcon-animated.gif") }}"
                      alt="FlaskCon Logo">
 
-                <div class="display-flex flex-col align-items-center py-3">
-                    <p style="margin: 0; color: white; text-align: center"><strong>SHARE</strong></p>
-                    <div class="display-flex align-items-center justify-center gap-1" style="margin-bottom: 1rem;">
-                        <img src="{{ url_for("2023.static", filename="img/twitter.png") }}"
-                             alt="Twitter Icon">
-                        <img src="{{ url_for("2023.static", filename="img/facebook.png") }}"
-                             alt="Facebook Icon">
-                    </div>
-                    <div class="book-tickets"
-                         x-init="$el.style.backgroundImage = book_tickets_bg_ns"
-                         @mouseenter="$el.style.backgroundImage = book_tickets_bg_hover"
-                         @mouseleave="$el.style.backgroundImage = book_tickets_bg_ns"
-                         @mousedown="$el.style.backgroundImage = book_tickets_bg_pressed"
-                         @mouseup="$el.style.backgroundImage = book_tickets_bg_hover; window.location = '{{ url_for("auth.signup") }}'"
-                    ></div>
-                </div>
+{#                <div class="display-flex flex-col align-items-center py-3">#}
+{#                    <p style="margin: 0; color: white; text-align: center"><strong>SHARE</strong></p>#}
+{#                    <div class="display-flex align-items-center justify-center gap-1" style="margin-bottom: 1rem;">#}
+{#                        <img src="{{ url_for("2023.static", filename="img/twitter.png") }}"#}
+{#                             alt="Twitter Icon">#}
+{#                        <img src="{{ url_for("2023.static", filename="img/facebook.png") }}"#}
+{#                             alt="Facebook Icon">#}
+{#                    </div>#}
+{#                    <div class="book-tickets"#}
+{#                         x-init="$el.style.backgroundImage = book_tickets_bg_ns"#}
+{#                         @mouseenter="$el.style.backgroundImage = book_tickets_bg_hover"#}
+{#                         @mouseleave="$el.style.backgroundImage = book_tickets_bg_ns"#}
+{#                         @mousedown="$el.style.backgroundImage = book_tickets_bg_pressed"#}
+{#                         @mouseup="$el.style.backgroundImage = book_tickets_bg_hover; window.location = '{{ url_for("auth.signup") }}'"#}
+{#                    ></div>#}
+{#                </div>#}
 
             </section>
         </div>
@@ -61,31 +61,50 @@
 {% endblock %}
 
 {% block body %}
-    <div class="sub-hero py-3">
-        <section>
-            <div class="row">
-                <div class="six columns py-2 text-center">
-                    <img src="{{ url_for("2023.static", filename="img/megaphone.gif") }}" alt="Megaphone Icon">
-                    <h2 class="my-0">Call for Proposals!</h2>
-                    <p>Submit your talk proposal for FlaskCon 2023! </p>
-                    <a href="{{ url_for('auth.signup') }}" class="button button-primary">Signup to submit!</a>
-                </div>
-                <div class="six columns py-2 text-center">
-                    <img src="{{ url_for("2023.static", filename="img/heart.gif") }}" alt="Heart Icon">
-                    <h2 class="my-0">Become a Sponsor!</h2>
-                    <p>Support the Pallets team + the Python Software Foundation and let everyone know about it!</p>
-                    <a href="{{ url_for('auth.signup') }}" class="button button-primary">Signup to become a sponsor!</a>
-                </div>
-            </div>
+
+
+
+    {#     REMOVE SECTION ONCE MORE CONTENT     #}
+    <div class="sub-hero" style="padding-top: 6rem; padding-bottom: 6rem;">
+        <section class="display-flex flex-col space-evenly align-items-center py-2">
+            <img src="{{ url_for("2023.static", filename="img/megaphone.gif") }}" alt="Megaphone Icon">
+            <h2 class="my-0">Call for Proposals!</h2>
+            <p>Submit your talk proposal for FlaskCon 2023! </p>
+            <a href="{{ url_for('auth.signup') }}" class="button button-primary">Signup to submit!</a>
+            <a href="{{ url_for('auth.login') }}">Login</a>
         </section>
     </div>
-
     <div class="sub-hero-color-shift-away">
 
     </div>
+    {#     REMOVE SECTION ONCE MORE CONTENT     #}
 
-{#    {% include '2023/includes/reviewers.html' %}#}
-{#    {% include '2023/includes/staff.html' %}#}
-{#    {% include '2023/includes/media_partners.html' %}#}
+
+    {#    <div class="sub-hero py-3">#}
+    {#        <section>#}
+    {#            <div class="row">#}
+    {#                <div class="six columns py-2 text-center">#}
+    {#                    <img src="{{ url_for("2023.static", filename="img/megaphone.gif") }}" alt="Megaphone Icon">#}
+    {#                    <h2 class="my-0">Call for Proposals!</h2>#}
+    {#                    <p>Submit your talk proposal for FlaskCon 2023! </p>#}
+    {#                    <a href="{{ url_for('auth.signup') }}" class="button button-primary">Signup to submit!</a>#}
+    {#                </div>#}
+    {#                <div class="six columns py-2 text-center">#}
+    {#                    <img src="{{ url_for("2023.static", filename="img/heart.gif") }}" alt="Heart Icon">#}
+    {#                    <h2 class="my-0">Become a Sponsor!</h2>#}
+    {#                    <p>Support the Pallets team + the Python Software Foundation and let everyone know about it!</p>#}
+    {#                    <a href="{{ url_for('auth.signup') }}" class="button button-primary">Signup to become a sponsor!</a>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </section>#}
+    {#    </div>#}
+    {##}
+    {#    <div class="sub-hero-color-shift-away">#}
+    {##}
+    {#    </div>#}
+
+    {#    {% include '2023/includes/reviewers.html' %}#}
+    {#    {% include '2023/includes/staff.html' %}#}
+    {#    {% include '2023/includes/media_partners.html' %}#}
 
 {% endblock %}

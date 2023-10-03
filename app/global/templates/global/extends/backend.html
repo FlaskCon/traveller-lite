@@ -63,19 +63,19 @@
             {% if "Proposal Reviewer" in __roles__ %}
                 <p class="m-up-1"><strong>Proposals</strong></p>
                 <ul>
-                    <li><a href="{{ url_for('proposals.dashboard') }}"
+                    <li><a href="{{ url_for('staff_only.proposals.dashboard') }}"
                            {% if 'proposals/dashboard' in request.url %}class="selected"{% endif %}>
                         Dashboard</a></li>
-                    <li><a href="{{ url_for('proposals.review') }}"
+                    <li><a href="{{ url_for('staff_only.proposals.review') }}"
                            {% if 'proposals/review' in request.url %}class="selected"{% endif %}>
                         Review</a></li>
-                <li><a href="{{ url_for('proposals.accepted') }}"
+                <li><a href="{{ url_for('staff_only.proposals.accepted') }}"
                            {% if 'proposals/accepted' in request.url %}class="selected"{% endif %}>
                         Accepted</a></li>
-                <li><a href="{{ url_for('proposals.waitlisted') }}"
+                <li><a href="{{ url_for('staff_only.proposals.waitlisted') }}"
                            {% if 'proposals/waitlisted' in request.url %}class="selected"{% endif %}>
                         Waitlisted</a></li>
-                <li><a href="{{ url_for('proposals.rejected') }}"
+                <li><a href="{{ url_for('staff_only.proposals.rejected') }}"
                            {% if 'proposals/rejected' in request.url %}class="selected"{% endif %}>
                         Rejected</a></li>
                 </ul>
@@ -85,10 +85,10 @@
             {% if "Super Administrator" in __roles__ or "Administrator" in __roles__ %}
                 <p class="m-up-1"><strong>System</strong></p>
                 <ul>
-                    <li><a href="{{ url_for('system.dashboard') }}"
+                    <li><a href="{{ url_for('staff_only.system.dashboard') }}"
                            {% if 'system/dashboard' in request.url %}class="selected"{% endif %}>
                         Dashboard</a></li>
-                    <li><a href="{{ url_for('system.accounts') }}"
+                    <li><a href="{{ url_for('staff_only.system.accounts') }}"
                            {% if 'system/accounts' in request.url %}class="selected"{% endif %}>
                         Account Management</a></li>
                 </ul>

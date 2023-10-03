@@ -1,6 +1,7 @@
 body, html {
     margin: 0;
     padding: 0;
+    background-color: #545454;
 }
 
 nav {
@@ -106,7 +107,6 @@ section {
 }
 
 footer {
-    background: #70b043 url("../img/grass-background.png") repeat;
     width: 100%;
     border-bottom: #545454 6px solid;
     border-top: #5b9136 2px solid;
@@ -198,6 +198,10 @@ footer ul li a {
 
 /* Specific */
 
+.grass-background {
+    background: #70b043 url("../img/grass-background.png") repeat;
+}
+
 .full-page-hero {
     background: #70b043 url("../img/grass-background.png") repeat;
     width: 100%;
@@ -210,11 +214,11 @@ footer ul li a {
 }
 
 .full-page-hero h1 {
-     text-shadow: 2px 2px 2px #000;
+    text-shadow: 2px 2px 2px #000;
 }
 
 .full-page-hero p {
-     text-shadow: 1px 1px 2px #000;
+    text-shadow: 1px 1px 2px #000;
     font-size: 1.6rem;
 }
 
@@ -417,6 +421,11 @@ footer ul li a {
 .py-4 {
     padding-top: 4rem;
     padding-bottom: 4rem;
+}
+
+.py-5 {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
 }
 
 .px-1 {

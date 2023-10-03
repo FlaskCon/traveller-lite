@@ -1,4 +1,9 @@
+<div class="text-center py-3 grass-background">
+    <img src="{{ url_for("2023.static", filename="img/old-logo.png") }}" alt="">
+</div>
+
 <footer>
+
     <div class="display-desktop">
         <section class="display-flex space-between align-items-center py-3">
             {% include "2023/includes/footer-social.html" %}
@@ -17,7 +22,4 @@
         </section>
     </div>
 
-    <section class="text-center py-3">
-        <img src="{{ url_for("2023.static", filename="img/old-logo.png") }}" alt="">
-    </section>
 </footer>

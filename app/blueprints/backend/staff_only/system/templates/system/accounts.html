@@ -1,0 +1,42 @@
+{% extends 'global/extends/backend.html' %}
+
+{% block title %}
+    Account Management
+{% endblock %}
+
+{% block breadcrumbs %}
+    {{ breadcrumber([("Account Management", None)]) }}
+{% endblock %}
+
+{% block content %}
+    <div class="content-box m-down-4" x-data="accounts">
+        <table>
+            <thead>
+            <tr>
+                <th>Username</th>
+                <th>Roles</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for account in accounts %}
+                <tr>
+                    <td>{{ account.email_address }}</td>
+                    <td>
+                        {% for role in account.rel_roles %}
+                            {{ role.rel_role.name }}{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <a href="{{ url_for('staff_only.system.account', account_id=account.account_id) }}">Manage</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block js %}
+    {% include 'system/js/accounts-x-data.html' %}
+{% endblock %}

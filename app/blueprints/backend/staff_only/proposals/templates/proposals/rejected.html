@@ -1,0 +1,56 @@
+{% extends 'global/extends/backend.html' %}
+
+{% block title %}
+    Rejected Proposals
+{% endblock %}
+
+
+{% block breadcrumbs %}
+    {{ breadcrumber([("Rejected Proposals", None)]) }}
+{% endblock %}
+
+{% block content %}
+    <div class="content-box m-down-4">
+
+        {% if proposals %}
+            {% for proposal in proposals %}
+                <div class="attention-content">
+
+                    <h1 class="m-down-1" style="font-size: 3.5rem;">{{ proposal.title }}</h1>
+
+                    <div class="top-stats">
+                        <div><strong>Status:</strong> {{ proposal.rel_proposal_status.name }}</div>
+                        <div><strong>Year:</strong> {{ proposal.year }}</div>
+                        <div><strong>Your Vote:</strong>
+                            {% set your_voting_position_on_this =
+                        proposal.get_voting_position_using_account_id(session.get('account_id')) %}
+                            {% if your_voting_position_on_this == True %}
+                                For <span class="vote-for"></span>
+                            {% elif your_voting_position_on_this == False %}
+                                Against <span class="vote-against"></span>
+                            {% else %}
+                                Abstain <span class="vote-abstained"></span>
+                            {% endif %}
+                        </div>
+                        <div><strong>Votes:</strong>
+                            For - {{ proposal.votes.for }} | Against - {{ proposal.votes.against }}
+                        </div>
+                    </div>
+
+                    <a class="button button-primary m-up-1"
+                       href="{{ url_for('staff_only.proposals.view_rejected', proposal_id=proposal.proposal_id) }}">View</a>
+
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="attention-content">
+                <p>No accepted proposals yet.</p>
+            </div>
+
+        {% endif %}
+
+    </div>
+{% endblock %}
+
+{% block js %}
+{% endblock %}
