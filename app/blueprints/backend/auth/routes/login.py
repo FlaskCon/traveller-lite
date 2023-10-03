@@ -61,12 +61,6 @@ def login():
                     Profiles.add_earned_display_picture(
                         account.account_id, datetime.now().year
                     )
-                    UpdateFeed.create(
-                        fk_account_id=account.account_id,
-                        title="You have earned a new display picture!",
-                        message="Check it out in your profile.",
-                        image="star.gif",
-                    )
 
                 return redirect(url_for("account.index"))
             else:

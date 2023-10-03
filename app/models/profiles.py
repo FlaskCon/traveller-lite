@@ -1,4 +1,5 @@
 from . import *
+from .update_feed import UpdateFeed
 
 
 class Profiles(db.Model, MetaMixins):
@@ -63,6 +64,8 @@ class Profiles(db.Model, MetaMixins):
         if earned:
             if unique_display_picture_id not in earned:
                 earned.append(unique_display_picture_id)
+            else:
+                return
         else:
             earned.append(unique_display_picture_id)
 
@@ -71,6 +74,14 @@ class Profiles(db.Model, MetaMixins):
                 earned_display_pictures={"earned": earned}
             )
         )
+
+        UpdateFeed.create(
+            fk_account_id=account_id,
+            title="You have earned a new display picture!",
+            message="Check it out in your profile.",
+            image="star.gif",
+        )
+
         db.session.commit()
 
     @staticmethod
