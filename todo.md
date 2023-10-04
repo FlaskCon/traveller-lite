@@ -2,6 +2,7 @@
 
 - [ ] Settings contain only password change and acc delete options. Why not bunch them together as account settings and move the button to profile photo.
 - [x] ~~Change password fields are too wide. Add margins to the form.~~
+- [ ] `new` Move delete account box to the right of the change password box, this should fill in that space.
 - [ ] Profile save button should go to the bottom of the page/top right
 - [ ] Limit the number of times a user can change name/alias
 - [ ] Pronouns as dropdown
@@ -17,3 +18,8 @@
 - [ ] Homepage i.e., url/2023/ route shows signup/login even if I am logged in
 - [ ] Redirect after update password
 - [ ] Make the sidebar a humburger menu for phone
+
+
+# TODO Maybes
+
+- [ ] Make new bold menu header called "Staff Only", change the dashboard buttons to the current menu headers "Proposals", "System" and have all sub options in the dashboard. Removing "Review", "Accepted", ..., "Account Management"
