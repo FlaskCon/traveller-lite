@@ -53,39 +53,13 @@
             <label for="website">Company / Personal Website</label>
             <input type="text" id="website" name="website" class="w-100" value="{{ profile.website or "" }}">
 
-            <label class="m-down-2 m-up-3">Display Pictures</label>
-            <div class="display-picture-choice">
-                {% for dp in standard_display_pictures %}
-                    <div class="display-picture-box">
-                        <img
-                                src="{{ url_for('static', filename='display-pictures/' + dp.filename) }}"
-                                alt="A display picture taken by {{ dp.attribution }}"
-                                id="db_{{ dp.display_picture_id }}"
-                                @click="selectDisplayPicture(parseInt('{{ dp.display_picture_id }}'))"
-                                title="A display picture by: {{ dp.attribution }}"
-                        />
-                        {% if dp.attribution_url %}
-                            <small>
-                                A display picture by <br/>
-                                <a href="{{ dp.attribution_url }}"
-                                   target="_blank"
-                                   rel="noopener noreferrer nofollow">{{ dp.attribution }}</a>
-                            </small>
-                        {% else %}
-                            <small>
-                                A display picture by <br/>
-                                {{ dp.attribution }}
-                            </small>
-                        {% endif %}
-
-                    </div>
-                {% endfor %}
-            </div>
-
-            <label class="m-down-2 m-up-4">Awarded Display Pictures</label>
-            {% if earned_display_pictures %}
-                <div class="display-picture-choice">
-                    {% for dp in earned_display_pictures %}
+            <div x-data="{ isDisplayPictureOpen: false }">
+                <label class="m-down-2 m-up-3" @click="isDisplayPictureOpen = !isDisplayPictureOpen">
+                    Display Pictures
+                    <span x-text="isDisplayPictureOpen ? '▲' : '▼'"></span>
+                </label>
+                <div class="display-picture-choice" x-show="isDisplayPictureOpen"  x-transition>
+                    {% for dp in standard_display_pictures %}
                         <div class="display-picture-box">
                             <img
                                     src="{{ url_for('static', filename='display-pictures/' + dp.filename) }}"
@@ -94,11 +68,9 @@
                                     @click="selectDisplayPicture(parseInt('{{ dp.display_picture_id }}'))"
                                     title="A display picture by: {{ dp.attribution }}"
                             />
-                            <small>{{ dp.note }}</small>
-
                             {% if dp.attribution_url %}
                                 <small>
-                                    A display picture by<br/>
+                                    A display picture by <br/>
                                     <a href="{{ dp.attribution_url }}"
                                        target="_blank"
                                        rel="noopener noreferrer nofollow">{{ dp.attribution }}</a>
@@ -112,9 +84,45 @@
                         </div>
                     {% endfor %}
                 </div>
-            {% else %}
-                <div class="note"><p class="m-all-0">You have no earned Display Pictures</p></div>
-            {% endif %}
+            </div>
+
+            <div x-data="{ isDisplayPictureOpen: false }">
+                <label class="m-down-2 m-up-3" @click="isDisplayPictureOpen = !isDisplayPictureOpen">
+                    Awarded Display Pictures
+                    <span x-text="isDisplayPictureOpen ? '▲' : '▼'"></span>
+                </label>
+                {% if earned_display_pictures %}
+                    <div class="display-picture-choice" x-show="isDisplayPictureOpen" x-transition>
+                        {% for dp in earned_display_pictures %}
+                            <div class="display-picture-box">
+                                <img
+                                        src="{{ url_for('static', filename='display-pictures/' + dp.filename) }}"
+                                        alt="A display picture taken by {{ dp.attribution }}"
+                                        id="db_{{ dp.display_picture_id }}"
+                                        @click="selectDisplayPicture(parseInt('{{ dp.display_picture_id }}'))"
+                                        title="A display picture by: {{ dp.attribution }}"
+                                />
+                                <small>{{ dp.note }}</small>
+                                {% if dp.attribution_url %}
+                                    <small>
+                                        A display picture by<br/>
+                                        <a href="{{ dp.attribution_url }}"
+                                           target="_blank"
+                                           rel="noopener noreferrer nofollow">{{ dp.attribution }}</a>
+                                    </small>
+                                {% else %}
+                                    <small>
+                                        A display picture by <br/>
+                                        {{ dp.attribution }}
+                                    </small>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="note"><p class="m-all-0">You have no earned Display Pictures</p></div>
+                {% endif %}
+            </div>
 
             <div class="m-down-3"></div>
 
