@@ -30,11 +30,23 @@
 
 
 {% if get_flashed_messages() %}
-    <div class="flash-message" @click="$el.remove()">
-        {% for message in get_flashed_messages() %}
-            <div class="flash-message-item">{{ message }}</div>
-        {% endfor %}
-        <small>click to close</small>
+    <div x-data="{ showMessage: true, countdown: 5 }" x-init="function() {
+        setInterval(function() {
+            if (this.countdown > 0) {
+                this.countdown -= 1;
+            } else {
+                this.showMessage = false;
+            }
+        }.bind(this), 1000);
+    }">
+        <div class="flash-message" x-show="showMessage" @click="showMessage = false">
+            {% for message in get_flashed_messages() %}
+                <div class="flash-message-item">{{ message }}</div>
+            {% endfor %}
+            <small>
+                Click to close | Autoclose in <span x-text="countdown"></span>s
+            </small>
+        </div>
     </div>
 {% endif %}
 

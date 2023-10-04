@@ -267,6 +267,11 @@ button:disabled {
     opacity: 1;
 }
 
+label.required::after {
+    content: " *";
+    color: red;
+}
+
 .button,
 button,
 input[type="submit"],

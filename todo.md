@@ -3,21 +3,22 @@
 - [ ] Settings contain only password change and acc delete options. Why not bunch them together as account settings and move the button to profile photo.
 - [x] ~~Change password fields are too wide. Add margins to the form.~~
 - [ ] `new` Move delete account box to the right of the change password box, this should fill in that space.
-- [ ] Profile save button should go to the bottom of the page/top right
+- [x] ~~Profile save button should go to the bottom of the page/top right~~ *Dropped*
 - [ ] Limit the number of times a user can change name/alias
-- [ ] Pronouns as dropdown
+- [x] ~~Pronouns as dropdown~~ *Dropped* 
 - [ ] Add ``+`` icon to new proposal button and move it to top right
-- [ ] Add red asterisk in new proposal form instead of "(This field is required)."
+- [x] ~~Add red asterisk in new proposal form instead of "(This field is required)."~~
 - [x] ~~Back to top smooth scroll~~
 - [x] ~~Change display pic section -> Expandable section~~
-- [ ] "click to close" add icon instead of text
+- [x] ~~"click to close" add icon instead of text OR timeout~~
 - [ ] About FlaskCon page
 - [ ] Top right icon add link to home page/feed/about section
-- [ ] New proposal save button move to bottom. "Save" to "Submit new proposal"
+- [x] ~~New proposal save button move to bottom. "Save" to "Submit new proposal"~~
 - [ ] Update feed is notifications right?
 - [ ] Homepage i.e., url/2023/ route shows signup/login even if I am logged in
-- [ ] Redirect after update password
+- [x] ~~Redirect after update password~~
 - [ ] Make the sidebar a humburger menu for phone
+- [ ] Plain blue bg is boring? Can we do some pixel art? How about svg textures? Or dynamic gradients (The ones that react to your mouse movement. But I dont think it will match the site theme)
 
 
 # TODO Maybes
