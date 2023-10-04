@@ -1,3 +1,9 @@
+# Want to contribute?
+
+Read the TODO [todo.md](todo.md)
+
+Fork, then send a Pull Request.
+
 # Setup
 
 (This assumes you have Python installed)
