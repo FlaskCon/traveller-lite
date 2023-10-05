@@ -23,4 +23,4 @@
 
 # TODO Maybes
 
-- [ ] Make new bold menu header called "Staff Only", change the dashboard buttons to the current menu headers "Proposals", "System" and have all sub options in the dashboard. Removing "Review", "Accepted", ..., "Account Management"
+- [x] ~~Make new bold menu header called "Staff Only", change the dashboard buttons to the current menu headers "Proposals", "System" and have all sub options in the dashboard. Removing "Review", "Accepted", ..., "Account Management"~~
