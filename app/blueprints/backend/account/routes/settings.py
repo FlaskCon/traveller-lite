@@ -40,7 +40,7 @@ def settings():
                 account.set_new_password(new_password)
 
                 flash("Password changed successfully.")
-                return redirect(url_for("account.settings"))
+                return redirect(url_for("account.update_feed"))
 
             flash("New password and confirm new password do not match.")
             return redirect(url_for("account.settings"))
