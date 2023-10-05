@@ -3,6 +3,8 @@
     document.addEventListener('alpine:init', () => {
 
         Alpine.data('settings', () => ({
+            delete_account: false,
+
             your_account_password: null,
             your_account_confirm_password: null,
             your_account_strength_msg: null,
@@ -96,11 +98,6 @@
                 }
                 this.your_account_button_enabled = this.your_account_passwords_match === true && this.your_account_strength_bar >= 75
             }
-        }));
-
-        Alpine.data('delete_account', () => ({
-            delete_account_warning: false,
-            delete_account: false,
         }));
 
     })

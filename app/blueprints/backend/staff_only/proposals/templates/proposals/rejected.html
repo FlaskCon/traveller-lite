@@ -6,7 +6,10 @@
 
 
 {% block breadcrumbs %}
-    {{ breadcrumber([("Rejected Proposals", None)]) }}
+    {{ breadcrumber([
+    ("Proposals Dashboard", url_for('staff_only.proposals.dashboard')),
+    ("Rejected Proposals", None)
+    ]) }}
 {% endblock %}
 
 {% block content %}

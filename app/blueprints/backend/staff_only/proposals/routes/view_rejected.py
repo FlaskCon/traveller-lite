@@ -10,7 +10,12 @@ def view_rejected(proposal_id):
     if not proposal:
         return abort(404)
 
-    breadcrumbs = [("Rejected Proposals", url_for('staff_only.proposals.rejected')), (proposal.title, None)]
+    breadcrumbs = [
+        ("Proposals Dashboard", url_for('staff_only.proposals.dashboard')),
+        ("Rejected Proposals", url_for('staff_only.proposals.rejected')),
+        (proposal.title, None)
+    ]
+
     external_post = True
     redirect_to = 'proposals.rejected'
 

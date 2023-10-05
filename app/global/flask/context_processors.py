@@ -1,4 +1,5 @@
 from typing import Optional
+
 from flask import current_app as app
 from markupsafe import Markup
 

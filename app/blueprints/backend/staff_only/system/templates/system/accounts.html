@@ -5,7 +5,10 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-    {{ breadcrumber([("Account Management", None)]) }}
+    {{ breadcrumber([
+    ("System Dashboard", url_for('staff_only.system.dashboard')),
+    ("Account Management", None),
+    ]) }}
 {% endblock %}
 
 {% block content %}

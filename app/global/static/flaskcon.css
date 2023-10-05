@@ -190,7 +190,6 @@
 }
 
 .center-content {
-    border: 1px solid rgba(229, 229, 229, 0.80);
     max-width: 1400px;
     padding: 0.5rem 1rem;
     margin: 0 auto;
@@ -432,6 +431,10 @@
     flex-direction: column;
     justify-content: space-between;
     gap: 0.5rem;
+}
+
+.disabled {
+    opacity: 0.5;
 }
 
 

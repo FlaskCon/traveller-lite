@@ -5,12 +5,11 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-    {{ breadcrumber(
-        [
-            ("Account Management", url_for('staff_only.system.accounts')),
-            (this_account.email_address, None)
-        ]
-    ) }}
+    {{ breadcrumber([
+    ("System Dashboard", url_for('staff_only.system.dashboard')),
+    ("Account Management", url_for('staff_only.system.accounts')),
+    (this_account.email_address, None)
+    ]) }}
 {% endblock %}
 
 

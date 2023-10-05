@@ -84,7 +84,11 @@ def review_proposal(proposal_id):
         flash("Proposal has been updated.")
         return redirect(url_for("staff_only.proposals.review_proposal", proposal_id=proposal_id))
 
-    breadcrumbs = [("Proposals to Review", url_for('staff_only.proposals.review')), (proposal.title, None)]
+    breadcrumbs = [
+        ("Proposals Dashboard", url_for('staff_only.proposals.dashboard')),
+        ("Proposals to Review", url_for('staff_only.proposals.review')),
+        (proposal.title, None)
+    ]
 
     return render_template(
         bp.tmpl("review-proposal.html"),

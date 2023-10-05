@@ -10,7 +10,12 @@ def view_waitlisted(proposal_id):
     if not proposal:
         return abort(404)
 
-    breadcrumbs = [("Waitlisted Proposals", url_for('staff_only.proposals.waitlisted')), (proposal.title, None)]
+    breadcrumbs = [
+        ("Proposals Dashboard", url_for('staff_only.proposals.dashboard')),
+        ("Waitlisted Proposals", url_for('staff_only.proposals.waitlisted')),
+        (proposal.title, None)
+    ]
+
     external_post = True
     redirect_to = 'proposals.waitlisted'
 

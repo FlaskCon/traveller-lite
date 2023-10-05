@@ -56,8 +56,8 @@
     flex-wrap: wrap !important;
 }
 
-.justify-strethc {
-    justify-content: space-evenly !important;
+.justify-stretch {
+    justify-content: stretch !important;
 }
 
 .justify-evenly {
