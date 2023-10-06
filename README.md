@@ -1,19 +1,21 @@
 # Table of Contents
 
 <!-- TOC -->
+
 * [Want to contribute?](#want-to-contribute)
 * [Setup](#setup)
-  * [Linux](#setup--linux)
-  * [Windows](#setup--windows)
-  * [.env](#setup--env)
-  * [Seed the database](#setup--seed-the-database)
+    * [Linux](#setup--linux)
+    * [Windows](#setup--windows)
+    * [.env](#setup--env)
+    * [Seed the database](#setup--seed-the-database)
 * [Running Locally](#running-locally)
 * [Deployment](#deployment)
-  * [Setup Docker Environment](#deployment--setup-docker-environment)
-  * [Working With Docker](#deployment--working-with-docker)
-    * [docker-compose](#--working-with-docker--docker-compose)
-    * [supervisord](#--working-with-docker--supervisord)
-    * [Switching to debug mode](#--working-with-docker--switching-to-debug-mode)
+    * [Setup Docker Environment](#deployment--setup-docker-environment)
+    * [Working With Docker](#deployment--working-with-docker)
+        * [docker-compose](#--working-with-docker--docker-compose)
+        * [supervisord](#--working-with-docker--supervisord)
+        * [Switching to debug mode](#--working-with-docker--switching-to-debug-mode)
+
 <!-- TOC -->
 ---
 
@@ -219,6 +221,7 @@ There is a choice of different docker-compose files.
 `docker-compose-sqlite.yaml` will run the app with a sqlite database.
 
 `docker-compose-sqlite-dev.yaml` will run the app with a sqlite database, but run Flask in debug mode.
+This will also attach the `app/` folder to the container, so changes to the code will be reflected in the app.
 
 `Note:` Each database has persistent storage, so you can stop and start the containers without losing data.
 
