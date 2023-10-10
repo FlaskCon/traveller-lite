@@ -88,14 +88,14 @@
                 {% if "Proposal Reviewer" in __roles__ %}
                     <li x-init="set_so_true()">
                         <a href="{{ url_for('staff_only.proposals.dashboard') }}"
-                           {% if 'proposals/dashboard' in request.url %}class="selected"{% endif %}>
+                           {% if 'staff-only/proposals' in request.url %}class="selected"{% endif %}>
                             Proposals</a>
                     </li>
                 {% endif %}
                 {% if "Super Administrator" in __roles__ or "Administrator" in __roles__ %}
                     <li x-init="set_so_true()">
                         <a href="{{ url_for('staff_only.system.dashboard') }}"
-                           {% if 'system/dashboard' in request.url %}class="selected"{% endif %}>
+                           {% if 'staff-only/system' in request.url %}class="selected"{% endif %}>
                             System</a>
                     </li>
                 {% endif %}
@@ -110,7 +110,6 @@
     </aside>
 
     <div class="dummy-side-nav">
-
     </div>
 
     <section class="content">
