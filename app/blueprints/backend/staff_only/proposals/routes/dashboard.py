@@ -7,6 +7,7 @@ from . import decorator_group, bp
 
 @decorator_group("/dashboard", methods=["GET"])
 def dashboard():
+    leaderboard = Proposals.leaderboard()
     total_proposals = Proposals.count_total_proposals_at_reviewer_seen_statuses()
     total_votes = ProposalVotes.count_total_votes()
     total_for_votes = ProposalVotes.count_total_for_votes()
@@ -26,5 +27,6 @@ def dashboard():
         total_for_review=total_for_review,
         total_accepted=total_accepted,
         total_rejected=total_rejected,
-        total_waitlisted=total_waitlisted
+        total_waitlisted=total_waitlisted,
+        leaderboard=leaderboard
     )

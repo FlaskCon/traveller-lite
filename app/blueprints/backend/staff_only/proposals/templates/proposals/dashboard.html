@@ -13,25 +13,25 @@
 
 
 {% block content %}
-    <div class="content-box m-down-4" x-data="dashboard">
+    <div class="content-box" x-data="dashboard">
         <div class="flex flex-row flex-wrap justify-evenly m-down-2">
             <div class="dashboard-status-box flex-1">
-                <h1>Proposals To Be Reviewed</h1>
+                <h1>To Be Reviewed</h1>
                 <h2>{{ total_for_review }}</h2>
                 <a href="{{ url_for('staff_only.proposals.review') }}" class="button m-down-0">View</a>
             </div>
             <div class="dashboard-status-box flex-1">
-                <h1>Proposals Accepted</h1>
+                <h1>Accepted</h1>
                 <h2>{{ total_accepted }}</h2>
                 <a href="{{ url_for('staff_only.proposals.accepted') }}" class="button m-down-0">View</a>
             </div>
             <div class="dashboard-status-box flex-1">
-                <h1>Proposals Waitlisted</h1>
+                <h1>Waitlisted</h1>
                 <h2>{{ total_waitlisted }}</h2>
                 <a href="{{ url_for('staff_only.proposals.waitlisted') }}" class="button m-down-0">View</a>
             </div>
             <div class="dashboard-status-box flex-1">
-                <h1>Proposals Rejected</h1>
+                <h1>Rejected</h1>
                 <h2>{{ total_rejected }}</h2>
                 <a href="{{ url_for('staff_only.proposals.rejected') }}" class="button m-down-0">View</a>
             </div>
@@ -61,6 +61,36 @@
                 <h2>{{ total_votes - total_for_votes - total_against_votes }}</h2>
             </div>
         </div>
+    </div>
+    <div class="content-box m-down-4">
+        <label>Leader board</label>
+        {% if leaderboard %}
+            <table>
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Votes For</th>
+                    <th>Votes Against</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for proposal in leaderboard %}
+                    {% set proposal_id, data = proposal %}
+                    <tr>
+                        <td>
+                            <a href="{{ url_for('staff_only.proposals.review_proposal', proposal_id=proposal_id) }}">
+                                {{ data.row.title }}
+                            </a>
+                        </td>
+                        <td>{{ data['votes_for'] or '-' }}</td>
+                        <td>{{ data['votes_against'] or '-' }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No Proposals Yet</p>
+        {% endif %}
     </div>
 {% endblock %}
 

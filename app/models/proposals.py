@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from datetime import datetime
 
 from sqlalchemy import func
@@ -162,6 +163,23 @@ class Proposals(db.Model, MetaMixins):
                 cls.fk_proposal_status_id == accepted_status_id
             ).order_by(cls.created.asc())
         ).scalars().all()
+
+    @classmethod
+    def leaderboard(cls):
+        proposals = cls.for_review()
+
+        leaderboard = OrderedDict()
+
+        for proposal in proposals:
+            votes_for = [vote for vote in proposal.rel_proposal_votes if vote.vote]
+            votes_against = [vote for vote in proposal.rel_proposal_votes if not vote.vote]
+            leaderboard[proposal.proposal_id] = {
+                "row": proposal,
+                "votes_for": len(votes_for),
+                "votes_against": len(votes_against),
+            }
+
+        return sorted(leaderboard.items(), key=lambda x: x[1]["votes_for"], reverse=True)
 
     @classmethod
     def save_new_proposal(
