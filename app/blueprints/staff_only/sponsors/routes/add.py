@@ -26,7 +26,7 @@ def add():
         ]
 
         if not all(required_fields):
-            flash("Year and name are required.")
+            flash("Year and name fields are required.")
             return redirect(url_for("staff_only.sponsors.add"))
 
         Sponsors.create(

@@ -1,14 +1,14 @@
 {% extends 'global/extends/backend.html' %}
 
 {% block title %}
-    Edit Conference - {{ conference_id }}
+    Edit Conference - {{ conference.year }}
 {% endblock %}
 
 {% block breadcrumbs %}
     {{ breadcrumber([
     ("Conferences", url_for("staff_only.conferences.index")),
     ("Edit", None),
-    (conference_id, None),
+    (conference.year, None),
     ]) }}
 {% endblock %}
 

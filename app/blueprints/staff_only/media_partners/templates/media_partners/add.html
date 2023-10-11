@@ -14,6 +14,35 @@
 {% block content %}
     <div class="content-box m-down-4">
 
+        <form method="post">
+
+            <button type="submit" class="button-good">Save</button>
+
+            <div class="m-down-1"></div>
+
+            <label for="year">Year</label>
+            <input type="number" id="year" name="year" class="w-100">
+
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" class="w-100">
+
+            <label for="description" class="m-down-0">
+                Description
+            </label>
+            <textarea name="description" id="description"></textarea>
+
+            <label for="url">Promo URL</label>
+            <input type="text" id="url" name="url" class="w-100">
+
+            <label for="logo">Logo URL</label>
+            <input type="text" id="logo" name="logo" class="w-100">
+
+            <div class="m-down-3"></div>
+
+            <a href="#top" class="button w-100">Back to Top</a>
+
+        </form>
+
     </div>
 {% endblock %}
 

@@ -27,7 +27,7 @@ def edit(sponsor_id):
         ]
 
         if not all(required_fields):
-            flash("Year and name are required.")
+            flash("Year and name fields are required.")
             return redirect(url_for("staff_only.sponsors.edit", sponsor_id=sponsor_id))
 
         Sponsors.update_by_sponsor_id(
@@ -45,7 +45,7 @@ def edit(sponsor_id):
             rejected=True if rejected == "true" else False,
         )
 
-        flash("Sponsor added.")
+        flash("Sponsor updated successfully.")
         return redirect(url_for("staff_only.sponsors.index"))
 
     sponsor_status = 'possible' if sponsor.possible else 'requested' \

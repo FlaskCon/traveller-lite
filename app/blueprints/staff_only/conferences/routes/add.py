@@ -39,5 +39,4 @@ def add():
             conference_end_date=conference_end_date
         )
 
-
     return render_template(bp.tmpl("add.html"))
