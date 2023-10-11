@@ -39,4 +39,7 @@ def add():
             conference_end_date=conference_end_date
         )
 
+        flash(f"Conference {year} added.")
+        return redirect(url_for("staff_only.conferences.index"))
+
     return render_template(bp.tmpl("add.html"))
