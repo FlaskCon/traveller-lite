@@ -69,6 +69,10 @@ class Sponsors(db.Model, MetaMixins):
             url: str,
             logo: str,
             contact_information: str,
+            possible: bool,
+            requested: bool,
+            confirmed: bool,
+            rejected: bool,
     ):
         db.session.execute(
             insert(cls).values(
@@ -79,7 +83,10 @@ class Sponsors(db.Model, MetaMixins):
                 url=url,
                 logo=logo,
                 contact_information=contact_information,
-                possible=True,
+                possible=possible,
+                requested=requested,
+                confirmed=confirmed,
+                rejected=rejected,
             )
         )
 
@@ -96,6 +103,10 @@ class Sponsors(db.Model, MetaMixins):
             url: str,
             logo: str,
             contact_information: str,
+            possible: bool,
+            requested: bool,
+            confirmed: bool,
+            rejected: bool,
     ):
         db.session.execute(
             update(cls).where(cls.sponsor_id == sponsor_id).values(
@@ -106,6 +117,10 @@ class Sponsors(db.Model, MetaMixins):
                 url=url,
                 logo=logo,
                 contact_information=contact_information,
+                possible=possible,
+                requested=requested,
+                confirmed=confirmed,
+                rejected=rejected,
             )
         )
 

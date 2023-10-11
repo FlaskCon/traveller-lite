@@ -8,15 +8,100 @@
     {{ breadcrumber([
     ("Sponsors", url_for("staff_only.sponsors.index")),
     ("Edit", None),
-    (sponsor_id, None)
+    (sponsor.name, None)
     ]) }}
 {% endblock %}
 
 {% block content %}
-    <div class="content-box m-down-4">
+    <div class="content-box m-down-4" x-data="sponsor" x-init="choose_status('{{ sponsor_status }}')">
+
+        <form method="post">
+
+            <input type="hidden" name="possible" x-model="possible">
+            <input type="hidden" name="requested" x-model="requested">
+            <input type="hidden" name="confirmed" x-model="confirmed">
+            <input type="hidden" name="rejected" x-model="rejected">
+
+            <button type="submit" class="button-good">Save</button>
+
+            <div class="m-down-1"></div>
+
+            <label for="year">Year</label>
+            <input type="number" id="year" name="year" class="w-100" value="{{ sponsor.year }}">
+
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" class="w-100" value="{{ sponsor.name }}">
+
+            <label for="level">Level</label>
+            <select name="level" id="level">
+                {% for level in sponsor_levels %}
+                    <option value="{{ level.name }}" {% if sponsor.level == level.name %}selected{% endif %}>
+                        {{ level.name }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="description" class="m-down-0">
+                Description
+            </label>
+            <textarea name="description" id="description">{{ sponsor.description or '' }}</textarea>
+
+            <label for="url">Promo URL</label>
+            <input type="text" id="url" name="url" class="w-100" value="{{ sponsor.url }}">
+
+            <label for="logo">Logo URL</label>
+            <input type="text" id="logo" name="logo" class="w-100">
+
+            <label for="contact_information">Contact Information</label>
+            <input type="text" id="contact_information" name="contact_information" class="w-100"
+                   value="{{ sponsor.contact_information }}">
+
+            <label>Status</label>
+            <button
+                    type="button"
+                    class="button"
+                    :class="{'button-primary': possible}"
+                    @click="choose_status('possible')"
+            >
+                Possible Sponsor
+            </button>
+
+            <button
+                    type="button"
+                    class="button"
+                    :class="{'button-primary': requested}"
+                    @click="choose_status('requested')"
+            >
+                Requested Sponsor
+            </button>
+
+            <button
+                    type="button"
+                    class="button"
+                    :class="{'button-primary': confirmed}"
+                    @click="choose_status('confirmed')"
+            >
+                Confirmed Sponsor
+            </button>
+
+            <button
+                    type="button"
+                    class="button"
+                    :class="{'button-primary': rejected}"
+                    @click="choose_status('rejected')"
+            >
+                Rejected Sponsor
+            </button>
+
+            <div class="m-down-3"></div>
+
+            <a href="#top" class="button w-100">Back to Top</a>
+
+        </form>
 
     </div>
 {% endblock %}
 
 {% block js %}
+    {% include 'sponsors/js/sponsor-x-data.html' %}
 {% endblock %}
+
