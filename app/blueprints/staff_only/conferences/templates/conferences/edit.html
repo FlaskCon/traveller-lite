@@ -30,8 +30,8 @@
 
             <label for="latest">Latest?</label>
             <select name="latest" id="latest">
-                <option value="False" {% if not conference.latest %}selected{% endif %}>No</option>
-                <option value="True" {% if conference.latest %}selected{% endif %}>Yes</option>
+                <option value="false" {% if not conference.latest %}selected{% endif %}>No</option>
+                <option value="true" {% if conference.latest %}selected{% endif %}>Yes</option>
             </select>
 
             <label for="call_for_proposals_start_date">Call For Proposals Start Date</label>

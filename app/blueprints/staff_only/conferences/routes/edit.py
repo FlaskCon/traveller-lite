@@ -34,7 +34,7 @@ def edit(conference_id):
             conference_id=conference_id,
             year=int(year),
             index_endpoint=index_endpoint,
-            latest=True if latest == "True" else False,
+            latest=True if latest == "true" else False,
             call_for_proposals_start_date=call_for_proposals_start_date,
             call_for_proposals_end_date=call_for_proposals_end_date,
             conference_start_date=conference_start_date,
