@@ -34,6 +34,12 @@ class Conferences(db.Model, MetaMixins):
         ).scalars().all()
 
     @classmethod
+    def select_by_year(cls, year: int):
+        return db.session.execute(
+            select(cls).where(cls.year == year)
+        ).scalars().all()
+
+    @classmethod
     def select_latest(cls):
         return db.session.execute(
             select(cls).where(cls.latest).order_by(cls.year.desc())
