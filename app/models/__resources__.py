@@ -25,11 +25,11 @@ class Resources:
     ]
 
     sponsor_levels = [
-        {"name": "Platinum"},
-        {"name": "Gold"},
-        {"name": "Silver"},
-        {"name": "Bronze"},
         {"name": "Donor"},
+        {"name": "Bronze"},
+        {"name": "Silver"},
+        {"name": "Gold"},
+        {"name": "Platinum"},
     ]
 
     proposal_statuses = [
