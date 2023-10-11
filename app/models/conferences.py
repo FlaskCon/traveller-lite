@@ -103,3 +103,22 @@ class Conferences(db.Model, MetaMixins):
         )
 
         db.session.commit()
+
+    @classmethod
+    def seed(
+            cls,
+            conference: dict,
+    ):
+        db.session.execute(
+            insert(cls).values(
+                year=conference.get("year"),
+                index_endpoint=conference.get("index_endpoint"),
+                latest=conference.get("latest"),
+                call_for_proposals_start_date=convert_date(conference.get("call_for_proposals_start_date")),
+                call_for_proposals_end_date=convert_date(conference.get("call_for_proposals_end_date")),
+                conference_start_date=convert_date(conference.get("conference_start_date")),
+                conference_end_date=convert_date(conference.get("conference_end_date"))
+            )
+        )
+
+        db.session.commit()

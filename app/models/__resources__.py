@@ -4,6 +4,16 @@ from pprint import pprint
 
 @dataclass
 class Resources:
+    conference = {
+        "year": 2023,
+        "index_endpoint": "frontend.2023.index",
+        "latest": True,
+        "call_for_proposals_start_date": "2023-10-10",
+        "call_for_proposals_end_date": "2023-10-20",
+        "conference_start_date": "2023-12-16",
+        "conference_end_date": "2023-12-17",
+    }
+
     roles = [
         {"name": "Super Administrator", "unique_role_id": 100},
         {"name": "Administrator", "unique_role_id": 101},

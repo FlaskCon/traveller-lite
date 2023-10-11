@@ -7,6 +7,7 @@ from flask import current_app as app
 
 from app.models import Resources
 from app.models.accounts import Accounts
+from app.models.conferences import Conferences
 from app.models.display_pictures import DisplayPictures
 from app.models.proposal_statuses import ProposalStatuses
 from app.models.roles import Roles
@@ -56,6 +57,12 @@ def seed():
         ProposalStatuses.seed(Resources.proposal_statuses)
     else:
         print("Proposal statuses table is not empty.")
+
+    if Conferences.__is_empty__():
+        print("Creating conferences...")
+        Conferences.seed(Resources.conference)
+    else:
+        print("Conferences table is not empty.")
 
     if os.environ.get("SUPER_ADMIN_ACCOUNT", False) and os.environ.get("SUPER_ADMIN_PASSWORD", False):
         if Accounts.exists(os.environ.get("SUPER_ADMIN_ACCOUNT")):
