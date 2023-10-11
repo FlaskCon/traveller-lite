@@ -9,30 +9,30 @@
                 }
             },
 
-            book_tickets_bg_ns: "url('{{ url_for("2023.static", filename="img/book-tickets-ns.png") }}')",
-            book_tickets_bg_hover: "url('{{ url_for("2023.static", filename="img/book-tickets-hover.png") }}')",
-            book_tickets_bg_pressed: "url('{{ url_for("2023.static", filename="img/book-tickets-pressed.png") }}')",
+            book_tickets_bg_ns: "url('{{ url_for("frontend.2023.static", filename="img/book-tickets-ns.png") }}')",
+            book_tickets_bg_hover: "url('{{ url_for("frontend.2023.static", filename="img/book-tickets-hover.png") }}')",
+            book_tickets_bg_pressed: "url('{{ url_for("frontend.2023.static", filename="img/book-tickets-pressed.png") }}')",
 
             mobile_menu_open: false,
-            mobile_menu_icon: "{{ url_for("2023.static", filename="img/menu.gif") }}",
+            mobile_menu_icon: "{{ url_for("frontend.2023.static", filename="img/menu.gif") }}",
 
             mobile_menu_mouseenter() {
-                this.mobile_menu_icon = "{{ url_for("2023.static", filename="img/menu-hover.gif") }}"
+                this.mobile_menu_icon = "{{ url_for("frontend.2023.static", filename="img/menu-hover.gif") }}"
             },
 
             mobile_menu_mouseout() {
                 if (this.mobile_menu_open) {
-                    this.mobile_menu_icon = "{{ url_for("2023.static", filename="img/menu-opened.gif") }}"
+                    this.mobile_menu_icon = "{{ url_for("frontend.2023.static", filename="img/menu-opened.gif") }}"
                 } else {
-                    this.mobile_menu_icon = "{{ url_for("2023.static", filename="img/menu.gif") }}"
+                    this.mobile_menu_icon = "{{ url_for("frontend.2023.static", filename="img/menu.gif") }}"
                 }
             },
 
             init() {
                 this.preload(
-                    '{{ url_for("2023.static", filename="img/book-tickets-ns.png") }}',
-                    '{{ url_for("2023.static", filename="img/book-tickets-hover.png") }}',
-                    '{{ url_for("2023.static", filename="img/book-tickets-pressed.png") }}',
+                    '{{ url_for("frontend.2023.static", filename="img/book-tickets-ns.png") }}',
+                    '{{ url_for("frontend.2023.static", filename="img/book-tickets-hover.png") }}',
+                    '{{ url_for("frontend.2023.static", filename="img/book-tickets-pressed.png") }}',
                 )
             },
 

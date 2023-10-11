@@ -1,8 +1,7 @@
 import os
-from datetime import datetime
 
 from dotenv import load_dotenv
-from flask import Flask, redirect, url_for
+from flask import Flask
 
 from app.extensions import imp, db
 
@@ -21,17 +20,12 @@ def create_app():
         app_factories=["dev_cli"] if DEV_MODE else [],
     )
 
-    imp.import_blueprints("blueprints/backend")
-    imp.import_blueprints("blueprints/frontend")
+    imp.import_blueprint("blueprints/account")
+    imp.import_blueprint("blueprints/auth")
+    imp.import_blueprint("blueprints/staff_only")
+    imp.import_blueprint("blueprints/frontend")
 
     if DEV_MODE:
         print("DEV_MODE is enabled. Remember to turn this off in production (unset DEV_MODE)")
-
-    @app.get("/")
-    def index():
-        year = datetime.now().year
-        if f"{year}.index" in [rule.endpoint for rule in app.url_map.iter_rules()]:
-            return redirect(url_for(f"{year}.index"))
-        return "No index page found."
 
     return app

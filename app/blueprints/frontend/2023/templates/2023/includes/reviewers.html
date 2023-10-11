@@ -2,7 +2,7 @@
     <section class="py-4 reviewers">
 
         <div class="text-center">
-            <img src="{{ url_for("2023.static", filename="img/lectern.gif") }}" alt="Reviewers Icon">
+            <img src="{{ url_for("frontend.2023.static", filename="img/lectern.gif") }}" alt="Reviewers Icon">
             <h1>This Year's Reviewers</h1>
         </div>
 
@@ -16,7 +16,7 @@
                     </div>
                 {% else %}
                     <div>
-                        <img src="{{ url_for("2023.static", filename="img/default_display_flag.gif") }}"
+                        <img src="{{ url_for("frontend.2023.static", filename="img/default_display_flag.gif") }}"
                              alt="..."/>
                     </div>
                 {% endif %}

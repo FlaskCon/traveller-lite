@@ -1,0 +1,62 @@
+{% extends 'global/extends/backend.html' %}
+
+{% block title %}
+    Add Conference
+{% endblock %}
+
+{% block breadcrumbs %}
+    {{ breadcrumber([
+    ("Conferences", url_for("staff_only.conferences.index")),
+    ("Add", None)
+    ]) }}
+{% endblock %}
+
+{% block content %}
+    <div class="content-box m-down-4">
+
+        <form method="post">
+
+            <button type="submit" class="button-good">Save</button>
+
+            <div class="m-down-1"></div>
+
+            <label for="year">Year</label>
+            <input type="number" id="year" name="year" class="w-100">
+
+            <label for="index_endpoint">Index Endpoint</label>
+            <input type="text" id="index_endpoint" name="index_endpoint" class="w-100">
+
+            <label for="latest">Latest?</label>
+            <select name="latest" id="latest">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+
+
+            <label for="call_for_proposals_start_date">Call For Proposals Start Date</label>
+            <input type="date" id="call_for_proposals_start_date" name="call_for_proposals_start_date"
+                   class="w-100">
+
+            <label for="call_for_proposals_end_date">Call For Proposals End Date</label>
+            <input type="date" id="call_for_proposals_end_date" name="call_for_proposals_end_date"
+                   class="w-100">
+
+            <label for="conference_start_date">Conference Start Date</label>
+            <input type="date" id="conference_start_date" name="conference_start_date"
+                   class="w-100">
+
+            <label for="conference_end_date">Conference End Date</label>
+            <input type="date" id="conference_end_date" name="conference_end_date"
+                   class="w-100">
+
+            <div class="m-down-3"></div>
+
+            <a href="#top" class="button w-100">Back to Top</a>
+
+        </form>
+
+    </div>
+{% endblock %}
+
+{% block js %}
+{% endblock %}
