@@ -34,6 +34,8 @@ services:
       - postgres-database:/var/lib/postgresql/data
     restart: always
     network_mode: "host"
+    ports:
+      - "5432:5432"
 
 
 volumes:
