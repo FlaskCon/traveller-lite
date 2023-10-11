@@ -229,12 +229,23 @@ footer ul li a {
 }
 
 .sub-hero {
-    background-color: #c9fff8;
+    background: #c9fff8 url("../img/water-tile.gif") repeat;
+    color: #111111;
+}
+
+.water-background {
+    background: #c9fff8 url("../img/water-tile-lesser.gif") repeat;
     color: #111111;
 }
 
 .sub-hero-color-shift-away {
     background: #c9fff8 url("../img/section-into-white.png") repeat-x;
+    height: 96px;
+    width: 100%;
+}
+
+.beach-fade {
+    background: url("../img/section-into-beach.png") repeat-x;
     height: 96px;
     width: 100%;
 }
