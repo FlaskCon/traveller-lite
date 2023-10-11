@@ -1,11 +1,11 @@
 {% extends 'global/extends/backend.html' %}
 
 {% block title %}
-    Account Update Feed
+    Conferences
 {% endblock %}
 
 {% block breadcrumbs %}
-    {{ breadcrumber([("Update Feed", None)]) }}
+    {{ breadcrumber([("Conferences", None)]) }}
 {% endblock %}
 
 {% block content %}
@@ -34,7 +34,7 @@
                     <td>{{ conf.conf_start_date }}</td>
                     <td>{{ conf.conf_end_date }}</td>
                     <td>
-                        <a href="{{ urlFor('conferences.edit', conference_id=conf.conference_id) }}">
+                        <a href="{{ url_for('staff_only.conferences.edit', conference_id=conf.conference_id) }}">
                             Edit
                         </a>
                     </td>

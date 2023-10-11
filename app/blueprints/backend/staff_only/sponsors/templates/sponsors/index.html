@@ -1,11 +1,11 @@
 {% extends 'global/extends/backend.html' %}
 
 {% block title %}
-    Account Update Feed
+    Sponsors
 {% endblock %}
 
 {% block breadcrumbs %}
-    {{ breadcrumber([("Update Feed", None)]) }}
+    {{ breadcrumber([("Sponsors", None)]) }}
 {% endblock %}
 
 {% block content %}
@@ -14,27 +14,34 @@
             <thead>
             <tr>
                 <th>Year</th>
-                <th>Index Endpoint</th>
-                <th>Latest</th>
-                <th>CFP Start Date</th>
-                <th>CFP End Date</th>
-                <th>Conf. Start Date</th>
-                <th>Conf. End Date</th>
+                <th>Level</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>URL</th>
+                <th>Logo</th>
+                <th>Contact Info</th>
+                <th>Status</th>
                 <th>&nbsp;</th>
             </tr>
             </thead>
             <tbody>
-            {% for conf in conferences %}
+            {% for sponsor in sponsors %}
                 <tr>
-                    <td>{{ conf.year }}</td>
-                    <td>{{ conf.index_endpoint }}</td>
-                    <td>{{ conf.latest }}</td>
-                    <td>{{ conf.cfp_start_date }}</td>
-                    <td>{{ conf.cfp_end_date }}</td>
-                    <td>{{ conf.conf_start_date }}</td>
-                    <td>{{ conf.conf_end_date }}</td>
+                    <td>{{ sponsor.year }}</td>
+                    <td>{{ sponsor.level }}</td>
+                    <td>{{ sponsor.name }}</td>
+                    <td>{{ sponsor.description }}</td>
+                    <td>{{ sponsor.url }}</td>
+                    <td>{{ sponsor.logo }}</td>
+                    <td>{{ sponsor.contact_information }}</td>
                     <td>
-                        <a href="{{ urlFor('conferences.edit', conference_id=conf.conference_id) }}">
+                        {{ 'Possible' if sponsor.possible }}
+                        {{ 'Requested' if sponsor.requested }}
+                        {{ 'Confirmed' if sponsor.confirmed }}
+                        {{ 'Rejected' if sponsor.rejected }}
+                    </td>
+                    <td>
+                        <a href="{{ url_for('staff_only.media_partners.edit', sponsor_id=sponsor.sponsor_id) }}">
                             Edit
                         </a>
                     </td>

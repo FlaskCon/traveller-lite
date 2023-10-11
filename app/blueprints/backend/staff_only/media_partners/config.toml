@@ -1,7 +1,7 @@
 enabled = "yes"
 
 [settings]
-url_prefix = "/conferences"
+url_prefix = "/media-partners"
 #subdomain = ""
 #url_defaults = {}
 #static_folder = "static"

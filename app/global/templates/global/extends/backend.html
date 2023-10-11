@@ -92,6 +92,32 @@
                             Proposals</a>
                     </li>
                 {% endif %}
+                {% if
+                "Super Administrator" in __roles__ or
+                "Administrator" in __roles__ or
+                "Conference Chair" in __roles__ or
+                "Grants Chair" in __roles__ or
+                "Volunteer Chair" in __roles__ or
+                "Sprints Chair" in __roles__ or
+                "Speaker Support Chair" in __roles__ or
+                "Sponsorship Chair" in __roles__ or
+                "Diversity Chair" in __roles__ %}
+                    <li x-init="set_so_true()">
+                        <a href="{{ url_for('staff_only.conferences.index') }}"
+                           {% if 'staff-only/conferences' in request.url %}class="selected"{% endif %}>
+                            Conferences</a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('staff_only.media_partners.index') }}"
+                           {% if 'staff-only/media-partners' in request.url %}class="selected"{% endif %}>
+                            Media Partners</a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('staff_only.sponsors.index') }}"
+                           {% if 'staff-only/sponsors' in request.url %}class="selected"{% endif %}>
+                            Sponsors</a>
+                    </li>
+                {% endif %}
                 {% if "Super Administrator" in __roles__ or "Administrator" in __roles__ %}
                     <li x-init="set_so_true()">
                         <a href="{{ url_for('staff_only.system.dashboard') }}"

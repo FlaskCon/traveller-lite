@@ -1,11 +1,11 @@
 {% extends 'global/extends/backend.html' %}
 
 {% block title %}
-    Account Update Feed
+    Media Partners
 {% endblock %}
 
 {% block breadcrumbs %}
-    {{ breadcrumber([("Update Feed", None)]) }}
+    {{ breadcrumber([("Media Partners", None)]) }}
 {% endblock %}
 
 {% block content %}
@@ -14,27 +14,23 @@
             <thead>
             <tr>
                 <th>Year</th>
-                <th>Index Endpoint</th>
-                <th>Latest</th>
-                <th>CFP Start Date</th>
-                <th>CFP End Date</th>
-                <th>Conf. Start Date</th>
-                <th>Conf. End Date</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>URL</th>
+                <th>Logo</th>
                 <th>&nbsp;</th>
             </tr>
             </thead>
             <tbody>
-            {% for conf in conferences %}
+            {% for mp in media_partners %}
                 <tr>
-                    <td>{{ conf.year }}</td>
-                    <td>{{ conf.index_endpoint }}</td>
-                    <td>{{ conf.latest }}</td>
-                    <td>{{ conf.cfp_start_date }}</td>
-                    <td>{{ conf.cfp_end_date }}</td>
-                    <td>{{ conf.conf_start_date }}</td>
-                    <td>{{ conf.conf_end_date }}</td>
+                    <td>{{ mp.year }}</td>
+                    <td>{{ mp.name }}</td>
+                    <td>{{ mp.description }}</td>
+                    <td>{{ mp.url }}</td>
+                    <td>{{ mp.logo }}</td>
                     <td>
-                        <a href="{{ urlFor('conferences.edit', conference_id=conf.conference_id) }}">
+                        <a href="{{ url_for('staff_only.media_partners.edit', media_partner_id=mp.media_partner_id) }}">
                             Edit
                         </a>
                     </td>

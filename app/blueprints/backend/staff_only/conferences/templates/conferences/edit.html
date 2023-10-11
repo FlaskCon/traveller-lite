@@ -1,47 +1,20 @@
 {% extends 'global/extends/backend.html' %}
 
 {% block title %}
-    Account Update Feed
+    Edit Conference - {{ conference_id }}
 {% endblock %}
 
 {% block breadcrumbs %}
-    {{ breadcrumber([("Update Feed", None)]) }}
+    {{ breadcrumber([
+    ("Conferences", url_for("staff_only.conferences.index")),
+    ("Edit", None),
+    (conference_id, None),
+    ]) }}
 {% endblock %}
 
 {% block content %}
     <div class="content-box m-down-4">
-        <table>
-            <thead>
-            <tr>
-                <th>Year</th>
-                <th>Index Endpoint</th>
-                <th>Latest</th>
-                <th>CFP Start Date</th>
-                <th>CFP End Date</th>
-                <th>Conf. Start Date</th>
-                <th>Conf. End Date</th>
-                <th>&nbsp;</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for conf in conferences %}
-                <tr>
-                    <td>{{ conf.year }}</td>
-                    <td>{{ conf.index_endpoint }}</td>
-                    <td>{{ conf.latest }}</td>
-                    <td>{{ conf.cfp_start_date }}</td>
-                    <td>{{ conf.cfp_end_date }}</td>
-                    <td>{{ conf.conf_start_date }}</td>
-                    <td>{{ conf.conf_end_date }}</td>
-                    <td>
-                        <a href="{{ urlFor('conferences.edit', conference_id=conf.conference_id) }}">
-                            Edit
-                        </a>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+
     </div>
 {% endblock %}
 
