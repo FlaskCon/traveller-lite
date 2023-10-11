@@ -21,11 +21,11 @@
 - [ ] Make the sidebar a humburger menu for phone
 - [ ] Plain blue bg is boring? Can we do some pixel art? How about svg textures? Or dynamic gradients (The ones that
   react to your mouse movement. But I dont think it will match the site theme)
-- [ ] CRUD the conferences blueprint
-- [ ] Create front end context_processor to get the current conference info
-- [ ] CRUD the media_partners blueprint
+- [x] ~~CRUD the conferences blueprint~~
+- [x] ~~Create front end context_processor to get the current conference info~~
+- [x] ~~CRUD the media_partners blueprint~~
 - [ ] Create front end context_processor to get the current media_partner info
-- [ ] CRUD the sponsors blueprint
+- [x] ~~CRUD the sponsors blueprint~~
 - [ ] Create front end context_processor to get the current sponsor info
 
 # TODO Maybes
