@@ -1,7 +1,7 @@
-from datetime import datetime
-
-from flask import redirect, url_for, current_app as app
+from flask import redirect, url_for, render_template
 from flask_imp import Blueprint
+
+from app.models.conferences import Conferences
 
 bp = Blueprint(__name__)
 
@@ -10,7 +10,9 @@ bp.import_nested_blueprint("2023")
 
 @bp.get("/")
 def index():
-    year = datetime.now().year
-    if f"frontend.{year}.index" in [rule.endpoint for rule in app.url_map.iter_rules()]:
-        return redirect(url_for(f"frontend.{year}.index"))
-    return "No index page found."
+    conference = Conferences.select_latest()
+
+    if conference is None:
+        return render_template("global/errors/no-conference.html")
+
+    return redirect(url_for(conference.index_endpoint))
