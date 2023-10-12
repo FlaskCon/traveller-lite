@@ -117,6 +117,10 @@ class DatetimeDeltaMC:
     def datetime(self) -> datetime:
         return self._datetime
 
+    @property
+    def date(self) -> datetime:
+        return self._datetime.date()
+
 
 if __name__ == '__main__':
     def returning_new_inst():
