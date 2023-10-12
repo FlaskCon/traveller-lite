@@ -37,7 +37,7 @@ class Conferences(db.Model, MetaMixins):
     def select_by_year(cls, year: int):
         return db.session.execute(
             select(cls).where(cls.year == year)
-        ).scalars().all()
+        ).scalar_one_or_none()
 
     @classmethod
     def select_latest(cls):
