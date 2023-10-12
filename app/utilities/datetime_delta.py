@@ -71,6 +71,10 @@ class DatetimeDelta:
     def datetime(self) -> datetime:
         return self._datetime
 
+    @property
+    def date(self) -> datetime:
+        return self._datetime.date()
+
 
 class DatetimeDeltaMC:
     # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List
