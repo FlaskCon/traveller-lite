@@ -37,27 +37,28 @@
                 <img src="{{ url_for("frontend.2023.static", filename="img/flaskcon-animated.gif") }}"
                      alt="FlaskCon Logo">
 
-{#                <div class="display-flex flex-col align-items-center py-3">#}
-{#                    <p style="margin: 0; color: white; text-align: center"><strong>SHARE</strong></p>#}
-{#                    <div class="display-flex align-items-center justify-center gap-1" style="margin-bottom: 1rem;">#}
-{#                        <img src="{{ url_for("frontend.2023.static", filename="img/twitter.png") }}"#}
-{#                             alt="Twitter Icon">#}
-{#                        <img src="{{ url_for("frontend.2023.static", filename="img/facebook.png") }}"#}
-{#                             alt="Facebook Icon">#}
-{#                    </div>#}
-{#                    <div class="book-tickets"#}
-{#                         x-init="$el.style.backgroundImage = book_tickets_bg_ns"#}
-{#                         @mouseenter="$el.style.backgroundImage = book_tickets_bg_hover"#}
-{#                         @mouseleave="$el.style.backgroundImage = book_tickets_bg_ns"#}
-{#                         @mousedown="$el.style.backgroundImage = book_tickets_bg_pressed"#}
-{#                         @mouseup="$el.style.backgroundImage = book_tickets_bg_hover; window.location = '{{ url_for("auth.signup") }}'"#}
-{#                    ></div>#}
-{#                </div>#}
+                {#                <div class="display-flex flex-col align-items-center py-3">#}
+                {#                    <p style="margin: 0; color: white; text-align: center"><strong>SHARE</strong></p>#}
+                {#                    <div class="display-flex align-items-center justify-center gap-1" style="margin-bottom: 1rem;">#}
+                {#                        <img src="{{ url_for("frontend.2023.static", filename="img/twitter.png") }}"#}
+                {#                             alt="Twitter Icon">#}
+                {#                        <img src="{{ url_for("frontend.2023.static", filename="img/facebook.png") }}"#}
+                {#                             alt="Facebook Icon">#}
+                {#                    </div>#}
+                {#                    <div class="book-tickets"#}
+                {#                         x-init="$el.style.backgroundImage = book_tickets_bg_ns"#}
+                {#                         @mouseenter="$el.style.backgroundImage = book_tickets_bg_hover"#}
+                {#                         @mouseleave="$el.style.backgroundImage = book_tickets_bg_ns"#}
+                {#                         @mousedown="$el.style.backgroundImage = book_tickets_bg_pressed"#}
+                {#                         @mouseup="$el.style.backgroundImage = book_tickets_bg_hover; window.location = '{{ url_for("auth.signup") }}'"#}
+                {#                    ></div>#}
+                {#                </div>#}
 
             </section>
         </div>
 
     </header>
+
 {% endblock %}
 
 {% block body %}
@@ -65,8 +66,13 @@
 
 
     {#     REMOVE SECTION ONCE MORE CONTENT     #}
-    <div class="water-background" >
-        <section class="display-flex flex-col space-evenly align-items-center py-2" style="padding-top: 6rem; padding-bottom: 6rem;">
+    <div class="water-background">
+        <div class="hero-rocks">
+
+        </div>
+
+        <section class="display-flex flex-col space-evenly align-items-center py-2"
+                 style="padding-top: 6rem; padding-bottom: 6rem;">
             <img src="{{ url_for("frontend.2023.static", filename="img/megaphone.gif") }}" alt="Megaphone Icon">
             <h2 class="my-0">Call for Proposals!</h2>
             <p>Submit your talk proposal for FlaskCon 2023! </p>
@@ -75,10 +81,9 @@
         </section>
 
 
-    <div class="beach-fade">
+        <div class="beach-fade">
 
-    </div>
-
+        </div>
     </div>
 
     {#     REMOVE SECTION ONCE MORE CONTENT     #}

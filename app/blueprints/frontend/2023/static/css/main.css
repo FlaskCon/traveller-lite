@@ -225,7 +225,7 @@ footer ul li a {
 .hero {
     background: #70b043 url("../img/grass-background.png") repeat;
     width: 100%;
-    border-bottom: #545454 6px solid;
+    border-bottom: #505050 2px solid;
 }
 
 .sub-hero {
@@ -233,10 +233,17 @@ footer ul li a {
     color: #111111;
 }
 
+.hero-rocks {
+    background: url("../img/hero-rocks.gif") repeat-x;
+    height: 96px;
+    width: 100%;
+}
+
 .water-background {
     background: #c9fff8 url("../img/water-tile-lesser.gif") repeat;
     color: #111111;
 }
+
 
 .sub-hero-color-shift-away {
     background: #c9fff8 url("../img/section-into-white.png") repeat-x;
