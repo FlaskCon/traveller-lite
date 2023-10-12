@@ -65,7 +65,7 @@
         </div>
 
         <nav class="side-nav" x-data="{so_header: false, set_so_true(){if (!this.so_header){this.so_header = true}}}">
-
+            <hr>
             <ul>
                 {% if "Attendee" in __roles__ %}
                     <li><a href="{{ url_for('account.update_feed') }}"
@@ -82,6 +82,7 @@
                 {% endif %}
             </ul>
 
+            <hr>
             <p class="m-up-1" x-cloak x-show="so_header"><strong>Staff Only</strong></p>
 
             <ul>
