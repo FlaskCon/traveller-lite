@@ -46,10 +46,9 @@
 
 
 <div class="auth-fc-container">
-
-    <img width="150" src="{{ url_for('static', filename='flaskcon-logo.svg') }}" alt="FlaskCon Logo">
-
-
+    <a href="/">
+        <img width="150" src="{{ url_for('static', filename='flaskcon-logo.svg') }}" alt="FlaskCon Logo">
+    </a>
     {% block content %}
     {% endblock %}
 
