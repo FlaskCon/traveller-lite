@@ -45,7 +45,13 @@ def day_month(date_or_datetime: Optional[Union[datetime, date]]) -> Optional[str
     Returns the day and month of the given date or datetime.
     """
 
+    def day_suffix(day: int) -> str:
+        if 4 <= day <= 20 or 24 <= day <= 30:
+            return "th"
+        else:
+            return ["st", "nd", "rd"][day % 10 - 1]
+
     if isinstance(date_or_datetime, date) or isinstance(date_or_datetime, datetime):
-        return f"{date_or_datetime.day} {date_or_datetime.strftime('%b')}"
+        return f"{date_or_datetime.day}{day_suffix(date_or_datetime.day)} {date_or_datetime.strftime('%b')}"
 
     return None
