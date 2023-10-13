@@ -26,7 +26,8 @@
 
 </head>
 
-<body x-data>
+<body x-data="backend">
+
 <a id="top"></a>
 
 
@@ -52,9 +53,40 @@
 {% endif %}
 
 
-<div class="fc-container">
+<header class="fc-header">
+    <nav class="top-nav">
+        <div class="flex justify-center align-items-center gap-1">
+            <div x-cloak x-show="$store.backend_store.show_side_menu">
+                <button @click="$store.backend_store.show_side_menu_false()"
+                        class="m-all-0 p-all-0 p-left-right-1 flex align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         class="feather feather-chevron-left">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+            </div>
+            <div x-cloak x-show="!$store.backend_store.show_side_menu">
+                <button @click="$store.backend_store.show_side_menu_true()"
+                        class="m-all-0 p-all-0 p-left-right-1 flex align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         class="feather feather-chevron-right">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+            </div>
+            <h3 class="m-all-0">{{ self.title() }}</h3>
+        </div>
+        <a href="/" class="flex align-items-center p-left-right-1">
+            <img width="100px" src="{{ url_for('static', filename='flaskcon-logo.svg') }}" alt="">
+        </a>
+    </nav>
+</header>
 
-    <aside>
+<div class="fc-container">
+    <aside :class="$store.backend_store.show_side_menu ? 'backend-menu-show' : 'backend-menu-hide'">
+
         <div class="accountlet">
             <img width="200"
                  src="{{ url_for('static', filename='display-pictures/' + ctp_display_picture(session.get('unique_display_picture_id', 1))) }}"
@@ -62,9 +94,10 @@
             <p>{{ __account__.rel_profile.name_or_alias or __account__.email_address.split('@')[0] }}</p>
             <div><a href="{{ url_for('account.settings') }}">Settings</a></div>
             <div><a href="{{ url_for('auth.logout') }}">Logout</a></div>
+
         </div>
 
-        <nav class="side-nav" x-data="{so_header: false, set_so_true(){if (!this.so_header){this.so_header = true}}}">
+        <nav class="side-nav">
 
             <ul>
                 {% if "Attendee" in __roles__ %}
@@ -82,11 +115,11 @@
                 {% endif %}
             </ul>
 
-            <p class="m-up-3" x-cloak x-show="so_header"><strong>Staff Only</strong></p>
+            <p class="m-up-3" x-cloak x-show="staff_only_header"><strong>Staff Only</strong></p>
 
             <ul>
                 {% if "Proposal Reviewer" in __roles__ %}
-                    <li x-init="set_so_true()">
+                    <li x-init="set_staff_only_header_true()">
                         <a href="{{ url_for('staff_only.proposals.dashboard') }}"
                            {% if 'staff-only/proposals' in request.url %}class="selected"{% endif %}>
                             Proposals</a>
@@ -102,7 +135,7 @@
                 "Speaker Support Chair" in __roles__ or
                 "Sponsorship Chair" in __roles__ or
                 "Diversity Chair" in __roles__ %}
-                    <li x-init="set_so_true()">
+                    <li x-init="set_staff_only_header_true()">
                         <a href="{{ url_for('staff_only.conferences.index') }}"
                            {% if 'staff-only/conferences' in request.url %}class="selected"{% endif %}>
                             Conferences</a>
@@ -119,7 +152,7 @@
                     </li>
                 {% endif %}
                 {% if "Super Administrator" in __roles__ or "Administrator" in __roles__ %}
-                    <li x-init="set_so_true()">
+                    <li x-init="set_staff_only_header_true()">
                         <a href="{{ url_for('staff_only.system.dashboard') }}"
                            {% if 'staff-only/system' in request.url %}class="selected"{% endif %}>
                             System</a>
@@ -135,22 +168,18 @@
 
     </aside>
 
-    <div class="dummy-side-nav">
+    <div
+            class="dummy-side-nav"
+            x-cloak
+            x-show="!$store.backend_store.mobile_view"
+            :class="$store.backend_store.show_side_menu ? 'backend-menu-show' : 'backend-menu-hide'"
+    >
     </div>
 
     <section class="content">
-        <header>
-            <nav class="top-nav">
-                <div>
-                    {% block breadcrumbs %}{% endblock %}
-                </div>
-                <div>
-                    <a href="/">
-                        <img width="100px" src="{{ url_for('static', filename='flaskcon-logo.svg') }}" alt="">
-                    </a>
-                </div>
-            </nav>
-        </header>
+        <div class="breadcrumbs">
+            {% block breadcrumbs %}{% endblock %}
+        </div>
 
         <section>
             <div class="center-content">
@@ -163,6 +192,7 @@
 
 </div>
 
+{% include 'global/js/backend-x-data.html' %}
 {% block js %}
 {% endblock %}
 </body>
