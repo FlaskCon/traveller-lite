@@ -24,9 +24,9 @@ def breadcrumber_processor():
         markup = ""
         for name, url in list_of_urls:
             if url is None:
-                markup += f'{name} / '
+                markup += f'/ {name} / '
             else:
-                markup += f'<a href="{url}">{name}</a> / '
+                markup += f'/ <a href="{url}">{name}</a> '
 
         return Markup(f"<strong>{markup[:-3]}</strong>")
 

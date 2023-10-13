@@ -1,0 +1,62 @@
+<script defer type="application/javascript">
+    document.addEventListener('alpine:init', () => {
+
+        let throttled = false;
+
+        Alpine.store('backend_store', {
+            show_side_menu: true,
+            mobile_view: false,
+            dummy_side_nav: true,
+            menu_clicks: 0,
+            init() {
+                if (window.innerWidth < 1000) {
+                    this.show_side_menu = false;
+                    this.mobile_view = true;
+                }
+            },
+            show_side_menu_true() {
+                this.show_side_menu = true;
+                this.menu_clicks++;
+            },
+            show_side_menu_false() {
+                this.show_side_menu = false;
+                this.menu_clicks++;
+            },
+        });
+
+        Alpine.data('backend', () => ({
+            staff_only_header: false,
+            set_staff_only_header_true() {
+                this.staff_only_header = true;
+            }
+        }));
+
+        function resizeFunc() {
+            if (window.innerWidth < 1000 && Alpine.store('backend_store').mobile_view === false) {
+                Alpine.store('backend_store').show_side_menu = false;
+                Alpine.store('backend_store').mobile_view = true;
+            }
+
+            if (window.innerWidth > 1000 && Alpine.store('backend_store').mobile_view === true) {
+                Alpine.store('backend_store').show_side_menu = true;
+                Alpine.store('backend_store').mobile_view = false;
+            }
+        }
+
+        function throttleResize() {
+            if (!throttled) {
+                throttled = true;
+                setTimeout(() => {
+                    throttled = false;
+                    resizeFunc();
+                }, 800);
+            }
+        }
+
+        onresize = () => {
+            throttleResize();
+        }
+
+    })
+
+</script>
