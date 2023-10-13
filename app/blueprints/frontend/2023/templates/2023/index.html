@@ -97,8 +97,7 @@
                         left to submit!</h2>
 
                     {% if session["logged_in"] %}
-                        <a href="{{ url_for('account.index') }}" class="button button-primary my-1">Go to your
-                            account</a>
+                        <a href="{{ url_for('account.proposals') }}" class="button button-primary my-1">Go to proposals</a>
                     {% else %}
                         <a href="{{ url_for('auth.signup') }}" class="button button-primary my-1">Signup to submit!</a>
                     {% endif %}
