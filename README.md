@@ -304,3 +304,16 @@ flask run --host=0.0.0.0 --debug
 ```bash
 supervisorctl start traveller-lite
 ```
+
+---
+
+# Production Commands
+
+**Pull the latest changes from the repository and rebuild the containers**
+
+```bash
+cd /var/www/flask/traveller-lite
+```
+```bash
+git pull && docker-compose up --build -d
+```
