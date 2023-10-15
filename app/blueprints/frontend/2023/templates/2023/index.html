@@ -97,8 +97,12 @@
                         left to submit!</h2>
 
                     {% if session["logged_in"] %}
-                        <a href="{{ url_for('account.index') }}" class="button button-primary my-1">Go to your
-                            account</a>
+
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <a href="{{ url_for('account.index') }}" class="button button-primary my-1">Account</a><br>
+                        <a href="{{ url_for('account.proposals') }}" class="button button-primary my-1">Pproposals</a>
+                      </div>
+                    
                     {% else %}
                         <a href="{{ url_for('auth.signup') }}" class="button button-primary my-1">Signup to submit!</a>
                     {% endif %}
@@ -120,6 +124,17 @@
 
             </div>
 
+        </div>
+        <div class="row p-2">
+            <div class="six columns py-2 text-center">
+
+                <img src="{{ url_for("frontend.2023.static", filename="img/heart.gif") }}" alt="Heart Icon">
+                <h2 class="my-0">Sponsors</h2>
+                <p>Support the Pallets by sponsoring</p>
+                <a href="{{ url_for('frontend.2023.become_sponsor') }}"
+                   target="_blank" class="button button-primary">Sponsor</a>
+
+            </div>
         </div>
 
     </section>
