@@ -18,6 +18,7 @@
             <tr>
                 <th>Username</th>
                 <th>Roles</th>
+                <th>Confirmed</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -30,6 +31,7 @@
                             {{ role.rel_role.name }}{% if not loop.last %}, {% endif %}
                         {% endfor %}
                     </td>
+                    <td>{{ account.confirmed }}</td>
                     <td>
                         <a href="{{ url_for('staff_only.system.account', account_id=account.account_id) }}">Manage</a>
                     </td>
