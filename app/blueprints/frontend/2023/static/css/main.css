@@ -245,7 +245,7 @@ footer ul li a {
 
 
 .water-background {
-    background: #c9fff8 url("../img/water-tile-lesser.gif") repeat;
+    background: #c9fff8 url("../img/water-tile-elesser.gif") repeat;
     color: #111111;
 }
 
@@ -352,7 +352,24 @@ footer ul li a {
     border-radius: 8px;
 }
 
+.split-button {
+    display: flex;
+}
+
+.split-button > a:first-child {
+    border-right: 0;
+    border-radius: 4px 0 0 4px;
+}
+
+.split-button > a:last-child {
+    border-radius: 0 4px 4px 0;
+}
+
 /* Spacing */
+
+.w-100 {
+    width: 100%;
+}
 
 .gap-1 {
     gap: 1rem;
@@ -470,6 +487,51 @@ footer ul li a {
     padding-left: 3rem;
     padding-right: 3rem;
 }
+
+.mb-0 {
+    margin-bottom: 0;
+}
+
+.mb-1 {
+    margin-bottom: 1rem;
+}
+
+.mb-2 {
+    margin-bottom: 2rem;
+}
+
+.mb-3 {
+    margin-bottom: 3rem;
+}
+
+.mt-0 {
+    margin-top: 0 !important;
+}
+
+.mt-1 {
+    margin-top: 1rem !important;
+}
+
+.mt-2 {
+    margin-top: 2rem !important;
+}
+
+.mt-3 {
+    margin-top: 3rem !important;
+}
+
+.mt-4 {
+    margin-top: 4rem !important;
+}
+
+.mt-5 {
+    margin-top: 5rem !important;
+}
+
+.mt-10 {
+    margin-top: 10rem !important;
+}
+
 
 /* buttons */
 
