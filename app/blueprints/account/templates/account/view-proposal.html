@@ -1,7 +1,7 @@
 {% extends 'global/extends/backend.html' %}
 
 {% block title %}
-    Viewing Proposal: {{ proposal.title }}
+    Viewing Proposal: {{ proposal.title|truncate(45) }}
 {% endblock %}
 
 {% block breadcrumbs %}
@@ -10,7 +10,7 @@
 
 {% block content %}
 
-    <div class="content-box m-down-4">
+    <div class="content-box m-down-4 break-word">
 
         <h1 class="m-down-1" style="font-size: 3.5rem;">{{ proposal.title }}</h1>
 

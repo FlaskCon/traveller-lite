@@ -31,10 +31,10 @@
             {% for mp in media_partners %}
                 <tr>
                     <td>{{ mp.year }}</td>
-                    <td>{{ mp.name }}</td>
-                    <td>{{ mp.description }}</td>
-                    <td>{{ mp.url }}</td>
-                    <td>{{ mp.logo }}</td>
+                    <td>{{ mp.name|truncate(40) }}</td>
+                    <td>{{ mp.description|truncate(40) }}</td>
+                    <td>{{ mp.url|truncate(25) }}</td>
+                    <td>{{ mp.logo|truncate(25) }}</td>
                     <td>
                         <a href="{{ url_for('staff_only.media_partners.edit', media_partner_id=mp.media_partner_id) }}">
                             Edit
