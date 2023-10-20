@@ -22,13 +22,15 @@ def breadcrumber_processor():
         :return:
         """
         markup = ""
+        trunc_size = 70
         for name, url in list_of_urls:
+            trunc = "<span>...</span>" if len(name) > trunc_size else " "
             if url is None:
-                markup += f'/ {name} / '
+                markup += f'/ {name[:trunc_size]}{trunc}'
             else:
-                markup += f'/ <a href="{url}">{name}</a> '
+                markup += f'/ <a href="{url}">{name[:trunc_size]}{trunc}</a> '
 
-        return Markup(f"<strong>{markup[:-3]}</strong>")
+        return Markup(f"<strong>{markup}</strong>")
 
     return dict(breadcrumber=breadcrumber)
 

@@ -1,7 +1,7 @@
 {% extends 'global/extends/backend.html' %}
 
 {% block title %}
-    Edit Media Partner - {{ media_partner.name }}
+    Edit Media Partner - {{ media_partner.name|truncate(45) }}
 {% endblock %}
 
 {% block breadcrumbs %}

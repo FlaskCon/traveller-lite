@@ -1,7 +1,7 @@
 {% extends 'global/extends/backend.html' %}
 
 {% block title %}
-    Editing Proposal: {{ proposal.title }}
+    Editing Proposal: {{ proposal.title|truncate(45) }}
 {% endblock %}
 
 {% block breadcrumbs %}
@@ -29,9 +29,8 @@
                 <div class="warning m-down-2">
 
                     <p class="m-up-down-1">Are you sure you want to submit your proposal? </p>
-                    <p class="m-up-1 m-down-2">Your proposal will be sent to the committee for review. You won't be able
-                        to
-                        edit it after submission.</p>
+                    <p class="m-up-1 m-down-2">Your proposal will be sent to the committee
+                        for review. You won't be able to edit it after submission.</p>
 
                     <button type="submit" class="button-good">Submit</button>
                     <button type="button" @click="submit_proposal = false">Cancel</button>

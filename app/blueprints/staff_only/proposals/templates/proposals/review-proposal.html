@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="content-box m-down-4" x-data="review_proposal">
+    <div class="content-box m-down-4 break-word" x-data="review_proposal">
 
         <form method="post"
               {% if external_post %}action="{{ url_for('staff_only.proposals.review_proposal', proposal_id=proposal.proposal_id) }}"{% endif %}>

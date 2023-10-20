@@ -79,7 +79,7 @@
                     <tr>
                         <td>
                             <a href="{{ url_for('staff_only.proposals.review_proposal', proposal_id=proposal_id) }}">
-                                {{ data.row.title }}
+                                {{ data.row.title|truncate(45) }}
                             </a>
                         </td>
                         <td>{{ data['votes_for'] or '-' }}</td>

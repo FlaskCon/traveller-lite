@@ -22,9 +22,6 @@
                 <th>Year</th>
                 <th>Level</th>
                 <th>Name</th>
-                <th>Description</th>
-                <th>URL</th>
-                <th>Logo</th>
                 <th>Contact Info</th>
                 <th>Status</th>
                 <th>&nbsp;</th>
@@ -35,11 +32,8 @@
                 <tr>
                     <td>{{ sponsor.year }}</td>
                     <td>{{ sponsor.level }}</td>
-                    <td>{{ sponsor.name }}</td>
-                    <td>{{ sponsor.description }}</td>
-                    <td>{{ sponsor.url }}</td>
-                    <td>{{ sponsor.logo }}</td>
-                    <td>{{ sponsor.contact_information }}</td>
+                    <td>{{ sponsor.name|truncate(40) }}</td>
+                    <td class="break-word">{{ sponsor.contact_information|truncate(25) }}</td>
                     <td>
                         {{ 'Possible' if sponsor.possible }}
                         {{ 'Requested' if sponsor.requested }}
