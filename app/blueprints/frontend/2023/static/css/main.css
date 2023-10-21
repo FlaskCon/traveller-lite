@@ -106,6 +106,15 @@ section {
     max-width: 1024px;
 }
 
+.a-fix a {
+    color: #065f93;
+    font-weight: bold;
+}
+
+.a-fix a:hover {
+    color: #097cbe;
+}
+
 footer {
     width: 100%;
     border-bottom: #545454 6px solid;
