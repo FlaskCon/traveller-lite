@@ -2,8 +2,17 @@
 {% block head %}
     <title>FlaskCon 2023</title>
 {% endblock %}
+
+
+{% block hero_header %}
+    <div class="grass-background text-center w-100 py-1">
+        <a href="/"><img src="{{ url_for('frontend.2023.static', filename='img/flaskcon-animated.gif') }}"
+                         alt="FlaskCon Logo" style="height: 80px"></a>
+    </div>
+{% endblock %}
+
 {% block body %}
-    <section class="bg-section-white">
+    <section class="bg-section-white a-fix">
 
         <div class="row p-2 mb-3">
 
@@ -346,4 +355,6 @@
                 at: <a class="text-white" href="mailto:{{ data_delete_email }}">{{ business_contact_email }}</a></p>
         </div>
     </section>
+    <div class="beach-fade mt-10"></div>
+
 {% endblock %}

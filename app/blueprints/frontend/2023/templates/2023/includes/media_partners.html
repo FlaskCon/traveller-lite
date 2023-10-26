@@ -1,6 +1,3 @@
-<div class="media-partners-color-shift">
-
-</div>
 <div class="media-partners-container">
     <section class="py-4 media-partners">
         <div class="text-center">
@@ -8,22 +5,42 @@
             <h1>Media Partners</h1>
         </div>
 
-        <div style="text-align: center; width: 100%">
-            <h3>Yet To Be Confirmed</h3>
-        </div>
+        {% set media_partners = ctp_media_partners(2023) %}
 
-        {#        <div class="this-years-media-partners">#}
-        {#            <div>#}
-        {#                <img src="{{ url_for("frontend.2023.static", filename="img/80_level_logo.png") }}"#}
-        {#                     alt="80 LEVEL Logo">#}
-        {#                <p>80 LEVEL is an industry-leading platform for game developers, digital artists, animators, video#}
-        {#                    game#}
-        {#                    enthusiasts, CGI and VFX specialists. Join us to learn about new workflows, discuss new tools#}
-        {#                    and#}
-        {#                    share#}
-        {#                    your work </p>#}
-        {#            </div>#}
-        {#        </div>#}
+        {% if media_partners %}
+
+            <div class="this-years-media-partners py-3">
+
+                {% for mp in media_partners %}
+
+                    <div class="media-partner">
+                        {% if mp.logo %}
+                            <img src="{{ mp.logo }}" alt="{{ mp.name }}">
+                        {% else %}
+                            <h3>{{ mp.name }}</h3>
+                        {% endif %}
+                        {% if mp.description %}
+                            <p>{{ mp.description }}</p>
+                        {% endif %}
+                        {% if mp.url %}
+                            <a href="{{ mp.url }}" class="button button-primary"
+                               target="_blank" rel="nofollow">
+                            Visit Website
+                            </a>
+                        {% endif %}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div style="text-align: center; width: 100%">
+                <h3>Yet To Be Confirmed</h3>
+            </div>
+
+        {% endif %}
 
     </section>
 </div>
