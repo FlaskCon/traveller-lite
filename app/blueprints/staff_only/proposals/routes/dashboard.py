@@ -8,6 +8,8 @@ from . import decorator_group, bp
 @decorator_group("/dashboard", methods=["GET"])
 def dashboard():
     leaderboard = Proposals.leaderboard()
+    prep_not_sent_reminder = Proposals.count_total_proposals_in_status_prep_not_sent_a_reminder_to_submit()
+    total_in_prep = Proposals.count_total_proposals_in_status_prep()
     total_proposals = Proposals.count_total_proposals_at_reviewer_seen_statuses()
     total_votes = ProposalVotes.count_total_votes()
     total_for_votes = ProposalVotes.count_total_for_votes()
@@ -21,6 +23,8 @@ def dashboard():
     return render_template(
         bp.tmpl("dashboard.html"),
         total_proposals=total_proposals,
+        total_in_prep=total_in_prep,
+        prep_not_sent_reminder=prep_not_sent_reminder,
         total_votes=total_votes,
         total_for_votes=total_for_votes,
         total_against_votes=total_against_votes,
