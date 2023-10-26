@@ -14,7 +14,7 @@
                     data => {
                         console.log(data)
                         if (data.status === 'success') {
-                            if (data.total_in_pnsr_recount === 0) {
+                            if (data.total_in_prep === 0) {
                                 this.submit_reminder_button_text = 'No Reminders to Send!';
                             } else {
                                 this.submit_reminder_button_text = 'Reminders Sent!';

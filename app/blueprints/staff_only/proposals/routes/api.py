@@ -41,5 +41,6 @@ def api_send_submit_reminder():
 
     return {
         "status": "success",
-        "total_in_pnsr_recount": total_in_pnsr_recount
+        "total_in_pnsr_recount": total_in_pnsr_recount,
+        "total_in_prep": len(total_in_prep)
     }
