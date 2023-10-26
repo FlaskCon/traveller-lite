@@ -60,6 +60,17 @@ class EmailService:
         self._msg = MIMEMultipart()
         self._msg.set_type('multipart/alternative')
 
+    def _reset_values(self):
+        self._subject = ""
+        self._msg_body = MIMEText("")
+        self._recipients = set()
+        self._cc_recipients = set()
+        self._bcc_recipients = set()
+        self._attachments = set()
+
+        self._msg = MIMEMultipart()
+        self._msg.set_type('multipart/alternative')
+
     def __repr__(self) -> str:
         attachments = "\n".join(
             [f"{file} - {status}" for file, status in self._attachments]
@@ -164,6 +175,7 @@ class EmailService:
 
         if self.dev_mode:
             print(self)
+            self._reset_values()
             return True
 
         try:
@@ -178,12 +190,14 @@ class EmailService:
         except SMTPException as error:
             if debug:
                 print(error)
+                self._reset_values()
 
             return False
 
         if debug:
             print(self)
 
+        self._reset_values()
         return True
 
 

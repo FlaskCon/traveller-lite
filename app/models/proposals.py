@@ -45,6 +45,7 @@ class Proposals(db.Model, MetaMixins):
     reason_for_rejection = db.Column(db.String, nullable=True)
     scheduled_date = db.Column(db.DateTime, nullable=True)
     scheduled_confirmed = db.Column(db.Boolean, nullable=False, default=False)
+    submit_reminder_sent = db.Column(db.Boolean, nullable=False, default=False)
 
     # Tracking
     created = db.Column(db.DateTime, nullable=False, default=datetime.now)
@@ -93,6 +94,60 @@ class Proposals(db.Model, MetaMixins):
             if vote.fk_account_id == account_id:
                 return vote.vote
         return None
+
+    def set_submit_reminder_sent(self):
+        self.submit_reminder_sent = True
+        db.session.commit()
+
+    @classmethod
+    def select_proposals_in_status_prep(cls):
+        from .proposal_statuses import ProposalStatuses
+        proposal_ids = ProposalStatuses.select_proposal_status_id_using_unique_proposal_status_id_batch([101])
+        return db.session.execute(
+            select(
+                cls
+            ).where(
+                cls.fk_proposal_status_id.in_(proposal_ids)
+            )
+        ).scalars().all()
+
+    @classmethod
+    def select_proposals_in_status_prep_no_reminder(cls):
+        from .proposal_statuses import ProposalStatuses
+        proposal_ids = ProposalStatuses.select_proposal_status_id_using_unique_proposal_status_id_batch([101])
+        return db.session.execute(
+            select(
+                cls
+            ).where(
+                cls.fk_proposal_status_id.in_(proposal_ids),
+                cls.submit_reminder_sent == False
+            )
+        ).scalars().all()
+
+    @classmethod
+    def count_total_proposals_in_status_prep_not_sent_a_reminder_to_submit(cls):
+        from .proposal_statuses import ProposalStatuses
+        proposal_ids = ProposalStatuses.select_proposal_status_id_using_unique_proposal_status_id_batch([101])
+        return db.session.execute(
+            select(
+                func.count(cls.proposal_id)
+            ).where(
+                cls.fk_proposal_status_id.in_(proposal_ids),
+                cls.submit_reminder_sent == False
+            )
+        ).scalar_one_or_none()
+
+    @classmethod
+    def count_total_proposals_in_status_prep(cls):
+        from .proposal_statuses import ProposalStatuses
+        proposal_ids = ProposalStatuses.select_proposal_status_id_using_unique_proposal_status_id_batch([101])
+        return db.session.execute(
+            select(
+                func.count(cls.proposal_id)
+            ).where(
+                cls.fk_proposal_status_id.in_(proposal_ids)
+            )
+        ).scalar_one_or_none()
 
     @classmethod
     def count_total_proposals_at_reviewer_seen_statuses(cls):
