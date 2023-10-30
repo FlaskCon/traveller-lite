@@ -24,11 +24,12 @@ def breadcrumber_processor():
         markup = ""
         trunc_size = 70
         for name, url in list_of_urls:
-            trunc = "<span>...</span>" if len(name) > trunc_size else " "
+            str_name = str(name)
+            trunc = "<span>...</span>" if len(str_name) > trunc_size else " "
             if url is None:
-                markup += f'/ {name[:trunc_size]}{trunc}'
+                markup += f'/ {str_name[:trunc_size]}{trunc}'
             else:
-                markup += f'/ <a href="{url}">{name[:trunc_size]}{trunc}</a> '
+                markup += f'/ <a href="{url}">{str_name[:trunc_size]}{trunc}</a> '
 
         return Markup(f"<strong>{markup}</strong>")
 
