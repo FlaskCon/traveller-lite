@@ -92,8 +92,10 @@
                 <p>Submit your talk proposal for FlaskCon 2023! </p>
                 {% if conference.call_for_proposals_end_date|is_cfp_live %}
 
-                    <h2 class="my-0">Only <span>{{ conference.call_for_proposals_end_date|days_until_cfp_ends }}</span>
-                        days
+                    {% set days_left = conference.call_for_proposals_end_date|days_until_cfp_ends %}
+
+                    <h2 class="my-0">Only <span>{{ days_left }}</span>
+                        {% if days_left > 1 %}days{% else %}day{% endif %}
                         left to submit!</h2>
 
                     {% if session["logged_in"] %}
