@@ -13,8 +13,17 @@
     <div class="content-box">
 
         <div>
-            <a class="button button-primary" href="{{ url_for('account.new_proposal') }}">
-                New proposal</a>
+            {% if able_to_propose %}
+
+                <a class="button button-primary"
+                   href="{{ url_for('account.new_proposal') }}">
+                    New proposal</a>
+
+            {% else %}
+
+                <a class="button button-primary button-disabled">New proposal</a>
+
+            {% endif %}
         </div>
 
         <div class="m-down-1"></div>
