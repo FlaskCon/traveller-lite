@@ -30,11 +30,11 @@ def is_cfp_live(call_for_proposals_end_date: Optional[Union[datetime, date]]) ->
 
     if isinstance(call_for_proposals_end_date, date):
         now = DatetimeDeltaMC()
-        return True if (call_for_proposals_end_date - now.date).days > 0 else False
+        return True if (call_for_proposals_end_date - now.date).days > -1 else False
 
     if isinstance(call_for_proposals_end_date, datetime):
         now = DatetimeDeltaMC()
-        return True if (call_for_proposals_end_date.date() - now.date).days > 0 else False
+        return True if (call_for_proposals_end_date.date() - now.date).days > -1 else False
 
     return False
 
