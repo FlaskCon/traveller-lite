@@ -38,6 +38,12 @@
                         <div><strong>Votes:</strong>
                             For - {{ proposal.votes.for }} | Against - {{ proposal.votes.against }}
                         </div>
+                        <div><strong>Acc. ID:</strong>
+                            {{ proposal.fk_account_id }}
+                        </div>
+                        <div><strong>Acc. Email Address:</strong>
+                            {{ proposal.rel_account.email_address }}
+                        </div>
                     </div>
 
                     <a class="button button-primary m-up-1"
