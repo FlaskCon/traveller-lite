@@ -1,4 +1,4 @@
-from sqlalchemy import and_, func
+from sqlalchemy import func
 
 from . import *
 
@@ -36,6 +36,21 @@ class ProposalVotes(db.Model, MetaMixins):
                 cls.vote.is_(False)
             )
         ).scalar_one_or_none()
+
+    @classmethod
+    def get_vote_position(cls, proposal_id: int, account_id: int):
+        vote = db.session.execute(
+            select(cls).filter(
+                and_(
+                    cls.fk_proposal_id == proposal_id,
+                    cls.fk_account_id == account_id,
+                )
+            ).limit(1)
+        ).scalar_one_or_none()
+
+        if vote:
+            return vote.vote
+        return None
 
     @classmethod
     def vote_for(cls, proposal_id: int, account_id: int):
