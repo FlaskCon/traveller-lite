@@ -1,4 +1,4 @@
-from flask import render_template, request, abort, url_for, redirect, flash
+from flask import render_template, request, abort, url_for, redirect, flash, session
 
 from app.models.proposal_statuses import ProposalStatuses
 from app.models.proposal_votes import ProposalVotes
@@ -75,11 +75,11 @@ def review_proposal(proposal_id):
         vote_against = True if request.form.get("vote_against") == "true" else False
 
         if vote_for:
-            ProposalVotes.vote_for(proposal.proposal_id, 1)
+            ProposalVotes.vote_for(proposal.proposal_id, session.get("account_id", 0))
         elif vote_against:
-            ProposalVotes.vote_against(proposal.proposal_id, 1)
+            ProposalVotes.vote_against(proposal.proposal_id, session.get("account_id", 0))
         else:
-            ProposalVotes.abstain(proposal.proposal_id, 1)
+            ProposalVotes.abstain(proposal.proposal_id, session.get("account_id", 0))
 
         flash("Proposal has been updated.")
         return redirect(url_for("staff_only.proposals.review_proposal", proposal_id=proposal_id))
@@ -95,4 +95,5 @@ def review_proposal(proposal_id):
         proposal=proposal,
         breadcrumbs=breadcrumbs,
         show_voting=True,
+        vote_position=ProposalVotes.get_vote_position(proposal.proposal_id, session.get("account_id", 0)),
     )
