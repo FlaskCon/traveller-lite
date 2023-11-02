@@ -1,5 +1,11 @@
+import random
 from datetime import datetime
 
+from flask_imp.auth import authenticate_password
+from flask_imp.auth import encrypt_password
+from flask_imp.auth import generate_password
+from flask_imp.auth import generate_private_key
+from flask_imp.auth import generate_salt
 from sqlalchemy import func
 
 from . import *
@@ -127,9 +133,7 @@ class Accounts(db.Model, MetaMixins):
         db.session.commit()
 
     def new_private_key(self):
-        from flask_imp.auth import Auth
-
-        self.private_key = Auth.generate_private_key(Auth.generate_password(length=1))
+        self.private_key = generate_private_key(generate_password(length=1))
         db.session.commit()
         return self.private_key
 
@@ -140,32 +144,38 @@ class Accounts(db.Model, MetaMixins):
     def create_profile(self):
         from app.models.profiles import Profiles
         from app.models.display_pictures import DisplayPictures
-        import random
 
-        Profiles.signup(self.account_id, random.choice(DisplayPictures.select_all_display_picture_id()))
+        Profiles.signup(self.account_id, random.choice(
+            DisplayPictures.select_all_display_picture_id()
+        ), self.name_or_alias)
 
     def password_check(self, password) -> bool:
-        from flask_imp.auth import Auth
-
-        if Auth.auth_password(password, self.password, self.salt):
+        if authenticate_password(
+                password, self.password, self.salt, pepper_position="start"
+        ):
             return True
         return False
 
     def set_new_password(self, new_password) -> None:
-        from flask_imp.auth import Auth
-
-        self.salt = Auth.generate_salt()
-        self.password = Auth.hash_password(new_password, self.salt)
+        self.salt = generate_salt()
+        print("Set New Password")
+        self.password = encrypt_password(
+            new_password, self.salt, pepper_position="start"
+        )
 
         db.session.commit()
 
     @classmethod
     def login(cls, email_address, password):
-        from flask_imp.auth import Auth
 
         account = cls.select_using_email_address(email_address)
         if account:
-            if Auth.auth_password(password, account.password, account.salt):
+            if authenticate_password(
+                    password,
+                    account.password,
+                    account.salt,
+                    pepper_position="start"
+            ):
                 return account
         return None
 
@@ -180,20 +190,23 @@ class Accounts(db.Model, MetaMixins):
         """
         Written for sqlite. Returns account after commit.
         """
-        from flask_imp.auth import Auth
+
         from app.models.profiles import Profiles
         from app.models.display_pictures import DisplayPictures
         from .roles_membership import RolesMembership
         import random
 
-        salt = Auth.generate_salt()
-        salt_and_pepper_password = Auth.hash_password(password, salt)
-        private_key = Auth.generate_private_key(Auth.generate_password(length=1))
+        salt = generate_salt()
+        print("signup")
+        encrypted_password = encrypt_password(
+            password, salt, pepper_position="start"
+        )
+        private_key = generate_private_key(generate_password(length=1))
 
         db.session.execute(
             insert(cls).values(
                 email_address=email_address,
-                password=salt_and_pepper_password,
+                password=encrypted_password,
                 salt=salt,
                 confirmed=confirmed,
                 private_key=private_key,
@@ -257,7 +270,9 @@ class Accounts(db.Model, MetaMixins):
         from flask_imp.auth import Auth
 
         salt = Auth.generate_salt()
-        salt_and_pepper_password = Auth.hash_password(new_password, salt)
+        salt_and_pepper_password = encrypt_password(
+            new_password, salt, pepper_position="start"
+        )
 
         self.salt = salt
         self.password = salt_and_pepper_password
