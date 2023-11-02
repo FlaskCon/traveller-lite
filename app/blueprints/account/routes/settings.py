@@ -44,5 +44,8 @@ def settings():
 
             flash("New password and confirm new password do not match.")
             return redirect(url_for("account.settings"))
+        else:
+            flash("Incorrect old password. Please try again.")
+            return redirect(url_for("account.settings"))
 
     return render_template(bp.tmpl("settings.html"), csrf=session.get("csrf"))
