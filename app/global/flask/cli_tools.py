@@ -1,7 +1,7 @@
 from flask import current_app as app
 
 from app.extensions import db
-from app.extensions.emailer_client import send_enqueued_email
+from app.extensions.emailer_client import start_emailer
 from app.models.email_queue import EmailQueue
 
 
@@ -14,20 +14,14 @@ def initdb_command():
 
 @app.cli.command("emails-add-send")
 def cli_add_emails_and_send():
-    results = EmailQueue.add_emails_to_send(
+    EmailQueue.add_emails_to_send(
         [
             {
-                "to": "bob@bob.com",
-                "subject": "Test",
-                "message": "Test",
-            },
-            {
-                "to": "jane@jane.com",
-                "subject": "Test",
-                "message": "Test",
+                "to": "carmichaelits@gmail.com",
+                "subject": "Test3",
+                "message": "Test3",
             },
         ]
     )
 
-    for result in results:
-        send_enqueued_email(result.email_id, result.to)
+    print(start_emailer(app.config["SQLALCHEMY_DATABASE_URI"]))
