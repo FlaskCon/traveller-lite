@@ -66,6 +66,13 @@ class Proposals(db.Model, MetaMixins):
         uselist=True,
     )
 
+    rel_account = relationship(
+        "Accounts",
+        primaryjoin="Proposals.fk_account_id == Accounts.account_id",
+        viewonly=True,
+        uselist=False,
+    )
+
     @staticmethod
     def save():
         db.session.commit()
