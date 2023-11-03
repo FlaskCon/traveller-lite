@@ -69,11 +69,11 @@ PASSWORD = "password"
 #     ...
 
 # Uncomment below to generate and add to SQLALCHEMY_BINDS.
-#[DATABASE.ANOTHER]
-#ENABLED = true
-#DIALECT = "sqlite"
-#DATABASE_NAME = "database_another"
-#LOCATION = "db"
-#PORT = ""
-#USERNAME = "user"
-#PASSWORD = "password"
+[DATABASE.EMAIL_QUEUE]
+ENABLED = true
+DIALECT = "sqlite"
+DATABASE_NAME = "email_queue"
+LOCATION = "instance"
+PORT = ""
+USERNAME = "user"
+PASSWORD = "password"
