@@ -42,6 +42,14 @@
                     </div>
 
                     <div>
+                        {% if proposal.proposal_status == "Preparation" or proposal.proposal_status == "Change Requested" %}
+                            <a class="button button-primary m-all-0"
+                               href="{{ url_for('account.proposal', proposal_id=proposal.proposal_id) }}">Edit</a>
+                        {% else %}
+
+                            <button disabled class="button-primary">Edit</button>
+
+                        {% endif %}
                         <a class="button button-primary m-all-0"
                            href="{{ url_for('account.view_proposal', proposal_id=proposal.proposal_id) }}">View</a>
                     </div>
