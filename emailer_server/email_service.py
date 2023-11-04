@@ -202,6 +202,21 @@ class EmailService:
         self._reset_values()
         return True
 
+    def test_connection(self):
+        """
+        Tests the connection to the email server.
+        :return:
+        """
+        try:
+            with SMTP(self.server, self.port) as connection:
+                connection.starttls(context=create_default_context())
+                connection.login(self.username, self.password)
+        except Exception as error:
+            print(error)
+            return False
+
+        return True
+
 
 # usage:
 """
