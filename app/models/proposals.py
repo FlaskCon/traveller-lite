@@ -82,19 +82,17 @@ class Proposals(db.Model, MetaMixins):
         return self.rel_proposal_status.name
 
     @property
-    def votes(self) -> dict:
-        votes_default = {"for": 0, "against": 0}
-        votes_calc = {
-            (vote.vote and "for" or "against"): votes_default["for" if vote.vote else "against"] + 1 for
-            vote in self.rel_proposal_votes or []
-        }
+    def votes(self) -> tuple:
+        votes_for = 0
+        votes_against = 0
 
-        if not votes_calc.get("for"):
-            votes_calc["for"] = 0
-        if not votes_calc.get("against"):
-            votes_calc["against"] = 0
+        for vote in self.rel_proposal_votes or []:
+            if vote.vote:
+                votes_for += 1
+            else:
+                votes_against += 1
 
-        return votes_calc
+        return votes_for, votes_against
 
     def get_voting_position_using_account_id(self, account_id: int) -> t.Optional[bool]:
         for vote in self.rel_proposal_votes or []:
