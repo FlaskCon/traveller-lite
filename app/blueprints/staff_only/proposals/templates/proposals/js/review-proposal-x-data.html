@@ -12,6 +12,7 @@
             waitlisted: {{ 'true' if proposal.rel_proposal_status.unique_proposal_status_id == 106 else 'false' }},
             accepted: {{ 'true' if proposal.rel_proposal_status.unique_proposal_status_id == 107 else 'false' }},
             rejected: {{ 'true' if proposal.rel_proposal_status.unique_proposal_status_id == 108 else 'false' }},
+            canceled: {{ 'true' if proposal.rel_proposal_status.unique_proposal_status_id == 109 else 'false' }},
 
             change_status(code) {
                 switch (code) {
@@ -21,6 +22,7 @@
                         this.waitlisted = false;
                         this.accepted = false;
                         this.rejected = false;
+                        this.canceled = false;
                         break;
                     case 106:
                         this.under_review = false;
@@ -28,6 +30,7 @@
                         this.waitlisted = true;
                         this.accepted = false;
                         this.rejected = false;
+                        this.canceled = false;
                         break;
                     case 107:
                         this.under_review = false;
@@ -35,6 +38,7 @@
                         this.waitlisted = false;
                         this.accepted = true;
                         this.rejected = false;
+                        this.canceled = false;
                         break;
                     case 108:
                         this.under_review = false;
@@ -42,6 +46,15 @@
                         this.waitlisted = false;
                         this.accepted = false;
                         this.rejected = true;
+                        this.canceled = false;
+                        break;
+                    case 109:
+                        this.under_review = false;
+                        this.change_requested = false;
+                        this.waitlisted = false;
+                        this.accepted = false;
+                        this.rejected = false;
+                        this.canceled = true;
                         break;
                     case 0:
                         this.under_review = false;
@@ -49,6 +62,7 @@
                         this.waitlisted = false;
                         this.accepted = false;
                         this.rejected = false;
+                        this.canceled = false;
                         break;
                 }
             }

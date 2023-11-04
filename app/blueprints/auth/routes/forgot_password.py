@@ -6,12 +6,10 @@ from flask import (
     session,
     flash
 )
-from flask_imp import Auth
 from flask_imp.security import login_check, include_csrf
 
-from app.extensions import EmailService, email_settings
 from app.models.accounts import Accounts
-from app.models.display_pictures import DisplayPictures
+from app.models.email_queue import EmailQueue
 from .. import bp
 
 
@@ -27,16 +25,19 @@ def forgot_password():
                 account = Accounts.select_using_email_address(email_address)
                 private_key = account.new_private_key()
 
-                EmailService(
-                    email_settings).recipients(
-                    [email_address]).subject(
-                    "Password reset link").body(
-                    render_template(
-                        "global/email/password-reset-link.html",
-                        account_id=account.account_id,
-                        private_key=private_key,
-                    )
-                ).send()
+                EmailQueue.add_emails_to_send([
+                    {
+                        "email_to": email_address,
+                        "email_subject": "Confirm your account",
+                        "email_message": render_template(
+                            "global/email/password-reset-link.html",
+                            account_id=account.account_id,
+                            private_key=private_key,
+                        )
+                    }
+                ])
+
+                EmailQueue.process_queue()
 
                 flash("Password reset link sent to your email address.")
                 return redirect(url_for("auth.login"))

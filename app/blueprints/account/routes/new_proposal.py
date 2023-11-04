@@ -1,14 +1,19 @@
+import os
 from datetime import datetime, date
 
 import mistune
 from flask import render_template, request, session, redirect, url_for, flash
 from flask_imp.security import login_check, include_csrf
 
+from app.models.accounts import Accounts
 from app.models.conferences import Conferences
+from app.models.email_queue import EmailQueue
 from app.models.proposals import Proposals
 from app.utilities import DatetimeDeltaMC
 from app.utilities.render_engines import HighlightRenderer
 from .. import bp
+
+FLASKCON_EMAIL_ADDRESS = os.environ.get("FLASKCON_EMAIL_ADDRESS")
 
 
 @bp.route("/proposals/new-proposal", methods=["GET", "POST"])
@@ -16,6 +21,8 @@ from .. import bp
 @include_csrf()
 def new_proposal():
     if request.method == "POST":
+        account = Accounts.select_using_account_id(session.get("account_id"))
+
         title = request.form.get("title")
         detail = request.form.get("detail")
         abstract = request.form.get("abstract")
@@ -58,6 +65,21 @@ def new_proposal():
             notes_or_requests_markdown=notes_or_requests_markdown,
             tags=tags.replace(" ", ""),
         )
+
+        EmailQueue.add_emails_to_send([
+            {
+                "email_to": account.email_address,
+                "email_subject": "Your Proposal Has Been Submitted",
+                "email_message": render_template(
+                    "global/email/proposal-submitted.html",
+                    title=title,
+                    flaskcon_email=FLASKCON_EMAIL_ADDRESS,
+                )
+            }
+        ])
+
+        EmailQueue.process_queue()
+
         flash("Your proposal has been submitted! We will be in touch soon.")
         return redirect(url_for("account.view_proposal", proposal_id=proposal_id))
 

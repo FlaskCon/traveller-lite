@@ -15,4 +15,6 @@ email_settings = EmailServiceSettings(
     int(os.environ.get("EMAIL_PORT")),
 )
 
+emailer_client = EmailService(email_settings)
+
 __all__ = ["email_settings", "EmailService", "db", "imp"]
