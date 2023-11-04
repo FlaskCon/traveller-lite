@@ -242,7 +242,7 @@ class Proposals(db.Model, MetaMixins):
         return sorted(leaderboard.items(), key=lambda x: x[1]["votes_for"], reverse=True)
 
     @classmethod
-    def save_new_proposal(
+    def submit_new_proposal(
             cls,
             fk_account_id,
             title,
@@ -261,7 +261,7 @@ class Proposals(db.Model, MetaMixins):
         result = db.session.execute(
             insert(cls).values(
                 fk_account_id=fk_account_id,
-                fk_proposal_status_id=ProposalStatuses.select_using_unique_proposal_status_id(101).proposal_status_id,
+                fk_proposal_status_id=ProposalStatuses.select_using_unique_proposal_status_id(102).proposal_status_id,
                 year=datetime.now().year,
                 title=title,
                 detail=detail,
@@ -275,38 +275,78 @@ class Proposals(db.Model, MetaMixins):
                 tags=tags,
             )
         )
+
         db.session.commit()
         return result.lastrowid
-
-    def save_proposal(
-            self,
-            title,
-            detail,
-            detail_markdown,
-            abstract,
-            abstract_markdown,
-            short_biography,
-            short_biography_markdown,
-            notes_or_requests,
-            notes_or_requests_markdown,
-            tags,
-            submit_proposal,
-    ):
-        from .proposal_statuses import ProposalStatuses
-
-        self.title = title
-        self.detail = detail
-        self.detail_markdown = detail_markdown
-        self.abstract = abstract
-        self.abstract_markdown = abstract_markdown
-        self.short_biography = short_biography
-        self.short_biography_markdown = short_biography_markdown
-        self.notes_or_requests = notes_or_requests
-        self.notes_or_requests_markdown = notes_or_requests_markdown
-        if tags:
-            self.tags = tags
-
-        if submit_proposal:
-            self.fk_proposal_status_id = ProposalStatuses.select_using_unique_proposal_status_id(102).proposal_status_id
-
-        db.session.commit()
+    #
+    # @classmethod
+    # def save_new_proposal(
+    #         cls,
+    #         fk_account_id,
+    #         title,
+    #         detail,
+    #         detail_markdown,
+    #         abstract,
+    #         abstract_markdown,
+    #         short_biography,
+    #         short_biography_markdown,
+    #         notes_or_requests,
+    #         notes_or_requests_markdown,
+    #         tags,
+    # ):
+    #     from .proposal_statuses import ProposalStatuses
+    #
+    #     result = db.session.execute(
+    #         insert(cls).values(
+    #             fk_account_id=fk_account_id,
+    #             fk_proposal_status_id=ProposalStatuses.select_using_unique_proposal_status_id(101).proposal_status_id,
+    #             year=datetime.now().year,
+    #             title=title,
+    #             detail=detail,
+    #             detail_markdown=detail_markdown,
+    #             abstract=abstract,
+    #             abstract_markdown=abstract_markdown,
+    #             short_biography=short_biography,
+    #             short_biography_markdown=short_biography_markdown,
+    #             notes_or_requests=notes_or_requests,
+    #             notes_or_requests_markdown=notes_or_requests_markdown,
+    #             tags=tags,
+    #         )
+    #     )
+    #
+    #
+    #     db.session.commit()
+    #     return result.lastrowid
+    #
+    # def save_proposal(
+    #         self,
+    #         title,
+    #         detail,
+    #         detail_markdown,
+    #         abstract,
+    #         abstract_markdown,
+    #         short_biography,
+    #         short_biography_markdown,
+    #         notes_or_requests,
+    #         notes_or_requests_markdown,
+    #         tags,
+    #         submit_proposal,
+    # ):
+    #     from .proposal_statuses import ProposalStatuses
+    #
+    #     self.title = title
+    #     self.detail = detail
+    #     self.detail_markdown = detail_markdown
+    #     self.abstract = abstract
+    #     self.abstract_markdown = abstract_markdown
+    #     self.short_biography = short_biography
+    #     self.short_biography_markdown = short_biography_markdown
+    #     self.notes_or_requests = notes_or_requests
+    #     self.notes_or_requests_markdown = notes_or_requests_markdown
+    #     if tags:
+    #         self.tags = tags
+    #
+    #     if submit_proposal:
+    #         self.fk_proposal_status_id = ProposalStatuses.select_using_unique_proposal_status_id(102).proposal_status_id
+    #
+    #     db.session.commit()
