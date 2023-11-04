@@ -35,31 +35,23 @@ def daemon_task(connection):
     with engine.connect() as connection:
         with connection.begin():
             to_be_sent = connection.execute(
-                text("SELECT * FROM email_queue WHERE staged = false;")
+                text("SELECT * FROM email_queue;")
             ).fetchall()
-
-    with engine.connect() as connection:
-        with connection.begin():
-            for email in to_be_sent:
-                connection.execute(
-                    text("UPDATE email_queue SET staged = true WHERE email_id = :email_id;").bindparams(
-                        email_id=email[0]
-                    )
-                )
 
     for email in to_be_sent:
         email_service = EmailService(email_settings)
+
         if engine.echo:
             print(" " * 50)
             print(f"Sending email to {email[1]}")
             print(f"Subject: {email[2]}")
             print(f"Body: {email[3]}")
-        email_service.recipients([email[1]]).subject(email[2]).body(email[3]).send()
 
         with engine.connect() as connection:
             with connection.begin():
+                email_service.recipients([email[1]]).subject(email[2]).body(email[3]).send()
                 connection.execute(
-                    text("UPDATE email_queue SET sent = true WHERE email_id = :email_id;").bindparams(
+                    text("DELETE FROM email_queue WHERE email_id = :email_id").bindparams(
                         email_id=email[0]
                     )
                 )

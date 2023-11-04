@@ -8,8 +8,6 @@ class EmailQueue(db.Model, MetaMixins):
     to = db.Column(db.String, nullable=True)
     subject = db.Column(db.String, nullable=True)
     message = db.Column(db.String, nullable=True)
-    staged = db.Column(db.Boolean, nullable=True, default=False)
-    sent = db.Column(db.Boolean, nullable=True, default=False)
 
     # Tracking
     created = db.Column(db.DateTime, nullable=False, default=datetime.now)

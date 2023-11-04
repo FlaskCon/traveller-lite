@@ -175,7 +175,7 @@ class EmailService:
         self._msg.add_header('Subject', self._subject)
 
         if self.dev_mode:
-            sleep(8)
+            sleep(1)
             print(self)
             self._reset_values()
             return True

@@ -1,4 +1,5 @@
 from flask import current_app as app
+import faker
 
 from app.extensions import db
 from app.extensions.emailer_client import start_emailer
@@ -14,14 +15,16 @@ def initdb_command():
 
 @app.cli.command("email")
 def cli_add_emails_and_send():
-    EmailQueue.add_emails_to_send(
-        [
-            {
-                "to": "test@test.com",
-                "subject": "Test3",
-                "message": "Test3",
-            },
-        ]
-    )
+    emails = []
 
-    print(start_emailer(app.config["SQLALCHEMY_DATABASE_URI"]))
+    for r in range(100):
+        emails.append(
+            {
+                "to": faker.Faker().email(),
+                "subject": faker.Faker().sentence(),
+                "message": faker.Faker().paragraph(),
+            }
+        )
+
+    EmailQueue.add_emails_to_send(emails)
+    start_emailer(app.config["SQLALCHEMY_DATABASE_URI"])
