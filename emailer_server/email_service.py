@@ -176,7 +176,7 @@ class EmailService:
 
         if self.dev_mode:
             sleep(1)
-            print(self)
+            # print(self)
             self._reset_values()
             return True
 
