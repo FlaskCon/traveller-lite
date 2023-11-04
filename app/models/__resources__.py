@@ -84,8 +84,8 @@ class Resources:
             "unique_proposal_status_id": 108
         },
         {
-            "name": "Cancelled",
-            "description": "You have cancelled your proposal.",
+            "name": "Canceled",
+            "description": "You have canceled your proposal.",
             "unique_proposal_status_id": 109
         },
     ]

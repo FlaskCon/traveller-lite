@@ -21,6 +21,7 @@ def view_accepted(proposal_id):
 
     return render_template(
         bp.tmpl("review-proposal.html"),
+        accepted_view=True,
         proposal=proposal,
         breadcrumbs=breadcrumbs,
         external_post=external_post,
