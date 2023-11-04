@@ -17,7 +17,7 @@ def cli_add_emails_and_send():
     EmailQueue.add_emails_to_send(
         [
             {
-                "to": "carmichaelits@gmail.com",
+                "to": "test@test.com",
                 "subject": "Test3",
                 "message": "Test3",
             },
