@@ -62,34 +62,34 @@
                     </button>
                 </div>
             {% endif %}
-{##}
-{#            <p class="m-up-down-1"><strong>Change status to:</strong></p>#}
-{##}
-{#            <div class="roles-choice m-down-3">#}
-{#                {% if not external_post %}#}
-{#                    <div @click="change_status(104)"#}
-{#                         :class="change_requested ? 'role-choice-selected' : 'role-choice'">#}
-{#                        Change Requested#}
-{#                    </div>#}
-{#                {% endif %}#}
-{#                <div @click="change_status(106)"#}
-{#                     :class="waitlisted ? 'role-choice-selected' : 'role-choice'">#}
-{#                    Waitlisted#}
-{#                </div>#}
-{#                <div @click="change_status(107)"#}
-{#                     :class="accepted ? 'role-choice-selected' : 'role-choice'">#}
-{#                    Accepted#}
-{#                </div>#}
-{#                <div @click="change_status(108)"#}
-{#                     :class="rejected ? 'role-choice-selected' : 'role-choice'">#}
-{#                    Rejected#}
-{#                </div>#}
-{#                {% if not external_post %}#}
-{#                    <div @click="change_status(0)" class="role-choice-clear">#}
-{#                        Clear Choice#}
-{#                    </div>#}
-{#                {% endif %}#}
-{#            </div>#}
+            {##}
+            {#            <p class="m-up-down-1"><strong>Change status to:</strong></p>#}
+            {##}
+            {#            <div class="roles-choice m-down-3">#}
+            {#                {% if not external_post %}#}
+            {#                    <div @click="change_status(104)"#}
+            {#                         :class="change_requested ? 'role-choice-selected' : 'role-choice'">#}
+            {#                        Change Requested#}
+            {#                    </div>#}
+            {#                {% endif %}#}
+            {#                <div @click="change_status(106)"#}
+            {#                     :class="waitlisted ? 'role-choice-selected' : 'role-choice'">#}
+            {#                    Waitlisted#}
+            {#                </div>#}
+            {#                <div @click="change_status(107)"#}
+            {#                     :class="accepted ? 'role-choice-selected' : 'role-choice'">#}
+            {#                    Accepted#}
+            {#                </div>#}
+            {#                <div @click="change_status(108)"#}
+            {#                     :class="rejected ? 'role-choice-selected' : 'role-choice'">#}
+            {#                    Rejected#}
+            {#                </div>#}
+            {#                {% if not external_post %}#}
+            {#                    <div @click="change_status(0)" class="role-choice-clear">#}
+            {#                        Clear Choice#}
+            {#                    </div>#}
+            {#                {% endif %}#}
+            {#            </div>#}
 
             <h1 class="m-down-1" style="font-size: 3.5rem;">{{ proposal.title }}</h1>
 
@@ -108,7 +108,8 @@
                     {% endif %}
                 </div>
                 <div><strong>Votes:</strong>
-                    For - {{ proposal.votes.for }} | Against - {{ proposal.votes.against }}
+                    {% set _votes_for, _votes_against = proposal.votes %}
+                    For - {{ _votes_for }} | Against - {{ _votes_against }}
                 </div>
             </div>
 
