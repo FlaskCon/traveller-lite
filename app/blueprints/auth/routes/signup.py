@@ -6,13 +6,13 @@ from flask import (
     flash,
     session
 )
+from flask_imp.auth import Auth
 from flask_imp.security import login_check
 from pyisemail import is_email
 
-from .. import bp
 from app.models.accounts import Accounts
-from app.extensions import email_settings, EmailService
-from flask_imp.auth import Auth
+from app.models.email_queue import EmailQueue
+from .. import bp
 
 
 @bp.route("/signup", methods=["GET", "POST"])
@@ -44,16 +44,20 @@ def signup():
 
             new_account = Accounts.signup(email_address, password, name_or_alias)
             if new_account:
-                EmailService(
-                    email_settings).recipients(
-                    [email_address]).subject(
-                    "Confirm your account").body(
-                    render_template(
-                        "global/email/confirm-email.html",
-                        account_id=new_account.account_id,
-                        private_key=new_account.private_key,
-                    )
-                ).send()
+                EmailQueue.add_emails_to_send([
+                    {
+                        "email_to": email_address,
+                        "email_subject": "Confirm your account",
+                        "email_message": render_template(
+                            "global/email/confirm-email.html",
+                            account_id=new_account.account_id,
+                            private_key=new_account.private_key,
+                        )
+                    }
+                ])
+
+                EmailQueue.process_queue()
+
                 flash("Account created. Please check your email to confirm your account.")
                 return redirect(url_for("auth.login"))
             else:

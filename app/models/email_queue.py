@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from app.extensions.emailer_client import start_emailer
 from . import *
 
 
@@ -14,7 +15,24 @@ class EmailQueue(db.Model, MetaMixins):
     created = db.Column(db.DateTime, nullable=False, default=datetime.now)
 
     @classmethod
-    def add_emails_to_send(cls, list_of_emails: list):
-        result = db.session.execute(insert(cls), list_of_emails)
+    def add_emails_to_send(cls, email_group: list[dict[str, str]]):
+        """
+        :param list_of_emails: A list of tuples containing the email address, subject, and message.
+        """
+        result = db.session.execute(insert(cls).values(email_group))
         db.session.commit()
         return result
+
+    @staticmethod
+    def process_queue():
+        """
+        Process the email queue, sending emails that have not yet been sent.
+        """
+        start_emailer(db.engine.url, processor="PROCESS")
+
+    @staticmethod
+    def reprocess_queue():
+        """
+        Reprocess the email queue, sending all emails.
+        """
+        start_emailer(db.engine.url, processor="REPROCESS")
