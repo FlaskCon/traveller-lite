@@ -12,7 +12,7 @@ def initdb_command():
     print("Initialized the database.")
 
 
-@app.cli.command("emails-add-send")
+@app.cli.command("email")
 def cli_add_emails_and_send():
     EmailQueue.add_emails_to_send(
         [

@@ -11,6 +11,6 @@ def start_emailer(sqla_uri: str):
         except socket.error as msg:
             raise msg
         try:
-            s.sendall(sqla_uri.encode("utf-8"))
+            s.send(sqla_uri.encode("utf-8"), 8914)
         finally:
             return s.recv(256)
