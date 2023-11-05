@@ -4,7 +4,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 from email_service import EmailServiceSettings
-from socket_process import SocketProcess
+from socket_process_manager import SocketProcessManager
 from socket_server import SocketServer
 
 load_dotenv()
@@ -22,10 +22,6 @@ if __name__ == "__main__":
 
     socket_server = SocketServer(
         socket_address,
-        email_settings,
-        SocketProcess(
-            email_settings,
-            socket_address
-        )
+        email_settings
     )
     socket_server.start()

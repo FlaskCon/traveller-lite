@@ -5,7 +5,6 @@ from pathlib import Path
 from smtplib import SMTP
 from smtplib import SMTPException
 from ssl import create_default_context
-from time import sleep
 from typing import Optional
 
 
@@ -175,8 +174,7 @@ class EmailService:
         self._msg.add_header('Subject', self._subject)
 
         if self.dev_mode:
-            sleep(1)
-            # print(self)
+            print(self)
             self._reset_values()
             return True
 

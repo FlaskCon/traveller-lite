@@ -17,22 +17,22 @@ class EmailQueue(db.Model, MetaMixins):
     @classmethod
     def add_emails_to_send(cls, email_group: list[dict[str, str]]):
         """
-        :param list_of_emails: A list of tuples containing the email address, subject, and message.
+        :param email_group: A list of tuples containing the email address, subject, and message.
         """
         result = db.session.execute(insert(cls).values(email_group))
         db.session.commit()
         return result
 
     @staticmethod
-    def process_queue():
+    def process_queue() -> str:
         """
         Process the email queue, sending emails that have not yet been sent.
         """
-        start_emailer(db.engine.url, processor="PROCESS")
+        return start_emailer(db.engine.url, processor="PROCESS")
 
     @staticmethod
-    def reprocess_queue():
+    def reprocess_queue() -> str:
         """
         Reprocess the email queue, sending all emails.
         """
-        start_emailer(db.engine.url, processor="REPROCESS")
+        return start_emailer(db.engine.url, processor="REPROCESS")
