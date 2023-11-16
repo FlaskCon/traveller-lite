@@ -36,7 +36,11 @@
                             {% endif %}
                         </div>
                         <div><strong>Votes:</strong>
-                            For - {{ proposal.votes.for }} | Against - {{ proposal.votes.against }}
+                            {% set _votes_for, _votes_against = proposal.votes %}
+                            For - {{ _votes_for }} | Against - {{ _votes_against }}
+                        </div>
+                        <div><strong>Account ID:</strong>
+                            {{ proposal.rel_account.account_id }}
                         </div>
                     </div>
 

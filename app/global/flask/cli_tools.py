@@ -1,58 +1,71 @@
+import os
+
 import click
+import faker
 from flask import current_app as app
-from sqlalchemy import text
 
 from app.extensions import db
 
 
-def parse_bool(value):
-    if value == "true" or value == "True":
-        return True
-    if value == "false" or value == "False":
-        return False
-
-    raise click.BadParameter(
-        "You have set the column-type to bool, but the "
-        "default value cannot be parsed to bool."
-        "Please use 'true' or 'false'."
-    )
+@app.cli.command("initdb")
+def initdb_command():
+    """Initializes the database."""
+    db.create_all()
+    print("Initialized the database.")
 
 
-def parse_int(value):
-    try:
-        _value = int(value)
-    except ValueError:
-        raise click.BadParameter(
-            "You have set the column-type to int, but the "
-            "default value cannot be parsed to int."
-        )
+@app.cli.command("email-test")
+def email_test_command():
+    from app.models.email_queue import EmailQueue
+
+    emails: list[dict[str, str]] = []
+
+    for r in range(10):
+        fake = faker.Faker()
+        emails.append({
+            "email_to": fake.email(),
+            "email_subject": fake.sentence(),
+            "email_message": fake.text(),
+        })
+
+    EmailQueue.add_emails_to_send(emails)
+    print(EmailQueue.process_queue())
 
 
-@app.cli.command("alter-table-add-column")
-@click.option("--table", required=True, type=str, help="The table to alter.")
-@click.option("--column", required=True, type=str, help="The column to add.")
-@click.option("--column-type", required=True, type=str, help="The type of the column.")
-@click.option("--default", required=False, type=str, help="The default value of the column.")
-def dev_seed_test_data(table, column, column_type, default):
-    print(f"Altering table {table}...")
-    print(f"Adding column {column}...")
-    print(f"Type: {column_type}")
+@app.cli.command("email-live-test")
+def email_live_test_command():
+    from app.models.email_queue import EmailQueue
 
-    raw_query = f"alter table {table} add {column} {column_type}"
+    emails: list[dict[str, str]] = []
 
-    if default:
-        if column_type == "int" or column_type == "integer":
-            _default = parse_int(default)
-        if column_type == "boolean" or column_type == "bool":
-            _default = parse_bool(default)
-        else:
-            # Defaults to string.
-            _default = default
+    fake = faker.Faker()
 
-        raw_query += f" default {_default}"
+    emails.append({
+        "email_to": os.getenv("LIVE_TEST_EMAIL_ONE", os.getenv("FLASKCON_EMAIL_ADDRESS")),
+        "email_subject": fake.sentence(),
+        "email_message": fake.text(),
+    })
 
-    raw_query += ";"
+    emails.append({
+        "email_to": os.getenv("LIVE_TEST_EMAIL_TWO", os.getenv("FLASKCON_EMAIL_ADDRESS")),
+        "email_subject": fake.sentence(),
+        "email_message": fake.text(),
+    })
 
-    db.session.execute(text(raw_query))
+    EmailQueue.add_emails_to_send(emails)
+    print(EmailQueue.process_queue())
 
-    print("Done.")
+
+@app.cli.command("email-reprocess")
+def email_test_command():
+    from app.models.email_queue import EmailQueue
+
+    print(EmailQueue.reprocess_queue())
+
+
+@app.cli.command("email-kill")
+@click.argument("pid")
+def email_test_command(pid: str):
+    from app.extensions.emailer_client import kill_process
+
+    print(kill_process(pid))

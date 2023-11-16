@@ -21,6 +21,7 @@ def view_rejected(proposal_id):
 
     return render_template(
         bp.tmpl("review-proposal.html"),
+        rejected_view=True,
         proposal=proposal,
         breadcrumbs=breadcrumbs,
         external_post=external_post,

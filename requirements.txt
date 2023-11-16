@@ -9,3 +9,5 @@ pygments
 pycountry
 pyIsEmail
 psycopg2-binary
+click
+faker

@@ -158,7 +158,6 @@ class Accounts(db.Model, MetaMixins):
 
     def set_new_password(self, new_password) -> None:
         self.salt = generate_salt()
-        print("Set New Password")
         self.password = encrypt_password(
             new_password, self.salt, pepper_position="start"
         )
@@ -197,7 +196,6 @@ class Accounts(db.Model, MetaMixins):
         import random
 
         salt = generate_salt()
-        print("signup")
         encrypted_password = encrypt_password(
             password, salt, pepper_position="start"
         )

@@ -114,6 +114,11 @@ EMAIL_PASSWORD=none
 EMAIL_SERVER=none
 EMAIL_PORT=0
 
+# The email address that all proposal correspondence should be discussed
+# This email address will be used to to inform the submitter to contact this
+# email address for any questions or concerns.
+FLASKCON_EMAIL_ADDRESS=none
+
 # Super admin account details that will be used in the CLI
 # command 'flask seed'
 SUPER_ADMIN_ACCOUNT=none
