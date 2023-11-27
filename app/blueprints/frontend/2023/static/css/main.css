@@ -252,12 +252,69 @@ footer ul li a {
     width: 100%;
 }
 
+.sponsors {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: whitesmoke;
+}
+
+.sponsor {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 5rem;
+}
+
+.talks {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    color: whitesmoke;
+    gap: 4rem;
+}
+
+.talk {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: start;
+    gap: 0.5rem;
+    padding: 0 1rem;
+    color: #1e1e1e;
+}
+
+.talk-right {
+    text-align: right;
+}
+
+.talk-left {
+    text-align: left;
+}
+
+.talk h2 {
+    font-size: 3rem;
+    margin: 0;
+}
+
+.talk p {
+    font-size: 2.6rem;
+    font-style: italic;
+    margin: 0;
+}
+
+.sponsor img {
+    max-width: 400px;
+    width: 100%;
+}
 
 .water-background {
     background: #c9fff8 url("../img/water-tile-elesser.gif") repeat;
     color: #111111;
 }
-
 
 .sub-hero-color-shift-away {
     background: #c9fff8 url("../img/section-into-white.png") repeat-x;
