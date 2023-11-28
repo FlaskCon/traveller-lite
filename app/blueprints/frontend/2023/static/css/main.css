@@ -279,7 +279,7 @@ footer ul li a {
 
 .talk {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: start;
     align-items: start;
     gap: 0.5rem;
@@ -298,12 +298,29 @@ footer ul li a {
 .talk h2 {
     font-size: 3rem;
     margin: 0;
+    display: inline-block;
 }
 
 .talk p {
     font-size: 2.6rem;
     font-style: italic;
     margin: 0;
+}
+
+.talk-speaker-r {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-direction: row;
+}
+
+.talk-speaker-rr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-direction: row-reverse;
 }
 
 .sponsor img {
@@ -669,6 +686,22 @@ input[type="button"].button-disabled:focus {
         flex-direction: column;
         align-items: center;
         text-align: center;
+    }
+
+    .talk-speaker-r {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        flex-direction: column;
+    }
+
+    .talk-speaker-rr {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        flex-direction: column;
     }
 
     footer ul li {
