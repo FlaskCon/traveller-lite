@@ -95,145 +95,20 @@
 
     <section class="container talks" style="margin-bottom: 4rem;">
 
-        <div class="talk">
-            <img src="{{ url_for('frontend.2023.static', filename='img/yellow-boat.gif') }}"
-                 alt="Boat sprite" style="width: 62px; height: 62px">
-            <div>
-                <h2>Flask SocketIO Load Balancing</h2>
-                <p>Valentine Sean</p>
+        {% set boats = ['img/green-boat.gif', 'img/yellow-boat.gif', 'img/red-boat.gif'] %}
+
+        {% for talk in talks %}
+
+            <div class="talk">
+                <h2>{{ talk.title }}</h2>
+                <div class="{% if loop.index % 2 %}talk-speaker-r{% else %}talk-speaker-rr{% endif %}">
+                    <p>{{ talk.speaker }}</p>
+                    <img src="{{ url_for('frontend.2023.static', filename=boats|random) }}"
+                         alt="Boat sprite" style="width: 62px; height: 62px">
+                </div>
             </div>
-            <img src="{{ url_for('frontend.2023.static', filename='img/blank-boat.gif') }}"
-                 alt="Boat sprite" style="width: 62px; height: 62px">
-        </div>
 
-        <div class="talk">
-            <img src="{{ url_for('frontend.2023.static', filename='img/blank-boat.gif') }}"
-                 alt="Boat sprite" style="width: 62px; height: 62px">
-            <div>
-                <h2>Insights Building Sizable Flask Sites</h2>
-                <p>Abdur-Rahmaan Janhangeer</p>
-            </div>
-            <img src="{{ url_for('frontend.2023.static', filename='img/green-boat.gif') }}"
-                 alt="Boat sprite" style="width: 62px; height: 62px">
-        </div>
-
-        <div class="talk">
-            <img src="{{ url_for('frontend.2023.static', filename='img/red-boat.gif') }}"
-                 alt="Boat sprite" style="width: 62px; height: 62px">
-            <div>
-                <h2>Building a Scalable Machine Learning API with Flask and TensorFlow</h2>
-                <p>Brayan Mwanyumba</p>
-            </div>
-            <img src="{{ url_for('frontend.2023.static', filename='img/blank-boat.gif') }}"
-                 alt="Boat sprite" style="width: 62px; height: 62px">
-        </div>
-
-        <div class="talk">
-            <img src="{{ url_for('frontend.2023.static', filename='img/blank-boat.gif') }}"
-                 alt="Boat sprite" style="width: 62px; height: 62px">
-            <div>
-                <h2>How is a Request Processed in Flask?</h2>
-                <p>Patrick Kennedy</p>
-            </div>
-            <img src="{{ url_for('frontend.2023.static', filename='img/yellow-boat.gif') }}"
-                 alt="Boat sprite" style="width: 62px; height: 62px">
-        </div>
-
-
-        <div class="talk">
-            <img src="{{ url_for('frontend.2023.static', filename='img/green-boat.gif') }}"
-                 alt="Boat sprite" style="width: 62px; height: 62px">
-            <div>
-                <h2>Optimizing VS Code for Flask</h2>
-                <p>Pamela Fox</p>
-            </div>
-            <img src="{{ url_for('frontend.2023.static', filename='img/blank-boat.gif') }}"
-                 alt="Boat sprite" style="width: 62px; height: 62px">
-        </div>
-
-        <div class="talk">
-            <img src="{{ url_for('frontend.2023.static', filename='img/blank-boat.gif') }}"
-                 alt="Boat sprite" style="width: 62px; height: 62px">
-            <div>
-                <h2>Building Federated GraphQL APIs using Flask</h2>
-                <p>Adarsh Devamritham</p>
-            </div>
-            <img src="{{ url_for('frontend.2023.static', filename='img/red-boat.gif') }}"
-                 alt="Boat sprite" style="width: 62px; height: 62px">
-        </div>
-
-
-        <div class="talk">
-            <img src="{{ url_for('frontend.2023.static', filename='img/yellow-boat.gif') }}"
-                 alt="Boat sprite" style="width: 62px; height: 62px">
-            <div>
-                <h2>Secure by Design: Building one time secret share application based on ReadOnce objects</h2>
-                <p>Shahriyar Rzayev</p>
-            </div>
-            <img src="{{ url_for('frontend.2023.static', filename='img/blank-boat.gif') }}"
-                 alt="Boat sprite" style="width: 62px; height: 62px">
-        </div>
-
-
-        <div class="talk">
-            <img src="{{ url_for('frontend.2023.static', filename='img/blank-boat.gif') }}"
-                 alt="Boat sprite" style="width: 62px; height: 62px">
-            <div>
-                <h2>Building Web Applications with Flask and SQLAlchemy</h2>
-                <p>Aman Singh</p>
-            </div>
-            <img src="{{ url_for('frontend.2023.static', filename='img/green-boat.gif') }}"
-                 alt="Boat sprite" style="width: 62px; height: 62px">
-        </div>
-
-
-        <div class="talk">
-            <img src="{{ url_for('frontend.2023.static', filename='img/yellow-boat.gif') }}"
-                 alt="Boat sprite" style="width: 62px; height: 62px">
-            <div>
-                <h2>Configuring Flask-SQLAlchemy for Production Environments: Managing MultiDB Connections/Queries</h2>
-                <p>Paul Asalu</p>
-            </div>
-            <img src="{{ url_for('frontend.2023.static', filename='img/blank-boat.gif') }}"
-                 alt="Boat sprite" style="width: 62px; height: 62px">
-        </div>
-
-
-        <div class="talk">
-            <img src="{{ url_for('frontend.2023.static', filename='img/blank-boat.gif') }}"
-                 alt="Boat sprite" style="width: 62px; height: 62px">
-            <div>
-                <h2>Quart in Action: Async APIs for Model Front-Ends</h2>
-                <p>Adam Englander</p>
-            </div>
-            <img src="{{ url_for('frontend.2023.static', filename='img/green-boat.gif') }}"
-                 alt="Boat sprite" style="width: 62px; height: 62px">
-        </div>
-
-
-        <div class="talk">
-            <img src="{{ url_for('frontend.2023.static', filename='img/yellow-boat.gif') }}"
-                 alt="Boat sprite" style="width: 62px; height: 62px">
-            <div>
-                <h2>Don't think about settings, use Dynaconf</h2>
-                <p>Bruno Rocha</p>
-            </div>
-            <img src="{{ url_for('frontend.2023.static', filename='img/blank-boat.gif') }}"
-                 alt="Boat sprite" style="width: 62px; height: 62px">
-        </div>
-
-        <div class="talk">
-            <img src="{{ url_for('frontend.2023.static', filename='img/blank-boat.gif') }}"
-                 alt="Boat sprite" style="width: 62px; height: 62px">
-            <div>
-                <h2>End-to-End Flask App Testing with Playwright</h2>
-                <p>Jay Miller</p>
-            </div>
-            <img src="{{ url_for('frontend.2023.static', filename='img/green-boat.gif') }}"
-                 alt="Boat sprite" style="width: 62px; height: 62px">
-        </div>
-
-
+        {% endfor %}
     </section>
 
     <section class="" style="padding-top: 6rem; padding-bottom: 6rem; margin-bottom: 4rem;">
