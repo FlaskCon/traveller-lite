@@ -1,0 +1,73 @@
+{% extends 'global/extends/backend.html' %}
+
+{% block title %}
+    Your Proposals
+{% endblock %}
+
+{% block breadcrumbs %}
+    {{ breadcrumber([("Your Proposals", None)]) }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="content-box">
+
+        <div>
+            {% if able_to_propose %}
+
+                <a class="button button-primary"
+                   href="{{ url_for('account.new_proposal') }}">
+                    New proposal</a>
+
+            {% else %}
+
+                <a class="button button-primary button-disabled">New proposal</a>
+
+            {% endif %}
+        </div>
+
+        <div class="m-down-1"></div>
+
+        {% if proposals %}
+            {% for proposal in proposals %}
+
+
+                <div class="attention-content">
+
+                    <h1 class="m-down-1" style="font-size: 3.5rem;">{{ proposal.title|truncate(45) }}</h1>
+
+                    <div class="top-stats m-down-1">
+                        <div><strong>Status:</strong> {{ proposal.proposal_status }}</div>
+                        <div><strong>Year:</strong> {{ proposal.year }}</div>
+                    </div>
+
+                    <div>
+                        {% if proposal.proposal_status == "Preparation" or proposal.proposal_status == "Change Requested" %}
+                            <a class="button button-primary m-all-0"
+                               href="{{ url_for('account.proposal', proposal_id=proposal.proposal_id) }}">Edit</a>
+                        {% else %}
+
+                            <button disabled class="button-primary">Edit</button>
+
+                        {% endif %}
+                        <a class="button button-primary m-all-0"
+                           href="{{ url_for('account.view_proposal', proposal_id=proposal.proposal_id) }}">View</a>
+                    </div>
+
+                </div>
+
+            {% endfor %}
+        {% else %}
+            <div class="attention-content">
+                <p class="m-up-down-0">You don't have any proposals.</p>
+            </div>
+        {% endif %}
+
+    </div>
+
+
+{% endblock %}
+
+{% block js %}
+{% endblock %}
+

@@ -2,7 +2,9 @@
 
     document.addEventListener('alpine:init', () => {
 
-        Alpine.data('proposals', () => ({}));
+        Alpine.data('proposal', () => ({
+            submit_proposal: false,
+        }));
 
     })
 

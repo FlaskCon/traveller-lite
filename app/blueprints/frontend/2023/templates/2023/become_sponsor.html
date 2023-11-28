@@ -1,7 +1,10 @@
 {% extends '2023/extends/base.html' %}
-{% block head %}
-    <title>FlaskCon | Become a Sponsor</title>
-{% endblock %}
+{% block title %}Become a Sponsor - {% endblock %}
+
+{%- block head_page_specific -%}
+    <meta name="description" content="Become a FlaskCon 2023 Sponsor">
+    <meta name="rating" content="general">
+{%- endblock %}
 
 
 {% block hero_header %}
@@ -14,9 +17,9 @@
 
 {% block body %}
 
-    <section class="bg-section-white">
+    <section class="bg-section-white a-fix">
 
-        <div class="row p-2 mb-3">
+        <div class="row p-2">
 
             <h1 class="my-0">Become Our Sponsor</h1>
 
@@ -94,7 +97,7 @@
                 budget or recruiting budget, depending on
                 their goals for sponsorship, and all of our events have
                 a legal tax-deductible status, so you may be
-                eligible to receive a tax deductible.
+                eligible to receive a tax-deductible.
                 <br><br>
 
 
@@ -125,6 +128,8 @@
                 <tbody>
                 <tr>
                     <td><b>Branding (remote)</b></td>
+                    <td></td>
+                    <td></td>
                     <td></td>
                     <td></td>
                 </tr>
@@ -176,8 +181,8 @@
 
             <h3>GET IN TOUCH</h3>
             <p>
-                Reach out to <a href="mailto:david@palletsprojects.com ">
-                david@palletsprojects.com </a> if you're interested in
+                Reach out to <a href="mailto:flaskcon@gmail.com">
+                flaskcon@gmail.com</a> if you're interested in
                 sponsoring.
                 <br><br>
                 The Pallets is a direct project of the Python Software
@@ -191,4 +196,7 @@
         </div>
 
     </section>
+
+    <div class="beach-fade mt-10"></div>
+
 {% endblock %}

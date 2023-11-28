@@ -13,7 +13,6 @@ from flask_imp.security import login_check, include_csrf
 from app.models.accounts import Accounts
 from app.models.display_pictures import DisplayPictures
 from app.models.profiles import Profiles
-from app.models.update_feed import UpdateFeed
 from .. import bp
 
 

@@ -7,6 +7,7 @@ ENV TZ=Europe/London
 # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List
 COPY .env .env
 COPY app app
+COPY emailer_server emailer_server
 RUN mkdir -p app/instance
 COPY gunicorn.conf.py gunicorn.conf.py
 COPY supervisor.ini supervisor.ini

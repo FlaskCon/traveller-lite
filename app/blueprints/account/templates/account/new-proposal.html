@@ -10,12 +10,37 @@
 
 {% block content %}
 
-    <div class="content-box m-down-4">
+    <div class="content-box m-down-4" x-data="proposal">
         <form method="post">
 
             <input type="hidden" name="csrf" value="{{ csrf }}">
 
-            <button type="submit" class="button-good">Create Proposal</button>
+            {% if able_to_propose %}
+
+                <button
+                        type="button"
+                        @click="submit_proposal = !submit_proposal"
+                        :class="submit_proposal ? 'button-warning' : 'button-primary'"
+                >Submit your Proposal
+                </button>
+
+                <div x-cloak x-show="submit_proposal">
+                    <div class="warning m-down-2">
+
+                        <p class="m-up-down-1">Are you sure you want to submit your proposal? </p>
+                        <p class="m-up-1 m-down-2">Your proposal will be sent to the committee
+                            for review. You won't be able to edit it after submission.</p>
+
+                        <button type="submit" class="button-good">Submit</button>
+                        <button type="button" @click="submit_proposal = false">Cancel</button>
+                    </div>
+                </div>
+
+            {% else %}
+
+                <button type="button" class="button-disabled">Submit your Proposal</button>
+
+            {% endif %}
 
             <div class="m-down-1"></div>
 
@@ -78,5 +103,5 @@
 {% endblock %}
 
 {% block js %}
+    {% include 'account/js/proposal-x-data.html' %}
 {% endblock %}
-

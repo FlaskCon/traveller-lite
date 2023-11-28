@@ -1,7 +1,11 @@
 {% extends '2023/extends/base.html' %}
-{% block head %}
-    <title>FlaskCon | Speaking Experience</title>
-{% endblock %}
+
+{% block title %}Speaking Experience - {% endblock %}
+
+{%- block head_page_specific -%}
+    <meta name="description" content="The FlaskCon Speaking Experience">
+    <meta name="rating" content="general">
+{%- endblock %}
 
 
 {% block hero_header %}
@@ -14,7 +18,7 @@
 
 {% block body %}
 
-    <section class="bg-section-white">
+    <section class="bg-section-white a-fix">
 
         <div class="row p-2 mb-3">
 
@@ -24,22 +28,30 @@
             <p>&nbsp;</p>
 
             <p>
-               <ul>
-                    <li>If your talk is selected, you'll be invited to record your talk of 
-                        20 or 40 minutes. This is done to ensure that no technical difficulties occur
-                        on the conference days.</li>
-                    <li>The talk will be broadcast live on YouTube on the 
-                        <a href="https://www.youtube.com/@FlaskCon/videos">FlaskCon channel
-                        </a>.</li>
-                    <li>A speaker kit will be sent with visual assets and tips.</li>
-                    <li>If ever we find enough sponsors, we'll mail you 
-                        speaker swags after the conference.</li>
-                    <li>QnA is optional but we highly recommend you to attend.</li>
-                    <li>You can interact with people after your talk on the 
-                        <a href="https://discord.gg/pallets">Pallets Discord</a>.</li>
-               </ul>
+            <ul>
+                <li>If your talk is selected, you'll be invited to record your talk of
+                    20 or 40 minutes. This is done to ensure that no technical difficulties occur
+                    on the conference days.
+                </li>
+                <li>The talk will be broadcast live on YouTube on the
+                    <a href="https://www.youtube.com/@FlaskCon/videos">FlaskCon channel
+                    </a>.
+                </li>
+                <li>A speaker kit will be sent with visual assets and tips.</li>
+                <li>If ever we find enough sponsors, we'll mail you
+                    speaker swags after the conference.
+                </li>
+                <li>QnA is optional but we highly recommend you to attend.</li>
+                <li>You can interact with people after your talk on the
+                    <a href="https://discord.gg/pallets">Pallets Discord</a>.
+                </li>
+            </ul>
             </p>
-            
+
+        </div>
+
 
     </section>
+
+    <div class="beach-fade mt-10"></div>
 {% endblock %}

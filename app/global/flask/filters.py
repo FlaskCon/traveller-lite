@@ -6,6 +6,20 @@ from flask import current_app as app
 from app.utilities import DatetimeDeltaMC
 
 
+@app.template_filter("https")
+def replace_htt_for_https(value: str) -> str:
+    """
+    Replace http for https in the given string.
+    """
+    if app.debug:
+        return value
+
+    if isinstance(value, str):
+        return value.replace("http://", "https://")
+
+    return value
+
+
 @app.template_filter("days_until_cfp_ends")
 def days_until_cfp_ends(call_for_proposals_end_date: Optional[Union[datetime, date]]) -> int:
     """
@@ -30,11 +44,11 @@ def is_cfp_live(call_for_proposals_end_date: Optional[Union[datetime, date]]) ->
 
     if isinstance(call_for_proposals_end_date, date):
         now = DatetimeDeltaMC()
-        return True if (call_for_proposals_end_date - now.date).days > 0 else False
+        return True if (call_for_proposals_end_date - now.date).days > -1 else False
 
     if isinstance(call_for_proposals_end_date, datetime):
         now = DatetimeDeltaMC()
-        return True if (call_for_proposals_end_date.date() - now.date).days > 0 else False
+        return True if (call_for_proposals_end_date.date() - now.date).days > -1 else False
 
     return False
 
