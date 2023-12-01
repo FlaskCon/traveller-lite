@@ -35,7 +35,7 @@ def index():
         },
         {
             "title": "Building Federated GraphQL APIs using Flask",
-            "speaker": "Adarsh Devamritham"
+            "speaker": "Adarsh Divakaran"
         },
         {
             "title": "Secure by Design: Building one time secret share application based on ReadOnce objects",
