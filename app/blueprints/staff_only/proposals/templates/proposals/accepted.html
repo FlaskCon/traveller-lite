@@ -19,7 +19,7 @@
             {% for proposal in proposals %}
                 <div class="attention-content">
 
-                    <h1 class="m-down-1" style="font-size: 3.5rem;">{{ proposal.title }}</h1>
+                    <h1 class="m-down-1" style="font-size: 3.5rem;">{{ proposal.title|truncate(45) }}</h1>
 
                     <div class="top-stats">
                         <div><strong>Status:</strong> {{ proposal.rel_proposal_status.name }}</div>
@@ -41,6 +41,11 @@
                         <div><strong>Account ID:</strong>
                             {{ proposal.rel_account.account_id }}
                         </div>
+                        {% if "Conference Chair" in __roles__ %}
+                            <div><strong>Contact:</strong>
+                                {{ proposal.rel_account.email_address }}
+                            </div>
+                        {% endif %}
                     </div>
 
                     <a class="button button-primary m-up-1"

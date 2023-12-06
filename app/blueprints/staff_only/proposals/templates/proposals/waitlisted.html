@@ -41,6 +41,11 @@
                         <div><strong>Account ID:</strong>
                             {{ proposal.rel_account.account_id }}
                         </div>
+                        {% if "Conference Chair" in __roles__ %}
+                            <div><strong>Contact:</strong>
+                                {{ proposal.rel_account.email_address }}
+                            </div>
+                        {% endif %}
                     </div>
 
                     <a class="button button-primary m-up-1"
