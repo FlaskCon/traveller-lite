@@ -24,6 +24,11 @@ def index():
             "time": "Saturday 16th - 08:00 UTC"
         },
         {
+            "title": "Building Federated GraphQL APIs using Flask",
+            "speaker": "Adarsh Divakaran",
+            "time": "Saturday 16th - 09:00 UTC"
+        },
+        {
             "title": "Don't think about settings, use Dynaconf",
             "speaker": "Bruno Rocha",
             "time": "Saturday 16th - 10:00 UTC"
@@ -54,18 +59,8 @@ def index():
             "time": "Saturday 16th - 19:00 UTC"
         },
         {
-            "title": "Secure by Design: Building one time secret share application based on ReadOnce objects",
-            "speaker": "Shahriyar Rzayev",
-            "time": "Sunday 17th - 14:00 UTC"
-        },
-        {
             "title": "Insights Building Sizable Flask Sites",
             "speaker": "Abdur-Rahmaan Janhangeer",
-            "time": "Time Unconfirmed"
-        },
-        {
-            "title": "Building Federated GraphQL APIs using Flask",
-            "speaker": "Adarsh Divakaran",
             "time": "Time Unconfirmed"
         },
         {
