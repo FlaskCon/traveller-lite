@@ -6,7 +6,7 @@
 
 {% block hero_header %}
 
-    <header class="hero py-2">
+    <header class="hero">
 
         <div class="display-desktop">
             <section class="display-flex space-evenly align-items-center py-2">
@@ -80,10 +80,46 @@
                          alt="TestDriven.io Logo">
                 </a>
             </div>
+        </div>
 
+        <div class="container m-all-0 p-all-0">
+            <div class="workshop-park">
+                <h2>Workshops</h2>
+                <div class="workshops">
+                    <div class="workshop">
+                        <img src="{{ url_for('frontend.2023.static', filename='img/workshop.gif') }}"
+                             alt="Workshop sprite">
+                        <div>
+                            <h5>Friday 15th - 11:00 UTC</h5>
+                            <h3>HTMX and Tailwind</h3>
+                            <h4>Jose Salvatierra</h4>
+                        </div>
+                    </div>
+                    <div class="workshop">
+                        <img src="{{ url_for('frontend.2023.static', filename='img/workshop.gif') }}"
+                             alt="Workshop sprite">
+                        <div>
+                            <h5>Friday 15th - 17:00 UTC</h5>
+                            <h3>Containerization 101 with Docker and Flask</h3>
+                            <h4>Pamela Fox</h4>
+                        </div>
+                    </div>
+                    <div class="workshop">
+                        <img src="{{ url_for('frontend.2023.static', filename='img/workshop.gif') }}"
+                             alt="Workshop sprite">
+                        <div>
+                            <h5>Saturday 16th - 13:00 UTC</h5>
+                            <h3>Learn Flask the hard way: Introduce Architecture Patterns</h3>
+                            <h4>Shahriyar Rzayev</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </header>
+
+
 
 
 {% endblock %}
@@ -91,18 +127,36 @@
 
 {% block body %}
 
-    <h2 style="font-size: 3rem; padding-bottom: 2rem; color: black; text-align: center;">Talks</h2>
-
     <section class="container talks" style="margin-bottom: 4rem;">
+
+        <div class="port">
+            <h2>Talks</h2>
+            <div class="port-bottom"></div>
+        </div>
+
 
         {% set boats = ['img/green-boat.gif', 'img/yellow-boat.gif', 'img/red-boat.gif'] %}
 
         {% for talk in talks %}
 
             <div class="talk">
-                <h2>{{ talk.title }}</h2>
+                <div class="island">
+                    <div>
+                        <h5>{{ talk.time }}</h5>
+                        <h2>{{ talk.title }}</h2>
+                    </div>
+
+                    {% if not loop.index % 2 %}
+                        <img src="{{ url_for('frontend.2023.static', filename="img/palm-tree.gif") }}"
+                             alt="Tree sprite"
+                             style="display: inline-block; width: 31px; height: 28px; padding-right: 1rem;">
+                    {% endif %}
+
+                </div>
                 <div class="{% if loop.index % 2 %}talk-speaker-r{% else %}talk-speaker-rr{% endif %}">
-                    <p>{{ talk.speaker }}</p>
+                    <div class="dock">
+                        <p>{{ talk.speaker }}</p>
+                    </div>
                     <img src="{{ url_for('frontend.2023.static', filename=boats|random) }}"
                          alt="Boat sprite" style="width: 62px; height: 62px">
                 </div>
@@ -113,7 +167,7 @@
 
     <section class="" style="padding-top: 6rem; padding-bottom: 6rem; margin-bottom: 4rem;">
 
-        <div class="row p-2">
+        <div class="row p-2 island">
 
             <div class="six columns py-2 text-center">
                 <img src="{{ url_for('frontend.2023.static', filename='img/megaphone.gif') }}" alt="Megaphone Icon">
