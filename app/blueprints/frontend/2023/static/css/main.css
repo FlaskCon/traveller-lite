@@ -4,6 +4,13 @@ body, html {
     background-color: #545454;
 }
 
+@font-face {
+    font-family: 'Sticks';
+    src: url('../fonts/Opensticks-EOBW.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 nav {
     width: 100%;
     min-height: 80px;
@@ -238,7 +245,7 @@ footer ul li a {
 .hero {
     background: #70b043 url("../img/grass-background.png") repeat;
     width: 100%;
-    border-bottom: #505050 2px solid;
+    border-bottom: #afafaf 2px solid;
 }
 
 .sub-hero {
@@ -248,7 +255,98 @@ footer ul li a {
 
 .hero-rocks {
     background: url("../img/hero-rocks.gif") repeat-x;
-    height: 96px;
+    height: 24px;
+    width: 100%;
+}
+
+.workshop-park {
+    display: flex;
+    flex-direction: column;
+    border-left: #9c9c9c 40px solid;
+    border-radius: 10px 0 0 0;
+}
+
+.workshop-park h2 {
+    color: #ffffff;
+    font-size: 3.5rem;
+    font-weight: bold;
+    text-shadow: #1e1e1e 1px 1px 2px;
+    margin-top: 0;
+    padding-left: 2rem;
+}
+
+.workshops {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 4rem;
+    margin-bottom: 4rem;
+}
+
+.workshop {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.workshop h3 {
+    font-size: 2.5rem;
+    color: #131313;
+    font-weight: bold;
+    text-shadow: #1e1e1e 1px 1px 1px;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.workshop h4 {
+    font-size: 2.2rem;
+    color: whitesmoke;
+    font-weight: bold;
+    text-shadow: #1e1e1e 1px 1px 2px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.workshop h5 {
+    font-size: 2rem;
+    color: whitesmoke;
+    font-weight: bold;
+    text-shadow: #1e1e1e 1px 1px 2px;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-style: italic;
+}
+
+.island {
+    border-radius: 12px;
+    background-color: #ffff9d;
+    box-shadow: 0 0 10px 10px #ffff9d;
+}
+
+.port {
+    background: #9c9c9c;
+    margin-bottom: 4rem;
+    margin-top: -2.5rem;
+}
+
+.port h2 {
+    color: #ffffff;
+    font-size: 3.5rem;
+    padding-top: 10rem;
+    padding-left: 2rem;
+    padding-right: 4rem;
+    margin-bottom: 0;
+    font-weight: bold;
+    text-shadow: #1e1e1e 1px 1px 2px;
+}
+
+.port-bottom {
+    background: url("../img/port-bottom.gif") repeat-x;
+    margin-bottom: -17px;
+    height: 17px;
     width: 100%;
 }
 
@@ -258,6 +356,7 @@ footer ul li a {
     justify-content: center;
     align-items: center;
     color: whitesmoke;
+    padding-bottom: 4rem;
 }
 
 .sponsor {
@@ -299,12 +398,53 @@ footer ul li a {
     font-size: 3rem;
     margin: 0;
     display: inline-block;
+    padding: 0 2rem 2rem 2rem;
+    color: #522907;
 }
+
+.talk h5 {
+    font-size: 2rem;
+    color: #101010;
+    font-weight: bold;
+    padding: 2rem 0 0 2rem;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-style: italic;
+}
+
 
 .talk p {
     font-size: 2.6rem;
     font-style: italic;
     margin: 0;
+
+}
+
+.talk .rocks {
+    background: url("../img/hero-rocks.gif") repeat-x;
+    height: 17px;
+    width: 100%;
+}
+
+.talk .island {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 12px;
+    background-color: #ffff9d;
+    box-shadow: 0 0 10px 10px #ffff9d;
+}
+
+.talk .dock {
+    background: url("../img/dock.gif") repeat-x;
+    height: 47px;
+    width: 100%;
+    color: white;
+    font-weight: bold;
+    text-shadow: #1e1e1e 1px 1px 2px;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    margin-top: -20px;
 }
 
 .talk-speaker-r {
