@@ -57,44 +57,54 @@ def dev_cli(passed_app):
                 "email_address": "admin@sys.local",
                 "name_or_alias": "Administrator",
                 "password": "password",
-                "roles": ["Administrator"]
+                "roles": ["Administrator"],
             },
             {
                 "email_address": "cocofficial@sys.local",
                 "name_or_alias": "Code of Conduct Official",
                 "password": "password",
-                "roles": ["Code of Conduct Official"]
+                "roles": ["Code of Conduct Official"],
             },
             {
                 "email_address": "reviewer@sys.local",
                 "name_or_alias": "Proposal Reviewer",
                 "password": "password",
-                "roles": ["Proposal Reviewer"]
+                "roles": ["Proposal Reviewer"],
             },
             {
                 "email_address": "speaker@sys.local",
                 "name_or_alias": "Speaker",
                 "password": "password",
-                "roles": ["Speaker"]
+                "roles": ["Speaker"],
             },
             {
                 "email_address": "sponsor@sys.local",
                 "name_or_alias": "Sponsor",
                 "password": "password",
-                "roles": ["Sponsor"]
+                "roles": ["Sponsor"],
             },
             {
                 "email_address": "volunteer@sys.local",
                 "name_or_alias": "Volunteer",
                 "password": "password",
-                "roles": ["Volunteer"]
+                "roles": ["Volunteer"],
+            },
+            {
+                "email_address": "attendee@sys.local",
+                "name_or_alias": "Attendee",
+                "password": "password",
+                "roles": ["Attendee"],
             },
         ]
 
-        Accounts.create_batch([*defined_accounts, *random_amount_of_attendees], confirm_accounts=True)
+        Accounts.create_batch(
+            [*defined_accounts, *random_amount_of_attendees], confirm_accounts=True
+        )
 
         for account in [*defined_accounts, *random_amount_of_attendees]:
-            account_id = Accounts.select_account_id_using_email_address(account.get("email_address"))
+            account_id = Accounts.select_account_id_using_email_address(
+                account.get("email_address")
+            )
             if account_id is None:
                 raise Exception(f"Account not found: {account.get('email_address')}")
 
@@ -114,14 +124,17 @@ def dev_cli(passed_app):
                 account.email_address,
                 account.disabled,
                 ", ".join([role.rel_role.name for role in account.rel_role_membership]),
-                sep="\t"
+                sep="\t",
             )
 
     @app.cli.command("get-account-roles")
     def dev_get_account_roles():
         from app.models.accounts import Accounts
 
-        print("Class method: ", Accounts.get_roles_from_email_address_select("vipattendee@sys.local"))
+        print(
+            "Class method: ",
+            Accounts.get_roles_from_email_address_select("vipattendee@sys.local"),
+        )
 
         account = Accounts.select_using_email_address("vipattendee@sys.local")
         print("Instance method: ", account.get_roles_from_this())

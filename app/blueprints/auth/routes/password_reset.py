@@ -1,12 +1,4 @@
-from flask import (
-    render_template,
-    url_for,
-    redirect,
-    request,
-    flash,
-    abort,
-    session
-)
+from flask import render_template, url_for, redirect, request, flash, abort, session
 from flask_imp.security import login_check, include_csrf
 from app.models.accounts import Accounts
 
@@ -33,7 +25,13 @@ def password_reset(account_id, private_key):
         if password and confirm_password:
             if password != confirm_password:
                 flash("Passwords do not match.")
-                return redirect(url_for("auth.password_reset", account_id=account_id, private_key=private_key))
+                return redirect(
+                    url_for(
+                        "auth.password_reset",
+                        account_id=account_id,
+                        private_key=private_key,
+                    )
+                )
 
             account.reset_password(password)
             flash("Your password has been reset, you can now login.")

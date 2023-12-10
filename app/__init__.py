@@ -26,6 +26,8 @@ def create_app():
     imp.import_blueprint("blueprints/frontend")
 
     if DEV_MODE:
-        print("DEV_MODE is enabled. Remember to turn this off in production (unset DEV_MODE)")
+        print(
+            "DEV_MODE is enabled. Remember to turn this off in production (unset DEV_MODE)"
+        )
 
     return app

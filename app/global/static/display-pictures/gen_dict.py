@@ -1,17 +1,17 @@
 from pathlib import Path
 from pprint import pprint
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cwd = Path.cwd()
 
     dps = []
 
-    for filename in cwd.glob('*.png'):
+    for filename in cwd.glob("*.png"):
         dps.append(
             {
                 "filename": filename.name,
                 "attribution": "here",
-                "attribution_url": "here"
+                "attribution_url": "here",
             }
         )
 

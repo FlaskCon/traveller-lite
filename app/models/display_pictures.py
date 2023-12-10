@@ -12,27 +12,35 @@ class DisplayPictures(db.Model, MetaMixins):
 
     @classmethod
     def select_all(cls):
-        return db.session.execute(
-            select(cls).order_by(cls.display_picture_id)
-        ).scalars().all()
+        return (
+            db.session.execute(select(cls).order_by(cls.display_picture_id))
+            .scalars()
+            .all()
+        )
 
     @classmethod
     def select_all_display_picture_id(cls):
-        return db.session.execute(
-            select(cls.display_picture_id).where(
-                cls.unique_display_picture_id != 9999).order_by(
-                cls.display_picture_id)
-        ).scalars().all()
+        return (
+            db.session.execute(
+                select(cls.display_picture_id)
+                .where(cls.unique_display_picture_id != 9999)
+                .order_by(cls.display_picture_id)
+            )
+            .scalars()
+            .all()
+        )
 
     @classmethod
     def select_all_account_signup(cls):
-        return db.session.execute(
-            select(cls.display_picture_id).where(
-                cls.unique_display_picture_id != 9999,
-                cls.limited == False
-            ).order_by(
-                cls.display_picture_id)
-        ).scalars().all()
+        return (
+            db.session.execute(
+                select(cls.display_picture_id)
+                .where(cls.unique_display_picture_id != 9999, cls.limited == False)
+                .order_by(cls.display_picture_id)
+            )
+            .scalars()
+            .all()
+        )
 
     @classmethod
     def select_using_display_picture_id(cls, display_picture_id):
@@ -43,7 +51,9 @@ class DisplayPictures(db.Model, MetaMixins):
     @classmethod
     def select_using_unique_display_picture_id(cls, unique_display_picture_id):
         return db.session.execute(
-            select(cls).filter_by(unique_display_picture_id=unique_display_picture_id).limit(1)
+            select(cls)
+            .filter_by(unique_display_picture_id=unique_display_picture_id)
+            .limit(1)
         ).scalar_one_or_none()
 
     @classmethod
@@ -62,7 +72,9 @@ class DisplayPictures(db.Model, MetaMixins):
         db.session.commit()
 
     @classmethod
-    def create(cls, unique_display_picture_id, filename, attribution, attribution_url, limited):
+    def create(
+        cls, unique_display_picture_id, filename, attribution, attribution_url, limited
+    ):
         db.session.execute(
             insert(cls).values(
                 unique_display_picture_id=unique_display_picture_id,

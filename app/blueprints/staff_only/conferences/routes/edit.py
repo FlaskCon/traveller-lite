@@ -1,17 +1,19 @@
 from flask import render_template, request, flash, redirect, url_for
 
 from app.models.conferences import Conferences
-from .. import bp
+from .. import bp, conferences_group
 
 
-@bp.route("/edit/<int:conference_id>", methods=["GET", "POST"])
+@conferences_group("/edit/<int:conference_id>", methods=["GET", "POST"])
 def edit(conference_id):
     conference = Conferences.select_by_conference_id(conference_id)
     if request.method == "POST":
         year = request.form.get("year")
         index_endpoint = request.form.get("index_endpoint")
         latest = request.form.get("latest")
-        call_for_proposals_start_date = request.form.get("call_for_proposals_start_date")
+        call_for_proposals_start_date = request.form.get(
+            "call_for_proposals_start_date"
+        )
         call_for_proposals_end_date = request.form.get("call_for_proposals_end_date")
         conference_start_date = request.form.get("conference_start_date")
         conference_end_date = request.form.get("conference_end_date")
@@ -28,7 +30,9 @@ def edit(conference_id):
 
         if not all(required_fields):
             flash("All fields are required.")
-            return redirect(url_for("staff_only.conferences.edit", conference_id=conference_id))
+            return redirect(
+                url_for("staff_only.conferences.edit", conference_id=conference_id)
+            )
 
         Conferences.update_by_conference_id(
             conference_id=conference_id,
@@ -38,7 +42,7 @@ def edit(conference_id):
             call_for_proposals_start_date=call_for_proposals_start_date,
             call_for_proposals_end_date=call_for_proposals_end_date,
             conference_start_date=conference_start_date,
-            conference_end_date=conference_end_date
+            conference_end_date=conference_end_date,
         )
 
         flash("Conference updated successfully.")

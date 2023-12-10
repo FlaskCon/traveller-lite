@@ -1,13 +1,6 @@
 from datetime import datetime
 
-from flask import (
-    render_template,
-    request,
-    url_for,
-    redirect,
-    session,
-    flash
-)
+from flask import render_template, request, url_for, redirect, session, flash
 from flask_imp.security import login_check, include_csrf
 
 from app.models.accounts import Accounts
@@ -28,7 +21,6 @@ def login():
             account = Accounts.login(email_address, password)
 
             if account:
-
                 if account.disabled:
                     flash(
                         "Your account has been disabled, please contact the administrator."
@@ -52,11 +44,15 @@ def login():
 
                 session["logged_in"] = True
                 session["account_id"] = account.account_id
-                session["unique_display_picture_id"] = DisplayPictures.select_using_display_picture_id(
+                session[
+                    "unique_display_picture_id"
+                ] = DisplayPictures.select_using_display_picture_id(
                     display_picture_id
                 ).unique_display_picture_id
 
-                if DisplayPictures.select_using_unique_display_picture_id(datetime.now().year):
+                if DisplayPictures.select_using_unique_display_picture_id(
+                    datetime.now().year
+                ):
                     Profiles.add_earned_display_picture(
                         account.account_id, datetime.now().year
                     )

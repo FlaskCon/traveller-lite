@@ -12,40 +12,32 @@ class ProposalVotes(db.Model, MetaMixins):
     @classmethod
     def count_total_votes(cls):
         return db.session.execute(
-            select(
-                func.count(cls.proposal_vote_id)
-            )
+            select(func.count(cls.proposal_vote_id))
         ).scalar_one_or_none()
 
     @classmethod
     def count_total_for_votes(cls):
         return db.session.execute(
-            select(
-                func.count(cls.proposal_vote_id)
-            ).where(
-                cls.vote.is_(True)
-            )
+            select(func.count(cls.proposal_vote_id)).where(cls.vote.is_(True))
         ).scalar_one_or_none()
 
     @classmethod
     def count_total_against_votes(cls):
         return db.session.execute(
-            select(
-                func.count(cls.proposal_vote_id)
-            ).where(
-                cls.vote.is_(False)
-            )
+            select(func.count(cls.proposal_vote_id)).where(cls.vote.is_(False))
         ).scalar_one_or_none()
 
     @classmethod
     def get_vote_position(cls, proposal_id: int, account_id: int):
         vote = db.session.execute(
-            select(cls).filter(
+            select(cls)
+            .filter(
                 and_(
                     cls.fk_proposal_id == proposal_id,
                     cls.fk_account_id == account_id,
                 )
-            ).limit(1)
+            )
+            .limit(1)
         ).scalar_one_or_none()
 
         if vote:
@@ -55,21 +47,21 @@ class ProposalVotes(db.Model, MetaMixins):
     @classmethod
     def vote_for(cls, proposal_id: int, account_id: int):
         vote = db.session.execute(
-            select(cls).filter(
+            select(cls)
+            .filter(
                 and_(
                     cls.fk_proposal_id == proposal_id,
                     cls.fk_account_id == account_id,
                 )
-            ).limit(1)
+            )
+            .limit(1)
         ).scalar_one_or_none()
         if vote:
             vote.vote = True
         else:
             db.session.execute(
                 insert(cls).values(
-                    fk_proposal_id=proposal_id,
-                    fk_account_id=account_id,
-                    vote=True
+                    fk_proposal_id=proposal_id, fk_account_id=account_id, vote=True
                 )
             )
 
@@ -78,21 +70,21 @@ class ProposalVotes(db.Model, MetaMixins):
     @classmethod
     def vote_against(cls, proposal_id: int, account_id: int):
         vote = db.session.execute(
-            select(cls).filter(
+            select(cls)
+            .filter(
                 and_(
                     cls.fk_proposal_id == proposal_id,
                     cls.fk_account_id == account_id,
                 )
-            ).limit(1)
+            )
+            .limit(1)
         ).scalar_one_or_none()
         if vote:
             vote.vote = False
         else:
             db.session.execute(
                 insert(cls).values(
-                    fk_proposal_id=proposal_id,
-                    fk_account_id=account_id,
-                    vote=False
+                    fk_proposal_id=proposal_id, fk_account_id=account_id, vote=False
                 )
             )
 

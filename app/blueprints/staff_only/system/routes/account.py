@@ -4,16 +4,16 @@ from flask_imp.security import include_csrf
 from app.models.accounts import Accounts
 from app.models.roles import Roles
 from app.models.roles_membership import RolesMembership
-from . import decorator_group, bp
+from .. import system_group, bp
 
 
-@decorator_group("/account/<int:account_id>", methods=["GET", "POST"])
+@system_group("/account/<int:account_id>", methods=["GET", "POST"])
 @include_csrf()
 def account(account_id):
     this_account = Accounts.select_using_account_id(account_id)
 
     if request.method == "POST":
-        account_disabled = True if request.form.get("disabled") == 'true' else False
+        account_disabled = True if request.form.get("disabled") == "true" else False
 
         set_roles = []
         for key, value in request.form.items():
@@ -39,7 +39,7 @@ def account(account_id):
                 continue
         all_roles_as_json[role.name] = {
             "role_id": role.role_id,
-            "has": True if role.role_id in account_roles else False
+            "has": True if role.role_id in account_roles else False,
         }
 
     return render_template(
@@ -47,5 +47,5 @@ def account(account_id):
         this_account=this_account,
         all_roles=all_roles,
         all_roles_as_json=all_roles_as_json,
-        csrf=session.get('csrf')
+        csrf=session.get("csrf"),
     )

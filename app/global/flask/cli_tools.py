@@ -22,11 +22,13 @@ def email_test_command():
 
     for r in range(10):
         fake = faker.Faker()
-        emails.append({
-            "email_to": fake.email(),
-            "email_subject": fake.sentence(),
-            "email_message": fake.text(),
-        })
+        emails.append(
+            {
+                "email_to": fake.email(),
+                "email_subject": fake.sentence(),
+                "email_message": fake.text(),
+            }
+        )
 
     EmailQueue.add_emails_to_send(emails)
     print(EmailQueue.process_queue())
@@ -40,17 +42,25 @@ def email_live_test_command():
 
     fake = faker.Faker()
 
-    emails.append({
-        "email_to": os.getenv("LIVE_TEST_EMAIL_ONE", os.getenv("FLASKCON_EMAIL_ADDRESS")),
-        "email_subject": fake.sentence(),
-        "email_message": fake.text(),
-    })
+    emails.append(
+        {
+            "email_to": os.getenv(
+                "LIVE_TEST_EMAIL_ONE", os.getenv("FLASKCON_EMAIL_ADDRESS")
+            ),
+            "email_subject": fake.sentence(),
+            "email_message": fake.text(),
+        }
+    )
 
-    emails.append({
-        "email_to": os.getenv("LIVE_TEST_EMAIL_TWO", os.getenv("FLASKCON_EMAIL_ADDRESS")),
-        "email_subject": fake.sentence(),
-        "email_message": fake.text(),
-    })
+    emails.append(
+        {
+            "email_to": os.getenv(
+                "LIVE_TEST_EMAIL_TWO", os.getenv("FLASKCON_EMAIL_ADDRESS")
+            ),
+            "email_subject": fake.sentence(),
+            "email_message": fake.text(),
+        }
+    )
 
     EmailQueue.add_emails_to_send(emails)
     print(EmailQueue.process_queue())

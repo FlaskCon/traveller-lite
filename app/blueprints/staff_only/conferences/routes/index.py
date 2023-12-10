@@ -1,10 +1,10 @@
 from flask import render_template
 
 from app.models.conferences import Conferences
-from .. import bp
+from .. import bp, conferences_group
 
 
-@bp.route("/", methods=["GET"])
+@conferences_group("/", methods=["GET"])
 def index():
     conferences = Conferences.select_all()
     return render_template(bp.tmpl("index.html"), conferences=conferences)

@@ -1,8 +1,8 @@
 from flask import url_for, redirect
 
-from . import decorator_group
+from .. import bp, proposals_group
 
 
-@decorator_group("/", methods=["GET"])
+@proposals_group("/", methods=["GET"])
 def index():
     return redirect(url_for("staff_only.proposals.dashboard"))

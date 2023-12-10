@@ -9,9 +9,13 @@ from . import *
 class Proposals(db.Model, MetaMixins):
     proposal_id = db.Column(db.Integer, primary_key=True)
     fk_account_id = db.Column(db.Integer, db.ForeignKey("accounts.account_id"))
-    fk_proposal_status_id = db.Column(db.Integer, db.ForeignKey("proposal_statuses.proposal_status_id"))
+    fk_proposal_status_id = db.Column(
+        db.Integer, db.ForeignKey("proposal_statuses.proposal_status_id")
+    )
 
-    year = db.Column(db.Integer, nullable=False)  # This is taken on the date of submission
+    year = db.Column(
+        db.Integer, nullable=False
+    )  # This is taken on the date of submission
     title = db.Column(db.String, nullable=False)
 
     # An in-depth explanation of your proposal, read only by reviewers.
@@ -49,7 +53,9 @@ class Proposals(db.Model, MetaMixins):
 
     # Tracking
     created = db.Column(db.DateTime, nullable=False, default=datetime.now)
-    updated = db.Column(db.DateTime, nullable=False, default=datetime.now, onupdate=datetime.now)
+    updated = db.Column(
+        db.DateTime, nullable=False, default=datetime.now, onupdate=datetime.now
+    )
 
     # Relationships
     rel_proposal_status = relationship(
@@ -107,49 +113,59 @@ class Proposals(db.Model, MetaMixins):
     @classmethod
     def select_proposals_in_status_prep(cls):
         from .proposal_statuses import ProposalStatuses
-        proposal_ids = ProposalStatuses.select_proposal_status_id_using_unique_proposal_status_id_batch([101])
-        return db.session.execute(
-            select(
-                cls
-            ).where(
-                cls.fk_proposal_status_id.in_(proposal_ids)
+
+        proposal_ids = ProposalStatuses.select_proposal_status_id_using_unique_proposal_status_id_batch(
+            [101]
+        )
+        return (
+            db.session.execute(
+                select(cls).where(cls.fk_proposal_status_id.in_(proposal_ids))
             )
-        ).scalars().all()
+            .scalars()
+            .all()
+        )
 
     @classmethod
     def select_proposals_in_status_prep_no_reminder(cls):
         from .proposal_statuses import ProposalStatuses
-        proposal_ids = ProposalStatuses.select_proposal_status_id_using_unique_proposal_status_id_batch([101])
-        return db.session.execute(
-            select(
-                cls
-            ).where(
-                cls.fk_proposal_status_id.in_(proposal_ids),
-                cls.submit_reminder_sent == False
+
+        proposal_ids = ProposalStatuses.select_proposal_status_id_using_unique_proposal_status_id_batch(
+            [101]
+        )
+        return (
+            db.session.execute(
+                select(cls).where(
+                    cls.fk_proposal_status_id.in_(proposal_ids),
+                    cls.submit_reminder_sent == False,
+                )
             )
-        ).scalars().all()
+            .scalars()
+            .all()
+        )
 
     @classmethod
     def count_total_proposals_in_status_prep_not_sent_a_reminder_to_submit(cls):
         from .proposal_statuses import ProposalStatuses
-        proposal_ids = ProposalStatuses.select_proposal_status_id_using_unique_proposal_status_id_batch([101])
+
+        proposal_ids = ProposalStatuses.select_proposal_status_id_using_unique_proposal_status_id_batch(
+            [101]
+        )
         return db.session.execute(
-            select(
-                func.count(cls.proposal_id)
-            ).where(
+            select(func.count(cls.proposal_id)).where(
                 cls.fk_proposal_status_id.in_(proposal_ids),
-                cls.submit_reminder_sent == False
+                cls.submit_reminder_sent == False,
             )
         ).scalar_one_or_none()
 
     @classmethod
     def count_total_proposals_in_status_prep(cls):
         from .proposal_statuses import ProposalStatuses
-        proposal_ids = ProposalStatuses.select_proposal_status_id_using_unique_proposal_status_id_batch([101])
+
+        proposal_ids = ProposalStatuses.select_proposal_status_id_using_unique_proposal_status_id_batch(
+            [101]
+        )
         return db.session.execute(
-            select(
-                func.count(cls.proposal_id)
-            ).where(
+            select(func.count(cls.proposal_id)).where(
                 cls.fk_proposal_status_id.in_(proposal_ids)
             )
         ).scalar_one_or_none()
@@ -157,72 +173,112 @@ class Proposals(db.Model, MetaMixins):
     @classmethod
     def count_total_proposals_at_reviewer_seen_statuses(cls):
         from .proposal_statuses import ProposalStatuses
+
         proposal_ids = ProposalStatuses.select_proposal_status_id_using_unique_proposal_status_id_batch(
-            [102, 103, 104, 105])
+            [102, 103, 104, 105]
+        )
         return db.session.execute(
-            select(
-                func.count(cls.proposal_id)
-            ).where(
+            select(func.count(cls.proposal_id)).where(
                 cls.fk_proposal_status_id.in_(proposal_ids)
             )
         ).scalar_one_or_none()
 
     @classmethod
     def select_using_account_id(cls, account_id: int):
-        return db.session.execute(
-            select(cls).where(cls.fk_account_id == account_id).order_by(cls.created.asc())
-        ).scalars().all()
+        return (
+            db.session.execute(
+                select(cls)
+                .where(cls.fk_account_id == account_id)
+                .order_by(cls.created.asc())
+            )
+            .scalars()
+            .all()
+        )
 
     @classmethod
     def select_using_proposal_id(cls, proposal_id: int):
         return db.session.execute(
-            select(cls).where(cls.proposal_id == proposal_id).order_by(cls.created.asc())
+            select(cls)
+            .where(cls.proposal_id == proposal_id)
+            .order_by(cls.created.asc())
         ).scalar_one_or_none()
 
     @classmethod
     def for_review(cls):
         from .proposal_statuses import ProposalStatuses
+
         proposal_ids = ProposalStatuses.select_proposal_status_id_using_unique_proposal_status_id_batch(
-            [102, 103, 104, 105])
-        return db.session.execute(
-            select(cls).where(cls.fk_proposal_status_id.in_(proposal_ids)).order_by(cls.created.asc())
-        ).scalars().all()
+            [102, 103, 104, 105]
+        )
+        return (
+            db.session.execute(
+                select(cls)
+                .where(cls.fk_proposal_status_id.in_(proposal_ids))
+                .order_by(cls.created.asc())
+            )
+            .scalars()
+            .all()
+        )
 
     @classmethod
     def has_been_accepted(cls):
         from .proposal_statuses import ProposalStatuses
-        accepted_status_id: int = ProposalStatuses.select_using_unique_proposal_status_id(
-            107).proposal_status_id
 
-        return db.session.execute(
-            select(cls).where(
-                cls.fk_proposal_status_id == accepted_status_id
-            ).order_by(cls.created.asc())
-        ).scalars().all()
+        accepted_status_id: int = (
+            ProposalStatuses.select_using_unique_proposal_status_id(
+                107
+            ).proposal_status_id
+        )
+
+        return (
+            db.session.execute(
+                select(cls)
+                .where(cls.fk_proposal_status_id == accepted_status_id)
+                .order_by(cls.created.asc())
+            )
+            .scalars()
+            .all()
+        )
 
     @classmethod
     def has_been_rejected(cls):
         from .proposal_statuses import ProposalStatuses
-        accepted_status_id: int = ProposalStatuses.select_using_unique_proposal_status_id(
-            108).proposal_status_id
 
-        return db.session.execute(
-            select(cls).where(
-                cls.fk_proposal_status_id == accepted_status_id
-            ).order_by(cls.created.asc())
-        ).scalars().all()
+        accepted_status_id: int = (
+            ProposalStatuses.select_using_unique_proposal_status_id(
+                108
+            ).proposal_status_id
+        )
+
+        return (
+            db.session.execute(
+                select(cls)
+                .where(cls.fk_proposal_status_id == accepted_status_id)
+                .order_by(cls.created.asc())
+            )
+            .scalars()
+            .all()
+        )
 
     @classmethod
     def has_been_waitlisted(cls):
         from .proposal_statuses import ProposalStatuses
-        accepted_status_id: int = ProposalStatuses.select_using_unique_proposal_status_id(
-            106).proposal_status_id
 
-        return db.session.execute(
-            select(cls).where(
-                cls.fk_proposal_status_id == accepted_status_id
-            ).order_by(cls.created.asc())
-        ).scalars().all()
+        accepted_status_id: int = (
+            ProposalStatuses.select_using_unique_proposal_status_id(
+                106
+            ).proposal_status_id
+        )
+
+        return (
+            db.session.execute(
+                select(cls)
+                .where(cls.fk_proposal_status_id == accepted_status_id)
+                .order_by(cls.created.asc())
+            )
+            .scalars()
+            .all()
+        )
 
     @classmethod
     def leaderboard(cls):
@@ -232,36 +288,42 @@ class Proposals(db.Model, MetaMixins):
 
         for proposal in proposals:
             votes_for = [vote for vote in proposal.rel_proposal_votes if vote.vote]
-            votes_against = [vote for vote in proposal.rel_proposal_votes if not vote.vote]
+            votes_against = [
+                vote for vote in proposal.rel_proposal_votes if not vote.vote
+            ]
             leaderboard[proposal.proposal_id] = {
                 "row": proposal,
                 "votes_for": len(votes_for),
                 "votes_against": len(votes_against),
             }
 
-        return sorted(leaderboard.items(), key=lambda x: x[1]["votes_for"], reverse=True)
+        return sorted(
+            leaderboard.items(), key=lambda x: x[1]["votes_for"], reverse=True
+        )
 
     @classmethod
     def submit_new_proposal(
-            cls,
-            fk_account_id,
-            title,
-            detail,
-            detail_markdown,
-            abstract,
-            abstract_markdown,
-            short_biography,
-            short_biography_markdown,
-            notes_or_requests,
-            notes_or_requests_markdown,
-            tags,
+        cls,
+        fk_account_id,
+        title,
+        detail,
+        detail_markdown,
+        abstract,
+        abstract_markdown,
+        short_biography,
+        short_biography_markdown,
+        notes_or_requests,
+        notes_or_requests_markdown,
+        tags,
     ):
         from .proposal_statuses import ProposalStatuses
 
         result = db.session.execute(
             insert(cls).values(
                 fk_account_id=fk_account_id,
-                fk_proposal_status_id=ProposalStatuses.select_using_unique_proposal_status_id(102).proposal_status_id,
+                fk_proposal_status_id=ProposalStatuses.select_using_unique_proposal_status_id(
+                    102
+                ).proposal_status_id,
                 year=datetime.now().year,
                 title=title,
                 detail=detail,
@@ -278,6 +340,7 @@ class Proposals(db.Model, MetaMixins):
 
         db.session.commit()
         return result.lastrowid
+
     #
     # @classmethod
     # def save_new_proposal(

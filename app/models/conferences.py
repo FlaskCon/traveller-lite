@@ -5,10 +5,7 @@ from . import *
 
 def convert_date(date: str):
     try:
-        cdate = datetime.strptime(
-            date,
-            "%Y-%m-%d"
-        ).date()
+        cdate = datetime.strptime(date, "%Y-%m-%d").date()
     except ValueError:
         return None
     return cdate
@@ -29,9 +26,7 @@ class Conferences(db.Model, MetaMixins):
 
     @classmethod
     def select_all(cls):
-        return db.session.execute(
-            select(cls).order_by(cls.year.desc())
-        ).scalars().all()
+        return db.session.execute(select(cls).order_by(cls.year.desc())).scalars().all()
 
     @classmethod
     def select_by_year(cls, year: int):
@@ -47,24 +42,26 @@ class Conferences(db.Model, MetaMixins):
 
     @classmethod
     def create(
-            cls,
-            year: int,
-            index_endpoint: str,
-            latest: bool,
-            call_for_proposals_start_date: str,
-            call_for_proposals_end_date: str,
-            conference_start_date: str,
-            conference_end_date: str
+        cls,
+        year: int,
+        index_endpoint: str,
+        latest: bool,
+        call_for_proposals_start_date: str,
+        call_for_proposals_end_date: str,
+        conference_start_date: str,
+        conference_end_date: str,
     ):
         db.session.execute(
             insert(cls).values(
                 year=year,
                 index_endpoint=index_endpoint,
                 latest=latest,
-                call_for_proposals_start_date=convert_date(call_for_proposals_start_date),
+                call_for_proposals_start_date=convert_date(
+                    call_for_proposals_start_date
+                ),
                 call_for_proposals_end_date=convert_date(call_for_proposals_end_date),
                 conference_start_date=convert_date(conference_start_date),
-                conference_end_date=convert_date(conference_end_date)
+                conference_end_date=convert_date(conference_end_date),
             )
         )
 
@@ -78,25 +75,29 @@ class Conferences(db.Model, MetaMixins):
 
     @classmethod
     def update_by_conference_id(
-            cls,
-            conference_id: int,
-            year: int,
-            index_endpoint: str,
-            latest: bool,
-            call_for_proposals_start_date: str,
-            call_for_proposals_end_date: str,
-            conference_start_date: str,
-            conference_end_date: str
+        cls,
+        conference_id: int,
+        year: int,
+        index_endpoint: str,
+        latest: bool,
+        call_for_proposals_start_date: str,
+        call_for_proposals_end_date: str,
+        conference_start_date: str,
+        conference_end_date: str,
     ):
         db.session.execute(
-            update(cls).where(cls.conference_id == conference_id).values(
+            update(cls)
+            .where(cls.conference_id == conference_id)
+            .values(
                 year=year,
                 index_endpoint=index_endpoint,
                 latest=latest,
-                call_for_proposals_start_date=convert_date(call_for_proposals_start_date),
+                call_for_proposals_start_date=convert_date(
+                    call_for_proposals_start_date
+                ),
                 call_for_proposals_end_date=convert_date(call_for_proposals_end_date),
                 conference_start_date=convert_date(conference_start_date),
-                conference_end_date=convert_date(conference_end_date)
+                conference_end_date=convert_date(conference_end_date),
             )
         )
 
@@ -104,26 +105,30 @@ class Conferences(db.Model, MetaMixins):
 
     @classmethod
     def delete_by_conference_id(cls, conference_id: int):
-        db.session.execute(
-            delete(cls).where(cls.conference_id == conference_id)
-        )
+        db.session.execute(delete(cls).where(cls.conference_id == conference_id))
 
         db.session.commit()
 
     @classmethod
     def seed(
-            cls,
-            conference: dict,
+        cls,
+        conference: dict,
     ):
         db.session.execute(
             insert(cls).values(
                 year=conference.get("year"),
                 index_endpoint=conference.get("index_endpoint"),
                 latest=conference.get("latest"),
-                call_for_proposals_start_date=convert_date(conference.get("call_for_proposals_start_date")),
-                call_for_proposals_end_date=convert_date(conference.get("call_for_proposals_end_date")),
-                conference_start_date=convert_date(conference.get("conference_start_date")),
-                conference_end_date=convert_date(conference.get("conference_end_date"))
+                call_for_proposals_start_date=convert_date(
+                    conference.get("call_for_proposals_start_date")
+                ),
+                call_for_proposals_end_date=convert_date(
+                    conference.get("call_for_proposals_end_date")
+                ),
+                conference_start_date=convert_date(
+                    conference.get("conference_start_date")
+                ),
+                conference_end_date=convert_date(conference.get("conference_end_date")),
             )
         )
 

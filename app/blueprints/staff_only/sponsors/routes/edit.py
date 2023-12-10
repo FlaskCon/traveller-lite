@@ -2,10 +2,10 @@ from flask import render_template, flash, redirect, url_for, request
 
 from app.models import Resources
 from app.models.sponsors import Sponsors
-from .. import bp
+from .. import bp, sponsor_group
 
 
-@bp.route("/edit/<int:sponsor_id>", methods=["GET", "POST"])
+@sponsor_group("/edit/<int:sponsor_id>", methods=["GET", "POST"])
 def edit(sponsor_id):
     sponsor = Sponsors.select_by_sponsor_id(sponsor_id)
     if request.method == "POST":
@@ -48,8 +48,15 @@ def edit(sponsor_id):
         flash("Sponsor updated successfully.")
         return redirect(url_for("staff_only.sponsors.index"))
 
-    sponsor_status = 'possible' if sponsor.possible else 'requested' \
-        if sponsor.requested else 'confirmed' if sponsor.confirmed else 'rejected'
+    sponsor_status = (
+        "possible"
+        if sponsor.possible
+        else "requested"
+        if sponsor.requested
+        else "confirmed"
+        if sponsor.confirmed
+        else "rejected"
+    )
 
     return render_template(
         bp.tmpl("edit.html"),

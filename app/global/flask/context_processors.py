@@ -27,7 +27,7 @@ def breadcrumber_processor():
             str_name = str(name)
             trunc = "<span>...</span>" if len(str_name) > trunc_size else " "
             if url is None:
-                markup += f'/ {str_name[:trunc_size]}{trunc}'
+                markup += f"/ {str_name[:trunc_size]}{trunc}"
             else:
                 markup += f'/ <a href="{url}">{str_name[:trunc_size]}{trunc}</a> '
 
@@ -44,7 +44,9 @@ def ctp_display_picture_processor():
         """
         from app.models.display_pictures import DisplayPictures
 
-        return DisplayPictures.select_using_unique_display_picture_id(unique_display_picture_id).filename
+        return DisplayPictures.select_using_unique_display_picture_id(
+            unique_display_picture_id
+        ).filename
 
     return dict(ctp_display_picture=ctp_display_picture)
 
@@ -80,6 +82,7 @@ def ctp_conference_processor():
         Gets the media partners for the given year.
         """
         from app.models.conferences import Conferences
+
         return Conferences.select_by_year(year)
 
     return dict(ctp_conference=ctp_conference)
@@ -92,6 +95,7 @@ def ctp_media_partners_processor():
         Gets the media partners for the given year.
         """
         from app.models.media_partners import MediaPartners
+
         return MediaPartners.select_by_year(year)
 
     return dict(ctp_media_partners=ctp_media_partners)
@@ -104,6 +108,7 @@ def ctp_sponsors_processor():
         Gets the sponsors for the given year.
         """
         from app.models.sponsors import Sponsors
+
         return Sponsors.select_by_year(year)
 
     return dict(ctp_sponsors=ctp_sponsors)

@@ -1,11 +1,4 @@
-from flask import (
-    render_template,
-    request,
-    url_for,
-    redirect,
-    session,
-    flash
-)
+from flask import render_template, request, url_for, redirect, session, flash
 from flask_imp.security import login_check, include_csrf
 
 from app.models.accounts import Accounts
@@ -25,17 +18,19 @@ def forgot_password():
                 account = Accounts.select_using_email_address(email_address)
                 private_key = account.new_private_key()
 
-                EmailQueue.add_emails_to_send([
-                    {
-                        "email_to": email_address,
-                        "email_subject": "Confirm your account",
-                        "email_message": render_template(
-                            "global/email/password-reset-link.html",
-                            account_id=account.account_id,
-                            private_key=private_key,
-                        )
-                    }
-                ])
+                EmailQueue.add_emails_to_send(
+                    [
+                        {
+                            "email_to": email_address,
+                            "email_subject": "Confirm your account",
+                            "email_message": render_template(
+                                "global/email/password-reset-link.html",
+                                account_id=account.account_id,
+                                private_key=private_key,
+                            ),
+                        }
+                    ]
+                )
 
                 EmailQueue.process_queue()
 

@@ -6,7 +6,9 @@ from .roles import Roles
 
 class RolesMembership(db.Model, MetaMixins):
     roles_membership_id = db.Column(db.Integer, primary_key=True)
-    fk_account_id = db.Column(db.Integer, db.ForeignKey("accounts.account_id"), nullable=False)
+    fk_account_id = db.Column(
+        db.Integer, db.ForeignKey("accounts.account_id"), nullable=False
+    )
     fk_role_id = db.Column(db.Integer, db.ForeignKey("roles.role_id"), nullable=False)
     year = db.Column(db.Integer, nullable=False, default=datetime.now().year)
 
@@ -26,22 +28,47 @@ class RolesMembership(db.Model, MetaMixins):
 
     @classmethod
     def get_by_account_id(cls, fk_account_id: int):
-        result = db.session.execute(
-            select(cls).filter_by(fk_account_id=fk_account_id)
+        result = (
+            db.session.execute(select(cls).filter_by(fk_account_id=fk_account_id))
+            .scalars()
+            .all()
+        )
+        return [
+            (
+                role_membership.fk_role_id,
+                role_membership.rel_role.name,
+                role_membership.year,
+            )
+            for role_membership in result
+        ]
+
+    @classmethod
+    def has_roles(cls, account_id, urids: list):
+        q = db.session.execute(
+            select(cls).where(
+                cls.fk_account_id == account_id,
+                cls.fk_role_id.in_(Roles.select_by_unique_role_ids(urids))
+            )
         ).scalars().all()
-        return [(
-            role_membership.fk_role_id, role_membership.rel_role.name, role_membership.year
-        ) for role_membership in result]
+        return True if q else False
 
     @classmethod
     def set_roles(cls, account_id: int, role_ids: list[int]):
         current_roles = cls.get_by_account_id(account_id)
 
-        already_has = [role_id for role_id, _, year in current_roles if
-                       role_id in role_ids and year == datetime.now().year]
+        already_has = [
+            role_id
+            for role_id, _, year in current_roles
+            if role_id in role_ids and year == datetime.now().year
+        ]
         to_add = [role_id for role_id in role_ids if role_id not in already_has]
-        to_remove = [role_id for role_id, name, year in current_roles if
-                     role_id not in role_ids and name != "Super Administrator" and year == datetime.now().year]
+        to_remove = [
+            role_id
+            for role_id, name, year in current_roles
+            if role_id not in role_ids
+               and name != "Super Administrator"
+               and year == datetime.now().year
+        ]
 
         db.session.execute(
             delete(cls).where(

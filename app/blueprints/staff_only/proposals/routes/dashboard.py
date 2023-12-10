@@ -2,13 +2,15 @@ from flask import render_template
 
 from app.models.proposal_votes import ProposalVotes
 from app.models.proposals import Proposals
-from . import decorator_group, bp
+from .. import bp, proposals_group
 
 
-@decorator_group("/dashboard", methods=["GET"])
+@proposals_group("/dashboard", methods=["GET"])
 def dashboard():
     leaderboard = Proposals.leaderboard()
-    prep_not_sent_reminder = Proposals.count_total_proposals_in_status_prep_not_sent_a_reminder_to_submit()
+    prep_not_sent_reminder = (
+        Proposals.count_total_proposals_in_status_prep_not_sent_a_reminder_to_submit()
+    )
     total_in_prep = Proposals.count_total_proposals_in_status_prep()
     total_proposals = Proposals.count_total_proposals_at_reviewer_seen_statuses()
     total_votes = ProposalVotes.count_total_votes()
@@ -32,5 +34,5 @@ def dashboard():
         total_accepted=total_accepted,
         total_rejected=total_rejected,
         total_waitlisted=total_waitlisted,
-        leaderboard=leaderboard
+        leaderboard=leaderboard,
     )

@@ -4,8 +4,12 @@ from .update_feed import UpdateFeed
 
 class Profiles(db.Model, MetaMixins):
     profile_id = db.Column(db.Integer, primary_key=True)
-    fk_account_id = db.Column(db.Integer, db.ForeignKey("accounts.account_id"), nullable=False)
-    fk_display_picture_id = db.Column(db.Integer, db.ForeignKey("display_pictures.display_picture_id"), nullable=True)
+    fk_account_id = db.Column(
+        db.Integer, db.ForeignKey("accounts.account_id"), nullable=False
+    )
+    fk_display_picture_id = db.Column(
+        db.Integer, db.ForeignKey("display_pictures.display_picture_id"), nullable=True
+    )
     earned_display_pictures = db.Column(db.JSON, nullable=True)
     # {"earned": [unique_display_picture_id, ...]}
 
@@ -70,9 +74,9 @@ class Profiles(db.Model, MetaMixins):
             earned.append(unique_display_picture_id)
 
         db.session.execute(
-            update(cls).where(cls.fk_account_id == account_id).values(
-                earned_display_pictures={"earned": earned}
-            )
+            update(cls)
+            .where(cls.fk_account_id == account_id)
+            .values(earned_display_pictures={"earned": earned})
         )
 
         UpdateFeed.create(
@@ -92,10 +96,14 @@ class Profiles(db.Model, MetaMixins):
     def delete_using_account_id(cls, account_id: int):
         from app.models.display_pictures import DisplayPictures
 
-        deleted_display_picture = DisplayPictures.select_using_unique_display_picture_id(9999)
+        deleted_display_picture = (
+            DisplayPictures.select_using_unique_display_picture_id(9999)
+        )
 
         db.session.execute(
-            update(cls).where(cls.fk_account_id == account_id).values(
+            update(cls)
+            .where(cls.fk_account_id == account_id)
+            .values(
                 fk_display_picture_id=deleted_display_picture.display_picture_id,
                 company_name=None,
                 name_or_alias="ACCOUNT DELETED",
