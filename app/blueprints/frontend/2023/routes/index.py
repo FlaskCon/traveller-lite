@@ -29,6 +29,11 @@ def index():
             "time": "Saturday 16th - 09:00 UTC",
         },
         {
+            "title": "Building Federated GraphQL APIs using Flask",
+            "speaker": "Adarsh Divakaran",
+            "time": "Saturday 16th - 09:00 UTC"
+        },
+        {
             "title": "Don't think about settings, use Dynaconf",
             "speaker": "Bruno Rocha",
             "time": "Saturday 16th - 10:00 UTC",
