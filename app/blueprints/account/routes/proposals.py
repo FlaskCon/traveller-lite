@@ -20,9 +20,19 @@ def proposals():
 
     if conference_:
         if isinstance(conference_.call_for_proposals_end_date, date):
-            able_to_propose = True if (conference_.call_for_proposals_end_date - now.date).days > -1 else False
+            able_to_propose = (
+                True
+                if (conference_.call_for_proposals_end_date - now.date).days > -1
+                else False
+            )
 
         if isinstance(conference_.call_for_proposals_end_date, datetime):
-            able_to_propose = True if (conference_.call_for_proposals_end_date.date() - now.date).days > -1 else False
+            able_to_propose = (
+                True
+                if (conference_.call_for_proposals_end_date.date() - now.date).days > -1
+                else False
+            )
 
-    return render_template(bp.tmpl("proposals.html"), proposals=proposals_, able_to_propose=able_to_propose)
+    return render_template(
+        bp.tmpl("proposals.html"), proposals=proposals_, able_to_propose=able_to_propose
+    )

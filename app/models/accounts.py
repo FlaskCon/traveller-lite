@@ -68,9 +68,13 @@ class Accounts(db.Model, MetaMixins):
         :param email_address:
         :return:
         """
-        return True if db.session.execute(
-            select(cls.account_id).filter_by(email_address=email_address).limit(1)
-        ).scalar_one_or_none() else False
+        return (
+            True
+            if db.session.execute(
+                select(cls.account_id).filter_by(email_address=email_address).limit(1)
+            ).scalar_one_or_none()
+            else False
+        )
 
     @classmethod
     def get_roles_from_email_address_select(cls, email_address):
@@ -90,9 +94,9 @@ class Accounts(db.Model, MetaMixins):
 
     @classmethod
     def select_all(cls):
-        return db.session.execute(
-            select(cls).order_by(cls.created.desc())
-        ).scalars().all()
+        return (
+            db.session.execute(select(cls).order_by(cls.created.desc())).scalars().all()
+        )
 
     @classmethod
     def select_using_account_id(cls, account_id):
@@ -117,9 +121,9 @@ class Accounts(db.Model, MetaMixins):
         account = cls.select_using_account_id(account_id)
         if account.private_key == private_key:
             db.session.execute(
-                update(cls).where(
-                    cls.account_id == account_id
-                ).values(
+                update(cls)
+                .where(cls.account_id == account_id)
+                .values(
                     confirmed=True,
                     private_key=None,
                 )
@@ -145,13 +149,15 @@ class Accounts(db.Model, MetaMixins):
         from app.models.profiles import Profiles
         from app.models.display_pictures import DisplayPictures
 
-        Profiles.signup(self.account_id, random.choice(
-            DisplayPictures.select_all_display_picture_id()
-        ), self.name_or_alias)
+        Profiles.signup(
+            self.account_id,
+            random.choice(DisplayPictures.select_all_display_picture_id()),
+            self.name_or_alias,
+        )
 
     def password_check(self, password) -> bool:
         if authenticate_password(
-                password, self.password, self.salt, pepper_position="start"
+            password, self.password, self.salt, pepper_position="start"
         ):
             return True
         return False
@@ -166,25 +172,21 @@ class Accounts(db.Model, MetaMixins):
 
     @classmethod
     def login(cls, email_address, password):
-
         account = cls.select_using_email_address(email_address)
         if account:
             if authenticate_password(
-                    password,
-                    account.password,
-                    account.salt,
-                    pepper_position="start"
+                password, account.password, account.salt, pepper_position="start"
             ):
                 return account
         return None
 
     @classmethod
     def signup(
-            cls,
-            email_address: str,
-            password: str,
-            name_or_alias: str,
-            confirmed: bool = False,
+        cls,
+        email_address: str,
+        password: str,
+        name_or_alias: str,
+        confirmed: bool = False,
     ):
         """
         Written for sqlite. Returns account after commit.
@@ -196,9 +198,7 @@ class Accounts(db.Model, MetaMixins):
         import random
 
         salt = generate_salt()
-        encrypted_password = encrypt_password(
-            password, salt, pepper_position="start"
-        )
+        encrypted_password = encrypt_password(password, salt, pepper_position="start")
         private_key = generate_private_key(generate_password(length=1))
 
         db.session.execute(
@@ -217,9 +217,11 @@ class Accounts(db.Model, MetaMixins):
         db.session.execute(
             insert(Profiles).values(
                 fk_account_id=account.account_id,
-                fk_display_picture_id=random.choice(DisplayPictures.select_all_account_signup()),
+                fk_display_picture_id=random.choice(
+                    DisplayPictures.select_all_account_signup()
+                ),
                 name_or_alias=name_or_alias,
-                earned_display_pictures={"earned": []}
+                earned_display_pictures={"earned": []},
             )
         )
         db.session.execute(
@@ -242,17 +244,17 @@ class Accounts(db.Model, MetaMixins):
 
     @classmethod
     def update(
-            cls,
-            account_id: int,
-            email_address: str,
-            disabled: bool,
-            confirmed: bool,
-            private_key: str,
+        cls,
+        account_id: int,
+        email_address: str,
+        disabled: bool,
+        confirmed: bool,
+        private_key: str,
     ):
         db.session.execute(
-            update(cls).where(
-                cls.account_id == account_id
-            ).values(
+            update(cls)
+            .where(cls.account_id == account_id)
+            .values(
                 email_address=email_address,
                 disabled=disabled,
                 confirmed=confirmed,
@@ -262,8 +264,8 @@ class Accounts(db.Model, MetaMixins):
         db.session.commit()
 
     def reset_password(
-            self,
-            new_password: str,
+        self,
+        new_password: str,
     ):
         from flask_imp.auth import Auth
 
@@ -280,11 +282,7 @@ class Accounts(db.Model, MetaMixins):
 
     @classmethod
     def delete(cls, account_id: int):
-        db.session.execute(
-            delete(cls).where(
-                cls.account_id == account_id
-            )
-        )
+        db.session.execute(delete(cls).where(cls.account_id == account_id))
         db.session.commit()
 
     # batch actions:
@@ -311,14 +309,19 @@ class Accounts(db.Model, MetaMixins):
             )
 
     @classmethod
-    def get_account_ids_from_email_address_select_batch(cls, email_addresses: list[str]) -> list[int]:
-        return db.session.execute(
-            select(cls.account_id).where(cls.email_address.in_(email_addresses))
-        ).scalars().all()
+    def get_account_ids_from_email_address_select_batch(
+        cls, email_addresses: list[str]
+    ) -> list[int]:
+        return (
+            db.session.execute(
+                select(cls.account_id).where(cls.email_address.in_(email_addresses))
+            )
+            .scalars()
+            .all()
+        )
 
     @classmethod
     def generate_page_account_data(cls, account_id: int):
-
         account = cls.select_using_account_id(account_id)
 
         return {
@@ -339,12 +342,10 @@ class Accounts(db.Model, MetaMixins):
         UpdateFeed.delete_using_account_id(account_id)
 
         db.session.execute(
-            update(
-                cls
-            ).where(
-                cls.account_id == account_id
-            ).values(
-                email_address=f"ACCOUNT DELETED",
+            update(cls)
+            .where(cls.account_id == account_id)
+            .values(
+                email_address="ACCOUNT DELETED",
                 password="ACCOUNT DELETED",
                 salt=Auth.generate_salt(),
                 disabled=True,

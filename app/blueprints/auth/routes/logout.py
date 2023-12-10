@@ -1,8 +1,4 @@
-from flask import (
-    session,
-    url_for,
-    redirect
-)
+from flask import session, url_for, redirect
 from app.extensions import imp
 
 from .. import bp

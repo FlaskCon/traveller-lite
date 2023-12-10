@@ -21,7 +21,9 @@ def replace_htt_for_https(value: str) -> str:
 
 
 @app.template_filter("days_until_cfp_ends")
-def days_until_cfp_ends(call_for_proposals_end_date: Optional[Union[datetime, date]]) -> int:
+def days_until_cfp_ends(
+    call_for_proposals_end_date: Optional[Union[datetime, date]],
+) -> int:
     """
     Returns the number of days until the CFP ends.
     """
@@ -48,7 +50,9 @@ def is_cfp_live(call_for_proposals_end_date: Optional[Union[datetime, date]]) ->
 
     if isinstance(call_for_proposals_end_date, datetime):
         now = DatetimeDeltaMC()
-        return True if (call_for_proposals_end_date.date() - now.date).days > -1 else False
+        return (
+            True if (call_for_proposals_end_date.date() - now.date).days > -1 else False
+        )
 
     return False
 

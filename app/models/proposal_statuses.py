@@ -9,15 +9,21 @@ class ProposalStatuses(db.Model, MetaMixins):
 
     @classmethod
     def select_all(cls):
-        return db.session.execute(
-            select(cls).order_by(cls.proposal_status_id)
-        ).scalars().all()
+        return (
+            db.session.execute(select(cls).order_by(cls.proposal_status_id))
+            .scalars()
+            .all()
+        )
 
     @classmethod
     def select_all_proposal_status_id(cls):
-        return db.session.execute(
-            select(cls.proposal_status_id).order_by(cls.proposal_status_id)
-        ).scalars().all()
+        return (
+            db.session.execute(
+                select(cls.proposal_status_id).order_by(cls.proposal_status_id)
+            )
+            .scalars()
+            .all()
+        )
 
     @classmethod
     def select_using_proposal_status_id(cls, proposal_status_id):
@@ -28,14 +34,24 @@ class ProposalStatuses(db.Model, MetaMixins):
     @classmethod
     def select_using_unique_proposal_status_id(cls, unique_proposal_status_id):
         return db.session.execute(
-            select(cls).filter_by(unique_proposal_status_id=unique_proposal_status_id).limit(1)
+            select(cls)
+            .filter_by(unique_proposal_status_id=unique_proposal_status_id)
+            .limit(1)
         ).scalar_one_or_none()
 
     @classmethod
-    def select_proposal_status_id_using_unique_proposal_status_id_batch(cls, unique_proposal_status_ids: list[int]):
-        return db.session.execute(
-            select(cls.proposal_status_id).where(cls.unique_proposal_status_id.in_(unique_proposal_status_ids))
-        ).scalars().all()
+    def select_proposal_status_id_using_unique_proposal_status_id_batch(
+        cls, unique_proposal_status_ids: list[int]
+    ):
+        return (
+            db.session.execute(
+                select(cls.proposal_status_id).where(
+                    cls.unique_proposal_status_id.in_(unique_proposal_status_ids)
+                )
+            )
+            .scalars()
+            .all()
+        )
 
     @classmethod
     def seed(cls, resource: list[dict]):

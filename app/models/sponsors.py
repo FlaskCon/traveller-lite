@@ -17,9 +17,7 @@ class Sponsors(db.Model, MetaMixins):
 
     @classmethod
     def select_all(cls):
-        return db.session.execute(
-            select(cls).order_by(cls.year.desc())
-        ).scalars().all()
+        return db.session.execute(select(cls).order_by(cls.year.desc())).scalars().all()
 
     @classmethod
     def select_by_sponsor_id(cls, sponsor_id: int):
@@ -29,20 +27,18 @@ class Sponsors(db.Model, MetaMixins):
 
     @classmethod
     def select_by_year(cls, year: int):
-        return db.session.execute(
-            select(cls).where(cls.year == year)
-        ).scalars().all()
+        return db.session.execute(select(cls).where(cls.year == year)).scalars().all()
 
     @classmethod
     def create_sponsor_request(
-            cls,
-            year: int,
-            level: str,
-            name: str,
-            description: str,
-            url: str,
-            logo: str,
-            contact_information: str,
+        cls,
+        year: int,
+        level: str,
+        name: str,
+        description: str,
+        url: str,
+        logo: str,
+        contact_information: str,
     ):
         db.session.execute(
             insert(cls).values(
@@ -61,18 +57,18 @@ class Sponsors(db.Model, MetaMixins):
 
     @classmethod
     def create(
-            cls,
-            year: int,
-            level: str,
-            name: str,
-            description: str,
-            url: str,
-            logo: str,
-            contact_information: str,
-            possible: bool,
-            requested: bool,
-            confirmed: bool,
-            rejected: bool,
+        cls,
+        year: int,
+        level: str,
+        name: str,
+        description: str,
+        url: str,
+        logo: str,
+        contact_information: str,
+        possible: bool,
+        requested: bool,
+        confirmed: bool,
+        rejected: bool,
     ):
         db.session.execute(
             insert(cls).values(
@@ -94,22 +90,24 @@ class Sponsors(db.Model, MetaMixins):
 
     @classmethod
     def update_by_sponsor_id(
-            cls,
-            sponsor_id: int,
-            year: int,
-            level: str,
-            name: str,
-            description: str,
-            url: str,
-            logo: str,
-            contact_information: str,
-            possible: bool,
-            requested: bool,
-            confirmed: bool,
-            rejected: bool,
+        cls,
+        sponsor_id: int,
+        year: int,
+        level: str,
+        name: str,
+        description: str,
+        url: str,
+        logo: str,
+        contact_information: str,
+        possible: bool,
+        requested: bool,
+        confirmed: bool,
+        rejected: bool,
     ):
         db.session.execute(
-            update(cls).where(cls.sponsor_id == sponsor_id).values(
+            update(cls)
+            .where(cls.sponsor_id == sponsor_id)
+            .values(
                 year=year,
                 level=level,
                 name=name,
@@ -129,7 +127,9 @@ class Sponsors(db.Model, MetaMixins):
     @classmethod
     def confirm(cls, sponsor_id: int):
         db.session.execute(
-            update(cls).where(cls.sponsor_id == sponsor_id).values(
+            update(cls)
+            .where(cls.sponsor_id == sponsor_id)
+            .values(
                 possible=False,
                 requested=False,
                 confirmed=True,
@@ -142,7 +142,9 @@ class Sponsors(db.Model, MetaMixins):
     @classmethod
     def reject(cls, sponsor_id: int):
         db.session.execute(
-            update(cls).where(cls.sponsor_id == sponsor_id).values(
+            update(cls)
+            .where(cls.sponsor_id == sponsor_id)
+            .values(
                 possible=False,
                 requested=False,
                 confirmed=False,

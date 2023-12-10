@@ -64,7 +64,9 @@ def seed():
     else:
         print("Conferences table is not empty.")
 
-    if os.environ.get("SUPER_ADMIN_ACCOUNT", False) and os.environ.get("SUPER_ADMIN_PASSWORD", False):
+    if os.environ.get("SUPER_ADMIN_ACCOUNT", False) and os.environ.get(
+        "SUPER_ADMIN_PASSWORD", False
+    ):
         if Accounts.exists(os.environ.get("SUPER_ADMIN_ACCOUNT")):
             print("Super admin account already exists.")
             return

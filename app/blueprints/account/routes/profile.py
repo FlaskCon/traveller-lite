@@ -33,7 +33,9 @@ def profile():
 
         profile_.save()
 
-        session["unique_display_picture_id"] = DisplayPictures.select_using_display_picture_id(
+        session[
+            "unique_display_picture_id"
+        ] = DisplayPictures.select_using_display_picture_id(
             fk_display_picture_id
         ).unique_display_picture_id
 
@@ -43,9 +45,15 @@ def profile():
     display_pictures = DisplayPictures.select_all()
     raw_earned_display_pictures = profile_.earned_display_pictures.get("earned", [])
     standard_display_pictures = [dp for dp in display_pictures if not dp.limited]
-    earned_display_pictures = [
-        dp for dp in display_pictures if dp.unique_display_picture_id in raw_earned_display_pictures
-    ] if raw_earned_display_pictures else []
+    earned_display_pictures = (
+        [
+            dp
+            for dp in display_pictures
+            if dp.unique_display_picture_id in raw_earned_display_pictures
+        ]
+        if raw_earned_display_pictures
+        else []
+    )
 
     sorted_countries = sorted([country.name for country in pycountry.countries])
 

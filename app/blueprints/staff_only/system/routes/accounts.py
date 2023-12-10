@@ -1,10 +1,10 @@
 from flask import render_template
 
 from app.models.accounts import Accounts
-from . import decorator_group, bp
+from .. import system_group, bp
 
 
-@decorator_group("/accounts", methods=["GET"])
+@system_group("/accounts", methods=["GET"])
 def accounts():
     accounts_ = Accounts.select_all()
 

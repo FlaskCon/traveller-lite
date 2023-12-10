@@ -23,10 +23,10 @@ class DatetimeDelta:
     _datetime: datetime
 
     def __init__(
-            self,
-            ltz: str = "Europe/London",
-            format_: str = "%Y-%m-%d %H:%M:%S",
-            datetime_: datetime = None
+        self,
+        ltz: str = "Europe/London",
+        format_: str = "%Y-%m-%d %H:%M:%S",
+        datetime_: datetime = None,
     ):
         self._local_tz = ltz
         self._format = format_
@@ -36,32 +36,30 @@ class DatetimeDelta:
         else:
             self._datetime = datetime.now(self._timezone)
 
-    def format(self, format_: str = "%Y-%m-%d %H:%M:%S") -> 'DatetimeDelta':
+    def format(self, format_: str = "%Y-%m-%d %H:%M:%S") -> "DatetimeDelta":
         return DatetimeDelta(
-            ltz=self._local_tz,
-            format_=format_,
-            datetime_=self._datetime
+            ltz=self._local_tz, format_=format_, datetime_=self._datetime
         )
 
-    def days(self, days_delta: int) -> 'DatetimeDelta':
+    def days(self, days_delta: int) -> "DatetimeDelta":
         return DatetimeDelta(
             ltz=self._local_tz,
             format_=self._format,
-            datetime_=self._datetime + timedelta(days=days_delta)
+            datetime_=self._datetime + timedelta(days=days_delta),
         )
 
-    def hours(self, hours_delta: int) -> 'DatetimeDelta':
+    def hours(self, hours_delta: int) -> "DatetimeDelta":
         return DatetimeDelta(
             ltz=self._local_tz,
             format_=self._format,
-            datetime_=self._datetime + timedelta(hours=hours_delta)
+            datetime_=self._datetime + timedelta(hours=hours_delta),
         )
 
-    def minutes(self, minuets_delta: int) -> 'DatetimeDelta':
+    def minutes(self, minuets_delta: int) -> "DatetimeDelta":
         return DatetimeDelta(
             ltz=self._local_tz,
             format_=self._format,
-            datetime_=self._datetime + timedelta(minutes=minuets_delta)
+            datetime_=self._datetime + timedelta(minutes=minuets_delta),
         )
 
     def __str__(self) -> str:
@@ -85,10 +83,10 @@ class DatetimeDeltaMC:
     _datetime: datetime
 
     def __init__(
-            self,
-            ltz: str = "Europe/London",
-            format_: str = "%Y-%m-%d %H:%M:%S",
-            datetime_: datetime = None
+        self,
+        ltz: str = "Europe/London",
+        format_: str = "%Y-%m-%d %H:%M:%S",
+        datetime_: datetime = None,
     ):
         self._local_tz = ltz
         self._format = format_
@@ -98,19 +96,19 @@ class DatetimeDeltaMC:
         else:
             self._datetime = datetime.now(self._timezone)
 
-    def format(self, format_: str = "%Y-%m-%d %H:%M:%S") -> 'DatetimeDeltaMC':
+    def format(self, format_: str = "%Y-%m-%d %H:%M:%S") -> "DatetimeDeltaMC":
         self._format = format_
         return self
 
-    def days(self, days_delta: int) -> 'DatetimeDeltaMC':
+    def days(self, days_delta: int) -> "DatetimeDeltaMC":
         self._datetime = self._datetime + timedelta(days=days_delta)
         return self
 
-    def hours(self, hours_delta: int) -> 'DatetimeDeltaMC':
+    def hours(self, hours_delta: int) -> "DatetimeDeltaMC":
         self._datetime = self._datetime + timedelta(hours=hours_delta)
         return self
 
-    def minutes(self, minuets_delta: int) -> 'DatetimeDeltaMC':
+    def minutes(self, minuets_delta: int) -> "DatetimeDeltaMC":
         self._datetime = self._datetime + timedelta(minutes=minuets_delta)
         return self
 
@@ -126,35 +124,20 @@ class DatetimeDeltaMC:
         return self._datetime.date()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
+
     def returning_new_inst():
         today = DatetimeDelta().format("%Y-%m-%d %H:%M:%S")
-        today.days(
-            random.randint(-10, 10)
-        ).hours(
-            random.randint(-10, 10)
-        ).minutes(
+        today.days(random.randint(-10, 10)).hours(random.randint(-10, 10)).minutes(
             random.randint(-10, 10)
         )
-
 
     def returning_self():
         today = DatetimeDeltaMC().format("%Y-%m-%d %H:%M:%S")
-        today.days(
-            random.randint(-10, 10)
-        ).hours(
-            random.randint(-10, 10)
-        ).minutes(
+        today.days(random.randint(-10, 10)).hours(random.randint(-10, 10)).minutes(
             random.randint(-10, 10)
         )
 
+    print(timeit.timeit(stmt=returning_new_inst, number=10000))
 
-    print(timeit.timeit(
-        stmt=returning_new_inst,
-        number=10000
-    ))
-
-    print(timeit.timeit(
-        stmt=returning_self,
-        number=10000
-    ))
+    print(timeit.timeit(stmt=returning_self, number=10000))

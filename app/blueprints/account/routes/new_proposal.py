@@ -66,17 +66,19 @@ def new_proposal():
             tags=tags.replace(" ", ""),
         )
 
-        EmailQueue.add_emails_to_send([
-            {
-                "email_to": account.email_address,
-                "email_subject": "Your Proposal Has Been Submitted",
-                "email_message": render_template(
-                    "global/email/proposal-submitted.html",
-                    title=title,
-                    flaskcon_email=FLASKCON_EMAIL_ADDRESS,
-                )
-            }
-        ])
+        EmailQueue.add_emails_to_send(
+            [
+                {
+                    "email_to": account.email_address,
+                    "email_subject": "Your Proposal Has Been Submitted",
+                    "email_message": render_template(
+                        "global/email/proposal-submitted.html",
+                        title=title,
+                        flaskcon_email=FLASKCON_EMAIL_ADDRESS,
+                    ),
+                }
+            ]
+        )
 
         EmailQueue.process_queue()
 
@@ -90,9 +92,21 @@ def new_proposal():
 
     if conference_:
         if isinstance(conference_.call_for_proposals_end_date, date):
-            able_to_propose = True if (conference_.call_for_proposals_end_date - now.date).days > -1 else False
+            able_to_propose = (
+                True
+                if (conference_.call_for_proposals_end_date - now.date).days > -1
+                else False
+            )
 
         if isinstance(conference_.call_for_proposals_end_date, datetime):
-            able_to_propose = True if (conference_.call_for_proposals_end_date.date() - now.date).days > -1 else False
+            able_to_propose = (
+                True
+                if (conference_.call_for_proposals_end_date.date() - now.date).days > -1
+                else False
+            )
 
-    return render_template(bp.tmpl("new-proposal.html"), csrf=session.get("csrf"), able_to_propose=able_to_propose)
+    return render_template(
+        bp.tmpl("new-proposal.html"),
+        csrf=session.get("csrf"),
+        able_to_propose=able_to_propose,
+    )

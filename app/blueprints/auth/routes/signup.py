@@ -1,11 +1,4 @@
-from flask import (
-    render_template,
-    request,
-    url_for,
-    redirect,
-    flash,
-    session
-)
+from flask import render_template, request, url_for, redirect, flash, session
 from flask_imp.auth import Auth
 from flask_imp.security import login_check
 from pyisemail import is_email
@@ -36,7 +29,9 @@ def signup():
         if email_address and password and confirm_password:
             if password != confirm_password:
                 flash("Passwords do not match.")
-                return render_template(bp.tmpl("signup.html"), email_address=email_address)
+                return render_template(
+                    bp.tmpl("signup.html"), email_address=email_address
+                )
 
             if Accounts.exists(request.form["email_address"]):
                 flash("An account with that email address already exists.")
@@ -44,21 +39,25 @@ def signup():
 
             new_account = Accounts.signup(email_address, password, name_or_alias)
             if new_account:
-                EmailQueue.add_emails_to_send([
-                    {
-                        "email_to": email_address,
-                        "email_subject": "Confirm your account",
-                        "email_message": render_template(
-                            "global/email/confirm-email.html",
-                            account_id=new_account.account_id,
-                            private_key=new_account.private_key,
-                        )
-                    }
-                ])
+                EmailQueue.add_emails_to_send(
+                    [
+                        {
+                            "email_to": email_address,
+                            "email_subject": "Confirm your account",
+                            "email_message": render_template(
+                                "global/email/confirm-email.html",
+                                account_id=new_account.account_id,
+                                private_key=new_account.private_key,
+                            ),
+                        }
+                    ]
+                )
 
                 EmailQueue.process_queue()
 
-                flash("Account created. Please check your email to confirm your account.")
+                flash(
+                    "Account created. Please check your email to confirm your account."
+                )
                 return redirect(url_for("auth.login"))
             else:
                 flash("There was an error creating your account.")

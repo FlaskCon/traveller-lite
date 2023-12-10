@@ -30,7 +30,9 @@ def settings():
             return redirect(url_for("auth.login"))
 
         if not old_password or not new_password or not confirm_new_password:
-            flash("Old password, new password and confirm new password fields cannot be empty.")
+            flash(
+                "Old password, new password and confirm new password fields cannot be empty."
+            )
             return redirect(url_for("account.settings"))
 
         account = Accounts.select_using_account_id(session.get("account_id"))

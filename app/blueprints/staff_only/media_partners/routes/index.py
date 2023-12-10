@@ -1,10 +1,10 @@
 from flask import render_template
 
 from app.models.media_partners import MediaPartners
-from .. import bp
+from .. import bp, media_partners_group
 
 
-@bp.route("/", methods=["GET"])
+@media_partners_group("/", methods=["GET"])
 def index():
     media_partners = MediaPartners.select_all()
     return render_template(

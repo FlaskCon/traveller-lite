@@ -2,10 +2,10 @@ from flask import render_template, request, flash, redirect, url_for
 
 from app.models.media_partners import MediaPartners
 
-from .. import bp
+from .. import bp, media_partners_group
 
 
-@bp.route("/edit/<int:media_partner_id>", methods=["GET", "POST"])
+@media_partners_group("/edit/<int:media_partner_id>", methods=["GET", "POST"])
 def edit(media_partner_id):
     media_partner = MediaPartners.select_by_media_partner_id(media_partner_id)
     if request.method == "POST":
@@ -22,7 +22,11 @@ def edit(media_partner_id):
 
         if not all(required_fields):
             flash("Year and name fields are required.")
-            return redirect(url_for("staff_only.media_partners.edit", media_partner_id=media_partner_id))
+            return redirect(
+                url_for(
+                    "staff_only.media_partners.edit", media_partner_id=media_partner_id
+                )
+            )
 
         MediaPartners.update_by_media_partner_id(
             media_partner_id=media_partner_id,

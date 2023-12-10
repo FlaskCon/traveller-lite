@@ -1,16 +1,18 @@
 from flask import render_template, request, redirect, url_for, flash
 
 from app.models.conferences import Conferences
-from .. import bp
+from .. import bp, conferences_group
 
 
-@bp.route("/add", methods=["GET", "POST"])
+@conferences_group("/add", methods=["GET", "POST"])
 def add():
     if request.method == "POST":
         year = request.form.get("year")
         index_endpoint = request.form.get("index_endpoint")
         latest = request.form.get("latest")
-        call_for_proposals_start_date = request.form.get("call_for_proposals_start_date")
+        call_for_proposals_start_date = request.form.get(
+            "call_for_proposals_start_date"
+        )
         call_for_proposals_end_date = request.form.get("call_for_proposals_end_date")
         conference_start_date = request.form.get("conference_start_date")
         conference_end_date = request.form.get("conference_end_date")
@@ -36,7 +38,7 @@ def add():
             call_for_proposals_start_date=call_for_proposals_start_date,
             call_for_proposals_end_date=call_for_proposals_end_date,
             conference_start_date=conference_start_date,
-            conference_end_date=conference_end_date
+            conference_end_date=conference_end_date,
         )
 
         flash(f"Conference {year} added.")

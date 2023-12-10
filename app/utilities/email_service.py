@@ -14,7 +14,9 @@ class EmailServiceSettings:
     server: str
     port: int
 
-    def __init__(self, dev_mode: int, username: str, password: str, server: str, port: int):
+    def __init__(
+        self, dev_mode: int, username: str, password: str, server: str, port: int
+    ):
         self.dev_mode = True if dev_mode == 1 else False
         self.username = username
         self.password = password
@@ -58,7 +60,7 @@ class EmailService:
         self._attachments = set()
 
         self._msg = MIMEMultipart()
-        self._msg.set_type('multipart/alternative')
+        self._msg.set_type("multipart/alternative")
 
     def _reset_values(self):
         self._subject = ""
@@ -69,7 +71,7 @@ class EmailService:
         self._attachments = set()
 
         self._msg = MIMEMultipart()
-        self._msg.set_type('multipart/alternative')
+        self._msg.set_type("multipart/alternative")
 
     def __repr__(self) -> str:
         attachments = "\n".join(
@@ -83,81 +85,80 @@ class EmailService:
         )
 
     def subject(
-            self,
-            subject: str,
-    ) -> 'EmailService':
+        self,
+        subject: str,
+    ) -> "EmailService":
         self._subject = subject
         return self
 
     def body(
-            self,
-            body: str,
-    ) -> 'EmailService':
+        self,
+        body: str,
+    ) -> "EmailService":
         self._msg_body = MIMEText(body)
-        self._msg_body.set_type('text/html')
-        self._msg_body.set_param('charset', 'UTF-8')
+        self._msg_body.set_type("text/html")
+        self._msg_body.set_param("charset", "UTF-8")
         self._msg.attach(self._msg_body)
         return self
 
-    def reply_to(self, reply_to: str) -> 'EmailService':
-        self._msg.replace_header('Reply-To', reply_to)
+    def reply_to(self, reply_to: str) -> "EmailService":
+        self._msg.replace_header("Reply-To", reply_to)
         return self
 
-    def from_(self, from_: str) -> 'EmailService':
+    def from_(self, from_: str) -> "EmailService":
         self._from = from_
         return self
 
-    def recipients(self, recipients: list[str]) -> 'EmailService':
+    def recipients(self, recipients: list[str]) -> "EmailService":
         self._recipients.update(set(recipients))
-        if 'To' in self._msg:
-            self._msg.replace_header('To', ', '.join(self._recipients))
+        if "To" in self._msg:
+            self._msg.replace_header("To", ", ".join(self._recipients))
             return self
 
-        self._msg.add_header('To', ', '.join(self._recipients))
+        self._msg.add_header("To", ", ".join(self._recipients))
         return self
 
-    def cc_recipients(self, cc_recipients: list[str]) -> 'EmailService':
+    def cc_recipients(self, cc_recipients: list[str]) -> "EmailService":
         self._cc_recipients.update(set(cc_recipients))
-        if 'CC' in self._msg:
-            self._msg.replace_header('CC', ', '.join(self._cc_recipients))
+        if "CC" in self._msg:
+            self._msg.replace_header("CC", ", ".join(self._cc_recipients))
             return self
 
-        self._msg.add_header('CC', ', '.join(self._cc_recipients))
+        self._msg.add_header("CC", ", ".join(self._cc_recipients))
         return self
 
-    def bcc_recipients(self, bcc_recipients: list[str]) -> 'EmailService':
+    def bcc_recipients(self, bcc_recipients: list[str]) -> "EmailService":
         self._bcc_recipients.update(set(bcc_recipients))
-        if 'BCC' in self._msg:
-            self._msg.replace_header('BCC', ', '.join(self._bcc_recipients))
+        if "BCC" in self._msg:
+            self._msg.replace_header("BCC", ", ".join(self._bcc_recipients))
             return self
 
-        self._msg.add_header('BCC', ', '.join(self._bcc_recipients))
+        self._msg.add_header("BCC", ", ".join(self._bcc_recipients))
         return self
 
-    def attach_files(self, files: list[str | Path]) -> 'EmailService':
+    def attach_files(self, files: list[str | Path]) -> "EmailService":
         for file in files:
             if isinstance(file, Path):
                 filepath: Path = file
             else:
                 filepath: Path = Path(file)
 
-            self._attachments.update([(filepath, "Exists" if filepath.exists() else "Missing")])
+            self._attachments.update(
+                [(filepath, "Exists" if filepath.exists() else "Missing")]
+            )
 
             if filepath.exists():
                 contents = MIMEApplication(
-                    filepath.read_bytes(),
-                    _subtype=filepath.suffix
+                    filepath.read_bytes(), _subtype=filepath.suffix
                 )
                 contents.add_header(
-                    'Content-Disposition',
-                    'attachment',
-                    filename=filepath.name
+                    "Content-Disposition", "attachment", filename=filepath.name
                 )
                 self._msg.attach(contents)
 
         return self
 
-    def attach_file(self, file: str | Path) -> 'EmailService':
+    def attach_file(self, file: str | Path) -> "EmailService":
         self.attach_files([file])
         return self
 
@@ -168,10 +169,10 @@ class EmailService:
         :return:
         """
 
-        self._msg.add_header('Original-Sender', self._original_sender)
-        self._msg.add_header('Reply-To', self._reply_to)
-        self._msg.add_header('From', self._from)
-        self._msg.add_header('Subject', self._subject)
+        self._msg.add_header("Original-Sender", self._original_sender)
+        self._msg.add_header("Reply-To", self._reply_to)
+        self._msg.add_header("From", self._from)
+        self._msg.add_header("Subject", self._subject)
 
         if self.dev_mode:
             print(self)
@@ -185,7 +186,7 @@ class EmailService:
                 connection.sendmail(
                     self.username,
                     [*self._recipients, *self._cc_recipients, *self._bcc_recipients],
-                    self._msg.as_string()
+                    self._msg.as_string(),
                 )
         except SMTPException as error:
             if debug:

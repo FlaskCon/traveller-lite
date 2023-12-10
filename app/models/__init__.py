@@ -1,11 +1,5 @@
 import typing as t
-from sqlalchemy import (
-    select,
-    update,
-    delete,
-    insert,
-    and_
-)
+from sqlalchemy import select, update, delete, insert, and_
 from sqlalchemy.orm import relationship
 
 from app.extensions import db

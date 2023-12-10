@@ -1,10 +1,10 @@
 from flask import render_template, request, flash, redirect, url_for
 
 from app.models.media_partners import MediaPartners
-from .. import bp
+from .. import bp, media_partners_group
 
 
-@bp.route("/add", methods=["GET", "POST"])
+@media_partners_group("/add", methods=["GET", "POST"])
 def add():
     if request.method == "POST":
         year = request.form.get("year")
