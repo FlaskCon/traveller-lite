@@ -1,6 +1,3 @@
-import json
-from pathlib import Path
-
 from flask import render_template
 
 from .. import bp
@@ -8,10 +5,6 @@ from .. import bp
 
 @bp.route("/", methods=["GET"])
 def index():
-    staff = Path(bp.location, "staff_2023.json")
-    reviewers = Path(bp.location, "reviewers_2023.json")
-    media_partners = Path(bp.location, "media_partners_2023.json")
-
     talks = [
         {
             "title": "Configuring Flask-SQLAlchemy for Production Environments: Managing MultiDB Connections/Queries",
@@ -27,11 +20,6 @@ def index():
             "title": "Building Federated GraphQL APIs using Flask",
             "speaker": "Adarsh Divakaran",
             "time": "Saturday 16th - 09:00 UTC",
-        },
-        {
-            "title": "Building Federated GraphQL APIs using Flask",
-            "speaker": "Adarsh Divakaran",
-            "time": "Saturday 16th - 09:00 UTC"
         },
         {
             "title": "Don't think about settings, use Dynaconf",
@@ -66,12 +54,7 @@ def index():
         {
             "title": "Insights Building Sizable Flask Sites",
             "speaker": "Abdur-Rahmaan Janhangeer",
-            "time": "Time Unconfirmed",
-        },
-        {
-            "title": "Building Web Applications with Flask and SQLAlchemy",
-            "speaker": "Aman Singh",
-            "time": "Time Unconfirmed",
+            "time": "Saturday 16th - 21:00 UTC",
         },
     ]
 
