@@ -9,12 +9,12 @@ def index():
         {
             "title": "Configuring Flask-SQLAlchemy for Production Environments: Managing MultiDB Connections/Queries",
             "speaker": "Paul Asalu",
-            "time": "Saturday 16th - 07:00 UTC",
+            "time": "Unable to attend :(",
         },
         {
             "title": "Building a Scalable Machine Learning API with Flask and TensorFlow",
             "speaker": "Brayan Mwanyumba",
-            "time": "Saturday 16th - 08:00 UTC",
+            "time": "Unable to attend :(",
         },
         {
             "title": "Building Federated GraphQL APIs using Flask",
