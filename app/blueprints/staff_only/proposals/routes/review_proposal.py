@@ -2,7 +2,8 @@ import os
 
 from flask import render_template, request, abort, url_for, redirect, flash, session
 
-from app.models.email_queue import EmailQueue
+from app.extensions import email_settings
+from app.huey import tasks
 from app.models.proposal_statuses import ProposalStatuses
 from app.models.proposal_votes import ProposalVotes
 from app.models.proposals import Proposals
@@ -63,32 +64,29 @@ def review_proposal(proposal_id):
                 image=None,
             )
 
-            EmailQueue.add_emails_to_send(
-                [
-                    {
-                        "email_to": proposal.rel_account.email_address,
-                        "email_subject": "Your Proposal Has Been Waitlisted",
-                        "email_message": render_template(
-                            "global/email/proposal-waitlisted.html",
-                            proposal=proposal,
-                            to_account=True,
-                            flaskcon_email=FLASKCON_EMAIL_ADDRESS,
-                        ),
-                    },
-                    {
-                        "email_to": FLASKCON_EMAIL_ADDRESS,
-                        "email_subject": "Notification: Proposal Waitlisted",
-                        "email_message": render_template(
-                            "global/email/proposal-waitlisted.html",
-                            proposal=proposal,
-                            to_account=False,
-                            account_email_address=proposal.rel_account.email_address,
-                        ),
-                    },
-                ]
+            tasks.send_email(
+                email_settings,
+                [proposal.rel_account.email_address],
+                "Your Proposal Has Been Waitlisted",
+                render_template(
+                    "global/email/proposal-waitlisted.html",
+                    proposal=proposal,
+                    to_account=True,
+                    flaskcon_email=FLASKCON_EMAIL_ADDRESS,
+                ),
             )
 
-            EmailQueue.process_queue()
+            tasks.send_email(
+                email_settings,
+                [FLASKCON_EMAIL_ADDRESS],
+                "Your Proposal Has Been Waitlisted",
+                render_template(
+                    "global/email/proposal-waitlisted.html",
+                    proposal=proposal,
+                    to_account=False,
+                    account_email_address=proposal.rel_account.email_address,
+                ),
+            )
 
         elif accepted:
             proposal.fk_proposal_status_id = (
@@ -104,32 +102,29 @@ def review_proposal(proposal_id):
                 image=None,
             )
 
-            EmailQueue.add_emails_to_send(
-                [
-                    {
-                        "email_to": proposal.rel_account.email_address,
-                        "email_subject": "Your Proposal Has Been Accepted!",
-                        "email_message": render_template(
-                            "global/email/proposal-accepted.html",
-                            proposal=proposal,
-                            to_account=True,
-                            flaskcon_email=FLASKCON_EMAIL_ADDRESS,
-                        ),
-                    },
-                    {
-                        "email_to": FLASKCON_EMAIL_ADDRESS,
-                        "email_subject": "Notification: Proposal Accepted",
-                        "email_message": render_template(
-                            "global/email/proposal-accepted.html",
-                            proposal=proposal,
-                            to_account=False,
-                            account_email_address=proposal.rel_account.email_address,
-                        ),
-                    },
-                ]
+            tasks.send_email(
+                email_settings,
+                [proposal.rel_account.email_address],
+                "Your Proposal Has Been Accepted",
+                render_template(
+                    "global/email/proposal-accepted.html",
+                    proposal=proposal,
+                    to_account=True,
+                    flaskcon_email=FLASKCON_EMAIL_ADDRESS,
+                ),
             )
 
-            EmailQueue.process_queue()
+            tasks.send_email(
+                email_settings,
+                [FLASKCON_EMAIL_ADDRESS],
+                "Notification: Proposal Accepted",
+                render_template(
+                    "global/email/proposal-accepted.html",
+                    proposal=proposal,
+                    to_account=False,
+                    account_email_address=proposal.rel_account.email_address,
+                ),
+            )
 
         elif rejected:
             proposal.fk_proposal_status_id = (
@@ -145,32 +140,29 @@ def review_proposal(proposal_id):
                 image=None,
             )
 
-            EmailQueue.add_emails_to_send(
-                [
-                    {
-                        "email_to": proposal.rel_account.email_address,
-                        "email_subject": "We Have Some Bad News...",
-                        "email_message": render_template(
-                            "global/email/proposal-rejected.html",
-                            proposal=proposal,
-                            to_account=True,
-                            flaskcon_email=FLASKCON_EMAIL_ADDRESS,
-                        ),
-                    },
-                    {
-                        "email_to": FLASKCON_EMAIL_ADDRESS,
-                        "email_subject": "Notification: Proposal Accepted",
-                        "email_message": render_template(
-                            "global/email/proposal-rejected.html",
-                            proposal=proposal,
-                            to_account=False,
-                            account_email_address=proposal.rel_account.email_address,
-                        ),
-                    },
-                ]
+            tasks.send_email(
+                email_settings,
+                [proposal.rel_account.email_address],
+                "We Have Some Bad News...",
+                render_template(
+                    "global/email/proposal-rejected.html",
+                    proposal=proposal,
+                    to_account=True,
+                    flaskcon_email=FLASKCON_EMAIL_ADDRESS,
+                ),
             )
 
-            EmailQueue.process_queue()
+            tasks.send_email(
+                email_settings,
+                [FLASKCON_EMAIL_ADDRESS],
+                "Notification: Proposal Accepted",
+                render_template(
+                    "global/email/proposal-rejected.html",
+                    proposal=proposal,
+                    to_account=False,
+                    account_email_address=proposal.rel_account.email_address,
+                ),
+            )
 
         elif canceled:
             proposal.fk_proposal_status_id = (
@@ -186,32 +178,29 @@ def review_proposal(proposal_id):
                 image=None,
             )
 
-            EmailQueue.add_emails_to_send(
-                [
-                    {
-                        "email_to": proposal.rel_account.email_address,
-                        "email_subject": "Your Proposal Has Been Canceled",
-                        "email_message": render_template(
-                            "global/email/proposal-canceled.html",
-                            proposal=proposal,
-                            to_account=True,
-                            flaskcon_email=FLASKCON_EMAIL_ADDRESS,
-                        ),
-                    },
-                    {
-                        "email_to": FLASKCON_EMAIL_ADDRESS,
-                        "email_subject": "Notification: Proposal Canceled",
-                        "email_message": render_template(
-                            "global/email/proposal-canceled.html",
-                            proposal=proposal,
-                            to_account=False,
-                            account_email_address=proposal.rel_account.email_address,
-                        ),
-                    },
-                ]
+            tasks.send_email(
+                email_settings,
+                [proposal.rel_account.email_address],
+                "Your Proposal Has Been Canceled",
+                render_template(
+                    "global/email/proposal-canceled.html",
+                    proposal=proposal,
+                    to_account=True,
+                    flaskcon_email=FLASKCON_EMAIL_ADDRESS,
+                ),
             )
 
-            EmailQueue.process_queue()
+            tasks.send_email(
+                email_settings,
+                [FLASKCON_EMAIL_ADDRESS],
+                "Notification: Proposal Canceled",
+                render_template(
+                    "global/email/proposal-canceled.html",
+                    proposal=proposal,
+                    to_account=False,
+                    account_email_address=proposal.rel_account.email_address,
+                ),
+            )
 
             flash("Proposal has been canceled.")
             return redirect(url_for("staff_only.proposals.dashboard"))

@@ -136,7 +136,7 @@ class Proposals(db.Model, MetaMixins):
             db.session.execute(
                 select(cls).where(
                     cls.fk_proposal_status_id.in_(proposal_ids),
-                    cls.submit_reminder_sent == False,
+                    cls.submit_reminder_sent.is_(False),
                 )
             )
             .scalars()
@@ -153,7 +153,7 @@ class Proposals(db.Model, MetaMixins):
         return db.session.execute(
             select(func.count(cls.proposal_id)).where(
                 cls.fk_proposal_status_id.in_(proposal_ids),
-                cls.submit_reminder_sent == False,
+                cls.submit_reminder_sent.is_(False),
             )
         ).scalar_one_or_none()
 

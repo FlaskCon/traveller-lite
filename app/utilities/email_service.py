@@ -5,6 +5,7 @@ from pathlib import Path
 from smtplib import SMTP
 from smtplib import SMTPException
 from ssl import create_default_context
+from time import sleep
 from typing import Optional
 
 

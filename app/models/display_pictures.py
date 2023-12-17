@@ -35,7 +35,7 @@ class DisplayPictures(db.Model, MetaMixins):
         return (
             db.session.execute(
                 select(cls.display_picture_id)
-                .where(cls.unique_display_picture_id != 9999, cls.limited == False)
+                .where(cls.unique_display_picture_id != 9999, cls.limited.is_(False))
                 .order_by(cls.display_picture_id)
             )
             .scalars()
