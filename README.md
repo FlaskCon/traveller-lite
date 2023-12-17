@@ -149,6 +149,8 @@ flask seed
 
 # Running Locally
 
+### Flask
+
 ```bash
 flask run
 ```
@@ -170,6 +172,14 @@ gunicorn
 **IMPORTANT:**
 
 - gunicorn will not work under Windows, use WSL or a Linux VM.
+
+### Huey
+
+Huey is used as a task queue, it is used to send emails asynchronously. You will need to run the consumer in a separate terminal.
+
+```bash
+huey_consumer app.huey.run
+```
 
 -----
 
@@ -217,6 +227,18 @@ sudo git clone git@github.com:FlaskCon/traveller-lite.git
 
 ---
 
+## Deployment / Build the base-layer image
+
+```bash
+cd traveller-lite
+```
+
+```bash
+docker build -t flaskcon/base-layer -f Dockerfile-base-layer .
+```
+
+---
+
 ## Deployment / Working With Docker
 
 There is a choice of different docker-compose files.
@@ -243,6 +265,17 @@ Working from the location of the cloned repository, run the following command:
 ```bash
 docker-compose -f <COMPOSE FILE CHOICE> up --build -d
 ```
+
+or 
+
+```bash
+docker-compose up --build -d
+```
+
+to use the default `docker-compose.yml` file.
+
+
+`-f` will allow you to choose which docker-compose file to use.
 
 `--build` will instruct docker-compose to rebuild the image.
 
