@@ -44,12 +44,16 @@ class RolesMembership(db.Model, MetaMixins):
 
     @classmethod
     def has_roles(cls, account_id, urids: list):
-        q = db.session.execute(
-            select(cls).where(
-                cls.fk_account_id == account_id,
-                cls.fk_role_id.in_(Roles.select_by_unique_role_ids(urids))
+        q = (
+            db.session.execute(
+                select(cls).where(
+                    cls.fk_account_id == account_id,
+                    cls.fk_role_id.in_(Roles.select_by_unique_role_ids(urids)),
+                )
             )
-        ).scalars().all()
+            .scalars()
+            .all()
+        )
         return True if q else False
 
     @classmethod
@@ -66,8 +70,8 @@ class RolesMembership(db.Model, MetaMixins):
             role_id
             for role_id, name, year in current_roles
             if role_id not in role_ids
-               and name != "Super Administrator"
-               and year == datetime.now().year
+            and name != "Super Administrator"
+            and year == datetime.now().year
         ]
 
         db.session.execute(
