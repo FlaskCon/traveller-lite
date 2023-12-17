@@ -18,9 +18,13 @@ class Roles(db.Model, MetaMixins):
 
     @classmethod
     def select_by_unique_role_ids(cls, unique_role_ids):
-        return db.session.execute(
-            select(cls.role_id).where(cls.unique_role_id.in_(unique_role_ids))
-        ).scalars().all()
+        return (
+            db.session.execute(
+                select(cls.role_id).where(cls.unique_role_id.in_(unique_role_ids))
+            )
+            .scalars()
+            .all()
+        )
 
     @classmethod
     def select_by_id(cls, role_id):

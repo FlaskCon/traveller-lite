@@ -3,8 +3,9 @@ from flask_imp.auth import Auth
 from flask_imp.security import login_check
 from pyisemail import is_email
 
+from app.extensions import email_settings
+from app.huey import tasks
 from app.models.accounts import Accounts
-from app.models.email_queue import EmailQueue
 from .. import bp
 
 
@@ -39,21 +40,16 @@ def signup():
 
             new_account = Accounts.signup(email_address, password, name_or_alias)
             if new_account:
-                EmailQueue.add_emails_to_send(
-                    [
-                        {
-                            "email_to": email_address,
-                            "email_subject": "Confirm your account",
-                            "email_message": render_template(
-                                "global/email/confirm-email.html",
-                                account_id=new_account.account_id,
-                                private_key=new_account.private_key,
-                            ),
-                        }
-                    ]
+                tasks.send_email(
+                    email_settings,
+                    [email_address],
+                    "Confirm your account",
+                    render_template(
+                        "global/email/confirm-email.html",
+                        account_id=new_account.account_id,
+                        private_key=new_account.private_key,
+                    ),
                 )
-
-                EmailQueue.process_queue()
 
                 flash(
                     "Account created. Please check your email to confirm your account."

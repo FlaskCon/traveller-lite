@@ -4,7 +4,7 @@ from app.extensions import email_settings
 from app.models.accounts import Accounts
 from app.models.proposals import Proposals
 from app.utilities import EmailService
-from .. import bp, proposals_group
+from .. import proposals_group
 
 
 @proposals_group("/api/send-submit-reminder", methods=["GET"])
