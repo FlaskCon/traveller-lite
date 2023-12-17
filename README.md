@@ -228,7 +228,7 @@ sudo git clone git@github.com:FlaskCon/traveller-lite.git
 
 ---
 
-## Deployment / Build the base-layer image
+## Deployment / Build the Base-Layer Image
 
 ```bash
 cd traveller-lite
