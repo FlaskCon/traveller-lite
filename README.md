@@ -11,6 +11,7 @@
 * [Running Locally](#running-locally)
 * [Deployment](#deployment)
     * [Setup Docker Environment](#deployment--setup-docker-environment)
+    * [Build the Base-Layer Image](#deployment--build-the-base-layer-image)
     * [Working With Docker](#deployment--working-with-docker)
         * [docker-compose](#--working-with-docker--docker-compose)
         * [supervisord](#--working-with-docker--supervisord)
