@@ -1,6 +1,6 @@
 flask
 flask-sqlalchemy
-flask-imp==2.6.3
+flask-imp==2.7.11
 gunicorn
 pytz
 python-dotenv
@@ -11,3 +11,4 @@ pyIsEmail
 psycopg2-binary
 click
 faker
+huey
