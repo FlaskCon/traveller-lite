@@ -1,0 +1,13 @@
+from flask import render_template, redirect, url_for
+
+from .. import bp
+
+
+@bp.route("/", methods=["GET"])
+def index():
+    return redirect(url_for("frontend.2024.coming_soon"))
+
+
+@bp.route("/coming-soon", methods=["GET"])
+def coming_soon():
+    return render_template(bp.tmpl("coming-soon.html"))

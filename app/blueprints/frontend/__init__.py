@@ -5,7 +5,7 @@ from app.models.conferences import Conferences
 
 bp = Blueprint(__name__)
 
-bp.import_nested_blueprint("2023")
+bp.import_nested_blueprints("conferences")
 
 
 @bp.get("/")
