@@ -17,7 +17,9 @@ def create_app():
     imp.import_models("models")
 
     imp.import_app_resources(
-        app_factories=["dev_cli"] if DEV_MODE else [],
+        factories=["dev_cli"] if DEV_MODE else [],
+        folders_to_import=["*"],
+        files_to_import=["*"],
     )
 
     imp.import_blueprint("blueprints/account")
