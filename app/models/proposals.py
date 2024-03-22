@@ -23,23 +23,23 @@ class Proposals(db.Model, MetaMixins):
     # What they'll learn from your proposal.
     # What background experience they should have to get the most out of your proposal.
     # DO NOT place any identifying information in this field.
-    detail = db.Column(db.String, nullable=True)
-    detail_markdown = db.Column(db.String, nullable=True)
+    detail = db.Column(db.String, nullable=True)  # Markup
+    detail_markdown = db.Column(db.String, nullable=True)  # HTML
 
     # A short description of your proposal.
     # If your proposal is accepted, the abstract will be published on the conference website.
     # DO NOT place any identifying information in this field.
-    abstract = db.Column(db.String, nullable=True)
-    abstract_markdown = db.Column(db.String, nullable=True)
+    abstract = db.Column(db.String, nullable=True)  # Markup
+    abstract_markdown = db.Column(db.String, nullable=True)  # HTML
 
     # A short biography of yourself.
     # This will not be published on the conference website.
-    short_biography = db.Column(db.String, nullable=True)
-    short_biography_markdown = db.Column(db.String, nullable=True)
+    short_biography = db.Column(db.String, nullable=True)  # Markup
+    short_biography_markdown = db.Column(db.String, nullable=True)  # HTML
 
     # Any additional notes or needs you have from us.
-    notes_or_requests = db.Column(db.String, nullable=True)
-    notes_or_requests_markdown = db.Column(db.String, nullable=True)
+    notes_or_requests = db.Column(db.String, nullable=True)  # Markup
+    notes_or_requests_markdown = db.Column(db.String, nullable=True)  # HTML
 
     # Tags are used to help reviewers find proposals that interest them.
     tags = db.Column(db.String, nullable=True)
@@ -315,6 +315,7 @@ class Proposals(db.Model, MetaMixins):
         notes_or_requests,
         notes_or_requests_markdown,
         tags,
+        year=datetime.now().year,
     ):
         from .proposal_statuses import ProposalStatuses
 
@@ -324,7 +325,7 @@ class Proposals(db.Model, MetaMixins):
                 fk_proposal_status_id=ProposalStatuses.select_using_unique_proposal_status_id(
                     102
                 ).proposal_status_id,
-                year=datetime.now().year,
+                year=year,
                 title=title,
                 detail=detail,
                 detail_markdown=detail_markdown,
