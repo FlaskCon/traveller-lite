@@ -79,7 +79,7 @@ def review_proposal(proposal_id):
             tasks.send_email(
                 email_settings,
                 [FLASKCON_EMAIL_ADDRESS],
-                "Your Proposal Has Been Waitlisted",
+                f"Proposal Waitlisted: {proposal.title}",
                 render_template(
                     "global/email/proposal-waitlisted.html",
                     proposal=proposal,
@@ -117,7 +117,7 @@ def review_proposal(proposal_id):
             tasks.send_email(
                 email_settings,
                 [FLASKCON_EMAIL_ADDRESS],
-                "Notification: Proposal Accepted",
+                f"Proposal Accepted: {proposal.title}",
                 render_template(
                     "global/email/proposal-accepted.html",
                     proposal=proposal,
@@ -155,7 +155,7 @@ def review_proposal(proposal_id):
             tasks.send_email(
                 email_settings,
                 [FLASKCON_EMAIL_ADDRESS],
-                "Notification: Proposal Accepted",
+                f"Proposal Rejected: {proposal.title}",
                 render_template(
                     "global/email/proposal-rejected.html",
                     proposal=proposal,
@@ -193,7 +193,7 @@ def review_proposal(proposal_id):
             tasks.send_email(
                 email_settings,
                 [FLASKCON_EMAIL_ADDRESS],
-                "Notification: Proposal Canceled",
+                f"Proposal Canceled: {proposal.title}",
                 render_template(
                     "global/email/proposal-canceled.html",
                     proposal=proposal,
