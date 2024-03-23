@@ -27,6 +27,7 @@ def new_proposal():
         title = request.form.get("title")
         detail = request.form.get("detail")
         abstract = request.form.get("abstract")
+        speaker_name = request.form.get("speaker_name")
         short_biography = request.form.get("short_biography")
         notes_or_requests = request.form.get("notes_or_requests")
         tags = request.form.get("tags")
@@ -60,6 +61,7 @@ def new_proposal():
             detail_markdown=detail_markdown,
             abstract=abstract,
             abstract_markdown=abstract_markdown,
+            speaker_name=speaker_name,
             short_biography=short_biography,
             short_biography_markdown=short_biography_markdown,
             notes_or_requests=notes_or_requests,
@@ -70,7 +72,7 @@ def new_proposal():
         tasks.send_email(
             email_settings,
             [account.email_address],
-            "Password Reset",
+            "Proposal Submission Confirmation",
             render_template(
                 "global/email/proposal-submitted.html",
                 title=title,

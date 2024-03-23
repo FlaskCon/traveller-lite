@@ -6,6 +6,7 @@
 # app.config. All key names defined below will be
 # capitalised when imported.
 [FLASK]
+ENV = "<ENV>"
 DEBUG = false
 #PROPAGATE_EXCEPTIONS = true
 TRAP_HTTP_EXCEPTIONS = false
@@ -29,7 +30,6 @@ PREFERRED_URL_SCHEME = "http"
 #TEMPLATES_AUTO_RELOAD = true
 EXPLAIN_TEMPLATE_LOADING = false
 MAX_COOKIE_SIZE = 4093
-
 
 # This will set the default session variables for the app.
 # Anything here will be accessible using session["your_var_name"]

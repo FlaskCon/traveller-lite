@@ -6,6 +6,7 @@
 # app.config. All key names defined below will be
 # capitalised when imported.
 [FLASK]
+ENV = "<ENV>"
 DEBUG = false
 #PROPAGATE_EXCEPTIONS = true
 TRAP_HTTP_EXCEPTIONS = false
@@ -30,7 +31,6 @@ PREFERRED_URL_SCHEME = "http"
 EXPLAIN_TEMPLATE_LOADING = false
 MAX_COOKIE_SIZE = 4093
 
-
 # This will set the default session variables for the app.
 # Anything here will be accessible using session["your_var_name"]
 # or session.get("your_var_name")
@@ -53,9 +53,9 @@ SQLALCHEMY_RECORD_QUERIES = false
 [DATABASE.MAIN]
 ENABLED = true
 DIALECT = "postgresql"
-DATABASE_NAME = "<POSTGRES_DB>"
 LOCATION = "<POSTGRES_LOCATION>"
 PORT = "<POSTGRES_PORT>"
+DATABASE_NAME = "<POSTGRES_DB>"
 USERNAME = "<POSTGRES_USER>"
 PASSWORD = "<POSTGRES_PASSWORD>"
 

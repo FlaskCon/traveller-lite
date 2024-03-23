@@ -400,6 +400,35 @@
     background-color: rgba(128, 0, 0, 0.9);
 }
 
+.staff-only-dashboard-year-form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.staff-only-dashboard-year-form select {
+    margin-bottom: 0;
+    border-radius: 4px 0 0 4px;
+}
+
+.staff-only-dashboard-year-form label {
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 2rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 4px 0 0 4px;
+    background-color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 0;
+    font-size: 80%;
+}
+
+.staff-only-dashboard-year-form button {
+    margin-bottom: 0;
+    border-radius: 0 4px 4px 0;
+}
+
 .vote-for {
     display: inline-block;
     width: 10px;

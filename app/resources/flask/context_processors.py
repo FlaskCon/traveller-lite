@@ -55,7 +55,7 @@ def ctp_display_picture_processor():
 def ctp_account_processor():
     def ctp_account(account_id: int):
         """
-        Gets the URL for the given unique_display_picture_id.
+        Gets the account for the given account_id.
         """
         from app.models.accounts import Accounts
 
@@ -79,7 +79,7 @@ def ctp_comprehend_roles_processor():
 def ctp_conference_processor():
     def ctp_conference(year: int):
         """
-        Gets the media partners for the given year.
+        Gets the conference for the given year.
         """
         from app.models.conferences import Conferences
 

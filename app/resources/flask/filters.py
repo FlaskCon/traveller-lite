@@ -11,7 +11,7 @@ def replace_htt_for_https(value: str) -> str:
     """
     Replace http for https in the given string.
     """
-    if app.debug:
+    if app.config.get("ENV") == "development":
         return value
 
     if isinstance(value, str):
@@ -20,20 +20,22 @@ def replace_htt_for_https(value: str) -> str:
     return value
 
 
-@app.template_filter("days_until_cfp_ends")
-def days_until_cfp_ends(
-    call_for_proposals_end_date: Optional[Union[datetime, date]],
+@app.template_filter("days_left")
+def days_left(
+    date_: Optional[Union[datetime, date]],
 ) -> int:
     """
-    Returns the number of days until the CFP ends.
-    """
-    if isinstance(call_for_proposals_end_date, date):
-        now = DatetimeDeltaMC()
-        return (call_for_proposals_end_date - now.date).days
+    Returns the number of days left to get to the given date.
 
-    if isinstance(call_for_proposals_end_date, datetime):
+    Used to calculate the number of days left for the CFP.
+    """
+    if isinstance(date_, date):
         now = DatetimeDeltaMC()
-        return (call_for_proposals_end_date.date() - now.date).days
+        return (date_ - now.date).days
+
+    if isinstance(date_, datetime):
+        now = DatetimeDeltaMC()
+        return (date_.date() - now.date).days
 
     return 0
 

@@ -117,7 +117,9 @@
 
             <div class="top-stats">
                 <div><strong>Status:</strong> {{ proposal.rel_proposal_status.name }}</div>
+                <div><strong>Speaker Name:</strong> {{ proposal.speaker_name or '-' }}</div>
                 <div><strong>Year:</strong> {{ proposal.year }}</div>
+                <div><strong>Tags:</strong> {{ proposal.tags|replace(",", ", ") or '-' }}</div>
                 <div><strong>Your Vote:</strong>
                     {% set your_voting_position_on_this =
                         proposal.get_voting_position_using_account_id(session.get('account_id')) %}

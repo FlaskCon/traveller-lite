@@ -1,2 +1,2 @@
-[tool.ruff]
+[lint]
 ignore = ["F405", "F403"]

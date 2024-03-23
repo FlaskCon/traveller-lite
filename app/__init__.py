@@ -1,13 +1,9 @@
-import os
-
 from dotenv import load_dotenv
 from flask import Flask
 
 from app.extensions import imp, db
 
 load_dotenv()
-
-DEV_MODE = True if os.environ.get("DEV_MODE") else False
 
 
 def create_app():
@@ -17,7 +13,7 @@ def create_app():
     imp.import_models("models")
 
     imp.import_app_resources(
-        factories=["dev_cli"] if DEV_MODE else [],
+        factories=["dev_cli"] if app.config["ENV"] == "development" else [],
         folders_to_import=["*"],
         files_to_import=["*"],
     )
@@ -26,10 +22,5 @@ def create_app():
     imp.import_blueprint("blueprints/auth")
     imp.import_blueprint("blueprints/staff_only")
     imp.import_blueprint("blueprints/frontend")
-
-    if DEV_MODE:
-        print(
-            "DEV_MODE is enabled. Remember to turn this off in production (unset DEV_MODE)"
-        )
 
     return app

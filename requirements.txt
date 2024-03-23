@@ -1,6 +1,6 @@
 flask
 flask-sqlalchemy
-flask-imp==3.0.1
+flask-imp==3.1.0
 gunicorn
 pytz
 python-dotenv

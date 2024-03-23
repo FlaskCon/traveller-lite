@@ -41,6 +41,10 @@ class Conferences(db.Model, MetaMixins):
         ).scalar_one_or_none()
 
     @classmethod
+    def get_all_available_years(cls):
+        return db.session.execute(select(cls.year).distinct()).scalars().all()
+
+    @classmethod
     def create(
         cls,
         year: int,
@@ -112,24 +116,27 @@ class Conferences(db.Model, MetaMixins):
     @classmethod
     def seed(
         cls,
-        conference: dict,
+        conferences: list[dict],
     ):
-        db.session.execute(
-            insert(cls).values(
-                year=conference.get("year"),
-                index_endpoint=conference.get("index_endpoint"),
-                latest=conference.get("latest"),
-                call_for_proposals_start_date=convert_date(
-                    conference.get("call_for_proposals_start_date")
-                ),
-                call_for_proposals_end_date=convert_date(
-                    conference.get("call_for_proposals_end_date")
-                ),
-                conference_start_date=convert_date(
-                    conference.get("conference_start_date")
-                ),
-                conference_end_date=convert_date(conference.get("conference_end_date")),
+        for conference in conferences:
+            db.session.execute(
+                insert(cls).values(
+                    year=conference.get("year"),
+                    index_endpoint=conference.get("index_endpoint"),
+                    latest=conference.get("latest"),
+                    call_for_proposals_start_date=convert_date(
+                        conference.get("call_for_proposals_start_date")
+                    ),
+                    call_for_proposals_end_date=convert_date(
+                        conference.get("call_for_proposals_end_date")
+                    ),
+                    conference_start_date=convert_date(
+                        conference.get("conference_start_date")
+                    ),
+                    conference_end_date=convert_date(
+                        conference.get("conference_end_date")
+                    ),
+                )
             )
-        )
 
         db.session.commit()

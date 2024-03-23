@@ -1,5 +1,6 @@
 from collections import OrderedDict
 from datetime import datetime
+from typing import Any
 
 from sqlalchemy import func
 
@@ -23,23 +24,26 @@ class Proposals(db.Model, MetaMixins):
     # What they'll learn from your proposal.
     # What background experience they should have to get the most out of your proposal.
     # DO NOT place any identifying information in this field.
-    detail = db.Column(db.String, nullable=True)
-    detail_markdown = db.Column(db.String, nullable=True)
+    detail = db.Column(db.String, nullable=True)  # Markup
+    detail_markdown = db.Column(db.String, nullable=True)  # HTML
 
     # A short description of your proposal.
     # If your proposal is accepted, the abstract will be published on the conference website.
     # DO NOT place any identifying information in this field.
-    abstract = db.Column(db.String, nullable=True)
-    abstract_markdown = db.Column(db.String, nullable=True)
+    abstract = db.Column(db.String, nullable=True)  # Markup
+    abstract_markdown = db.Column(db.String, nullable=True)  # HTML
+
+    # Name of the speaker
+    speaker_name = db.Column(db.String, nullable=True)
 
     # A short biography of yourself.
     # This will not be published on the conference website.
-    short_biography = db.Column(db.String, nullable=True)
-    short_biography_markdown = db.Column(db.String, nullable=True)
+    short_biography = db.Column(db.String, nullable=True)  # Markup
+    short_biography_markdown = db.Column(db.String, nullable=True)  # HTML
 
     # Any additional notes or needs you have from us.
-    notes_or_requests = db.Column(db.String, nullable=True)
-    notes_or_requests_markdown = db.Column(db.String, nullable=True)
+    notes_or_requests = db.Column(db.String, nullable=True)  # Markup
+    notes_or_requests_markdown = db.Column(db.String, nullable=True)  # HTML
 
     # Tags are used to help reviewers find proposals that interest them.
     tags = db.Column(db.String, nullable=True)
@@ -144,44 +148,56 @@ class Proposals(db.Model, MetaMixins):
         )
 
     @classmethod
-    def count_total_proposals_in_status_prep_not_sent_a_reminder_to_submit(cls):
+    def count_total_proposals_in_status_prep_not_sent_a_reminder_to_submit(
+        cls, year: int
+    ):
         from .proposal_statuses import ProposalStatuses
 
         proposal_ids = ProposalStatuses.select_proposal_status_id_using_unique_proposal_status_id_batch(
             [101]
         )
-        return db.session.execute(
-            select(func.count(cls.proposal_id)).where(
-                cls.fk_proposal_status_id.in_(proposal_ids),
-                cls.submit_reminder_sent.is_(False),
-            )
-        ).scalar_one_or_none()
+        q = select(func.count(cls.proposal_id)).where(
+            cls.fk_proposal_status_id.in_(proposal_ids),
+            cls.submit_reminder_sent.is_(False),
+        )
+        if year != 0:
+            q = q.where(cls.year == year)
+
+        return db.session.execute(q).scalar_one_or_none()
 
     @classmethod
-    def count_total_proposals_in_status_prep(cls):
+    def count_total_proposals_in_status_prep(cls, year: int):
         from .proposal_statuses import ProposalStatuses
 
         proposal_ids = ProposalStatuses.select_proposal_status_id_using_unique_proposal_status_id_batch(
             [101]
         )
-        return db.session.execute(
-            select(func.count(cls.proposal_id)).where(
-                cls.fk_proposal_status_id.in_(proposal_ids)
-            )
-        ).scalar_one_or_none()
+        q = select(func.count(cls.proposal_id)).where(
+            cls.fk_proposal_status_id.in_(proposal_ids)
+        )
+        if year != 0:
+            q = q.where(cls.year == year)
+        return db.session.execute(q).scalar_one_or_none()
 
     @classmethod
-    def count_total_proposals_at_reviewer_seen_statuses(cls):
+    def count_total_proposals_at_reviewer_seen_statuses(
+        cls, year: int
+    ) -> tuple[int, list[int]]:
+        """
+        Returns total, [proposal_id, proposal_id, ...]
+        """
         from .proposal_statuses import ProposalStatuses
 
         proposal_ids = ProposalStatuses.select_proposal_status_id_using_unique_proposal_status_id_batch(
             [102, 103, 104, 105]
         )
-        return db.session.execute(
-            select(func.count(cls.proposal_id)).where(
-                cls.fk_proposal_status_id.in_(proposal_ids)
-            )
-        ).scalar_one_or_none()
+        q = select(cls.proposal_id).where(cls.fk_proposal_status_id.in_(proposal_ids))
+        if year != 0:
+            q = q.where(cls.year == year)
+
+        r = db.session.execute(q).scalars().all()
+
+        return len(r), r
 
     @classmethod
     def select_using_account_id(cls, account_id: int):
@@ -204,24 +220,20 @@ class Proposals(db.Model, MetaMixins):
         ).scalar_one_or_none()
 
     @classmethod
-    def for_review(cls):
+    def for_review(cls, year: int):
         from .proposal_statuses import ProposalStatuses
 
         proposal_ids = ProposalStatuses.select_proposal_status_id_using_unique_proposal_status_id_batch(
             [102, 103, 104, 105]
         )
-        return (
-            db.session.execute(
-                select(cls)
-                .where(cls.fk_proposal_status_id.in_(proposal_ids))
-                .order_by(cls.created.asc())
-            )
-            .scalars()
-            .all()
-        )
+        q = select(cls).where(cls.fk_proposal_status_id.in_(proposal_ids))
+        if year != 0:
+            q = q.where(cls.year == year)
+
+        return db.session.execute(q.order_by(cls.created.asc())).scalars().all()
 
     @classmethod
-    def has_been_accepted(cls):
+    def has_been_accepted(cls, year: int):
         from .proposal_statuses import ProposalStatuses
 
         accepted_status_id: int = (
@@ -229,19 +241,13 @@ class Proposals(db.Model, MetaMixins):
                 107
             ).proposal_status_id
         )
-
-        return (
-            db.session.execute(
-                select(cls)
-                .where(cls.fk_proposal_status_id == accepted_status_id)
-                .order_by(cls.created.asc())
-            )
-            .scalars()
-            .all()
-        )
+        q = select(cls).where(cls.fk_proposal_status_id == accepted_status_id)
+        if year != 0:
+            q = q.where(cls.year == year)
+        return db.session.execute(q.order_by(cls.created.asc())).scalars().all()
 
     @classmethod
-    def has_been_rejected(cls):
+    def has_been_rejected(cls, year: int):
         from .proposal_statuses import ProposalStatuses
 
         accepted_status_id: int = (
@@ -250,18 +256,14 @@ class Proposals(db.Model, MetaMixins):
             ).proposal_status_id
         )
 
-        return (
-            db.session.execute(
-                select(cls)
-                .where(cls.fk_proposal_status_id == accepted_status_id)
-                .order_by(cls.created.asc())
-            )
-            .scalars()
-            .all()
-        )
+        q = select(cls).where(cls.fk_proposal_status_id == accepted_status_id)
+        if year != 0:
+            q = q.where(cls.year == year)
+
+        return db.session.execute(q.order_by(cls.created.asc())).scalars().all()
 
     @classmethod
-    def has_been_waitlisted(cls):
+    def has_been_waitlisted(cls, year: int):
         from .proposal_statuses import ProposalStatuses
 
         accepted_status_id: int = (
@@ -270,19 +272,15 @@ class Proposals(db.Model, MetaMixins):
             ).proposal_status_id
         )
 
-        return (
-            db.session.execute(
-                select(cls)
-                .where(cls.fk_proposal_status_id == accepted_status_id)
-                .order_by(cls.created.asc())
-            )
-            .scalars()
-            .all()
-        )
+        q = select(cls).where(cls.fk_proposal_status_id == accepted_status_id)
+        if year != 0:
+            q = q.where(cls.year == year)
+
+        return db.session.execute(q.order_by(cls.created.asc())).scalars().all()
 
     @classmethod
-    def leaderboard(cls):
-        proposals = cls.for_review()
+    def leaderboard(cls, year: int) -> list[tuple[Any, dict[str, int | Any]]]:
+        proposals = cls.for_review(year)
 
         leaderboard = OrderedDict()
 
@@ -310,11 +308,13 @@ class Proposals(db.Model, MetaMixins):
         detail_markdown,
         abstract,
         abstract_markdown,
+        speaker_name,
         short_biography,
         short_biography_markdown,
         notes_or_requests,
         notes_or_requests_markdown,
         tags,
+        year=datetime.now().year,
     ):
         from .proposal_statuses import ProposalStatuses
 
@@ -324,12 +324,13 @@ class Proposals(db.Model, MetaMixins):
                 fk_proposal_status_id=ProposalStatuses.select_using_unique_proposal_status_id(
                     102
                 ).proposal_status_id,
-                year=datetime.now().year,
+                year=year,
                 title=title,
                 detail=detail,
                 detail_markdown=detail_markdown,
                 abstract=abstract,
                 abstract_markdown=abstract_markdown,
+                speaker_name=speaker_name,
                 short_biography=short_biography,
                 short_biography_markdown=short_biography_markdown,
                 notes_or_requests=notes_or_requests,

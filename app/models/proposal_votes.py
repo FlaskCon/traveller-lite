@@ -10,21 +10,27 @@ class ProposalVotes(db.Model, MetaMixins):
     vote = db.Column(db.Boolean, nullable=False, default=True)
 
     @classmethod
-    def count_total_votes(cls):
+    def count_total_votes(cls, proposal_ids: list[int]):
+        return db.session.execute(
+            select(func.count(cls.proposal_vote_id)).where(
+                cls.fk_proposal_id.in_(proposal_ids)
+            )
+        ).scalar_one_or_none()
+
+    @classmethod
+    def count_total_for_votes(cls, proposal_ids: list[int]):
         return db.session.execute(
             select(func.count(cls.proposal_vote_id))
+            .where(cls.vote.is_(True))
+            .where(cls.fk_proposal_id.in_(proposal_ids))
         ).scalar_one_or_none()
 
     @classmethod
-    def count_total_for_votes(cls):
+    def count_total_against_votes(cls, proposal_ids: list[int]):
         return db.session.execute(
-            select(func.count(cls.proposal_vote_id)).where(cls.vote.is_(True))
-        ).scalar_one_or_none()
-
-    @classmethod
-    def count_total_against_votes(cls):
-        return db.session.execute(
-            select(func.count(cls.proposal_vote_id)).where(cls.vote.is_(False))
+            select(func.count(cls.proposal_vote_id))
+            .where(cls.vote.is_(False))
+            .where(cls.fk_proposal_id.in_(proposal_ids))
         ).scalar_one_or_none()
 
     @classmethod

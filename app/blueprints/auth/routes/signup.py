@@ -38,12 +38,12 @@ def signup():
                 flash("An account with that email address already exists.")
                 return redirect(url_for("auth.signup"))
 
-            new_account = Accounts.signup(email_address, password, name_or_alias)
+            new_account = Accounts.signup(email_address, password, name_or_alias, False)
             if new_account:
                 tasks.send_email(
                     email_settings,
                     [email_address],
-                    "Confirm your account",
+                    "Confirm Your Account",
                     render_template(
                         "global/email/confirm-email.html",
                         account_id=new_account.account_id,

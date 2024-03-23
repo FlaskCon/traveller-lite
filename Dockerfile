@@ -1,4 +1,4 @@
-FROM flaskcon/base-layer
+FROM flaskcon/base-layer:latest
 COPY .env .env
 COPY app app
 RUN mkdir -p app/instance
