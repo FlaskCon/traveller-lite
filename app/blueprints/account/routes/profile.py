@@ -33,11 +33,11 @@ def profile():
 
         profile_.save()
 
-        session[
-            "unique_display_picture_id"
-        ] = DisplayPictures.select_using_display_picture_id(
-            fk_display_picture_id
-        ).unique_display_picture_id
+        session["unique_display_picture_id"] = (
+            DisplayPictures.select_using_display_picture_id(
+                fk_display_picture_id
+            ).unique_display_picture_id
+        )
 
         flash("Your profile has been updated.")
         return redirect(url_for("account.profile"))
