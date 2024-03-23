@@ -11,4 +11,4 @@ url_prefix = "/staff-only"
 #cli_group = ""
 
 [session]
-#staff_session = "yes"
+year = 0
