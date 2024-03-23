@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, session
 
 from app.extensions import email_settings
 from app.models.accounts import Accounts
@@ -32,7 +32,9 @@ def api_send_submit_reminder():
     Proposals.save()
 
     total_in_pnsr_recount = (
-        Proposals.count_total_proposals_in_status_prep_not_sent_a_reminder_to_submit()
+        Proposals.count_total_proposals_in_status_prep_not_sent_a_reminder_to_submit(
+            session.get("year", 0)
+        )
     )
 
     return {

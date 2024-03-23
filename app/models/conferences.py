@@ -41,6 +41,10 @@ class Conferences(db.Model, MetaMixins):
         ).scalar_one_or_none()
 
     @classmethod
+    def get_all_available_years(cls):
+        return db.session.execute(select(cls.year).distinct()).scalars().all()
+
+    @classmethod
     def create(
         cls,
         year: int,
