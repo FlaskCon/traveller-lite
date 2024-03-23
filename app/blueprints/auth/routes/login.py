@@ -44,11 +44,11 @@ def login():
 
                 session["logged_in"] = True
                 session["account_id"] = account.account_id
-                session[
-                    "unique_display_picture_id"
-                ] = DisplayPictures.select_using_display_picture_id(
-                    display_picture_id
-                ).unique_display_picture_id
+                session["unique_display_picture_id"] = (
+                    DisplayPictures.select_using_display_picture_id(
+                        display_picture_id
+                    ).unique_display_picture_id
+                )
 
                 if DisplayPictures.select_using_unique_display_picture_id(
                     datetime.now().year
