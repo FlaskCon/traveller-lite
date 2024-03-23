@@ -39,6 +39,7 @@
                     <div class="top-stats m-down-1">
                         <div><strong>Status:</strong> {{ proposal.proposal_status }}</div>
                         <div><strong>Year:</strong> {{ proposal.year }}</div>
+                        <div><strong>Tags:</strong> {{ proposal.tags|replace(",", ", ") or '-' }}</div>
                     </div>
 
                     <div>
