@@ -45,9 +45,10 @@
             <div class="m-down-1"></div>
 
             <div class="attention-content">
-                <strong>Note:</strong> 
+                <strong>Note:</strong>
                 <p>- Links and Images will be stripped from Markdown.</p>
-                <p>- Once you create proposal, you will be taken to a confirmation page where you can review and edit your submission.</p>
+                <p>- Once you submit your proposal, you will no longer be able to edit it.</p>
+                <p>- If you have any questions or requests, you can mention them in the Notes to the Committee section.</p>
             </div>
 
             <div class="m-down-1"></div>
@@ -74,6 +75,10 @@
             </p>
             <textarea name="abstract" id="abstract" style="min-height: 300px;" required></textarea>
 
+            <label for="speaker_name" class="required">Speaker Name</label>
+            <p class="label-description">This name will be shown on the website if your proposal is accepted.</p>
+            <input type="text" id="speaker_name" name="speaker_name" class="w-100" required>
+
             <label for="short_biography" class="m-down-0">
                 Short Biography
             </label>
@@ -92,7 +97,7 @@
             <label for="tags" class="required">Tags</label>
             <p class="label-description">Comma seperated tags to help categorize your talk on the website.</p>
             <input type="text" id="tags" name="tags" class="w-100" placeholder="Flask, SQLAlchemy ..." required>
-            
+
             <i>Form submission button is located at the top of the page</i><br>
 
             <a href="#top" class="button w-100">Back to Top</a>
