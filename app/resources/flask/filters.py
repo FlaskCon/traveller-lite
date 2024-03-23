@@ -11,7 +11,7 @@ def replace_htt_for_https(value: str) -> str:
     """
     Replace http for https in the given string.
     """
-    if app.debug:
+    if app.config.get("ENV") == "development":
         return value
 
     if isinstance(value, str):
@@ -22,7 +22,7 @@ def replace_htt_for_https(value: str) -> str:
 
 @app.template_filter("days_left")
 def days_left(
-        date_: Optional[Union[datetime, date]],
+    date_: Optional[Union[datetime, date]],
 ) -> int:
     """
     Returns the number of days left to get to the given date.
