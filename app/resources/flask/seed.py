@@ -60,7 +60,7 @@ def seed():
 
     if Conferences.__is_empty__():
         print("Creating conferences...")
-        Conferences.seed(Resources.conference)
+        Conferences.seed(Resources.conferences)
     else:
         print("Conferences table is not empty.")
 
