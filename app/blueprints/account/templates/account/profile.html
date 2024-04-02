@@ -79,7 +79,7 @@
                 </div>
 
                 <div class="display-picture-choice" x-cloak x-show="standardOpen" x-transition>
-                    {% for dp in standard_display_pictures %}
+                    {% for unique_display_picture_id, dp in standard_display_pictures.items() %}
                         <div class="display-picture-box" id="db_box_{{ dp.display_picture_id }}">
                             <img
                                     src="{{ url_for('static', filename='display-pictures/' + dp.filename) }}"
@@ -109,27 +109,27 @@
                 <div class="display-picture-choice" x-cloak x-show="awardedOpen" x-transition>
                     {% if earned_display_pictures %}
                         {% for dp in earned_display_pictures %}
-                            <div class="display-picture-box" id="db_box_{{ dp.display_picture_id }}">
+                            <div class="display-picture-box" id="db_box_{{ awarded_display_pictures[dp].display_picture_id }}">
                                 <img
-                                        src="{{ url_for('static', filename='display-pictures/' + dp.filename) }}"
-                                        alt="A display picture taken by {{ dp.attribution }}"
-                                        id="db_{{ dp.display_picture_id }}"
-                                        @click="selectDisplayPicture(parseInt('{{ dp.display_picture_id }}'))"
-                                        title="A display picture by: {{ dp.attribution }}"
+                                        src="{{ url_for('static', filename='display-pictures/' + awarded_display_pictures[dp].filename) }}"
+                                        alt="A display picture taken by {{ awarded_display_pictures[dp].attribution }}"
+                                        id="db_{{ awarded_display_pictures[dp].display_picture_id }}"
+                                        @click="selectDisplayPicture(parseInt('{{ awarded_display_pictures[dp].display_picture_id }}'))"
+                                        title="A display picture by: {{ awarded_display_pictures[dp].attribution }}"
                                         class="display-picture-choice-img"
                                 />
-                                <small>{{ dp.note }}</small>
-                                {% if dp.attribution_url %}
+                                <small>{{ awarded_display_pictures[dp].note }}</small>
+                                {% if awarded_display_pictures[dp].attribution_url %}
                                     <small>
                                         A display picture by<br/>
-                                        <a href="{{ dp.attribution_url }}"
+                                        <a href="{{ awarded_display_pictures[dp].attribution_url }}"
                                            target="_blank"
-                                           rel="noopener noreferrer nofollow">{{ dp.attribution }}</a>
+                                           rel="noopener noreferrer nofollow">{{ awarded_display_pictures[dp].attribution }}</a>
                                     </small>
                                 {% else %}
                                     <small>
                                         A display picture by <br/>
-                                        {{ dp.attribution }}
+                                        {{ awarded_display_pictures[dp].attribution }}
                                     </small>
                                 {% endif %}
                             </div>

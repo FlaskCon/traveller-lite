@@ -43,12 +43,28 @@ def profile():
         return redirect(url_for("account.profile"))
 
     display_pictures = DisplayPictures.select_all()
-    raw_earned_display_pictures = profile_.earned_display_pictures.get("earned", [])
-    standard_display_pictures = [dp for dp in display_pictures if not dp.limited]
-    earned_display_pictures = []
+    earned_display_pictures = profile_.earned_display_pictures.get("earned", [])
+
+    standard_display_pictures = {}
+    awarded_display_pictures = {}
+
     for dp in display_pictures:
-        if dp.unique_display_picture_id in raw_earned_display_pictures:
-            earned_display_pictures.append(dp)
+        if not dp.limited:
+            standard_display_pictures[dp.unique_display_picture_id] = {
+                "display_picture_id": dp.display_picture_id,
+                "filename": dp.filename,
+                "attribution": dp.attribution,
+                "attribution_url": dp.attribution_url,
+                "note": dp.note,
+            }
+        else:
+            awarded_display_pictures[dp.unique_display_picture_id] = {
+                "display_picture_id": dp.display_picture_id,
+                "filename": dp.filename,
+                "attribution": dp.attribution,
+                "attribution_url": dp.attribution_url,
+                "note": dp.note,
+            }
 
     sorted_countries = sorted([country.name for country in pycountry.countries])
 
@@ -56,7 +72,9 @@ def profile():
         bp.tmpl("profile.html"),
         profile=profile_,
         standard_display_pictures=standard_display_pictures,
+        awarded_display_pictures=awarded_display_pictures,
         earned_display_pictures=earned_display_pictures,
+        all_display_pictures=display_pictures,
         csrf=session["csrf"],
         all_countries=sorted_countries,
     )
