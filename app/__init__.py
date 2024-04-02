@@ -26,18 +26,4 @@ def create_app():
     imp.import_blueprint("blueprints/staff_only")
     imp.import_blueprint("blueprints/frontend")
 
-    with app.app_context():
-        udpids = [dp.unique_display_picture_id for dp in DisplayPictures.query.all()]
-
-        for dp in Resources.original_display_pictures:
-            if dp["unique_display_picture_id"] not in udpids:
-                DisplayPictures.create(
-                    attribution=dp["attribution"],
-                    attribution_url=dp["attribution_url"],
-                    filename=dp["filename"],
-                    limited=dp["limited"],
-                    note=dp["note"],
-                    unique_display_picture_id=dp["unique_display_picture_id"],
-                )
-
     return app
