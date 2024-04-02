@@ -60,33 +60,23 @@ class Profiles(db.Model, MetaMixins):
     def add_earned_display_picture(cls, account_id: int, unique_display_picture_id):
         profile = cls.select_using_account_id(account_id)
 
-        if profile.earned_display_pictures:
-            earned = profile.earned_display_pictures.get("earned", [])
-        else:
-            earned = []
+        earned = profile.earned_display_pictures.get("earned", [])
 
-        if earned:
-            if unique_display_picture_id not in earned:
-                earned.append(unique_display_picture_id)
-            else:
-                return
-        else:
-            earned.append(unique_display_picture_id)
+        if unique_display_picture_id not in earned:
+            db.session.execute(
+                update(cls)
+                .where(cls.fk_account_id == account_id)
+                .values(earned_display_pictures={"earned": [*earned, unique_display_picture_id]})
+            )
 
-        db.session.execute(
-            update(cls)
-            .where(cls.fk_account_id == account_id)
-            .values(earned_display_pictures={"earned": earned})
-        )
+            UpdateFeed.create(
+                fk_account_id=account_id,
+                title="You have earned a new display picture!",
+                message="Check it out in your profile.",
+                image="star.gif",
+            )
 
-        UpdateFeed.create(
-            fk_account_id=account_id,
-            title="You have earned a new display picture!",
-            message="Check it out in your profile.",
-            image="star.gif",
-        )
-
-        db.session.commit()
+            db.session.commit()
 
     @staticmethod
     def save():

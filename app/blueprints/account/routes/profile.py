@@ -45,15 +45,10 @@ def profile():
     display_pictures = DisplayPictures.select_all()
     raw_earned_display_pictures = profile_.earned_display_pictures.get("earned", [])
     standard_display_pictures = [dp for dp in display_pictures if not dp.limited]
-    earned_display_pictures = (
-        [
-            dp
-            for dp in display_pictures
-            if dp.unique_display_picture_id in raw_earned_display_pictures
-        ]
-        if raw_earned_display_pictures
-        else []
-    )
+    earned_display_pictures = []
+    for dp in display_pictures:
+        if dp.unique_display_picture_id in raw_earned_display_pictures:
+            earned_display_pictures.append(dp)
 
     sorted_countries = sorted([country.name for country in pycountry.countries])
 
