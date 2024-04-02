@@ -7,7 +7,6 @@
 # capitalised when imported.
 [FLASK]
 ENV = "<ENV>"
-DEBUG = false
 #PROPAGATE_EXCEPTIONS = true
 TRAP_HTTP_EXCEPTIONS = false
 #TRAP_BAD_REQUEST_ERRORS = true

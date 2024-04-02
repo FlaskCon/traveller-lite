@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+[data-theme='normal'] {
+    --html-body-bg-color: #eeeeee;
+    --html-default-text-color: #0b0b0b;
+}
+
+body {
+    background-color: var(--html-body-bg-color);
+    color: var(--html-default-text-color);
+}
+
+.hero-top {
+    @apply w-full;
+    height: 94px;
+}
+
+.hero {
+    @apply flex flex-col items-center justify-end overflow-clip;
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0), #bcd3fc);
+    min-height: 250px;
+    width: 100%;
+}
+
+.hero-overlay {
+    @apply flex flex-col items-center
+    justify-center w-full;
+}
+
+.hero-overlay img {
+    max-height: 200px;
+}
+
+.container {
+    @apply mx-auto px-4 mb-10;
+    max-width: 750px;
+}
+
+
+h1 {
+    @apply text-4xl font-bold;
+}
+
+h2 {
+    @apply text-2xl font-bold;
+}
+
+h3 {
+    @apply text-xl font-bold;
+}
+
+a {
+    @apply block text-blue-500 hover:underline;
+}
+
+ul {
+    @apply list-disc list-inside mx-4;
+}
+
+li {
+    @apply my-2;
+}
+
+.btn {
+    @apply block px-4 py-2 rounded-md;
+    background-color: #1a202c;
+    color: #ffffff;
+}
+
+.btn:hover {
+    background-color: #2d3748;
+    text-decoration: none;
+}
+
+table {
+    @apply w-full;
+    border-collapse: collapse;
+}
+
+th, td {
+    @apply border border-gray-300 text-center;
+    padding: 8px;
+}
+
+@media (width < 768px) {
+
+    h1 {
+        @apply text-2xl;
+    }
+
+    h2 {
+        @apply text-xl;
+    }
+
+    h3 {
+        @apply text-lg;
+    }
+
+}

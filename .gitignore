@@ -162,3 +162,4 @@ cython_debug/
 #.idea/
 
 /.flaskenv
+/vite_2024_frontend/node_modules/

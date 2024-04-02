@@ -73,7 +73,7 @@ class DisplayPictures(db.Model, MetaMixins):
 
     @classmethod
     def create(
-        cls, unique_display_picture_id, filename, attribution, attribution_url, limited
+        cls, unique_display_picture_id, filename, attribution, attribution_url, limited, note
     ):
         db.session.execute(
             insert(cls).values(
@@ -82,6 +82,7 @@ class DisplayPictures(db.Model, MetaMixins):
                 attribution=attribution,
                 attribution_url=attribution_url,
                 limited=limited,
+                note=note,
             )
         )
         db.session.commit()

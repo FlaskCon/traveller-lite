@@ -12,3 +12,4 @@ psycopg2-binary
 click
 faker
 huey
+vite-to-flask==0.3.0
