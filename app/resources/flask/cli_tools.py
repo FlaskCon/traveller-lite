@@ -9,10 +9,8 @@ def initdb_command():
     db.create_all()
     print("Initialized the database.")
 
-
+    
 @app.cli.command("sync-dp")
 def sync_display_picture():
     from app.models.display_pictures import DisplayPictures
     from app.models import Resources
-
-
