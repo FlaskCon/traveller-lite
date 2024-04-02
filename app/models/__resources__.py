@@ -277,6 +277,14 @@ class Resources:
             "note": "Awarded when you accessed your account during FlaskCon 2023.",
             "unique_display_picture_id": 2023,
         },
+        {
+            "attribution": "David Carmichael",
+            "attribution_url": "https://github.com/CheeseCake87",
+            "filename": "flaskcon2024.gif",
+            "limited": True,
+            "note": "Awarded when you accessed your account during FlaskCon 2024.",
+            "unique_display_picture_id": 2024,
+        },
     ]
 
 

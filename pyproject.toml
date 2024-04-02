@@ -1,2 +1,10 @@
 [lint]
 ignore = ["F405", "F403"]
+
+[tool.vtf]
+npx_exec = "npx"
+flask_app_dir = "app"
+vite_app_dirs = ["vite_2024_frontend"]
+
+[tool.pyqwe]
+2024 = "*(vite_2024_frontend):npx vite"
