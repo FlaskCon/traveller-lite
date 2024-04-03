@@ -7,4 +7,6 @@ flask_app_dir = "app"
 vite_app_dirs = ["vite_2024_frontend"]
 
 [tool.pyqwe]
-2024 = "*(vite_2024_frontend):npx vite"
+2024_update = "*(vite_2024_frontend):npm update"
+2024_setup = "*(vite_2024_frontend):npm install"
+2024_run = "*(vite_2024_frontend):npx vite"
