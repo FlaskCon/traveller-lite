@@ -19,7 +19,7 @@
             <div><strong>Speaker Name:</strong> {{ proposal.speaker_name or '-' }}</div>
             <div><strong>Year:</strong> {{ proposal.year }}</div>
             <div><strong>Tags:</strong> {{ proposal.tags|replace(",", ", ") or '-' }}</div>
-        </div>}}
+        </div>
 
         <h3 class="underline">Detail</h3>
         {{ proposal.detail_markdown|safe if proposal.detail_markdown else "<p>No detail provided.</p>"|safe }}
