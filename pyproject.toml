@@ -1,10 +1,11 @@
 [lint]
 ignore = ["F405", "F403"]
 
-[tool.vtf]
+[tool.vite_transporter]
+npm_exec = "npm"
 npx_exec = "npx"
-flask_app_dir = "app"
-vite_app_dirs = ["vite_2024_frontend"]
+serve_app = "app"
+vite_apps = ["vite_2024_frontend"]
 
 [tool.pyqwe]
 2024_update = "*(vite_2024_frontend):npm update"
