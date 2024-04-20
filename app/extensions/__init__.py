@@ -2,13 +2,13 @@ import os
 
 from flask_imp import Imp
 from flask_sqlalchemy import SQLAlchemy
-from vite_to_flask import ViteToFlask
+from vite_transporter.platform.flask import ViteTransporter
 
 from app.utilities.email_service import EmailServiceSettings, EmailService
 
 imp = Imp()
 db = SQLAlchemy()
-vite = ViteToFlask()
+vite = ViteTransporter()
 email_settings = EmailServiceSettings(
     int(os.environ.get("EMAIL_DEV_MODE", "0")),
     os.environ.get("EMAIL_USERNAME"),
