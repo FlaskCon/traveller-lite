@@ -19,6 +19,7 @@
                 <th>Username</th>
                 <th>Roles</th>
                 <th>Confirmed</th>
+                <th>Joined</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -32,6 +33,7 @@
                         {% endfor %}
                     </td>
                     <td>{{ account.confirmed }}</td>
+                <td>{{ account.created|day_month_year }}</td>
                     <td>
                         <a href="{{ url_for('staff_only.system.account', account_id=account.account_id) }}">Manage</a>
                     </td>

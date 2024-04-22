@@ -22,7 +22,7 @@ def replace_htt_for_https(value: str) -> str:
 
 @app.template_filter("days_left")
 def days_left(
-    date_: Optional[Union[datetime, date]],
+        date_: Optional[Union[datetime, date]],
 ) -> int:
     """
     Returns the number of days left to get to the given date.
@@ -73,5 +73,27 @@ def day_month(date_or_datetime: Optional[Union[datetime, date]]) -> Optional[str
 
     if isinstance(date_or_datetime, date) or isinstance(date_or_datetime, datetime):
         return f"{date_or_datetime.day}{day_suffix(date_or_datetime.day)} {date_or_datetime.strftime('%b')}"
+
+    return None
+
+
+@app.template_filter("day_month_year")
+def day_month_year(date_or_datetime: Optional[Union[datetime, date]]) -> Optional[str]:
+    """
+    Returns the day and month of the given date or datetime.
+    """
+
+    def day_suffix(day: int) -> str:
+        if 4 <= day <= 20 or 24 <= day <= 30:
+            return "th"
+        else:
+            return ["st", "nd", "rd"][day % 10 - 1]
+
+    if isinstance(date_or_datetime, date) or isinstance(date_or_datetime, datetime):
+        return (
+            f"{date_or_datetime.day}{day_suffix(date_or_datetime.day)} "
+            f"{date_or_datetime.strftime('%b')} "
+            f"{date_or_datetime.strftime('%Y')}"
+        )
 
     return None
