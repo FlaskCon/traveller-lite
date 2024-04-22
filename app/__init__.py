@@ -9,7 +9,12 @@ load_dotenv()
 def create_app():
     app = Flask(__name__)
     imp.init_app(app)
-    vite.init_app(app, cors_allowed_hosts=["http://127.0.0.1:5002"])
+    vite.init_app(
+        app,
+        cors_allowed_hosts=["http://127.0.0.1:5002"]
+        if app.config["ENV"] == "development"
+        else [],
+    )
     db.init_app(app)
     imp.import_models("models")
 
