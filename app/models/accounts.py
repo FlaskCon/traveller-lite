@@ -6,6 +6,7 @@ from flask_imp.auth import encrypt_password
 from flask_imp.auth import generate_password
 from flask_imp.auth import generate_private_key
 from flask_imp.auth import generate_salt
+from flask_imp.auth import generate_email_validator
 from sqlalchemy import func
 
 from . import *
@@ -199,7 +200,7 @@ class Accounts(db.Model, MetaMixins):
 
         salt = generate_salt()
         encrypted_password = encrypt_password(password, salt, pepper_position="start")
-        private_key = generate_private_key(generate_password(length=1))
+        private_key = generate_email_validator()
 
         db.session.execute(
             insert(cls).values(

@@ -1,6 +1,7 @@
 <h1>Hello!</h1>
 <p>Thank you for registering with FlaskCon.</p>
-<p><a href="{{ url_for('auth.confirm', account_id=account_id, private_key=private_key, _external=True) }}">
-    Click here
-</a> to verify your account.</p>
+<p>Your verification code is:</p>
+<p><strong>{{ private_key }}</strong></p>
+<p>Enter this code in the verification form to complete your registration.</p>
+<p><a href="https://flaskcon.com/signup/confirm/{{ account_id }}">Confirmation Page</a></p>
 <p>Thanks!</p>
