@@ -83,12 +83,34 @@ export default function Index() {
                     }
                 </div>
             </section>
+
+            <section className={'container'}>
+                <h2 className={'my-5'}>Proposal Ideas!</h2>
+                <p>If you are a developer who uses or contributes to Flask,
+                    Click, Jinja, or other parts of Pallets,
+                    designers who work with them,
+                    or sysadmins who administer them,
+                    here are some talk ideas to consider:</p>
+                <ul>
+                    <li>HTMX</li>
+                    <li>WSGI and ASGI</li>
+                    <li>Accessibility</li>
+                    <li>Performance</li>
+                    <li>Case Studies</li>
+                    <li>Your experience as a newbie</li>
+                </ul>
+            </section>
+
             <section className={'container'}>
                 <h2 className={'my-5'}>Speaking Experience</h2>
                 <ul>
                     <li>We are focused on accepting lightning talks this year, typically 5 - 15 mins.</li>
-                    <li>If your talk is selected, you'll be invited to attend FlaskCon which will be held
-                        inside PyCon US (Pittsburgh, Pennsylvania, USA)
+                    <li>
+                        If your talk is accepted and you haven't secured a PyCon 2024 ticket yet,
+                        you'll need to sign
+                        up to acquire one for entry to the venue.
+                        You can register for a
+                        ticket by following this link <a href={'https://us.pycon.org/2024/registration/register'}>here</a>
                     </li>
                 </ul>
             </section>
