@@ -52,11 +52,11 @@ h3 {
 }
 
 a {
-    @apply block text-blue-500 hover:underline;
+    @apply inline-block text-blue-500 hover:underline;
 }
 
 ul {
-    @apply list-disc list-inside mx-4;
+    @apply list-disc list-outside mx-4;
 }
 
 li {
