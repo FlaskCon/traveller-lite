@@ -1,9 +1,8 @@
-import os
 from datetime import datetime, date
 
 import mistune
 from flask import render_template, request, session, redirect, url_for, flash
-from flask_imp.security import login_check, include_csrf
+from flask_imp.security import login_check
 
 from app.extensions import email_settings
 from app.huey import tasks
@@ -12,15 +11,18 @@ from app.models.conferences import Conferences
 from app.models.proposals import Proposals
 from app.utilities import DatetimeDeltaMC
 from app.utilities.render_engines import HighlightRenderer
+from .new_proposal import FLASKCON_EMAIL_ADDRESS
 from .. import bp
 
-FLASKCON_EMAIL_ADDRESS = os.environ.get("FLASKCON_EMAIL_ADDRESS")
 
-
-@bp.route("/proposals/new-proposal", methods=["GET", "POST"])
+@bp.route("/proposals/proposal/<int:proposal_id>/edit", methods=["GET", "POST"])
 @login_check("logged_in", True, "auth.login")
-@include_csrf()
-def new_proposal():
+def edit_proposal(proposal_id):
+    proposal_ = Proposals.select_using_proposal_id(proposal_id)
+
+    if not proposal_:
+        return redirect(url_for("account.proposals"))
+
     if request.method == "POST":
         account = Accounts.select_using_account_id(session.get("account_id"))
 
@@ -55,7 +57,7 @@ def new_proposal():
             notes_or_requests_markdown = None
 
         if request.form.get("submit_proposal"):
-            proposal_id = Proposals.submit_new_proposal(
+            proposal_.submit_proposal(
                 fk_account_id=session.get("account_id"),
                 title=title,
                 detail=detail,
@@ -85,8 +87,7 @@ def new_proposal():
             return redirect(url_for("account.view_proposal", proposal_id=proposal_id))
 
         else:
-            Proposals.save_new_proposal(
-                fk_account_id=session.get("account_id"),
+            proposal_.save_proposal(
                 title=title,
                 detail=detail,
                 detail_markdown=detail_markdown,
@@ -124,8 +125,8 @@ def new_proposal():
             )
 
     return render_template(
-        bp.tmpl("new-proposal.html"),
-        csrf=session.get("csrf"),
+        bp.tmpl("edit-proposal.html"),
+        proposal=proposal_,
         able_to_propose=able_to_propose,
         conference=conference_,
     )

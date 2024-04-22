@@ -38,14 +38,19 @@
 
                     <div class="top-stats m-down-1">
                         <div><strong>Status:</strong> {{ proposal.proposal_status }}</div>
-                        <div><strong>Year:</strong> {{ proposal.year }}</div>
+                        <div><strong>Year:</strong> {{ proposal.year if proposal.year != 0 else '-' }}</div>
                         <div><strong>Tags:</strong> {{ proposal.tags|replace(",", ", ") or '-' }}</div>
                     </div>
 
                     <div>
                         <a class="button button-primary m-all-0"
                            href="{{ url_for('account.view_proposal', proposal_id=proposal.proposal_id) }}">View</a>
+                        {% if proposal.proposal_status == "Preparation" %}
+                            <a class="button button-primary m-all-0"
+                               href="{{ url_for('account.edit_proposal', proposal_id=proposal.proposal_id) }}">Edit</a>
+                        {% endif %}
                     </div>
+
 
                 </div>
 

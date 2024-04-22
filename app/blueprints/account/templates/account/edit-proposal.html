@@ -1,11 +1,11 @@
 {% extends 'global/extends/backend.html' %}
 
 {% block title %}
-    New Proposal
+    Edit Proposal
 {% endblock %}
 
 {% block breadcrumbs %}
-    {{ breadcrumber([("Your Proposals", url_for('account.proposals')), ("New Proposal", None)]) }}
+    {{ breadcrumber([("Your Proposals", url_for('account.proposals')), ("Edit Proposal", None)]) }}
 {% endblock %}
 
 {% block content %}
@@ -26,6 +26,7 @@
 
                 <button
                         type="submit"
+                        name="save_as_draft"
                         class="button-good"
                 >Save as Draft
                 </button>
@@ -50,6 +51,7 @@
 
                 <button
                         type="submit"
+                        name="save_as_draft"
                         class="button-good"
                 >Save as Draft
                 </button>
@@ -62,21 +64,22 @@
                 <strong>Note:</strong>
                 <p>- Links and Images will be stripped from Markdown.</p>
                 <p>- Once you submit your proposal, you will no longer be able to edit it.</p>
-                <p>- If you have any questions or requests, you can mention them in the Notes to the Committee section.</p>
+                <p>- If you have any questions or requests, you can mention them in the Notes to the Committee
+                    section.</p>
             </div>
 
             <div class="m-down-1"></div>
 
             <label for="title" class="required">Title</label>
             <p class="label-description">The title of your talk.</p>
-            <input type="text" id="title" name="title" class="w-100" required>
+            <input type="text" id="title" name="title" class="w-100" value="{{ proposal.title }}" required>
 
             <label for="detail" class="m-down-0 required">
                 Detail
             </label>
             <p class="label-description">An in-depth explanation of your talk, read only by reviewers. (Markdown
                 supported).</p>
-            <textarea name="detail" id="detail" style="min-height: 800px;" required></textarea>
+            <textarea name="detail" id="detail" style="min-height: 800px;" required>{{ proposal.detail }}</textarea>
 
             <label for="abstract" class="required">
                 Abstract
@@ -87,11 +90,13 @@
                 abstract will be published on the
                 conference website for everyone to view (Markdown supported).
             </p>
-            <textarea name="abstract" id="abstract" style="min-height: 300px;" required></textarea>
+            <textarea name="abstract" id="abstract" style="min-height: 300px;"
+                      required>{{ proposal.abstract }}</textarea>
 
             <label for="speaker_name" class="required">Speaker Name</label>
             <p class="label-description">This name will be shown on the website if your proposal is accepted.</p>
-            <input type="text" id="speaker_name" name="speaker_name" class="w-100" required>
+            <input type="text" id="speaker_name" name="speaker_name" class="w-100" value="{{ proposal.speaker_name }}"
+                   required>
 
             <label for="short_biography" class="m-down-0">
                 Short Biography
@@ -99,18 +104,21 @@
             <p class="label-description">A short biography about yourself, your experience and or how much you love
                 Flask, or coding in general.
                 This will only be viewed by certain members of the committee and reviewers. (Markdown supported).</p>
-            <textarea name="short_biography" id="short_biography" style="min-height: 300px;"></textarea>
+            <textarea name="short_biography" id="short_biography"
+                      style="min-height: 300px;">{{ proposal.short_biography }}</textarea>
 
             <label for="notes_or_requests" class="m-down-0">
                 Notes to the Committee
             </label>
             <p class="label-description">If you have any further requests or questions for the committee, you can
                 mention those here. (Markdown supported).</p>
-            <textarea name="notes_or_requests" id="notes_or_requests" style="min-height: 200px;"></textarea>
+            <textarea name="notes_or_requests" id="notes_or_requests"
+                      style="min-height: 200px;">{{ proposal.notes_or_requests }}</textarea>
 
             <label for="tags" class="required">Tags</label>
             <p class="label-description">Comma seperated tags to help categorize your talk on the website.</p>
-            <input type="text" id="tags" name="tags" class="w-100" placeholder="Flask, SQLAlchemy ..." required>
+            <input type="text" id="tags" name="tags" class="w-100" placeholder="Flask, SQLAlchemy ..."
+                   value="{{ proposal.tags }}" required>
 
             <i>Form submission button is located at the top of the page</i><br>
 

@@ -149,7 +149,7 @@ class Proposals(db.Model, MetaMixins):
 
     @classmethod
     def count_total_proposals_in_status_prep_not_sent_a_reminder_to_submit(
-        cls, year: int
+            cls, year: int
     ):
         from .proposal_statuses import ProposalStatuses
 
@@ -181,7 +181,7 @@ class Proposals(db.Model, MetaMixins):
 
     @classmethod
     def count_total_proposals_at_reviewer_seen_statuses(
-        cls, year: int
+            cls, year: int
     ) -> tuple[int, list[int]]:
         """
         Returns total, [proposal_id, proposal_id, ...]
@@ -301,20 +301,20 @@ class Proposals(db.Model, MetaMixins):
 
     @classmethod
     def submit_new_proposal(
-        cls,
-        fk_account_id,
-        title,
-        detail,
-        detail_markdown,
-        abstract,
-        abstract_markdown,
-        speaker_name,
-        short_biography,
-        short_biography_markdown,
-        notes_or_requests,
-        notes_or_requests_markdown,
-        tags,
-        year=datetime.now().year,
+            cls,
+            fk_account_id,
+            title,
+            detail,
+            detail_markdown,
+            abstract,
+            abstract_markdown,
+            speaker_name,
+            short_biography,
+            short_biography_markdown,
+            notes_or_requests,
+            notes_or_requests_markdown,
+            tags,
+            year=datetime.now().year,
     ):
         from .proposal_statuses import ProposalStatuses
 
@@ -342,75 +342,108 @@ class Proposals(db.Model, MetaMixins):
         db.session.commit()
         return result.lastrowid
 
-    #
-    # @classmethod
-    # def save_new_proposal(
-    #         cls,
-    #         fk_account_id,
-    #         title,
-    #         detail,
-    #         detail_markdown,
-    #         abstract,
-    #         abstract_markdown,
-    #         short_biography,
-    #         short_biography_markdown,
-    #         notes_or_requests,
-    #         notes_or_requests_markdown,
-    #         tags,
-    # ):
-    #     from .proposal_statuses import ProposalStatuses
-    #
-    #     result = db.session.execute(
-    #         insert(cls).values(
-    #             fk_account_id=fk_account_id,
-    #             fk_proposal_status_id=ProposalStatuses.select_using_unique_proposal_status_id(101).proposal_status_id,
-    #             year=datetime.now().year,
-    #             title=title,
-    #             detail=detail,
-    #             detail_markdown=detail_markdown,
-    #             abstract=abstract,
-    #             abstract_markdown=abstract_markdown,
-    #             short_biography=short_biography,
-    #             short_biography_markdown=short_biography_markdown,
-    #             notes_or_requests=notes_or_requests,
-    #             notes_or_requests_markdown=notes_or_requests_markdown,
-    #             tags=tags,
-    #         )
-    #     )
-    #
-    #
-    #     db.session.commit()
-    #     return result.lastrowid
-    #
-    # def save_proposal(
-    #         self,
-    #         title,
-    #         detail,
-    #         detail_markdown,
-    #         abstract,
-    #         abstract_markdown,
-    #         short_biography,
-    #         short_biography_markdown,
-    #         notes_or_requests,
-    #         notes_or_requests_markdown,
-    #         tags,
-    #         submit_proposal,
-    # ):
-    #     from .proposal_statuses import ProposalStatuses
-    #
-    #     self.title = title
-    #     self.detail = detail
-    #     self.detail_markdown = detail_markdown
-    #     self.abstract = abstract
-    #     self.abstract_markdown = abstract_markdown
-    #     self.short_biography = short_biography
-    #     self.short_biography_markdown = short_biography_markdown
-    #     self.notes_or_requests = notes_or_requests
-    #     self.notes_or_requests_markdown = notes_or_requests_markdown
-    #     if tags:
-    #         self.tags = tags
-    #
-    #     if submit_proposal:
-    #         self.fk_proposal_status_id = ProposalStatuses.select_using_unique_proposal_status_id(102).proposal_status_id
-    #
-    #     db.session.commit()
+    @classmethod
+    def save_new_proposal(
+            cls,
+            fk_account_id,
+            title,
+            detail,
+            detail_markdown,
+            abstract,
+            abstract_markdown,
+            speaker_name,
+            short_biography,
+            short_biography_markdown,
+            notes_or_requests,
+            notes_or_requests_markdown,
+            tags,
+    ):
+        from .proposal_statuses import ProposalStatuses
+
+        result = db.session.execute(
+            insert(cls).values(
+                fk_account_id=fk_account_id,
+                fk_proposal_status_id=ProposalStatuses.select_using_unique_proposal_status_id(101).proposal_status_id,
+                year=0,
+                title=title,
+                detail=detail,
+                detail_markdown=detail_markdown,
+                abstract=abstract,
+                abstract_markdown=abstract_markdown,
+                speaker_name=speaker_name,
+                short_biography=short_biography,
+                short_biography_markdown=short_biography_markdown,
+                notes_or_requests=notes_or_requests,
+                notes_or_requests_markdown=notes_or_requests_markdown,
+                tags=tags,
+            )
+        )
+
+        db.session.commit()
+        return result.lastrowid
+
+    def submit_proposal(
+            self,
+            title,
+            detail,
+            detail_markdown,
+            abstract,
+            abstract_markdown,
+            speaker_name,
+            short_biography,
+            short_biography_markdown,
+            notes_or_requests,
+            notes_or_requests_markdown,
+            tags,
+            year=datetime.now().year,
+    ):
+        from .proposal_statuses import ProposalStatuses
+
+        self.fk_proposal_status_id = ProposalStatuses.select_using_unique_proposal_status_id(
+            102
+        ).proposal_status_id,
+
+        self.year = year
+        self.title = title
+        self.detail = detail
+        self.detail_markdown = detail_markdown
+        self.abstract = abstract
+        self.abstract_markdown = abstract_markdown
+        self.speaker_name = speaker_name
+        self.short_biography = short_biography
+        self.short_biography_markdown = short_biography_markdown
+        self.notes_or_requests = notes_or_requests
+        self.notes_or_requests_markdown = notes_or_requests_markdown
+        if tags:
+            self.tags = tags
+
+        db.session.commit()
+
+    def save_proposal(
+            self,
+            title,
+            detail,
+            detail_markdown,
+            abstract,
+            abstract_markdown,
+            short_biography,
+            short_biography_markdown,
+            speaker_name,
+            notes_or_requests,
+            notes_or_requests_markdown,
+            tags,
+    ):
+        self.title = title
+        self.detail = detail
+        self.detail_markdown = detail_markdown
+        self.abstract = abstract
+        self.abstract_markdown = abstract_markdown
+        self.speaker_name = speaker_name
+        self.short_biography = short_biography
+        self.short_biography_markdown = short_biography_markdown
+        self.notes_or_requests = notes_or_requests
+        self.notes_or_requests_markdown = notes_or_requests_markdown
+        if tags:
+            self.tags = tags
+
+        db.session.commit()
