@@ -12,7 +12,7 @@ def create_app():
     vite.init_app(
         app,
         cors_allowed_hosts=["http://127.0.0.1:5002"]
-        if app.config["ENV"] == "development"
+        if app.config.get("ENV") == "development"
         else [],
     )
     db.init_app(app)
