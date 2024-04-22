@@ -110,7 +110,7 @@ export default function Index() {
                         you'll need to sign
                         up to acquire one for entry to the venue.
                         You can register for a
-                        ticket by following this link <a href={'https://us.pycon.org/2024/registration/register'}>here</a>
+                        ticket by following <a href={'https://us.pycon.org/2024/registration/register'}>this link here</a>
                     </li>
                 </ul>
             </section>
