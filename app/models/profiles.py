@@ -66,7 +66,11 @@ class Profiles(db.Model, MetaMixins):
             db.session.execute(
                 update(cls)
                 .where(cls.fk_account_id == account_id)
-                .values(earned_display_pictures={"earned": [*earned, unique_display_picture_id]})
+                .values(
+                    earned_display_pictures={
+                        "earned": [*earned, unique_display_picture_id]
+                    }
+                )
             )
 
             UpdateFeed.create(

@@ -17,7 +17,6 @@ def index(year):
     conference = Conferences.select_by_year(year)
 
     def style_date(date):
-
         day = date.strftime("%-d")
         month = date.strftime("%B")
 
@@ -31,8 +30,6 @@ def index(year):
             day += "th"
 
         return f"{month} the {day}"
-
-
 
     cfp_end_date = style_date(conference.call_for_proposals_end_date)
     cfp_start_date = style_date(conference.call_for_proposals_start_date)

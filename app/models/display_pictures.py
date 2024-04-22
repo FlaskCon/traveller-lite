@@ -73,7 +73,13 @@ class DisplayPictures(db.Model, MetaMixins):
 
     @classmethod
     def create(
-        cls, unique_display_picture_id, filename, attribution, attribution_url, limited, note
+        cls,
+        unique_display_picture_id,
+        filename,
+        attribution,
+        attribution_url,
+        limited,
+        note,
     ):
         db.session.execute(
             insert(cls).values(
