@@ -54,7 +54,8 @@ def signup():
                 flash(
                     "Account created. Please check your email to confirm your account."
                 )
-                return redirect(url_for("auth.login"))
+                return redirect(url_for("auth.signup_confirm", account_id=new_account.account_id))
+
             else:
                 flash("There was an error creating your account.")
                 return redirect(url_for("auth.signup"))
