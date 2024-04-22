@@ -1,6 +1,6 @@
 import random
 import timeit
-from datetime import datetime
+from datetime import datetime, date
 from datetime import timedelta
 
 from pytz import timezone
@@ -23,10 +23,10 @@ class DatetimeDelta:
     _datetime: datetime
 
     def __init__(
-        self,
-        ltz: str = "Europe/London",
-        format_: str = "%Y-%m-%d %H:%M:%S",
-        datetime_: datetime = None,
+            self,
+            ltz: str = "Europe/London",
+            format_: str = "%Y-%m-%d %H:%M:%S",
+            datetime_: datetime = None,
     ):
         self._local_tz = ltz
         self._format = format_
@@ -73,6 +73,13 @@ class DatetimeDelta:
     def date(self) -> datetime:
         return self._datetime.date()
 
+    def days_between(self, datetime_: datetime) -> int:
+        if isinstance(datetime_, date):
+            return (datetime_ - self._datetime.date()).days
+        if isinstance(datetime_, datetime):
+            return (datetime_ - self._datetime).days
+        return -1
+
 
 class DatetimeDeltaMC:
     # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List
@@ -83,10 +90,10 @@ class DatetimeDeltaMC:
     _datetime: datetime
 
     def __init__(
-        self,
-        ltz: str = "Europe/London",
-        format_: str = "%Y-%m-%d %H:%M:%S",
-        datetime_: datetime = None,
+            self,
+            ltz: str = "Europe/London",
+            format_: str = "%Y-%m-%d %H:%M:%S",
+            datetime_: datetime = None,
     ):
         self._local_tz = ltz
         self._format = format_
@@ -125,18 +132,19 @@ class DatetimeDeltaMC:
 
 
 if __name__ == "__main__":
-
     def returning_new_inst():
         today = DatetimeDelta().format("%Y-%m-%d %H:%M:%S")
         today.days(random.randint(-10, 10)).hours(random.randint(-10, 10)).minutes(
             random.randint(-10, 10)
         )
 
+
     def returning_self():
         today = DatetimeDeltaMC().format("%Y-%m-%d %H:%M:%S")
         today.days(random.randint(-10, 10)).hours(random.randint(-10, 10)).minutes(
             random.randint(-10, 10)
         )
+
 
     print(timeit.timeit(stmt=returning_new_inst, number=10000))
 

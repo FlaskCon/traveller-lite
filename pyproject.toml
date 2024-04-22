@@ -8,6 +8,7 @@ serve_app = "app"
 vite_apps = ["vite_2024_frontend"]
 
 [tool.pyqwe]
+flask = "*:flask run --debug --host 127.0.0.1 --port 5001"
 2024_update = "*(vite_2024_frontend):npm update"
 2024_setup = "*(vite_2024_frontend):npm install"
-2024_run = "*(vite_2024_frontend):npx vite"
+2024_run = "*(vite_2024_frontend):npx vite --host 127.0.0.1 --port 5002"
