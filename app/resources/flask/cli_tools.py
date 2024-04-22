@@ -1,7 +1,8 @@
 from flask import current_app as app
 
-from app import DisplayPictures, Resources
 from app.extensions import db
+from app.models.__resources__ import Resources
+from app.models.display_pictures import DisplayPictures
 
 
 @app.cli.command("initdb")
@@ -10,7 +11,7 @@ def initdb_command():
     db.create_all()
     print("Initialized the database.")
 
-    
+
 @app.cli.command("syncdp")
 def syncdp_command():
     udpids = [dp.unique_display_picture_id for dp in DisplayPictures.query.all()]

@@ -1,16 +1,17 @@
 import flaskcon_logo from './assets/flaskcon-2024-animated.gif'
 import bottom_clouds from './assets/bottom-clouds.png'
-import {createSignal, onMount} from "solid-js";
+import {createSignal, onMount, Show} from "solid-js";
 
 export default function Index() {
 
     const [loggedIn, setLoggedIn] = createSignal(false)
+    const [conference, setConference] = createSignal({})
 
     const dev = import.meta.env.DEV
-    const api = dev ? 'http://localhost:5000/' : '/'
+    const api = dev ? 'http://127.0.0.1:5001/' : '/'
 
     function isLoggedIn() {
-        fetch(api + '2024/api/logged-in', {
+        fetch(api + 'api/logged-in', {
             method: 'GET',
             credentials: 'include',
             headers: {
@@ -25,8 +26,23 @@ export default function Index() {
             })
     }
 
+    function get_conference() {
+        fetch(api + 'api/conference/2024', {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(jsond => {
+                setConference(jsond)
+            })
+    }
+
     onMount(() => {
         isLoggedIn()
+        get_conference()
     })
 
     return (
@@ -42,10 +58,18 @@ export default function Index() {
                 </h1>
             </section>
             <section className={'container mb-14'}>
-                <h2 className={'text-center m-5'}>Call for proposals are now live!</h2>
+
+                <div className={'mt-5 mb-10 text-center'}>
+                    <Show when={conference().call_for_proposals_days_left > -1}
+                          fallback={
+                              <h2>Call for proposals have ended.</h2>
+                          }>
+                        <h2 className={'mb-2'}>Call for proposals are now live!</h2>
+                        <p>Call for proposals will end on {conference().call_for_proposals_end_date}</p>
+                    </Show>
+                </div>
 
                 <div className={'flex justify-center w-full'}>
-
                     {
                         loggedIn() ?
                             <div className={'flex flex-col gap-2 text-center'}>
