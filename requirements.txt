@@ -12,4 +12,4 @@ psycopg2-binary
 click
 faker
 huey
-vite-transporter
+vite-transporter==0.7.0
