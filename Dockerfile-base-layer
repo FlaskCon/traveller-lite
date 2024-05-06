@@ -5,7 +5,7 @@ RUN apk add --no-cache tzdata
 ENV TZ=Europe/London
 # See here for timezones:
 # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List
-COPY requirements.txt requirements.txt
-COPY requirements-docker.txt requirements-docker.txt
+COPY requirements/main.txt requirements.txt
+COPY requirements/docker.txt requirements-docker.txt
 RUN pip install --upgrade pip
 RUN pip install -r requirements-docker.txt

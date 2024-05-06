@@ -84,6 +84,8 @@ export default function Index() {
                 </div>
             </section>
 
+            {/*
+
             <section className={'container'}>
                 <h2 className={'my-5'}>Proposal Ideas!</h2>
                 <p>If you are a developer who uses or contributes to Flask,
@@ -110,10 +112,13 @@ export default function Index() {
                         you'll need to sign
                         up to acquire one for entry to the venue.
                         You can register for a
-                        ticket by following <a href={'https://us.pycon.org/2024/registration/register'}>this link here</a>
+                        ticket by following <a href={'https://us.pycon.org/2024/registration/register'}>this link
+                        here</a>
                     </li>
                 </ul>
             </section>
+
+            */}
 
             <section className={'container'}>
                 <h2 className={'my-5'}>The Current Schedule (may change)</h2>
@@ -126,56 +131,48 @@ export default function Index() {
                     </thead>
                     <tbody>
                     <tr>
-                        <td>11:00 - 11:15</td>
-                        <td>Intro from David Lord</td>
+                        <td>11:00 - 11:30</td>
+                        <td>Intro from David Lord and Q&A</td>
                     </tr>
                     <tr>
-                        <td>11:15 - 11:40</td>
-                        <td>State of Pallets</td>
+                        <td>11:45 - 12:15</td>
+                        <td>Async in Flask - Phil Jones</td>
                     </tr>
                     <tr>
-                        <td>11:40 - 12:00</td>
-                        <td>Q&A</td>
-                    </tr>
-                    <tr>
-                        <td>12:00 - 13:00</td>
-                        <td>Lightning Talks</td>
+                        <td>12:30 - 13:00</td>
+                        <td>Introduction to OpenTelemetry with Flask - Jessica Garson</td>
                     </tr>
                     <tr>
                         <td>13:00 - 14:00</td>
                         <td>Lunch</td>
                     </tr>
                     <tr>
-                        <td>14:00 - 14:25</td>
-                        <td>Being a Better Community</td>
+                        <td>14:00 - 14:30</td>
+                        <td>Building Open Source Business Intelligence on Flask - Evan Rusackas</td>
                     </tr>
                     <tr>
-                        <td>14:30 - 15:30</td>
-                        <td>Lightning Talks</td>
+                        <td>14:45 - 15:15</td>
+                        <td>Adding OpenAPI to a Flask Application with APIFlask - Will Lachance</td>
                     </tr>
                     <tr>
-                        <td>15:40 - 16:00</td>
-                        <td>Becoming a Contributor</td>
+                        <td>15:30 - 16:00</td>
+                        <td>Extending Flask using the Flask Plugins API - Abdur-Rahmaan Janhangeer</td>
                     </tr>
                     <tr>
                         <td>16:00 - 16:30</td>
                         <td>Break</td>
                     </tr>
                     <tr>
-                        <td>16:30 - 17:30</td>
+                        <td>16:00 - 16:30</td>
+                        <td>Building Single Page Apps w/Flask - Adam Englander</td>
+                    </tr>
+                    <tr>
+                        <td>17:15 - 17:45</td>
                         <td>Lightning Talks</td>
                     </tr>
                     <tr>
-                        <td>17:30 - 17:40</td>
-                        <td>Future of Pallets</td>
-                    </tr>
-                    <tr>
-                        <td>17:40 - 18:00</td>
-                        <td>Panel Q&A</td>
-                    </tr>
-                    <tr>
-                        <td>18:00 - 19:00</td>
-                        <td>General Mixer?</td>
+                        <td>18:00 Office Hours</td>
+                        <td>The Pallets Team</td>
                     </tr>
                     </tbody>
                 </table>

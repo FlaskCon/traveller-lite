@@ -7,8 +7,8 @@ docker build -t flaskcon/base-layer:latest -f Dockerfile-base-layer .
 
 ### Compose
 ```bash
-docker-compose up --build -d 
+docker-compose up --build -d
 ```
 ```bash
-docker-compose down 
+docker-compose -f down
 ```
