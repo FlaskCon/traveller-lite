@@ -85,6 +85,8 @@ export default function Index() {
                 </div>
             </section>
 
+            {/*
+
             <section className={'container'}>
                 <h2 className={'my-5'}>Proposal Ideas!</h2>
                 <p>If you are a developer who uses or contributes to Flask,
