@@ -10,9 +10,9 @@ bp.import_nested_blueprints("conferences")
 
 @bp.get("/")
 def index():
-    conference = Conferences.select_latest()
+    # conference = Conferences.select_latest()
 
-    if conference is None:
-        return render_template("global/errors/no-conference.html")
+    # if conference is None:
+    #     return render_template("global/errors/no-conference.html")
 
     return redirect(url_for('frontend.2024.index'))
