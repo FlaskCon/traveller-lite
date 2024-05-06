@@ -6,7 +6,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    env_file: .env
+    env_file:
+      - .env
     environment:
       IMP_CONFIG: docker.config.toml
       EMAIL_DEV_MODE: 0
@@ -29,9 +30,8 @@ services:
   database:
     container_name: traveller-lite-db
     image: postgres:latest
-    build:
-      context: .
-    env_file: .env
+    env_file:
+      - .env
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}

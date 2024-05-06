@@ -24,10 +24,13 @@ def create_app():
         files_to_import=["*"],
     )
 
-    imp.import_blueprint("blueprints/api")
-    imp.import_blueprint("blueprints/account")
+    with app.app_context():
+        db.create_all()
+
+    # imp.import_blueprint("blueprints/api")
+    # imp.import_blueprint("blueprints/account")
     imp.import_blueprint("blueprints/auth")
-    imp.import_blueprint("blueprints/staff_only")
+    # imp.import_blueprint("blueprints/staff_only")
     imp.import_blueprint("blueprints/frontend")
 
     return app
