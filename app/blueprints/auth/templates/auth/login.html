@@ -6,17 +6,21 @@
 
 {% block content %}
     <div class="auth">
-        <form method="post">
+        <form method="post" style="text-align: center;">
 
-            <label for="email_address">Email</label>
-            <input type="text" name="email_address" id="email_address">
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password">
-            <button type="submit" class="button-primary">Login</button>
-            <a href="{{ url_for('auth.signup') }}" class="button">Signup</a>
-            <a style="text-align: center" href="{{ url_for('auth.forgot_password') }}">I've forgotten my password</a>
 
-            <input type="hidden" name="csrf" value="{{ csrf }}">
+            <p>We are no longer taking account registrations.</p>
+
+            {##}
+            {#            <label for="email_address">Email</label>#}
+            {#            <input type="text" name="email_address" id="email_address">#}
+            {#            <label for="password">Password</label>#}
+            {#            <input type="password" name="password" id="password">#}
+            {#            <button type="submit" class="button-primary">Login</button>#}
+            {#            <a href="{{ url_for('auth.signup') }}" class="button">Signup</a>#}
+            {#            <a style="text-align: center" href="{{ url_for('auth.forgot_password') }}">I've forgotten my password</a>#}
+            {##}
+            {#            <input type="hidden" name="csrf" value="{{ csrf }}">#}
         </form>
     </div>
 {% endblock %}

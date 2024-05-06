@@ -10,40 +10,40 @@ export default function Index() {
     const dev = import.meta.env.DEV
     const api = dev ? 'http://127.0.0.1:5001/' : '/'
 
-    function isLoggedIn() {
-        fetch(api + 'api/logged-in', {
-            method: 'GET',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.logged_in) {
-                    setLoggedIn(true)
-                }
-            })
-    }
-
-    function get_conference() {
-        fetch(api + 'api/conference/2024', {
-            method: 'GET',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(response => response.json())
-            .then(jsond => {
-                setConference(jsond)
-            })
-    }
-
-    onMount(() => {
-        isLoggedIn()
-        get_conference()
-    })
+    // function isLoggedIn() {
+    //     fetch(api + 'api/logged-in', {
+    //         method: 'GET',
+    //         credentials: 'include',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         }
+    //     })
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             if (data.logged_in) {
+    //                 setLoggedIn(true)
+    //             }
+    //         })
+    // }
+    //
+    // function get_conference() {
+    //     fetch(api + 'api/conference/2024', {
+    //         method: 'GET',
+    //         credentials: 'include',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         }
+    //     })
+    //         .then(response => response.json())
+    //         .then(jsond => {
+    //             setConference(jsond)
+    //         })
+    // }
+    //
+    // onMount(() => {
+    //     isLoggedIn()
+    //     get_conference()
+    // })
 
     return (
         <section>
@@ -57,6 +57,7 @@ export default function Index() {
                     FlaskCon 2024 will be happening Friday, May 17 inside PyCon US 2024.
                 </h1>
             </section>
+            {/*
             <section className={'container mb-14'}>
 
                 <div className={'mt-5 mb-10 text-center'}>
@@ -83,8 +84,6 @@ export default function Index() {
                     }
                 </div>
             </section>
-
-            {/*
 
             <section className={'container'}>
                 <h2 className={'my-5'}>Proposal Ideas!</h2>
