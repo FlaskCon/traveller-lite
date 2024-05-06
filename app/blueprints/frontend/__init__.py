@@ -15,4 +15,4 @@ def index():
     if conference is None:
         return render_template("global/errors/no-conference.html")
 
-    return redirect(url_for(conference.index_endpoint))
+    return redirect(url_for('frontend.2024.index'))
