@@ -20,14 +20,6 @@
 <!-- TOC -->
 ---
 
-# Want to contribute?
-
-Read the TODO [todo.md](todo.md)
-
-Fork, then send a Pull Request.
-
----
-
 # Setup
 
 (This assumes you have Python installed)
@@ -80,7 +72,7 @@ python -m venv venv
 **Install the requirements.**
 
 ```bash
-pip install -r requirements.txt
+pip install -r requirements/main.txt
 ```
 
 ---
@@ -167,7 +159,7 @@ flask run --debug
 `Note:` gunicorn will get run conditions from `gunicorn.config.py`
 
 ```bash
-gunicorn
+gunicorn -c configs/gunicorn.config.py
 ```
 
 **IMPORTANT:**
