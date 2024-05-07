@@ -164,7 +164,7 @@ export default function Index() {
                         <td>Break</td>
                     </tr>
                     <tr>
-                        <td>16:30 - 17:00</td>
+                        <td>16:00 - 16:30</td>
                         <td>Building Single Page Apps w/Flask - Adam Englander</td>
                     </tr>
                     <tr>
