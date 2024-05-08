@@ -163,8 +163,8 @@ export default function Index() {
                         <td>Break</td>
                     </tr>
                     <tr>
-                        <td>18:00 Office Hours</td>
-                        <td>The Pallets Team</td>
+                        <td>16:30 - 18:00</td>
+                        <td>Office Hours - The Pallets Team</td>
                     </tr>
                     </tbody>
                 </table>
