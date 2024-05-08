@@ -118,7 +118,6 @@ export default function Index() {
                     </li>
                 </ul>
             </section>
-
             */}
 
             <section className={'container'}>
@@ -149,27 +148,19 @@ export default function Index() {
                     </tr>
                     <tr>
                         <td>14:00 - 14:30</td>
-                        <td>Building Open Source Business Intelligence on Flask - Evan Rusackas</td>
-                    </tr>
-                    <tr>
-                        <td>14:45 - 15:15</td>
                         <td>Adding OpenAPI to a Flask Application with APIFlask - Will Lachance</td>
                     </tr>
                     <tr>
-                        <td>15:30 - 16:00</td>
+                        <td>14:45 - 15:15</td>
                         <td>Extending Flask using the Flask Plugins API - Abdur-Rahmaan Janhangeer</td>
+                    </tr>
+                    <tr>
+                        <td>15:30 - 16:00</td>
+                        <td>Building Single Page Apps w/Flask - Adam Englander</td>
                     </tr>
                     <tr>
                         <td>16:00 - 16:30</td>
                         <td>Break</td>
-                    </tr>
-                    <tr>
-                        <td>16:30 - 17:00</td>
-                        <td>Building Single Page Apps w/Flask - Adam Englander</td>
-                    </tr>
-                    <tr>
-                        <td>17:15 - 17:45</td>
-                        <td>Lightning Talks</td>
                     </tr>
                     <tr>
                         <td>18:00 Office Hours</td>
