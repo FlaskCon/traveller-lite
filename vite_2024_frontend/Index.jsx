@@ -136,7 +136,7 @@ export default function Index() {
                     </tr>
                     <tr>
                         <td>11:45 - 12:15</td>
-                        <td>Async in Flask - Phil Jones</td>
+                        <td>Building Single Page Apps w/Flask - Adam Englander</td>
                     </tr>
                     <tr>
                         <td>12:30 - 13:00</td>
@@ -155,15 +155,7 @@ export default function Index() {
                         <td>Extending Flask using the Flask Plugins API - Abdur-Rahmaan Janhangeer</td>
                     </tr>
                     <tr>
-                        <td>15:30 - 16:00</td>
-                        <td>Building Single Page Apps w/Flask - Adam Englander</td>
-                    </tr>
-                    <tr>
-                        <td>16:00 - 16:30</td>
-                        <td>Break</td>
-                    </tr>
-                    <tr>
-                        <td>16:30 - 18:00</td>
+                        <td>15:30 - 18:00</td>
                         <td>Office Hours - The Pallets Team</td>
                     </tr>
                     </tbody>
