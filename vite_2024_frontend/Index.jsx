@@ -1,6 +1,6 @@
 import flaskcon_logo from './assets/flaskcon-2024-animated.gif'
 import bottom_clouds from './assets/bottom-clouds.png'
-import {createSignal, onMount, Show} from "solid-js";
+import {createSignal} from "solid-js";
 
 export default function Index() {
 
@@ -119,6 +119,14 @@ export default function Index() {
                 </ul>
             </section>
             */}
+            <section className={'container'}>
+                <div className={
+                    "flex flex-col items-center justify-center px-4 py-8 bg-blue-100 rounded-2xl border"
+                }>
+                    <h2 className={"text-3xl"}>We are in room 317</h2>
+                    <p><strong>See you there!</strong></p>
+                </div>
+            </section>
 
             <section className={'container'}>
                 <h2 className={'my-5'}>The Current Schedule (may change)</h2>
