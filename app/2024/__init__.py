@@ -1,5 +1,11 @@
-from flask_imp import Blueprint
+from flask_imp import ImpBlueprint
+from flask_imp.config import ImpBlueprintConfig
 
-bp = Blueprint(__name__)
+bp = ImpBlueprint(__name__, ImpBlueprintConfig(
+    enabled=True,
+    url_prefix="/2024",
+    static_folder="static",
+    template_folder="templates",
+))
 
 bp.import_resources("routes")
