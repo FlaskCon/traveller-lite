@@ -1,6 +1,4 @@
 import os
-from datetime import datetime, date
-from typing import Optional, Union
 
 from dotenv import load_dotenv
 from flask import Flask, render_template, request, url_for, g
@@ -68,43 +66,5 @@ def create_app():
             return value.replace("http://", "https://")
 
         return value
-
-    @app.template_filter("day_month")
-    def day_month(date_or_datetime: Optional[Union[datetime, date]]) -> Optional[str]:
-        """
-        Returns the day and month of the given date or datetime.
-        """
-
-        def day_suffix(day: int) -> str:
-            if 4 <= day <= 20 or 24 <= day <= 30:
-                return "th"
-            else:
-                return ["st", "nd", "rd"][day % 10 - 1]
-
-        if isinstance(date_or_datetime, date) or isinstance(date_or_datetime, datetime):
-            return f"{date_or_datetime.day}{day_suffix(date_or_datetime.day)} {date_or_datetime.strftime('%b')}"
-
-        return None
-
-    @app.template_filter("day_month_year")
-    def day_month_year(date_or_datetime: Optional[Union[datetime, date]]) -> Optional[str]:
-        """
-        Returns the day and month of the given date or datetime.
-        """
-
-        def day_suffix(day: int) -> str:
-            if 4 <= day <= 20 or 24 <= day <= 30:
-                return "th"
-            else:
-                return ["st", "nd", "rd"][day % 10 - 1]
-
-        if isinstance(date_or_datetime, date) or isinstance(date_or_datetime, datetime):
-            return (
-                f"{date_or_datetime.day}{day_suffix(date_or_datetime.day)} "
-                f"{date_or_datetime.strftime('%b')} "
-                f"{date_or_datetime.strftime('%Y')}"
-            )
-
-        return None
 
     return app
