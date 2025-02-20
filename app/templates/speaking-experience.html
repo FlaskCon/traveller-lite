@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}FlaskCon - Speaking Experience{% endblock %}
+
+{% block extend_head %}
+    <meta name="description" content="FlaskCon Speaking Experience">
+{% endblock %}
+
+{% block body %}
+
+    <section>
+
+        {% if g.go_back_to %}
+            <nav style="text-align: left; padding-bottom: 1rem;"><a href="{{ g.go_back_to }}">< Back</a></nav>
+        {% endif %}
+
+        <img src="{{ url_for("static", filename="flaskcon-logo.svg") }}"
+             alt="FlaskCon Logo"
+             style="max-width: 200px;">
+
+        <h1 class="my-0">Speaking Experience</h1>
+
+        <ul>
+            <li>If your talk is selected, you'll be invited to record your talk of
+                20 or 40 minutes. This is done to ensure that no technical difficulties occur
+                on the conference days.
+            </li>
+            <li>The talk will be broadcast live on YouTube on the
+                <a href="https://www.youtube.com/@FlaskCon/videos">FlaskCon channel
+                </a>.
+            </li>
+            <li>A speaker kit will be sent with visual assets and tips.</li>
+            <li>If ever we find enough sponsors, we'll mail you
+                speaker swags after the conference.
+            </li>
+            <li>QnA is optional, but we highly recommend you to attend.</li>
+            <li>You can interact with people after your talk on the
+                <a href="https://discord.gg/pallets">Pallets Discord</a>.
+            </li>
+        </ul>
+
+    </section>
+
+{% endblock %}

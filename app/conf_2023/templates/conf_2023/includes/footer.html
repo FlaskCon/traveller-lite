@@ -1,5 +1,5 @@
 <div class="text-center py-3 grass-background" x-data="{show_old_logo_text: false}">
-    <img src="{{ url_for("frontend.2023.static", filename="img/old-logo.png") }}"
+    <img src="{{ url_for("conf_2023.static", filename="img/old-logo.png") }}"
          alt="In loving memory of the old Flask logo. 2010 - 2023" @mouseover="show_old_logo_text = true">
     <p x-cloak x-show="show_old_logo_text">In loving memory of the old Flask logo.
         2010 - 2023</p>
