@@ -1,7 +1,7 @@
 import os
 
 from dotenv import load_dotenv
-from flask import Flask, render_template, request, url_for, g
+from flask import Flask, render_template, request, redirect, url_for, g
 from werkzeug.routing import BuildError
 
 from app.extensions import vite
@@ -33,6 +33,10 @@ def create_app():
                 g.go_back_to = None
         else:
             g.go_back_to = None
+
+    @app.get("/")
+    def index():
+        return redirect(url_for("conf_2024.index"))
 
     @app.get("/code-of-conduct")
     def code_of_conduct():
