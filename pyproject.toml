@@ -1,0 +1,10 @@
+[project]
+name = "traveller-lite"
+version = "0.1.0"
+description = "Websites for FlaskCon"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
+
+[lint]
+ignore = ["F405", "F403"]
