@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+
+{% block title %}FlaskCon - Become a Sponsor{% endblock %}
+
+{% block extend_head %}
+    <meta name="description" content="Become a FlaskCon Sponsor">
+{% endblock %}
+
+{% block body %}
+
+    <section>
+
+        {% if g.go_back_to %}
+            <nav style="text-align: left; padding-bottom: 1rem;"><a href="{{ g.go_back_to }}">< Back</a></nav>
+        {% endif %}
+
+        <img src="{{ url_for("static", filename="flaskcon-logo.svg") }}"
+             alt="FlaskCon Logo"
+             style="max-width: 200px;">
+
+        <h1>Become a Sponsor</h1>
+
+        <p>
+            FlaskCon is a conference for Flask users.
+            Our mission is to improve the Flask community and ecosystem
+            that you use daily.
+            This work can’t be done without the
+            generous financial support that organizations
+            like yours provide.
+        </p>
+        <p>
+            The <a href="https://flaskcwg.github.io/">Flask Community Workgroup</a>
+            has more initiatives to further the Flask ecosystem.
+        </p>
+
+        <p>
+            An outstanding conference requires a significant budget and
+            we look to companies in the Python and Open Source community
+            to support this initiative.
+        </p>
+
+
+        <p>
+            There are dozens of reasons your company may be eager
+            to conthibute. Here are a few:
+        </p>
+
+
+        <ul>
+            <li>
+                Recruiting new talent ranging from to intermediate-senior
+                Python developers and engineers, Open source
+                Maintainers and Community builders, and university to
+                bootcamp graduates.
+            </li>
+            <li>
+                Building brand awareness and relationships in the
+                Python and Open Source community.
+            </li>
+            <li>
+                Supporting professional development for your
+                technical and non-technical teams.
+            </li>
+            <li>
+                Supporting the development of Python language and Open Source
+                community, which is largely run and
+                maintained by volunteers around the globe.
+            </li>
+            <li>
+                The conference program is usually focused on helping new
+                speakers present new python topics, or
+                speaking for the first time.
+                You can also view our previously recorded talks on YouTube
+                <a href="https://www.youtube.com/@FlaskCon">
+                    https://www.youtube.com/@FlaskCon</a>
+            </li>
+            <li>
+                This helps us lay ground for the next upcoming in-person event in the US.
+            </li>
+        </ul>
+
+
+        <p>
+
+        </p>
+        <p>
+            The Pallets is a subsidiary of the Python Software Foundation,
+            which is a 501(c)(3) non-profit.
+            <br><br>
+            Most sponsors fund this sponsorship either out of their marketing
+            budget or recruiting budget, depending on
+            their goals for sponsorship, and all of our events have
+            a legal tax-deductible status, so you may be
+            eligible to receive a tax-deductible.
+            <br><br>
+
+
+            <br><br>
+            This is our fist time including sponsors.
+            <br>
+
+        <h2>Levels</h2>
+
+        <table>
+            <thead>
+            <tr>
+                <td>
+
+                </td>
+                <td>
+                    Platinum ($1500)
+                </td>
+                <td>
+                    Gold ($1000)
+                </td>
+                <td>
+                    Silver ($500)
+                </td>
+                <td>
+                    Bronze ($100)
+                </td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><b>Branding (remote)</b></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Logo on Website and Press Releases: You will receive a short
+                    description and featured company logo on the Website and
+                    Newsletter. Logo image sizes are adjusted by Sponsorship Tier.
+                </td>
+                <td>✓</td>
+                <td>✓</td>
+                <td>✓</td>
+                <td>✓</td>
+            </tr>
+            <tr>
+                <td>Logo on Intermission Video: Your Sponsor Logo will be shown on all
+                    Intermission videos.
+                </td>
+                <td>✓</td>
+                <td>✓</td>
+                <td>✓</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Logo on videos and screen recordings during sessions: Your Sponsor
+                    Logo will be shown in a banner on all Live talks and Screen recordings
+                    during sessions and on the Closing Videos.
+                </td>
+                <td>✓</td>
+                <td>✓</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Branded Swag Item: Your logo printed on one swag item that will
+                    ship as part of our Speaker Kit.
+                </td>
+                <td>✓</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h3>GET IN TOUCH</h3>
+        <p>
+            Reach out to <a href="mailto:flaskcon@gmail.com">
+            flaskcon@gmail.com</a> if you're interested in
+            sponsoring.
+            <br><br>
+            The Pallets is a direct project of the Python Software
+            Foundation (“the PSF”). In addition to tax deducibility
+            as a marketing expense for our sponsors, any applicable
+            benefits of the PSF’s 501(c)3 designation from the IRS
+            also may apply. Determination letter from the IRS
+            designating the PSF as a charitable organization available
+            from the PSF website.
+        </p>
+
+    </section>
+
+{% endblock %}

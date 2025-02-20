@@ -4,7 +4,17 @@ version = "0.1.0"
 description = "Websites for FlaskCon"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "flask>=3.1.0",
+    "flask-vite-transporter>=2.0.2",
+    "python-dotenv>=1.0.1",
+]
 
 [lint]
 ignore = ["F405", "F403"]
+
+[tool.flask_vite_transporter]
+npm_exec = "npm"
+npx_exec = "npx"
+serve_app = "app"
+vite_app.frontend_2024 = "frontend_2024"

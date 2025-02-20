@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>{% block title %}FlaskCon{% endblock %}</title>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta charset="utf-8">
+    <meta name="google" content="nositelinkssearchbox">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="referrer" content="no-referrer">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-TileColor" content="#1aa3b8">
+    <meta name="theme-color" content="#1aa3b8">
+
+    <meta name="subject" content="A conference for the users of Flask.">
+    <meta name="rating" content="general">
+    <meta name="pinterest" content="nopin">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yegor256/tacit@gh-pages/tacit-css-1.8.1.min.css"/>
+
+    {% block extend_head %}{% endblock %}
+
+</head>
+
+<body>
+{% block body %}
+
+    FlaskCon
+
+{% endblock %}
+</body>

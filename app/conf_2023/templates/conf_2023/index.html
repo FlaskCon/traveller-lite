@@ -1,8 +1,6 @@
 {% extends 'conf_2023/extends/base.html' %}
 
 
-{% set conference = ctp_conference(2023) %}
-
 
 {% block hero_header %}
 
@@ -10,7 +8,7 @@
 
         <div class="display-desktop">
             <section class="display-flex space-evenly align-items-center py-2">
-                <img src="{{ url_for('frontend.2023.static', filename='img/flaskcon-animated.gif') }}"
+                <img src="{{ url_for('conf_2023.static', filename='img/flaskcon-animated.gif') }}"
                      alt="FlaskCon Logo">
 
                 <div style="text-align: center">
@@ -18,20 +16,8 @@
                         Online
                     </h1>
                     <h1 style="font-size: 4rem; color: white; text-shadow: 0 0 10px rgba(0,0,0,0.5);" class="my-0">
-                        {{ conference.conference_start_date|day_month|replace(" Dec", "") }}
-                        - {{ conference.conference_end_date|day_month }}
+                        16 Dec - 17 Dec 2023
                     </h1>
-                    {% if session["logged_in"] %}
-                        <a href="{{ url_for('account.index') }}"
-                           class="button button-primary my-1 border-white-1">
-                            go to your account
-                        </a>
-                    {% else %}
-                        <a href="{{ url_for('auth.signup') }}"
-                           class="button button-primary my-1 border-white-1">Signup to join in!</a>
-                        <br/>
-                        <a href="{{ url_for('auth.login') }}" style="color: #1e1e1e">Or login here</a>
-                    {% endif %}
                 </div>
 
 
@@ -41,7 +27,7 @@
 
         <div class="display-mobile">
             <section class="display-flex flex-col space-evenly align-items-center py-2">
-                <img src="{{ url_for('frontend.2023.static', filename='img/flaskcon-animated.gif') }}"
+                <img src="{{ url_for('conf_2023.static', filename='img/flaskcon-animated.gif') }}"
                      alt="FlaskCon Logo">
 
                 <div style="text-align: center">
@@ -51,19 +37,9 @@
                             Online
                         </h1>
                         <h1 style="font-size: 4rem; color: white; text-shadow: 0 0 10px rgba(0,0,0,0.5);" class="my-0">
-                            {{ conference.conference_start_date|day_month|replace(" Dec", "") }}
-                            - {{ conference.conference_end_date|day_month }}
+                            16 Dec - 17 Dec 2023
                         </h1>
                     </div>
-
-                    {% if session["logged_in"] %}
-                        <a href="{{ url_for('account.index') }}" class="button button-primary my-1">go to your
-                            account</a>
-                    {% else %}
-                        <a href="{{ url_for('auth.signup') }}" class="button button-primary my-1">Signup to join in!</a>
-                        <br/>
-                        <a href="{{ url_for('auth.login') }}" style="color: #1e1e1e">Or login here</a>
-                    {% endif %}
 
                 </div>
 
@@ -76,7 +52,7 @@
 
             <div class="sponsor">
                 <a href="https://testdriven.io/">
-                    <img src="{{ url_for('frontend.2023.static', filename='img/testdrivenio.png') }}"
+                    <img src="{{ url_for('conf_2023.static', filename='img/testdrivenio.png') }}"
                          alt="TestDriven.io Logo">
                 </a>
             </div>
@@ -85,7 +61,7 @@
         <div class="container mb-3 p-3">
             <div style="display: flex; justify-content: center; align-items: center; gap: 1rem;" class="mb-3">
                 <a href="https://www.youtube.com/@FlaskCon/streams" target="_blank"><img
-                        src="{{ url_for("frontend.2023.static", filename="img/youtube.png") }}" alt=""></a>
+                        src="{{ url_for("conf_2023.static", filename="img/youtube.png") }}" alt=""></a>
                 <a href="https://www.youtube.com/@FlaskCon/streams" style="color: whitesmoke"><h1 style="margin: 0">@FlaskCon/streams</h1></a>
             </div>
         </div>
@@ -95,7 +71,7 @@
                 <h2>Workshops</h2>
                 <div class="workshops">
                     <div class="workshop">
-                        <img src="{{ url_for('frontend.2023.static', filename='img/workshop.gif') }}"
+                        <img src="{{ url_for('conf_2023.static', filename='img/workshop.gif') }}"
                              alt="Workshop sprite">
                         <div>
                             <h5>Friday 15th - 11:00 UTC</h5>
@@ -104,7 +80,7 @@
                         </div>
                     </div>
                     <div class="workshop">
-                        <img src="{{ url_for('frontend.2023.static', filename='img/workshop.gif') }}"
+                        <img src="{{ url_for('conf_2023.static', filename='img/workshop.gif') }}"
                              alt="Workshop sprite">
                         <div>
                             <h5>Friday 15th - 17:00 UTC</h5>
@@ -113,7 +89,7 @@
                         </div>
                     </div>
                     <div class="workshop">
-                        <img src="{{ url_for('frontend.2023.static', filename='img/workshop.gif') }}"
+                        <img src="{{ url_for('conf_2023.static', filename='img/workshop.gif') }}"
                              alt="Workshop sprite">
                         <div>
                             <h5>Saturday 16th - 13:00 UTC</h5>
@@ -126,9 +102,6 @@
         </div>
 
     </header>
-
-
-
 
 {% endblock %}
 
@@ -155,7 +128,7 @@
                     </div>
 
                     {% if not loop.index % 2 %}
-                        <img src="{{ url_for('frontend.2023.static', filename="img/palm-tree.gif") }}"
+                        <img src="{{ url_for('conf_2023.static', filename="img/palm-tree.gif") }}"
                              alt="Tree sprite"
                              style="display: inline-block; width: 31px; height: 28px; padding-right: 1rem;">
                     {% endif %}
@@ -165,7 +138,7 @@
                     <div class="dock">
                         <p>{{ talk.speaker }}</p>
                     </div>
-                    <img src="{{ url_for('frontend.2023.static', filename=boats|random) }}"
+                    <img src="{{ url_for('conf_2023.static', filename=boats|random) }}"
                          alt="Boat sprite" style="width: 62px; height: 62px">
                 </div>
             </div>
@@ -178,52 +151,52 @@
         <div class="row p-2 island">
 
             <div class="six columns py-2 text-center">
-                <img src="{{ url_for('frontend.2023.static', filename='img/megaphone.gif') }}" alt="Megaphone Icon">
+                <img src="{{ url_for('conf_2023.static', filename='img/megaphone.gif') }}" alt="Megaphone Icon">
                 <h2 class="my-0">Call for Proposals!</h2>
 
                 <p>Submit your talk proposal for FlaskCon 2023! </p>
-                {% if conference.call_for_proposals_end_date|is_cfp_live %}
-
-                    {% set days_left = conference.call_for_proposals_end_date|days_left %}
-
-                    {% if days_left == 0 %}
-
-                        <h2 class="my-0">Last day to submit!</h2>
-
-                    {% else %}
-
-                        <h2 class="my-0">Only <span>{{ days_left }}</span>
-                            {% if days_left > 1 %}days{% else %}day{% endif %}
-                            left to submit!</h2>
-
-                    {% endif %}
-
-                    {% if session["logged_in"] %}
-
-                        <a href="{{ url_for('account.proposals') }}"
-                           class="button button-primary my-1 border-white-1">Pproposals</a>
-
-                    {% else %}
-                        <a href="{{ url_for('auth.signup') }}"
-                           class="button button-primary my-1 border-white-1">Signup to submit!</a>
-                    {% endif %}
-
-                    <p>Submissions close {{ conference.call_for_proposals_end_date|day_month }}</p>
-
-                {% else %}
+{#                {% if conference.call_for_proposals_end_date|is_cfp_live %}#}
+{##}
+{#                    {% set days_left = conference.call_for_proposals_end_date|days_left %}#}
+{##}
+{#                    {% if days_left == 0 %}#}
+{##}
+{#                        <h2 class="my-0">Last day to submit!</h2>#}
+{##}
+{#                    {% else %}#}
+{##}
+{#                        <h2 class="my-0">Only <span>{{ days_left }}</span>#}
+{#                            {% if days_left > 1 %}days{% else %}day{% endif %}#}
+{#                            left to submit!</h2>#}
+{##}
+{#                    {% endif %}#}
+{##}
+{#                    {% if session["logged_in"] %}#}
+{##}
+{#                        <a href="{{ url_for('account.proposals') }}"#}
+{#                           class="button button-primary my-1 border-white-1">Pproposals</a>#}
+{##}
+{#                    {% else %}#}
+{#                        <a href="{{ url_for('auth.signup') }}"#}
+{#                           class="button button-primary my-1 border-white-1">Signup to submit!</a>#}
+{#                    {% endif %}#}
+{##}
+{#                    <p>Submissions close {{ conference.call_for_proposals_end_date|day_month }}</p>#}
+{##}
+{#                {% else %}#}
 
                     <h3 class="my-0">The call for proposals has now ended.</h3>
 
-                {% endif %}
+{#                {% endif %}#}
             </div>
 
             <div class="six columns py-2 text-center">
 
-                <img src="{{ url_for('frontend.2023.static', filename='img/heart.gif') }}" alt="Heart Icon">
+                <img src="{{ url_for('conf_2023.static', filename='img/heart.gif') }}" alt="Heart Icon">
                 <h2 class="my-0">Become a Sponsor, or Donate!</h2>
                 <p>Support the team behind Flask <3</p>
 
-                <a href="{{ url_for('frontend.2023.become_sponsor') }}"
+                <a href="#"
                    target="_blank" class="button button-primary border-white-1">Sponsor!</a>
 
                 <a href="https://psfmember.org/civicrm/contribute/transact/?reset=1&id=20"
@@ -237,12 +210,8 @@
 
     <div class="beach-fade mt-10"></div>
 
-    {% include 'conf_2023/includes/media_partners.html' %}
-
-
-
+    {#    {% include 'conf_2023/includes/media_partners.html' %}#}
     {#    {% include '2023/includes/reviewers.html' %}#}
     {#    {% include '2023/includes/staff.html' %}#}
-
 
 {% endblock %}
