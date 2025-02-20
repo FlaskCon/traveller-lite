@@ -1,0 +1,20 @@
+{% extends '2023/extends/base.html' %}
+
+{% block head %}
+    <title>FlaskCon 2023</title>
+{% endblock %}
+
+{% block js_overwrite %}
+{% endblock %}
+
+{% block main_overwrite %}
+    <div class="full-page-hero">
+        <img src="{{ url_for("frontend.2023.static", filename="img/flaskcon-animated.gif") }}"
+             alt="FlaskCon Logo">
+        <h1>16th Dec - 17th Dec</h1>
+        <p>This year's conference will be online, more details to come!</p>
+    </div>
+{% endblock %}
+
+{% block footer_overwrite %}
+{% endblock %}
