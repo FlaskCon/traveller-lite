@@ -1,0 +1,94 @@
+{% extends 'global/extends/backend-auth.html' %}
+
+{% block title %}
+    Signup
+{% endblock %}
+
+{% block content %}
+    <div class="auth" x-data="authMain" style="text-align: center;">
+
+        <p>We are no longer taking account registrations.</p>
+
+                <form method="post">
+                    <input type="hidden" name="csrf" value="{{ csrf }}">
+
+                    <label for="email_address">Email</label>
+                    <input
+                            type="text"
+                            name="email_address"
+                            id="email_address"
+                            x-model="signup_email_address"
+                            @change.debounce.500ms="signup_allowed()"
+                            @keyup.debounce.500ms="signup_allowed()"
+                            style="margin-bottom: 0.5rem;"
+                    >
+
+                    <div style="margin-bottom: 1rem;">
+                        <span class="form-error" x-cloak x-show="signup_email_address_valid === false">
+                            Looks like you entered an invalid email address. Please try again.
+                        </span>
+                    </div>
+
+                    <label for="name_or_alias">Name / Alias</label>
+                    <input type="text" name="name_or_alias" id="name_or_alias" x-model="signup_name_or_alias">
+
+                    <label for="password">Password</label>
+                    <input
+                            type="password"
+                            name="password"
+                            id="password"
+                            x-model="signup_password"
+                            @change.debounce.500ms="check_password_strength()"
+                            @keyup.debounce.500ms="check_password_strength()"
+                            style="margin-bottom: 0.5rem;"
+                    >
+                    <div style="margin-bottom: 1rem;">
+                        <label><small>Strength:</small>
+                            <progress
+                                    id="password_strength"
+                                    max="100"
+                                    value="0"
+                                    :style="{'accent-color': signup_strength_bar_color}"
+                                    x-model="signup_strength_bar"
+                            ></progress>
+                        </label>
+                        <span class="form-error" x-text="signup_strength_msg">
+                        </span>
+                    </div>
+
+
+                    <label for="confirm_password">
+                        Confirm Password
+                    </label>
+
+                    <input
+                            type="password"
+                            name="confirm_password"
+                            id="confirm_password"
+                            x-model="signup_confirm_password"
+                            @change.debounce.500ms="signup_allowed()"
+                            @keyup.debounce.500ms="signup_allowed()"
+                            style="margin-bottom: 0.5rem;"
+                    >
+                    <div style="margin-bottom: 1rem;">
+                        <span class="form-error" x-cloak x-show="signup_passwords_match === false">
+                            Passwords do not match.
+                        </span>
+                    </div>
+
+                    <button
+                            class="button-primary"
+                            :type="signup_button_enabled ? 'submit' : 'button'"
+                            :class="{'button-disabled': !signup_button_enabled}"
+                    >
+                        Signup
+                    </button>
+
+                    <a href="{{ url_for('auth.login') }}" class="button">Back to Login</a>
+                </form>
+    </div>
+{% endblock %}
+
+{% block js %}
+    {% include 'auth/js/backend-auth-x-data.html' %}
+{% endblock %}
