@@ -1,0 +1,11 @@
+services:
+  app:
+    container_name: flaskcon_20_feb_update
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    restart: always
+
+    ports:
+      - "5002:5000"
