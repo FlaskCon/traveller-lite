@@ -3,9 +3,6 @@ import bottom_clouds from './assets/bottom-clouds.png'
 
 export default function Index() {
 
-    const dev = import.meta.env.DEV
-    const api = dev ? 'http://127.0.0.1:5001/' : '/'
-
     return (
         <section>
             <div className={'hero'}>
@@ -19,17 +16,16 @@ export default function Index() {
                 </h1>
             </section>
 
-            <section className={'container'}>
-                <div className={
-                    "flex flex-col items-center justify-center px-4 py-8 bg-blue-100 rounded-2xl border"
-                }>
-                    <h2 className={"text-3xl"}>We are in room 317</h2>
-                    <p><strong>See you there!</strong></p>
-                </div>
-            </section>
+            {/*<section className={'container'}>*/}
+            {/*    <div className={*/}
+            {/*        "flex flex-col items-center justify-center px-4 py-8 bg-blue-100 rounded-2xl border"*/}
+            {/*    }>*/}
+            {/*        <h2 className={"text-3xl"}>We are in room 317</h2>*/}
+            {/*        <p><strong>See you there!</strong></p>*/}
+            {/*    </div>*/}
+            {/*</section>*/}
 
             <section className={'container'}>
-                <h2 className={'my-5'}>The Current Schedule (may change)</h2>
                 <table>
                     <thead>
                     <tr>
@@ -69,12 +65,28 @@ export default function Index() {
                     </tbody>
                 </table>
             </section>
+            <section>
+                <div className={'container text-center'}>
+                    <p className={'text-xl'}>
+                        <a href="https://pyvideo.org/events/flaskcon-2024.html">
+                            FlaskCon2024 on PyVideo
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" className={'inline-block ml-2'}>
+                                <path d="M15 3h6v6"/>
+                                <path d="M10 14 21 3"/>
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                            </svg>
+                        </a>
+                    </p>
+                </div>
+            </section>
             <section className={'container text-center'}>
                 <p className={'text-sm'}>Copyright &copy; 2024 FlaskCon, A PSF-registered trademark owned by
                     Pallets.</p>
             </section>
         </section>
-
     )
 
 }
