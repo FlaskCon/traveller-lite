@@ -12,9 +12,11 @@ load_dotenv()
 def load_blueprints(app: Flask):
     from app.conf_2023 import conf_2023
     from app.conf_2024 import conf_2024
+    from app.conf_2025 import conf_2025
 
     app.register_blueprint(conf_2023)
     app.register_blueprint(conf_2024)
+    app.register_blueprint(conf_2025)
 
 
 def create_app():
@@ -36,7 +38,7 @@ def create_app():
 
     @app.get("/")
     def index():
-        return redirect(url_for("conf_2024.index"))
+        return redirect(url_for("conf_2025.coming_soon"))
 
     @app.get("/code-of-conduct")
     def code_of_conduct():
