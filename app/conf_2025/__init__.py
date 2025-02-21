@@ -11,7 +11,7 @@ conf_2025 = Blueprint(
 
 @conf_2025.route("/", methods=["GET"])
 def index():
-    return render_template("conf_2025/index.html")
+    return redirect(url_for("conf_2025.coming_soon"))
 
 
 @conf_2025.route("/coming-soon", methods=["GET"])
