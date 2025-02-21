@@ -1,20 +1,35 @@
-{% extends 'conf_2024/extends/base.html' %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block head %}
-    <title>FlaskCon 2023</title>
-{% endblock %}
+<head>
+    <title>FlaskCon 2024 - Coming Soon!</title>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta charset="utf-8">
+    <meta name="google" content="nositelinkssearchbox">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="referrer" content="no-referrer">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-TileColor" content="#1aa3b8">
+    <meta name="theme-color" content="#1aa3b8">
+    <meta name="description" content="FlaskCon 2024 - Coming Soon!">
+    <meta name="subject" content="A conference for the users of Flask.">
+    <meta name="rating" content="general">
+    <meta name="pinterest" content="nopin">
+    <link rel="apple-touch-icon" sizes="120x120"
+          href="{{ url_for("static", filename="apple-touch-icon.png") }}">
+    <link rel="icon" type="image/png" sizes="32x32"
+          href="{{ url_for("static", filename="favicon-32x32.png") }}">
+    <link rel="icon" type="image/png" sizes="16x16"
+          href="{{ url_for("static", filename="favicon-16x16.png") }}">
+    <link rel="manifest" href="{{ url_for("static", filename="site.webmanifest") }}">
 
-{% block js_overwrite %}
-{% endblock %}
+    {{ vt_head('frontend_2024') }}
 
-{% block main_overwrite %}
-    <div class="full-page-hero">
-        <img src="{{ url_for("static", filename="flaskcon-logo.svg") }}"
-             alt="FlaskCon Logo" style="max-width: 200px;">
-        <h1>FlaskCon 2024 will be happening Friday, May 17 inside PyCon US 2024.</h1>
-        <p>Check back here soon for more information and to submit your talk idea.</p>
-    </div>
-{% endblock %}
+    <script>
+    </script>
+</head>
 
-{% block footer_overwrite %}
-{% endblock %}
+<body>
+{{ vt_body() }}
+</body>
