@@ -14,8 +14,8 @@ if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
 render(() => (
     <Router>
         <Routes>
-            <Route path="/2024" component={Index}/>
-            <Route path="/2024/coming-soon" component={ComingSoon}/>
+            <Route path="/2025" component={Index}/>
+            <Route path="/2025/coming-soon" component={ComingSoon}/>
         </Routes>
     </Router>
 ), root)
