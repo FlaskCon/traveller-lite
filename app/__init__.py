@@ -57,6 +57,14 @@ def create_app():
         return render_template("become-a-sponsor.html")
 
     #
+    # ERRORS
+    #
+
+    @app.errorhandler(404)
+    def page_not_found(_):
+        return render_template("404.html"), 404
+
+    #
     # FILTERS
     #
 

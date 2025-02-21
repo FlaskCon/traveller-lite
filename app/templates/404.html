@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}FlaskCon - Become a Sponsor{% endblock %}
+
+{% block extend_head %}
+    <meta name="description" content="Become a FlaskCon Sponsor">
+{% endblock %}
+
+{% block body %}
+
+    <section>
+
+        {% if g.go_back_to %}
+            <nav style="text-align: left; padding-bottom: 1rem;"><a href="{{ g.go_back_to }}">< Back</a></nav>
+        {% endif %}
+
+        <img src="{{ url_for("static", filename="flaskcon-logo.svg") }}"
+             alt="FlaskCon Logo"
+             style="max-width: 200px;">
+
+        <h1>404</h1>
+
+        <p>
+            The page you are looking for does not exist.
+        </p>
+        <p>
+            Here's a list of links that might be of use:
+        </p>
+
+    <ul>
+        <li>
+            <a href="{{ url_for("conf_2023.index") }}">FlaskCon 2023</a>
+        </li>
+        <li>
+            <a href="{{ url_for("conf_2024.index") }}">FlaskCon 2024</a>
+        </li>
+        <li>
+            <a href="{{ url_for("conf_2025.index") }}">FlaskCon 2025</a>
+        </li>
+{#
+code_of_conduct
+privacy_policy
+speaking_experience
+become_a_sponsor
+#}
+
+        <li>
+            <a href="{{ url_for('code_of_conduct') }}">Code of Conduct</a>
+        </li>
+        <li>
+            <a href="{{ url_for('privacy_policy') }}">Privacy Policy</a>
+        </li>
+        <li>
+            <a href="{{ url_for('speaking_experience') }}">Speaking Experience</a>
+        </li>
+        <li>
+            <a href="{{ url_for('become_a_sponsor') }}">Become a Sponsor</a>
+        </li>
+    </ul>
+
+    </section>
+
+{% endblock %}
