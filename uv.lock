@@ -130,6 +130,15 @@ wheels = [
 ]
 
 [[package]]
+name = "pyqwe"
+version = "3.0.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/a5/25/47828d77e5879100b46191ab645b94f47b917cf05f049a5372f791c686cd/pyqwe-3.0.0.tar.gz", hash = "sha256:ebd0bc49bb370788d08f1bc0f00a0c0a5c21a344fa73cf04d6c469b3258a64b2", size = 13765 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/08/19/69c2e1e5b59b8107c20bbc7a090723dc2435cef19d3513fd8d39e82e50e5/pyqwe-3.0.0-py3-none-any.whl", hash = "sha256:19a08a44bf8ad7495cf6994db2d88ea5888892a675129eede4c5ddbd9f51b4a5", size = 11862 },
+]
+
+[[package]]
 name = "python-dotenv"
 version = "1.0.1"
 source = { registry = "https://pypi.org/simple" }
@@ -149,6 +158,11 @@ dependencies = [
     { name = "python-dotenv" },
 ]
 
+[package.dev-dependencies]
+dev = [
+    { name = "pyqwe" },
+]
+
 [package.metadata]
 requires-dist = [
     { name = "flask", specifier = ">=3.1.0" },
@@ -156,6 +170,9 @@ requires-dist = [
     { name = "gunicorn", specifier = ">=23.0.0" },
     { name = "python-dotenv", specifier = ">=1.0.1" },
 ]
+
+[package.metadata.requires-dev]
+dev = [{ name = "pyqwe", specifier = ">=3.0.0" }]
 
 [[package]]
 name = "werkzeug"
