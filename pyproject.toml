@@ -11,6 +11,11 @@ dependencies = [
     "python-dotenv>=1.0.1",
 ]
 
+[dependency-groups]
+dev = [
+    "pyqwe>=3.0.0",
+]
+
 [lint]
 ignore = ["F405", "F403"]
 
@@ -20,3 +25,6 @@ npx_exec = "npx"
 serve_app = "app"
 vite_app.frontend_2024 = "frontend_2024"
 vite_app.frontend_2025 = "frontend_2025"
+
+[tool.pyqwe]
+frontend_2025 = "*(frontend_2025):npx vite"
