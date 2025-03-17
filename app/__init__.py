@@ -38,7 +38,7 @@ def create_app():
 
     @app.get("/")
     def index():
-        return redirect(url_for("conf_2025.coming_soon"))
+        return redirect(url_for("conf_2025.index"))
 
     @app.get("/code-of-conduct")
     def code_of_conduct():
