@@ -1,5 +1,5 @@
 import stars_background from './assets/stars-background.mp4'
-import flaskcon_logo_animated from './assets/flaskcon-2025-animated.gif'
+import flaskcon_logo_animated from './assets/flaskcon-2025-stars.gif'
 import pycon_2025_logo from './assets/pyconus-logo-e.svg'
 
 export default function Index() {
