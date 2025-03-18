@@ -3,13 +3,17 @@
 @tailwind utilities;
 
 body {
-    @apply w-screen h-screen overflow-x-hidden;
+    @apply w-screen h-screen overflow-hidden;
     color: #fdfdfd;
     background-color: #0b0b0b;
 }
 
 main {
-    @apply flex flex-col mx-auto max-w-screen-lg gap-4;
+    @apply w-screen h-screen overflow-y-auto;
+}
+
+.container {
+    @apply flex flex-col mx-auto max-w-screen-lg gap-4 overflow-y-hidden overflow-x-auto;
 }
 
 section {
@@ -25,7 +29,7 @@ h1 {
 }
 
 .logo-container {
-    @apply flex flex-col items-center mx-auto;
+    @apply flex flex-col items-center mx-auto pt-10;
     width: 405px;
 }
 
