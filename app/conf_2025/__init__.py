@@ -33,7 +33,7 @@ def index():
         site_name="FlaskCon 2025",
         title="FlaskCon 2025",
         description="A conference for the users of Flask.",
-        image=url_for('static', filename='2025-og-tag.jpg', _external=True, _scheme="https"),
+        image="https://flaskcon.com/2025/static/2025-og-tag.jpg",
         image_alt="FlaskCon 2025 logo",
         locale="en_US",
     )
@@ -41,7 +41,7 @@ def index():
         card="summary",
         title="FlaskCon 2025",
         description="A conference for the users of Flask.",
-        image=url_for('static', filename='2025-twitter-tag.jpg', _external=True, _scheme="https"),
+        image="https://flaskcon.com/2025/static/2025-twitter-tag.jpg",
         image_alt="Sorted.iT logo with the slogan 'get it sorted' on top of a performance PC",
     )
     head.set_meta_tag(
