@@ -130,6 +130,19 @@ wheels = [
 ]
 
 [[package]]
+name = "pyhead"
+version = "4.2.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "click" },
+    { name = "markupsafe" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/f5/e9/32aaef3df561959b7a16eb2105217f984cd5058809fa89d2b87fe96e0a96/pyhead-4.2.0.tar.gz", hash = "sha256:d9fc2d26ba6e308e103597444a1896efa5eba2bd7610990db90680ae194d0aee", size = 37972 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/1c/8c/c7350bc433f190ccbba30c840d3c9bd3d53815d63d29ef148768a88c54fa/pyhead-4.2.0-py3-none-any.whl", hash = "sha256:9e480009a95a3abc97c2125f43357764683c1af44668f19312d54cbf16f0b8a9", size = 23246 },
+]
+
+[[package]]
 name = "pyqwe"
 version = "3.0.0"
 source = { registry = "https://pypi.org/simple" }
@@ -155,6 +168,7 @@ dependencies = [
     { name = "flask" },
     { name = "flask-vite-transporter" },
     { name = "gunicorn" },
+    { name = "pyhead" },
     { name = "python-dotenv" },
 ]
 
@@ -168,6 +182,7 @@ requires-dist = [
     { name = "flask", specifier = ">=3.1.0" },
     { name = "flask-vite-transporter", specifier = ">=2.0.2" },
     { name = "gunicorn", specifier = ">=23.0.0" },
+    { name = "pyhead", specifier = ">=4.2.0" },
     { name = "python-dotenv", specifier = ">=1.0.1" },
 ]
 

@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for
+from pyhead import Head
 
 conf_2025 = Blueprint(
     "conf_2025",
@@ -11,7 +12,42 @@ conf_2025 = Blueprint(
 
 @conf_2025.route("/", methods=["GET"])
 def index():
-    return render_template("conf_2025/index.html")
+    head = Head(
+        title="FlaskCon 2025",
+        robots="index, follow",
+        disable_detection_of_telephone_numbers=True,
+        description="FlaskCon 2025",
+        subject="A conference for the users of Flask.",
+        rating="general",
+    )
+    head.set_google(
+        no_sitelinks_search_box=True,
+    )
+    head.set_favicon(
+        png_icon_16_href=url_for("static", filename="favicon-16x16.png"),
+        png_icon_32_href=url_for("static", filename="favicon-32x32.png"),
+        png_apple_touch_icon_120_href=url_for("static", filename="apple-touch-icon.png")
+    )
+    head.set_opengraph_website(
+        url="https://flaskcon.com/2025",
+        site_name="FlaskCon 2025",
+        title="FlaskCon 2025",
+        description="A conference for the users of Flask.",
+        image=url_for('static', filename='2025-og-tag.jpg', _external=True, _scheme="https"),
+        image_alt="FlaskCon 2025 logo",
+        locale="en_US",
+    )
+    head.set_twitter_card(
+        card="summary",
+        title="FlaskCon 2025",
+        description="A conference for the users of Flask.",
+        image=url_for('static', filename='2025-twitter-tag.jpg', _external=True, _scheme="https"),
+        image_alt="Sorted.iT logo with the slogan 'get it sorted' on top of a performance PC",
+    )
+    head.set_meta_tag(
+        name="pinterest", content="nopin"
+    )
+    return render_template("conf_2025/index.html", head=head)
 
 
 @conf_2025.route("/coming-soon", methods=["GET"])
