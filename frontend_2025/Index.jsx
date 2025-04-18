@@ -51,7 +51,7 @@ export default function Index() {
                         </a>
 
                         <p>
-                            CFP closes at April 17, 2025 00:00 UTC
+                            CFP closes at April 24, 2025 00:00 UTC
                         </p>
 
                     </section>
