@@ -6,15 +6,15 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "flask>=3.1.0",
-    "flask-vite-transporter>=2.0.2",
+    "flask-vite-transporter>=2.1.0",
     "gunicorn>=23.0.0",
     "pyhead>=4.2.0",
-    "python-dotenv>=1.0.1",
+    "python-dotenv>=1.1.0",
 ]
 
 [dependency-groups]
 dev = [
-    "pyqwe>=3.0.0",
+    "pyqwe>=3.1.1",
 ]
 
 [lint]
