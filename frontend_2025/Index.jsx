@@ -57,9 +57,7 @@ export default function Index() {
                         */}
                         <div className={"flex flex-col items-center justify-center mt-10"}>
                             <button className={"btn rounded-2xl bg-blue-400"} disabled={true}>
-                                <p>
-                                    CFP are now closed
-                                </p>
+                                CFP closed at April 26
                             </button>
                         </div>
                     </section>
