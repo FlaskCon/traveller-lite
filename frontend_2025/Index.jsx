@@ -34,6 +34,7 @@ export default function Index() {
                             and join us during the sprint days to contribute.
                             Submit your talk proposal today!</p>
 
+                        {/*
                         <a className={"a-button my-10"}
                            href={"https://www.papercall.io/flaskcon-pyconus2025"}>
 
@@ -53,7 +54,14 @@ export default function Index() {
                         <p>
                             CFP closes at April 24, 2025 00:00 UTC
                         </p>
-
+                        */}
+                        <div className={"flex flex-col items-center justify-center mt-10"}>
+                            <button className={"btn rounded-2xl bg-blue-400"} disabled={true}>
+                                <p>
+                                    CFP are now closed
+                                </p>
+                            </button>
+                        </div>
                     </section>
 
 

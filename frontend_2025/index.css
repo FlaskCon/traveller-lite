@@ -40,3 +40,11 @@ h1 {
 .a-button {
     @apply inline-flex items-center gap-2 px-4 py-2 text-white bg-blue-500 rounded-md;
 }
+
+.btn {
+    @apply inline-flex items-center gap-2 px-4 py-2 text-white bg-blue-500 rounded-md;
+}
+
+.btn:disabled {
+    @apply opacity-90 cursor-not-allowed;
+}
