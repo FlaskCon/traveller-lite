@@ -64,7 +64,7 @@ export default function Index() {
 
 
                     <footer className={"text-center text-xs py-20"}>
-                        Copyright © 2024 FlaskCon, A PSF-registered trademark owned by Pallets.
+                        Copyright © 2025 FlaskCon, A PSF-registered trademark owned by Pallets.
                     </footer>
                 </div>
             </main>
