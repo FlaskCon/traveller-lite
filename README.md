@@ -31,3 +31,15 @@ qwe
 
 `/app/conf_2025`
 `/frontend_2025`
+
+# Deployment
+
+```bash
+cd /var/www/flask/traveller-lite/
+```
+```bash
+git pull
+```
+```bash
+docker-compose up --build -d
+```
