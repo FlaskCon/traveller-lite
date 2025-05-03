@@ -28,6 +28,8 @@ vite_app.frontend_2024 = "frontend_2024"
 vite_app.frontend_2025 = "frontend_2025"
 
 [tool.pyqwe]
+flask_run_dev = "*:flask run --port 5001 --debug"
+
 frontend_2024_run = "*(frontend_2024):npx vite"
 frontend_2024_setup = "*(frontend_2024):npm i"
 frontend_2024_build = "*:vt pack transport -o frontend_2024"
