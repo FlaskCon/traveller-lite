@@ -32,7 +32,7 @@ export default function Index() {
                             web technologies. Meet maintainers and community
                             members, learn about how to get involved,
                             and join us during the sprint days to contribute.
-                            Submit your talk proposal today!</p>
+                            {/*Submit your talk proposal today!*/}</p>
 
                         {/*
                         <a className={"a-button my-10"}
@@ -54,11 +54,62 @@ export default function Index() {
                         <p>
                             CFP closes at April 24, 2025 00:00 UTC
                         </p>
-                        */}
+
                         <div className={"flex flex-col items-center justify-center mt-10"}>
                             <button className={"btn rounded-2xl bg-blue-400"} disabled={true}>
                                 CFP closed on the 26th of April
                             </button>
+                        </div>
+                        */}
+                    </section>
+
+
+                    <section className={'container'}>
+                        <h2 className={"text-center text-2xl py-4"}>Schedule</h2>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Event</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>14:00 - 14:30</td>
+                                <td>Testing Flask and Quart Apps with Pytest and Playwright - Pamela Fox</td>
+                            </tr>
+                            <tr>
+                                <td>14:45 - 15:15</td>
+                                <td>Turning Data into an Interactive Artwork That Tells a Story - Diane Phan</td>
+                            </tr>
+                            <tr>
+                                <td>15:30 - 16:00</td>
+                                <td>Python’s New Template Strings — And Flask - Paul Everitt</td>
+                            </tr>
+                            <tr>
+                                <td>16:00 - 16:30</td>
+                                <td>Break</td>
+                            </tr>
+                            <tr>
+                                <td>16:30 - 17:00</td>
+                                <td>Let's PyScript: Flask frontends in Python! - Nicholas Tollervey</td>
+                            </tr>
+                            <tr>
+                                <td>17:15 - 17:45</td>
+                                <td>Death to the spinner: event sourcing for reactive web apps - Chris May</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <div className={"text-center"}>
+                            <p className={"py-4"}>Looking forward to seeing you!</p>
+                             <p className={"pb-2"}>If you can't make it on the day it would be
+                                great to see you at the PyCon sprints
+                                through Monday, May 19th to Thursday, May 22nd.
+                                </p>
+                            <p>See more info on <a target={"_blank"} href={"https://us.pycon.org/2025/events/dev-sprints/"}>
+                                    PyCon Development Sprints
+                            </a></p>
                         </div>
                     </section>
 

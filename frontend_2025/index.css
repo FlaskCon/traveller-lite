@@ -48,3 +48,24 @@ h1 {
 .btn:disabled {
     @apply opacity-90 cursor-not-allowed;
 }
+
+table > thead > tr > th {
+    @apply p-4;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+table > thead > tr > th:last-child {
+    @apply text-left;
+}
+
+table > tbody > tr > td:first-child {
+    @apply text-center;
+}
+
+table > tbody > tr > td {
+    @apply p-4;
+}
+
+a {
+    @apply text-blue-400 hover:underline;
+}
