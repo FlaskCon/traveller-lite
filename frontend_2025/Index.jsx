@@ -65,6 +65,8 @@ export default function Index() {
 
 
                     <section className={'container'}>
+                        <h1 className={"text-center text-3xl"}>We are in room 317</h1>
+
                         <h2 className={"text-center text-2xl py-4"}>Schedule</h2>
                         <table>
                             <thead>
