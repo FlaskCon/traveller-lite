@@ -94,7 +94,7 @@ export default function Index() {
                             </tr>
                             <tr>
                                 <td>16:30 - 17:00</td>
-                                <td>Let's PyScript: Flask frontends in Python! - Nicholas Tollervey</td>
+                                <td>Let's PyScript: Flask frontends in Python! - Nicholas Tollervey &amp; Paul Everitt</td>
                             </tr>
                             <tr>
                                 <td>17:15 - 17:45</td>
