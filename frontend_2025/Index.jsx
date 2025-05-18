@@ -21,13 +21,16 @@ export default function Index() {
 
                     </section>
 
-                    <section className={"text-center p-5"}>
-                        <h1>Friday May 16, 2 PM -6 PM</h1>
-                        <p className={"my-2"}>Inside PyCon US</p>
+                    <section className={'container py-12'}>
+                        <h1 className={"text-center text-4xl"}>Pallets Projects sprints are in room 309!</h1>
+                        <p className={"text-center text-xl"}>
+                            Join us on Monday the 19th and Tuesday the 20th for some intensive learning and development!
+                        </p>
                     </section>
 
-                    <section className={'container'}>
-                        <h1 className={"text-center text-4xl"}>Pallets Projects sprints are in room 309!</h1>
+                    <section className={"text-center p-5 opacity-50"}>
+                        <h1>Friday May 16, 2 PM -6 PM</h1>
+                        <p className={"my-2"}>Inside PyCon US</p>
                     </section>
 
                     <section className={"text-center p-2"}>
