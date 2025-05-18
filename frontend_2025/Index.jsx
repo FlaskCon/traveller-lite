@@ -26,6 +26,10 @@ export default function Index() {
                         <p className={"my-2"}>Inside PyCon US</p>
                     </section>
 
+                    <section className={'container'}>
+                        <h1 className={"text-center text-4xl"}>Pallets Projects sprints are in room 309!</h1>
+                    </section>
+
                     <section className={"text-center p-2"}>
                         <p>Join us in a mini conference dedicated to Flask,
                             its community and ecosystem, as well as related
@@ -63,9 +67,7 @@ export default function Index() {
                         */}
                     </section>
 
-
                     <section className={'container'}>
-                        <h1 className={"text-center text-3xl"}>We are in room 317</h1>
 
                         <h2 className={"text-center text-2xl py-4"}>Schedule</h2>
                         <table>
@@ -114,7 +116,6 @@ export default function Index() {
                             </a></p>
                         </div>
                     </section>
-
 
                     <footer className={"text-center text-xs py-20"}>
                         Copyright © 2025 FlaskCon, A PSF-registered trademark owned by Pallets.
