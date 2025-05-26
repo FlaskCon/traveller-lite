@@ -21,54 +21,47 @@ export default function Index() {
 
                     </section>
 
-                    <section className={'container py-12'}>
-                        <h1 className={"text-center text-4xl"}>Pallets Projects sprints are in room 309!</h1>
-                        <p className={"text-center text-xl"}>
-                            Join us on Monday the 19th and Tuesday the 20th for some intensive learning and development!
-                        </p>
-                    </section>
-
-                    <section className={"text-center p-5 opacity-50"}>
+                    <section className={"text-center p-5"}>
                         <h1>Friday May 16, 2 PM -6 PM</h1>
-                        <p className={"my-2"}>Inside PyCon US</p>
+                        <p className={"my-2"}>Inside PyCon US 2025</p>
                     </section>
 
-                    <section className={"text-center p-2"}>
-                        <p>Join us in a mini conference dedicated to Flask,
-                            its community and ecosystem, as well as related
-                            web technologies. Meet maintainers and community
-                            members, learn about how to get involved,
-                            and join us during the sprint days to contribute.
-                            {/*Submit your talk proposal today!*/}</p>
+                    {/*<section className={"text-center p-2"}>*/}
+                    {/*    <p>Join us in a mini conference dedicated to Flask,*/}
+                    {/*        its community and ecosystem, as well as related*/}
+                    {/*        web technologies. Meet maintainers and community*/}
+                    {/*        members, learn about how to get involved,*/}
+                    {/*        and join us during the sprint days to contribute.*/}
+                    {/*        /!*Submit your talk proposal today!*!/</p>*/}
 
-                        {/*
-                        <a className={"a-button my-10"}
-                           href={"https://www.papercall.io/flaskcon-pyconus2025"}>
+                    {/*    /!**/}
+                    {/*    <a className={"a-button my-10"}*/}
+                    {/*       href={"https://www.papercall.io/flaskcon-pyconus2025"}>*/}
 
-                            Submit a talk
+                    {/*        Submit a talk*/}
 
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                 fill="none"
-                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                 className="lucide lucide-square-arrow-out-up-right">
-                                <path d="M21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6"/>
-                                <path d="m21 3-9 9"/>
-                                <path d="M15 3h6v6"/>
-                            </svg>
+                    {/*        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"*/}
+                    {/*             fill="none"*/}
+                    {/*             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"*/}
+                    {/*             className="lucide lucide-square-arrow-out-up-right">*/}
+                    {/*            <path d="M21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6"/>*/}
+                    {/*            <path d="m21 3-9 9"/>*/}
+                    {/*            <path d="M15 3h6v6"/>*/}
+                    {/*        </svg>*/}
 
-                        </a>
+                    {/*    </a>*/}
 
-                        <p>
-                            CFP closes at April 24, 2025 00:00 UTC
-                        </p>
+                    {/*    <p>*/}
+                    {/*        CFP closes at April 24, 2025 00:00 UTC*/}
+                    {/*    </p>*/}
 
-                        <div className={"flex flex-col items-center justify-center mt-10"}>
-                            <button className={"btn rounded-2xl bg-blue-400"} disabled={true}>
-                                CFP closed on the 26th of April
-                            </button>
-                        </div>
-                        */}
-                    </section>
+                    {/*    <div className={"flex flex-col items-center justify-center mt-10"}>*/}
+                    {/*        <button className={"btn rounded-2xl bg-blue-400"} disabled={true}>*/}
+                    {/*            CFP closed on the 26th of April*/}
+                    {/*        </button>*/}
+                    {/*    </div>*/}
+                    {/*    *!/*/}
+                    {/*</section>*/}
 
                     <section className={'container'}>
                         {/*<h1 className={"text-center text-3xl"}>We are in room 317</h1>*/}
@@ -109,16 +102,16 @@ export default function Index() {
                             </tbody>
                         </table>
 
-                        <div className={"text-center"}>
-                            <p className={"py-4"}>Looking forward to seeing you!</p>
-                             <p className={"pb-2"}>If you can't make it on the day it would be
-                                great to see you at the PyCon sprints
-                                through Monday, May 19th to Thursday, May 22nd.
-                                </p>
-                            <p>See more info on <a target={"_blank"} href={"https://us.pycon.org/2025/events/dev-sprints/"}>
-                                    PyCon Development Sprints
-                            </a></p>
-                        </div>
+                        {/*<div className={"text-center"}>*/}
+                        {/*    <p className={"py-4"}>Looking forward to seeing you!</p>*/}
+                        {/*     <p className={"pb-2"}>If you can't make it on the day it would be*/}
+                        {/*        great to see you at the PyCon sprints*/}
+                        {/*        through Monday, May 19th to Thursday, May 22nd.*/}
+                        {/*        </p>*/}
+                        {/*    <p>See more info on <a target={"_blank"} href={"https://us.pycon.org/2025/events/dev-sprints/"}>*/}
+                        {/*            PyCon Development Sprints*/}
+                        {/*    </a></p>*/}
+                        {/*</div>*/}
                     </section>
 
                     <footer className={"text-center text-xs py-20"}>
