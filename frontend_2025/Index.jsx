@@ -93,7 +93,8 @@ export default function Index() {
                             </tr>
                             <tr>
                                 <td>16:30 - 17:00</td>
-                                <td>Let's PyScript: Flask frontends in Python! - Nicholas Tollervey &amp; Paul Everitt</td>
+                                <td>Let's PyScript: Flask frontends in Python! - Nicholas Tollervey &amp; Paul Everitt
+                                </td>
                             </tr>
                             <tr>
                                 <td>17:15 - 17:45</td>
@@ -112,6 +113,24 @@ export default function Index() {
                         {/*            PyCon Development Sprints*/}
                         {/*    </a></p>*/}
                         {/*</div>*/}
+                    </section>
+
+                    <section>
+                        <div className={'container text-center'}>
+                            <p className={'text-xl'}>
+                                <a href="https://pyvideo.org/events/flaskcon-2025.html">
+                                    FlaskCon2025 on PyVideo
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                         stroke-linejoin="round" className={'inline-block ml-2'}>
+                                        <path d="M15 3h6v6"/>
+                                        <path d="M10 14 21 3"/>
+                                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                                    </svg>
+                                </a>
+                            </p>
+                        </div>
                     </section>
 
                     <footer className={"text-center text-xs py-20"}>
